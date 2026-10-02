@@ -1,0 +1,6 @@
+{
+  "name": "Daily Pulse Huddleboards",
+  "description": "A collaborative, multi-tier Lean operational board (Daily, Weekly, Monthly) structured around Safety, Sustainability, Quality, Delivery, Cost, and Capital. Features customizable performance tracking widgets, integrated 5-Whys deviation analysis, action plan tracing, and complete offline-safe backup export/import facilities.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
