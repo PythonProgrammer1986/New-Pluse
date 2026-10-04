@@ -51,11 +51,16 @@ export default function App() {
   const [newWTitle, setNewWTitle] = useState('');
   const [newWPillar, setNewWPillar] = useState<Pillar>('Quality');
   const [newWLevel, setNewWLevel] = useState<PulseLevel>('daily');
-  const [newWType, setNewWType] = useState<'numeric' | 'checklist' | 'gauge' | 'counter'>('numeric');
+  const [newWType, setNewWType] = useState<'numeric' | 'checklist' | 'gauge' | 'counter' | 'chart' | 'project'>('numeric');
   const [newWUnit, setNewWUnit] = useState('');
   const [newWTarget, setNewWTarget] = useState('');
   const [newWActual, setNewWActual] = useState('');
   const [newWDesc, setNewWDesc] = useState('');
+  
+  // Custom interface list items parsing (checklists, charts, projects)
+  const [newChecklistText, setNewChecklistText] = useState('');
+  const [newChartText, setNewChartText] = useState('');
+  const [newProjectText, setNewProjectText] = useState('');
 
   // Simulation feedback toast state
   const [simulationAlert, setSimulationAlert] = useState<{
@@ -75,14 +80,56 @@ export default function App() {
     e.preventDefault();
     if (!newWTitle) return;
 
+    let checklistData = undefined;
+    if (newWType === 'checklist') {
+      const items = newChecklistText ? newChecklistText.split(',') : [];
+      checklistData = items.length > 0
+        ? items.map((it, idx) => ({ id: `chk-${idx}-${Date.now()}`, label: it.trim(), checked: false }))
+        : [
+            { id: 'c-1', label: 'Verify equipment compliance checks', checked: false },
+            { id: 'c-2', label: 'Perform standard 5S workspace sweep', checked: false }
+          ];
+    }
+
+    let chartData = undefined;
+    if (newWType === 'chart') {
+      const categories = newChartText ? newChartText.split(',') : [];
+      chartData = categories.length > 0
+        ? categories.map((cat) => ({ label: cat.trim(), value: 0, target: 1 }))
+        : [
+            { label: 'Surface Scratches', value: 0, target: 1 },
+            { label: 'Dimensional Deviations', value: 0, target: 1 }
+          ];
+    }
+
+    let milestonesData = undefined;
+    if (newWType === 'project') {
+      const ms = newProjectText ? newProjectText.split(',') : [];
+      milestonesData = ms.length > 0
+        ? ms.map((m, idx) => ({ id: `ms-${idx}-${Date.now()}`, name: m.trim(), status: 'pending' as const, owner: 'Team Lead', dueDate: new Date().toISOString().split('T')[0] }))
+        : [
+            { id: 'm-1', name: 'Draft Design and Engineering Plan', status: 'pending' as const, owner: 'Team Lead', dueDate: new Date().toISOString().split('T')[0] },
+            { id: 'm-2', name: 'Tooling installation & dry run', status: 'pending' as const, owner: 'Maintenance', dueDate: new Date().toISOString().split('T')[0] }
+          ];
+    }
+
+    // Default values
+    const targetVal = newWTarget ? parseFloat(newWTarget) : (newWType === 'gauge' ? 100 : undefined);
+    const actualVal = newWActual ? parseFloat(newWActual) : (newWType === 'gauge' ? 0 : undefined);
+    const numericValue = newWType === 'counter' ? (parseFloat(newWActual) || 0) : undefined;
+
     addWidget({
       title: newWTitle,
       pillar: newWPillar,
       level: newWLevel,
       type: newWType,
       unit: newWUnit || undefined,
-      target: newWTarget ? parseFloat(newWTarget) : undefined,
-      actual: newWActual ? parseFloat(newWActual) : undefined,
+      target: targetVal,
+      actual: actualVal,
+      value: numericValue,
+      checklist: checklistData,
+      dataPoints: chartData,
+      milestones: milestonesData,
       description: newWDesc || `Custom tracker for ${newWTitle}.`
     });
 
@@ -92,6 +139,9 @@ export default function App() {
     setNewWTarget('');
     setNewWActual('');
     setNewWDesc('');
+    setNewChecklistText('');
+    setNewChartText('');
+    setNewProjectText('');
     setShowAddWidget(false);
   };
 
@@ -279,35 +329,6 @@ export default function App() {
         {/* OVERHAULED: Epiroc Premium Dark Slate Sidebar */}
         <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col p-5 space-y-6 shrink-0 overflow-y-auto text-white">
           
-          {/* Active Team Switcher */}
-          <div className="space-y-1.5">
-            <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono">
-              Active Production Team
-            </label>
-            <select
-              value={state.currentTeam}
-              onChange={(e) => setTeam(e.target.value)}
-              className="w-full text-xs font-bold px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-1 focus:ring-[#FFC20E] cursor-pointer"
-            >
-              {TEAMS_LIST.map((team) => (
-                <option key={team} value={team}>{team}</option>
-              ))}
-            </select>
-          </div>
-
-          {/* Master Operational Access Banner (Role Switcher Removed per Request #3) */}
-          <div className="space-y-1.5 p-3.5 bg-slate-800/40 border border-slate-800 rounded-xl text-center">
-            <span className="block text-[10px] font-bold text-[#FFC20E] uppercase tracking-widest font-mono">
-              Board Status
-            </span>
-            <span className="text-xs font-extrabold text-white block tracking-wider">
-              MASTER CONTROL
-            </span>
-            <span className="text-[10px] text-slate-400 block pt-1.5 leading-normal italic">
-              All metrics, checklists, defect categories, and milestones are fully editable for everyone on the team.
-            </span>
-          </div>
-
           {/* Connected Team Sim (Live visual indicator metadata - clean unboxed) */}
           <div className="border-t border-slate-800 pt-4 flex items-center gap-3">
             <div className="relative flex h-2 w-2">
@@ -367,15 +388,6 @@ export default function App() {
             </div>
           )}
 
-          {/* Quick Guide Block */}
-          <div className="pt-4 border-t border-slate-800 mt-auto">
-            <div className="p-3 bg-slate-850 rounded-xl border border-slate-800">
-              <span className="text-[10px] font-bold text-[#FFC20E] uppercase block mb-1 font-mono">Stand-up SOP</span>
-              <p className="text-[10px] text-slate-400 leading-relaxed">
-                Review Safety Calendar. Check shift KPIs. If deviation triggers, do 5-Whys and assign action item.
-              </p>
-            </div>
-          </div>
         </aside>
 
         {/* WORKSPACE VIEWPORT */}
@@ -386,7 +398,7 @@ export default function App() {
             <div>
               {/* Breadcrumb Trail */}
               <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-bold mb-1">
-                <span>{state.currentTeam}</span>
+                <span>EPIROC GLOBAL OPERATIONS</span>
                 <ChevronRight className="w-3 h-3" />
                 <span className="capitalize">{activeTab === 'board' ? `${activeLevel} level pulse` : activeTab === 'actions' ? 'Countermeasures register' : 'Backups center'}</span>
               </div>
@@ -403,7 +415,7 @@ export default function App() {
             {activeTab === 'board' && activeLevel !== 'monthly' && (
               <button
                 onClick={() => setShowAddWidget(!showAddWidget)}
-                className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white dark:bg-[#FFC20E] dark:hover:bg-[#E5B200] dark:text-slate-950 rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-md cursor-pointer transition-colors uppercase tracking-wider"
+                className="px-4 py-2 bg-[#FFC20E] hover:bg-[#F3AF00] text-slate-950 rounded-lg text-xs font-black flex items-center gap-1.5 shadow-lg shadow-[#FFC20E]/25 hover:shadow-[#FFC20E]/40 transition-all hover:scale-[1.02] cursor-pointer uppercase tracking-wider"
               >
                 <Plus className="w-4 h-4" /> Add Custom Metric
               </button>
@@ -474,9 +486,11 @@ export default function App() {
                     <option value="checklist font-semibold">Shift Audit Checklist</option>
                     <option value="gauge font-semibold">Circular Performance Gauge (%)</option>
                     <option value="counter font-semibold">Days Counter Tracker</option>
+                    <option value="chart font-semibold">Defect Pareto Chart</option>
+                    <option value="project font-semibold">Milestones Roadmap Project</option>
                   </select>
                 </div>
-                {newWType !== 'checklist' && newWType !== 'counter' && (
+                {newWType !== 'checklist' && newWType !== 'counter' && newWType !== 'chart' && newWType !== 'project' && (
                   <>
                     <div>
                       <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Unit Symbol</label>
@@ -485,7 +499,7 @@ export default function App() {
                         placeholder="e.g. % or kg"
                         value={newWUnit}
                         onChange={(e) => setNewWUnit(e.target.value)}
-                        className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none"
+                        className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-semibold"
                       />
                     </div>
                     <div>
@@ -509,6 +523,42 @@ export default function App() {
                       />
                     </div>
                   </>
+                )}
+                {newWType === 'checklist' && (
+                  <div className="sm:col-span-2">
+                    <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Checklist Steps (Comma separated)</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Clean work surface, Inspect hydraulic lines, Check emergency stops"
+                      value={newChecklistText}
+                      onChange={(e) => setNewChecklistText(e.target.value)}
+                      className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-semibold"
+                    />
+                  </div>
+                )}
+                {newWType === 'chart' && (
+                  <div className="sm:col-span-2">
+                    <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Pareto Defect Categories (Comma separated)</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Surface Scratches, Dimension Fail, Solder Blister, Seal Leak"
+                      value={newChartText}
+                      onChange={(e) => setNewChartText(e.target.value)}
+                      className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-semibold"
+                    />
+                  </div>
+                )}
+                {newWType === 'project' && (
+                  <div className="sm:col-span-2">
+                    <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Roadmap Milestones (Comma separated)</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Design Spec Approval, Supplier Sourcing, Machine Calibration, Live Run"
+                      value={newProjectText}
+                      onChange={(e) => setNewProjectText(e.target.value)}
+                      className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-semibold"
+                    />
+                  </div>
                 )}
                 <div className="sm:col-span-2">
                   <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">KPI Description & Purpose</label>

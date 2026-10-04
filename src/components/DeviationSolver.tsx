@@ -34,6 +34,10 @@ export default function DeviationSolver({
   const [actionPriority, setActionPriority] = useState<'low' | 'medium' | 'high'>('medium');
   const [actionNotes, setActionNotes] = useState('');
   const [showActionForm, setShowActionForm] = useState(false);
+  
+  // Custom simplifications
+  const [showResolved, setShowResolved] = useState(false);
+  const [rigorousMode, setRigorousMode] = useState(false);
 
   // If there's no selected deviation but deviations exist, set the first one
   React.useEffect(() => {
@@ -162,13 +166,16 @@ export default function DeviationSolver({
 
               {/* Resolved Section */}
               {resolvedDeviations.length > 0 && (
-                <div className="p-2 bg-emerald-50/20 dark:bg-emerald-950/10 border-b border-emerald-100/50">
-                  <span className="text-[9px] font-bold text-emerald-700 dark:text-emerald-400 px-2 uppercase tracking-widest font-mono">
-                    Resolved Countermeasures ({resolvedDeviations.length})
-                  </span>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowResolved(!showResolved)}
+                  className="w-full text-left p-2.5 bg-emerald-50/20 dark:bg-emerald-950/10 border-b border-emerald-100/50 flex items-center justify-between text-[9px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-widest font-mono cursor-pointer transition-colors hover:bg-emerald-50/40"
+                >
+                  <span>Resolved Countermeasures ({resolvedDeviations.length})</span>
+                  <span className="text-[10px] text-slate-400">{showResolved ? '▼ Collapse' : '▶ Expand'}</span>
+                </button>
               )}
-              {resolvedDeviations.map((d) => (
+              {showResolved && resolvedDeviations.map((d) => (
                 <button
                   key={d.id}
                   onClick={() => setSelectedDevId(d.id)}
@@ -278,15 +285,33 @@ export default function DeviationSolver({
 
               {/* Editable 5-Whys Cascading Board with Custom Why increments */}
               <div className="space-y-3.5 relative">
-                <div className="flex items-center justify-between pb-1">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-1">
                   <div className="flex items-center gap-1.5">
                     <HelpCircle className="w-4 h-4 text-[#FFC20E]" />
                     <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                      5-Whys Cascading Root Cause
+                      Why-Cascading Root Cause Analysis
                     </span>
                   </div>
                   
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-2">
+                    {/* Mode selector */}
+                    <div className="flex bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                      <button
+                        type="button"
+                        onClick={() => setRigorousMode(false)}
+                        className={`px-2 py-0.5 text-[9px] font-bold rounded-md transition-all cursor-pointer ${!rigorousMode ? 'bg-[#FFC20E] text-slate-950 font-black shadow-sm' : 'text-slate-500'}`}
+                      >
+                        Quick 3-Whys
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setRigorousMode(true)}
+                        className={`px-2 py-0.5 text-[9px] font-bold rounded-md transition-all cursor-pointer ${rigorousMode ? 'bg-[#FFC20E] text-slate-950 font-black shadow-sm' : 'text-slate-500'}`}
+                      >
+                        Rigorous 5-Whys
+                      </button>
+                    </div>
+
                     <button
                       type="button"
                       onClick={handleAddWhyStep}
@@ -301,17 +326,17 @@ export default function DeviationSolver({
                         onClick={handleRemoveWhyStep}
                         className="px-2 py-0.5 bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/20 rounded text-[10px] font-bold text-rose-600 cursor-pointer"
                       >
-                        - Remove last
+                        - Remove
                       </button>
                     )}
                   </div>
                 </div>
 
                 {/* 5-Whys Stack */}
-                {selectedDev.fiveWhys && selectedDev.fiveWhys.map((why, index) => (
+                {selectedDev.fiveWhys && (rigorousMode ? selectedDev.fiveWhys : selectedDev.fiveWhys.slice(0, 3)).map((why, index, arr) => (
                   <div key={index} className="flex items-start gap-3 relative group">
                     {/* Visual Connector Line */}
-                    {index < (selectedDev.fiveWhys!.length - 1) && (
+                    {index < (arr.length - 1) && (
                       <div className="absolute left-[13px] top-[26px] bottom-[-16px] w-[2px] bg-slate-200 dark:bg-slate-800 group-hover:bg-[#FFC20E] transition-colors"></div>
                     )}
                     
@@ -326,7 +351,7 @@ export default function DeviationSolver({
                         value={why}
                         onChange={(e) => handleWhyChange(index, e.target.value)}
                         placeholder={`Why did the previous step occur?`}
-                        className="w-full text-xs font-semibold px-3 py-2 bg-white border border-slate-200 dark:border-slate-800 dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-lg focus:outline-none focus:border-[#FFC20E] focus:ring-1 focus:ring-[#FFC20E] transition-all shadow-inner"
+                        className="w-full text-xs font-semibold px-3 py-2 bg-white border border-slate-200 dark:border-slate-850 dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-lg focus:outline-none focus:border-[#FFC20E] focus:ring-1 focus:ring-[#FFC20E] transition-all shadow-inner"
                       />
                     </div>
                   </div>

@@ -108,14 +108,16 @@ export function useAppState() {
       // if one doesn't exist for today.
       const changedWidget = updatedWidgets.find((w) => w.id === id);
       let nextDeviations = [...prev.deviations];
+      let nextActionItems = [...prev.actionItems];
       
       if (changedWidget && changedWidget.state === 'red') {
         const hasExisting = prev.deviations.some(
           (d) => d.widgetId === id && !d.isResolved
         );
         if (!hasExisting) {
+          const devId = generateId('dev');
           const newDev: Deviation = {
-            id: generateId('dev'),
+            id: devId,
             widgetId: changedWidget.id,
             widgetTitle: changedWidget.title,
             pillar: changedWidget.pillar,
@@ -133,13 +135,28 @@ export function useAppState() {
             isResolved: false
           };
           nextDeviations = [newDev, ...nextDeviations];
+
+          // Auto-Drafted Countermeasure Action Item
+          const autoAction: ActionItem = {
+            id: generateId('act'),
+            pillar: changedWidget.pillar,
+            title: `INVESTIGATE: Audit operational logs and perform emergency SOP review for "${changedWidget.title}"`,
+            owner: 'Shift Supervisor',
+            dueDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 2 days from now
+            priority: 'high',
+            status: 'open',
+            notes: `Auto-generated countermeasure linked to deviation ${devId}.`,
+            deviationId: devId
+          };
+          nextActionItems = [autoAction, ...nextActionItems];
         }
       }
 
       return {
         ...prev,
         widgets: updatedWidgets,
-        deviations: nextDeviations
+        deviations: nextDeviations,
+        actionItems: nextActionItems
       };
     });
   };
@@ -173,7 +190,7 @@ export function useAppState() {
     });
   };
 
-  const updateSafetyCross = (dayIndex: number, status: 'green' | 'red' | 'none') => {
+  const updateSafetyCross = (dayIndex: number, status: 'green' | 'red' | 'amber' | 'none') => {
     setState((prev) => ({
       ...prev,
       safetyCross: {

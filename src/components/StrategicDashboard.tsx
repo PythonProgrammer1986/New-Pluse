@@ -51,6 +51,11 @@ export default function StrategicDashboard({
   const [capexAllocation, setCapexAllocation] = useState<number>(450); // $k
   const [opexBudget, setOpexBudget] = useState<number>(320); // $k
 
+  // Interactive OEE Breakdown states
+  const [oeeAvailability, setOeeAvailability] = useState<number>(92);
+  const [oeePerformance, setOeePerformance] = useState<number>(88);
+  const [oeeQuality, setOeeQuality] = useState<number>(98);
+
   // Custom Strategic Targets (Dynamic editing in Monthly Pulse)
   const [annualPaybackProgress, setAnnualPaybackProgress] = useState<number>(114800);
   const [annualPaybackTarget, setAnnualPaybackTarget] = useState<number>(160000);
@@ -368,6 +373,87 @@ export default function StrategicDashboard({
                 <span className="text-xs font-bold text-slate-800 dark:text-slate-200 font-mono mt-0.5 block">
                   ${(capexAllocation + opexBudget).toLocaleString()}k
                 </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive OEE Breakdown Visualizer */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2">
+              <div>
+                <h3 className="font-bold text-slate-800 dark:text-white text-xs uppercase tracking-wider flex items-center gap-2">
+                  <Activity className="w-4 h-4 text-[#FFC20E] shrink-0" />
+                  Overall Equipment Effectiveness (OEE)
+                </h3>
+                <p className="text-[11px] text-slate-400 mt-0.5">
+                  OEE = Availability &times; Performance &times; Quality
+                </p>
+              </div>
+              <span className={`px-2 py-0.5 rounded text-[10px] font-bold font-mono uppercase ${
+                Math.round((oeeAvailability/100) * (oeePerformance/100) * (oeeQuality/100) * 100) >= 85 
+                  ? 'bg-emerald-100 text-emerald-800' 
+                  : Math.round((oeeAvailability/100) * (oeePerformance/100) * (oeeQuality/100) * 100) >= 70 
+                    ? 'bg-amber-100 text-amber-800' 
+                    : 'bg-rose-100 text-rose-800'
+              }`}>
+                {Math.round((oeeAvailability/100) * (oeePerformance/100) * (oeeQuality/100) * 100)}% OEE
+              </span>
+            </div>
+
+            <div className="space-y-3">
+              {/* Slider 1: Availability */}
+              <div className="space-y-1">
+                <div className="flex justify-between text-xs">
+                  <span className="font-semibold text-slate-600 dark:text-slate-400">Availability Rate:</span>
+                  <span className="font-mono font-bold text-blue-600">{oeeAvailability}%</span>
+                </div>
+                <input 
+                  type="range" min="40" max="100" 
+                  value={oeeAvailability} 
+                  onChange={(e) => setOeeAvailability(parseInt(e.target.value))}
+                  className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                />
+              </div>
+
+              {/* Slider 2: Performance */}
+              <div className="space-y-1">
+                <div className="flex justify-between text-xs">
+                  <span className="font-semibold text-slate-600 dark:text-slate-400">Performance Efficiency:</span>
+                  <span className="font-mono font-bold text-amber-600">{oeePerformance}%</span>
+                </div>
+                <input 
+                  type="range" min="40" max="100" 
+                  value={oeePerformance} 
+                  onChange={(e) => setOeePerformance(parseInt(e.target.value))}
+                  className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                />
+              </div>
+
+              {/* Slider 3: Quality */}
+              <div className="space-y-1">
+                <div className="flex justify-between text-xs">
+                  <span className="font-semibold text-slate-600 dark:text-slate-400">Quality Rate (Yield):</span>
+                  <span className="font-mono font-bold text-emerald-600">{oeeQuality}%</span>
+                </div>
+                <input 
+                  type="range" min="40" max="100" 
+                  value={oeeQuality} 
+                  onChange={(e) => setOeeQuality(parseInt(e.target.value))}
+                  className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500"
+                />
+              </div>
+
+              {/* Visual cumulative progress bar */}
+              <div className="pt-2">
+                <div className="flex justify-between text-[10px] text-slate-400 font-bold uppercase tracking-wide mb-1 font-mono">
+                  <span>Standard Benchmark (85% World Class)</span>
+                  <span className="text-[#FFC20E]">{Math.round((oeeAvailability/100) * (oeePerformance/100) * (oeeQuality/100) * 100)}% / 85%</span>
+                </div>
+                <div className="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden flex">
+                  <div className="bg-blue-500 h-full transition-all duration-300" style={{ width: `${oeeAvailability * 0.33}%` }} title="Availability Share"></div>
+                  <div className="bg-amber-500 h-full transition-all duration-300" style={{ width: `${oeePerformance * 0.33}%` }} title="Performance Share"></div>
+                  <div className="bg-emerald-500 h-full transition-all duration-300" style={{ width: `${oeeQuality * 0.34}%` }} title="Quality Share"></div>
+                </div>
               </div>
             </div>
           </div>

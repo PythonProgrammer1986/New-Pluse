@@ -78,6 +78,6 @@ export interface AppState {
   widgets: MetricWidget[];
   deviations: Deviation[];
   actionItems: ActionItem[];
-  safetyCross: { [dayIndex: number]: 'green' | 'red' | 'none' }; // for safety calendar (1-31)
+  safetyCross: { [dayIndex: number]: 'green' | 'red' | 'amber' | 'none' }; // for safety calendar (1-31)
   safetyNotes?: { [dayIndex: number]: string }; // Note-taking per calendar day
 }

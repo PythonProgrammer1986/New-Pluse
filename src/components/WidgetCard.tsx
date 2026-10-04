@@ -24,6 +24,9 @@ export default function WidgetCard({
   const [tempActual, setTempActual] = useState(widget.actual?.toString() || '');
   const [tempTarget, setTempTarget] = useState(widget.target?.toString() || '');
   const [showInfo, setShowInfo] = useState(false);
+  const [tempTitle, setTempTitle] = useState(widget.title);
+  const [tempDesc, setTempDesc] = useState(widget.description || '');
+  const [tempUnit, setTempUnit] = useState(widget.unit || '');
 
   // Pillar icon and colors
   const getPillarConfig = (pillar: Pillar) => {
@@ -87,13 +90,14 @@ export default function WidgetCard({
     const actualNum = parseFloat(tempActual);
     const targetNum = parseFloat(tempTarget);
     
-    if (!isNaN(actualNum) || !isNaN(targetNum)) {
-      onUpdateValue(widget.id, {
-        ...( !isNaN(actualNum) ? { actual: actualNum } : {}),
-        ...( !isNaN(targetNum) ? { target: targetNum } : {})
-      });
-      setIsEditing(false);
-    }
+    onUpdateValue(widget.id, {
+      title: tempTitle,
+      description: tempDesc || undefined,
+      unit: tempUnit || undefined,
+      ...( !isNaN(actualNum) ? { actual: actualNum } : {}),
+      ...( !isNaN(targetNum) ? { target: targetNum } : {})
+    });
+    setIsEditing(false);
   };
 
   const handleIncrementDefect = (index: number) => {
@@ -159,6 +163,9 @@ export default function WidgetCard({
 
           <button 
             onClick={() => {
+              setTempTitle(widget.title);
+              setTempDesc(widget.description || '');
+              setTempUnit(widget.unit || '');
               setTempActual(widget.actual?.toString() || '');
               setTempTarget(widget.target?.toString() || '');
               setIsEditing(!isEditing);
@@ -188,48 +195,84 @@ export default function WidgetCard({
 
       {/* Edit Overlay Form - Fully interactive and customizable for all subpoints */}
       {isEditing && (
-        <div className="bg-slate-50 dark:bg-slate-800 p-4 border-b border-slate-200 dark:border-slate-800 space-y-4">
-          <form onSubmit={handleSave} className="flex items-end justify-between gap-3">
-            <div className="flex items-center gap-2 flex-1">
-              {widget.actual !== undefined && (
-                <div className="flex-1">
-                  <label className="block text-[10px] text-slate-400 font-semibold uppercase">Actual Value</label>
-                  <input 
-                    type="number" 
-                    step="any"
-                    value={tempActual} 
-                    onChange={(e) => setTempActual(e.target.value)}
-                    className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500" 
-                  />
-                </div>
-              )}
-              {widget.target !== undefined && (
-                <div className="flex-1">
-                  <label className="block text-[10px] text-slate-400 font-semibold uppercase">Target Limit</label>
-                  <input 
-                    type="number" 
-                    step="any"
-                    value={tempTarget} 
-                    onChange={(e) => setTempTarget(e.target.value)}
-                    className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500" 
-                  />
-                </div>
-              )}
+        <div className="bg-slate-50 dark:bg-slate-800 p-4 border-b border-slate-200 dark:border-slate-800 space-y-4 animate-fade-in">
+          <form onSubmit={handleSave} className="space-y-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">KPI Title</label>
+                <input 
+                  type="text" 
+                  required
+                  value={tempTitle} 
+                  onChange={(e) => setTempTitle(e.target.value)}
+                  className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 font-bold" 
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Unit Symbol</label>
+                <input 
+                  type="text" 
+                  value={tempUnit} 
+                  onChange={(e) => setTempUnit(e.target.value)}
+                  placeholder="e.g. % or min"
+                  className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 font-semibold font-mono" 
+                />
+              </div>
             </div>
-            <div className="flex gap-2">
-              <button 
-                type="submit" 
-                className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer"
-              >
-                <Check className="w-3.5 h-3.5" /> Save
-              </button>
-              <button 
-                type="button" 
-                onClick={() => setIsEditing(false)}
-                className="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-white rounded-lg text-xs font-semibold cursor-pointer"
-              >
-                Cancel
-              </button>
+            
+            <div>
+              <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">KPI Description</label>
+              <input 
+                type="text" 
+                value={tempDesc} 
+                onChange={(e) => setTempDesc(e.target.value)}
+                placeholder="Brief reason for tracking this..."
+                className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 font-semibold" 
+              />
+            </div>
+            
+            <div className="flex items-end justify-between gap-3 pt-1">
+              <div className="flex items-center gap-2 flex-1">
+                {widget.actual !== undefined && (
+                  <div className="flex-1">
+                    <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Actual Value</label>
+                    <input 
+                      type="number" 
+                      step="any"
+                      value={tempActual} 
+                      onChange={(e) => setTempActual(e.target.value)}
+                      className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 font-semibold font-mono" 
+                    />
+                  </div>
+                )}
+                {widget.target !== undefined && (
+                  <div className="flex-1">
+                    <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Target Limit</label>
+                    <input 
+                      type="number" 
+                      step="any"
+                      value={tempTarget} 
+                      onChange={(e) => setTempTarget(e.target.value)}
+                      className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 font-semibold font-mono" 
+                    />
+                  </div>
+                )}
+              </div>
+              <div className="flex gap-2 shrink-0">
+                <button 
+                  type="submit" 
+                  className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold flex items-center gap-1 cursor-pointer shadow-sm transition-colors uppercase tracking-wider"
+                >
+                  <Check className="w-3.5 h-3.5" /> Save
+                </button>
+                <button 
+                  type="button" 
+                  onClick={() => setIsEditing(false)}
+                  className="px-3.5 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-white rounded-lg text-xs font-bold cursor-pointer transition-colors uppercase tracking-wider"
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           </form>
 
@@ -422,10 +465,26 @@ export default function WidgetCard({
       <div className="p-4 flex-1 flex flex-col justify-center">
         {/* COUNTER TYPE */}
         {widget.type === 'counter' && (
-          <div className="text-center py-2">
-            <span className="text-4xl font-extrabold font-mono tracking-tight text-slate-900 dark:text-white tabular-nums">
-              {widget.value}
-            </span>
+          <div className="text-center py-2 group/cnt">
+            <div className="flex items-center justify-center gap-3">
+              <button
+                onClick={() => onUpdateValue(widget.id, { value: Math.max(0, (widget.value || 0) - 1) })}
+                className="p-1 w-6 h-6 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 rounded-md text-[10px] font-black cursor-pointer select-none opacity-0 group-hover/cnt:opacity-100 transition-opacity"
+                title="Decrement Day"
+              >
+                -
+              </button>
+              <span className="text-4xl font-extrabold font-mono tracking-tight text-slate-900 dark:text-white tabular-nums">
+                {widget.value}
+              </span>
+              <button
+                onClick={() => onUpdateValue(widget.id, { value: (widget.value || 0) + 1 })}
+                className="p-1 w-6 h-6 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 rounded-md text-[10px] font-black cursor-pointer select-none opacity-0 group-hover/cnt:opacity-100 transition-opacity"
+                title="Increment Day"
+              >
+                +
+              </button>
+            </div>
             <span className="text-xs text-slate-400 block mt-1">days completed</span>
           </div>
         )}
@@ -434,11 +493,31 @@ export default function WidgetCard({
         {widget.type === 'numeric' && (
           <div className="space-y-3">
             <div className="flex items-baseline justify-between">
-              <div>
+              <div className="group/act">
                 <span className="text-xs text-slate-400 block font-medium">Actual Today</span>
-                <span className="text-2xl font-bold font-mono text-slate-800 dark:text-white tabular-nums">
-                  {widget.actual} <span className="text-sm font-normal text-slate-400">{widget.unit}</span>
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl font-bold font-mono text-slate-800 dark:text-white tabular-nums">
+                    {widget.actual} <span className="text-sm font-normal text-slate-400">{widget.unit}</span>
+                  </span>
+                  
+                  {/* Micro step adjustments on hover */}
+                  <span className="inline-flex items-center gap-1 opacity-0 group-hover/act:opacity-100 transition-opacity shrink-0">
+                    <button
+                      onClick={() => onUpdateValue(widget.id, { actual: Math.max(0, (widget.actual || 0) - 1) })}
+                      className="px-1.5 py-0.5 bg-slate-100 hover:bg-rose-50 dark:bg-slate-800 dark:hover:bg-rose-950/40 text-slate-500 hover:text-rose-600 rounded text-[10px] font-black cursor-pointer transition-all"
+                      title="Decrement (-1)"
+                    >
+                      -
+                    </button>
+                    <button
+                      onClick={() => onUpdateValue(widget.id, { actual: (widget.actual || 0) + 1 })}
+                      className="px-1.5 py-0.5 bg-slate-100 hover:bg-emerald-50 dark:bg-slate-800 dark:hover:bg-emerald-950/40 text-slate-500 hover:text-emerald-600 rounded text-[10px] font-black cursor-pointer transition-all"
+                      title="Increment (+1)"
+                    >
+                      +
+                    </button>
+                  </span>
+                </div>
               </div>
               <div className="text-right">
                 <span className="text-xs text-slate-400 block font-medium">Target Threshold</span>
