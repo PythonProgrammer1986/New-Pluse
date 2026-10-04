@@ -459,12 +459,12 @@ export default function App() {
                     onChange={(e) => setNewWPillar(e.target.value as Pillar)}
                     className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer font-semibold"
                   >
-                    <option value="Safety font-semibold">Safety</option>
-                    <option value="Sustainability font-semibold">Sustainability</option>
-                    <option value="Quality font-semibold">Quality</option>
-                    <option value="Delivery font-semibold">Delivery</option>
-                    <option value="Cost font-semibold font-semibold">Cost</option>
-                    <option value="Capital font-semibold">Capital</option>
+                    <option value="Safety">Safety</option>
+                    <option value="Sustainability">Sustainability</option>
+                    <option value="Quality">Quality</option>
+                    <option value="Delivery">Delivery</option>
+                    <option value="Cost">Cost</option>
+                    <option value="Capital">Capital</option>
                   </select>
                 </div>
                 <div>
@@ -486,23 +486,18 @@ export default function App() {
                     onChange={(e) => setNewWType(e.target.value as any)}
                     className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer font-semibold"
                   >
-                    <option value="numeric">Numeric Comparison (Target vs Actual)</option>
-                    <option value="checklist">Shift Audit Checklist</option>
-                    <option value="gauge">Circular Performance Gauge (%)</option>
-                    <option value="counter">Days Counter Tracker</option>
-                    <option value="chart">Defect Pareto Chart</option>
-                    <option value="project">Milestones Roadmap Project</option>
-                    <option value="stopwatch">⏱️ Operator Cycle Time Stopwatch</option>
-                    <option value="heatmap">🔥 24-Hour Production OEE Heatmap</option>
-                    <option value="pareto">📊 Scrap & Waste Pareto Bar Chart</option>
-                    <option value="skills">🤹 EHS & Assembly Skill Matrix Grid</option>
-                    <option value="kanban">📋 Strategic CI Ideas Kanban Board</option>
-                    <option value="handover">✍️ Shift Handover Sign-off Block</option>
-                    <option value="riskGauge">🚨 Floor Hazard Threat Index Gauge</option>
-                    <option value="emission">🍃 Carbon Footprint Emission Tracker</option>
-                    <option value="radar">🕸️ Gemba Walk 5S Audit Radar</option>
-                    <option value="countdown">📦 Rig Packing Lead-Time Countdown</option>
-                    <option value="pulse">💓 Rig Takt-Time Heartbeat Pulsar</option>
+                    <option value="numeric">1. Target vs Actual (Numeric KPI)</option>
+                    <option value="checklist">2. Action Checklist (Task Audits)</option>
+                    <option value="gauge">3. Circular Gauge (Percentage Dial)</option>
+                    <option value="counter">4. Days Counter (Consecutive Tracker)</option>
+                    <option value="chart">5. Pareto Bar Chart (Categorized Quantities)</option>
+                    <option value="project">6. Milestone Project (Roadmaps & Timelines)</option>
+                    <option value="stopwatch">7. Stopwatch & Timer (Work Cycle Clock)</option>
+                    <option value="heatmap">8. Activity Heatmap Grid (Hourly State Matrix)</option>
+                    <option value="skills">9. Competency Skill Matrix (Team Training Grid)</option>
+                    <option value="kanban">10. Suggestions Kanban (Idea Incubator Cards)</option>
+                    <option value="handover">11. Shift Handover Block (Supervisor Transition Sign-off)</option>
+                    <option value="radar">12. Audit Radar Scorecard (5S Walkabout Radians)</option>
                   </select>
                 </div>
 
