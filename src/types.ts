@@ -26,7 +26,7 @@ export interface MetricWidget {
   title: string;
   pillar: Pillar;
   level: PulseLevel;
-  type: 'numeric' | 'checklist' | 'counter' | 'chart' | 'gauge' | 'project';
+  type: 'numeric' | 'checklist' | 'counter' | 'chart' | 'gauge' | 'project' | 'stopwatch' | 'heatmap' | 'pareto' | 'skills' | 'kanban' | 'handover' | 'riskGauge' | 'emission' | 'radar' | 'countdown' | 'pulse';
   unit?: string;
   target?: number;
   actual?: number;

@@ -195,6 +195,113 @@ export const INITIAL_WIDGETS: MetricWidget[] = [
       { id: 'proc-3', label: 'Daily cloud systems server backup verification', checked: true }
     ]
   },
+  {
+    id: 'd-delivery-stopwatch',
+    title: 'Operator Standard Cycle Time Stopwatch',
+    pillar: 'Delivery',
+    level: 'daily',
+    type: 'stopwatch',
+    actual: 42,
+    target: 45,
+    state: 'green',
+    description: 'Displays real-time cycle times against standard work takt. Warns if operator step exceeds standard.'
+  },
+  {
+    id: 'd-cost-heatmap',
+    title: '24-Hour Production OEE Machine Heatmap',
+    pillar: 'Cost',
+    level: 'daily',
+    type: 'heatmap',
+    state: 'green',
+    description: 'Mini hourly heat grid showing machine running/uptime state over past 24 hours.'
+  },
+  {
+    id: 'd-quality-pareto',
+    title: 'Scrap & Waste Pareto Bar Chart',
+    pillar: 'Quality',
+    level: 'daily',
+    type: 'pareto',
+    state: 'red',
+    description: 'A horizontal bar chart pinpointing active scrap sources on the shopfloor.'
+  },
+  {
+    id: 'd-safety-skills',
+    title: 'EHS & Assembly Skill Matrix Grid',
+    pillar: 'Safety',
+    level: 'daily',
+    type: 'skills',
+    state: 'green',
+    description: 'Tracks supervisor and operator machinery cross-training certifications.'
+  },
+  {
+    id: 'd-capital-kanban',
+    title: 'Strategic CI Ideas Kanban',
+    pillar: 'Capital',
+    level: 'daily',
+    type: 'kanban',
+    state: 'green',
+    description: 'Track team waste elimination ideas through stages: To Do, Testing, Standardized.'
+  },
+  {
+    id: 'd-quality-handover',
+    title: 'Supervisor Shift Handover Sign-off Block',
+    pillar: 'Quality',
+    level: 'daily',
+    type: 'handover',
+    state: 'green',
+    description: 'Handover sign-off checklist and supervisor timestamp validation.'
+  },
+  {
+    id: 'd-safety-risk',
+    title: 'Active Floor Hazard Alert Index',
+    pillar: 'Safety',
+    level: 'daily',
+    type: 'riskGauge',
+    actual: 35,
+    target: 70,
+    state: 'green',
+    description: 'Gauge dial showing shopfloor threat indexing based on active LOTO isolations.'
+  },
+  {
+    id: 'd-sust-emissions',
+    title: 'Shopfloor Carbon Emission Tracker',
+    pillar: 'Sustainability',
+    level: 'daily',
+    type: 'emission',
+    actual: 120,
+    target: 150,
+    state: 'green',
+    description: 'Energy-equivalent CO2 output trace in kg compared to carbon footprint bounds.'
+  },
+  {
+    id: 'd-sust-radar',
+    title: 'Gemba Walk 5S Audit Radar',
+    pillar: 'Sustainability',
+    level: 'daily',
+    type: 'radar',
+    state: 'green',
+    description: 'Interactively score Sort, Set, Shine, Standardize, and Sustain walkabouts.'
+  },
+  {
+    id: 'd-delivery-countdown',
+    title: 'Rig Packing Lead-Time Countdown',
+    pillar: 'Delivery',
+    level: 'daily',
+    type: 'countdown',
+    state: 'green',
+    description: 'Progress milestone trail showing rig dispatch from factory to shipping bay.'
+  },
+  {
+    id: 'd-delivery-pulse',
+    title: 'Rig Takt-Time Heartbeat Pulsar',
+    pillar: 'Delivery',
+    level: 'daily',
+    type: 'pulse',
+    actual: 85,
+    target: 80,
+    state: 'green',
+    description: 'Pulsing indicator reflecting whether assembly pace meets high customer demand.'
+  },
 
   // ================= WEEKLY LEVEL =================
   {

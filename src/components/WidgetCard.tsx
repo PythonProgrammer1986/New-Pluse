@@ -644,7 +644,7 @@ export default function WidgetCard({
         {/* CAPITAL PROJECT TIMELINE TYPE */}
         {widget.type === 'project' && widget.milestones && (
           <div className="space-y-2 py-1">
-            <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider block">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
               Project Milestones:
             </span>
             <div className="space-y-1.5">
@@ -669,6 +669,248 @@ export default function WidgetCard({
                   </span>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* 1. STOPWATCH / CYCLE TIME TRACKER */}
+        {widget.type === 'stopwatch' && (
+          <div className="text-center py-1 bg-slate-50 dark:bg-slate-850 p-3.5 rounded-xl border border-slate-200/50">
+            <span className={`text-3xl font-black font-mono tracking-tight tabular-nums block ${widget.actual && widget.actual > (widget.target || 45) ? 'text-rose-500 animate-pulse' : 'text-slate-850 dark:text-white'}`}>
+              00:{widget.actual && widget.actual < 10 ? `0${widget.actual}` : widget.actual}
+            </span>
+            <span className="text-[9px] text-slate-400 font-bold block mt-1 uppercase">Target: {widget.target || 45}s Standard Work</span>
+            <div className="flex justify-center gap-1.5 mt-2">
+              <button
+                onClick={() => onUpdateValue(widget.id, { actual: Math.max(0, (widget.actual || 0) - 1) })}
+                className="px-2.5 py-0.5 bg-white hover:bg-slate-100 border border-slate-200 text-slate-600 rounded text-[9px] font-bold cursor-pointer transition-colors"
+              >
+                -1s
+              </button>
+              <button
+                onClick={() => onUpdateValue(widget.id, { actual: (widget.actual || 0) + 1 })}
+                className="px-2.5 py-0.5 bg-white hover:bg-slate-100 border border-slate-200 text-slate-600 rounded text-[9px] font-bold cursor-pointer transition-colors"
+              >
+                +1s
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* 2. OEE HEAT MAP GRID */}
+        {widget.type === 'heatmap' && (
+          <div className="space-y-1.5 py-1">
+            <span className="text-[9px] text-slate-400 font-bold block uppercase tracking-wider">Hourly Machine Running State:</span>
+            <div className="grid grid-cols-8 gap-1">
+              {Array.from({ length: 24 }).map((_, i) => {
+                const states: ('green' | 'amber' | 'red')[] = ['green', 'green', 'green', 'amber', 'green', 'red', 'green', 'green'];
+                const stateVal = states[(i + (widget.actual || 0)) % states.length];
+                return (
+                  <button
+                    key={i}
+                    onClick={() => onUpdateValue(widget.id, { actual: ((widget.actual || 0) + 1) % 24 })}
+                    className={`h-4 rounded border text-[8px] font-mono font-bold flex items-center justify-center cursor-pointer select-none transition-all ${
+                      stateVal === 'green' ? 'bg-emerald-500 border-emerald-600 text-white' :
+                      stateVal === 'amber' ? 'bg-amber-500 border-amber-600 text-slate-900' :
+                      'bg-rose-500 border-rose-600 text-white animate-pulse'
+                    }`}
+                    title={`Hour ${i}:00 - Click to cycle state`}
+                  >
+                    {i}
+                  </button>
+                );
+              })}
+            </div>
+            <div className="flex justify-between text-[8px] text-slate-400 font-bold pt-1">
+              <span>🟢 Running</span>
+              <span>🟡 Idle</span>
+              <span>🔴 Downtime</span>
+            </div>
+          </div>
+        )}
+
+        {/* 3. SCRAP & WASTE PARETO BAR CHART */}
+        {widget.type === 'pareto' && (
+          <div className="space-y-2 py-1">
+            {[
+              { reason: 'Startup Loss', val: 40 },
+              { reason: 'Tool Defect', val: 25 },
+              { reason: 'Overfill Waste', val: 15 },
+              { reason: 'Operator Error', val: 5 }
+            ].map((item) => (
+              <div key={item.reason} className="space-y-0.5">
+                <div className="flex justify-between text-[10px] font-bold text-slate-700 dark:text-slate-300">
+                  <span>{item.reason}</span>
+                  <span className="font-mono text-rose-500">{item.val}%</span>
+                </div>
+                <div className="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                  <div className="h-full bg-rose-500" style={{ width: `${item.val}%` }}></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* 4. SKILL MATRIX / CROSS-TRAINING GRID */}
+        {widget.type === 'skills' && (
+          <div className="space-y-1.5 py-1">
+            {[
+              { name: 'Marcus L.', skill: 'SmartROC Drill', score: 4 },
+              { name: 'Helena S.', skill: 'Minetruck MT42', score: 3 },
+              { name: 'Jonas K.', skill: 'EHS Isolation', score: 2 }
+            ].map((p) => (
+              <div key={p.name} className="flex items-center justify-between text-[10px] p-1.5 bg-slate-50 dark:bg-slate-800/40 rounded-lg border border-slate-100 dark:border-slate-800/60">
+                <div>
+                  <span className="font-bold text-slate-800 dark:text-white block">{p.name}</span>
+                  <span className="text-[8px] text-slate-400 block">{p.skill}</span>
+                </div>
+                <div className="flex gap-0.5">
+                  {Array.from({ length: 4 }).map((_, starIdx) => (
+                    <div
+                      key={starIdx}
+                      className={`w-3.5 h-3 rounded-sm ${starIdx < p.score ? 'bg-indigo-500' : 'bg-slate-200 dark:bg-slate-700'}`}
+                      title={`${p.score}/4 Skills Complete`}
+                    ></div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* 5. IDEA INCUBATOR KANBAN BOARD */}
+        {widget.type === 'kanban' && (
+          <div className="grid grid-cols-3 gap-1 py-1">
+            {[
+              { col: 'To Do', tpl: 'Tool Cart 5S' },
+              { col: 'Testing', tpl: 'LED Takt Lamp' },
+              { col: 'SOP Standard', tpl: 'LOTO Box' }
+            ].map((item) => (
+              <div key={item.col} className="p-1.5 bg-slate-50 dark:bg-slate-850 border border-slate-200/60 dark:border-slate-800 rounded-lg text-center space-y-1">
+                <span className="text-[8px] font-black text-slate-400 uppercase tracking-wider block">{item.col}</span>
+                <div className="p-1 bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 rounded text-[9px] font-bold text-slate-700 dark:text-slate-200 shadow-sm leading-tight">
+                  {item.tpl}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* 6. SHIFT HANDOVER SIGN-OFF BLOCK */}
+        {widget.type === 'handover' && (
+          <div className="p-2.5 bg-slate-50 dark:bg-slate-850 rounded-xl border border-slate-200/60 dark:border-slate-800 text-center space-y-2">
+            <div className="space-y-0.5">
+              <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider block">Shift Handover Status</span>
+              <span className="text-[10px] text-slate-700 dark:text-slate-300 block font-bold">Shift A &rarr; Shift B</span>
+            </div>
+            <button
+              onClick={() => onUpdateValue(widget.id, { state: widget.state === 'green' ? 'red' : 'green' })}
+              className={`w-full py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wide cursor-pointer transition-all shadow-sm ${
+                widget.state === 'green' 
+                  ? 'bg-emerald-500 hover:bg-emerald-600 text-white' 
+                  : 'bg-slate-200 hover:bg-slate-300 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
+              }`}
+            >
+              {widget.state === 'green' ? '✓ SIGNED & HANDED OVER' : 'AWAITING SIGNOFF'}
+            </button>
+            <span className="text-[8px] font-mono text-slate-400 block mt-1">SOP Handover Log Completed</span>
+          </div>
+        )}
+
+        {/* 7. HAZARD ALERT LEVEL GAUGE */}
+        {widget.type === 'riskGauge' && (
+          <div className="space-y-2 py-1 text-center">
+            <div className="relative w-full bg-slate-100 dark:bg-slate-800 h-3 rounded-full overflow-hidden flex">
+              <div className="bg-emerald-500 h-full" style={{ width: '30%' }}></div>
+              <div className="bg-amber-500 h-full" style={{ width: '40%' }}></div>
+              <div className="bg-rose-500 h-full" style={{ width: '30%' }}></div>
+              <div 
+                className="absolute top-0 bottom-0 w-1 bg-slate-950 dark:bg-white transition-all duration-500 shadow"
+                style={{ left: `${widget.actual || 35}%` }}
+              ></div>
+            </div>
+            <div className="flex justify-between items-center text-[8px] text-slate-400 font-black uppercase tracking-wider font-mono">
+              <span className="text-emerald-500">Safe</span>
+              <span className="text-amber-500">Elevated</span>
+              <span className="text-rose-500">Critical</span>
+            </div>
+            <span className="text-[11px] font-bold text-slate-800 dark:text-slate-200 mt-1 block font-mono">LOTO Risk Index: {widget.actual || 35} / 100</span>
+          </div>
+        )}
+
+        {/* 8. CO₂ EMISSION SPARKLINE */}
+        {widget.type === 'emission' && (
+          <div className="space-y-1.5 py-1">
+            <div className="flex items-center justify-between text-[11px]">
+              <span className="font-semibold text-slate-600 dark:text-slate-400">Carbon equivalent index:</span>
+              <span className="font-mono font-bold text-emerald-600">{widget.actual} kg</span>
+            </div>
+            <div className="w-full bg-slate-100 dark:bg-slate-800 h-10 rounded-lg overflow-hidden flex items-end relative p-1">
+              <div className="absolute top-0.5 right-1.5 text-[8px] font-mono text-slate-400">Target: {widget.target} kg</div>
+              <div className="w-full flex items-end justify-between h-6 gap-0.5">
+                {[30, 45, 60, 55, 75, 90, 85, 110, widget.actual || 120].map((hVal, hIdx) => (
+                  <div
+                    key={hIdx}
+                    className={`w-full rounded-t-sm transition-all duration-500 ${hVal > (widget.target || 150) ? 'bg-rose-500 animate-pulse' : 'bg-emerald-500'}`}
+                    style={{ height: `${(hVal / 150) * 100}%` }}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 9. 5S WORKPLACE AUDIT RADAR */}
+        {widget.type === 'radar' && (
+          <div className="space-y-1.5 py-1">
+            {[
+              { cat: 'Sort (Seiri)', val: 95 },
+              { cat: 'Set in Order (Seiton)', val: 80 },
+              { cat: 'Shine (Seiso)', val: 90 },
+              { cat: 'Standardize (Seiketsu)', val: 85 },
+              { cat: 'Sustain (Shitsuke)', val: 75 }
+            ].map((category) => (
+              <div key={category.cat} className="space-y-0.5">
+                <div className="flex justify-between text-[9px] font-bold text-slate-650 dark:text-slate-350">
+                  <span>{category.cat}</span>
+                  <span className="font-mono">{category.val}/100</span>
+                </div>
+                <div className="w-full bg-slate-100 dark:bg-slate-800 h-1 rounded-full overflow-hidden">
+                  <div className="h-full bg-indigo-500" style={{ width: `${category.val}%` }}></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* 10. LEAD TIME COUNTDOWN TRACKER */}
+        {widget.type === 'countdown' && (
+          <div className="space-y-2 py-1">
+            <span className="text-[9px] text-slate-400 font-bold block uppercase tracking-wider">Rig Shipping Pipeline:</span>
+            <div className="flex items-center justify-between text-[8px] font-bold text-slate-500 bg-slate-50 dark:bg-slate-850 p-1.5 rounded-lg border border-slate-200/50">
+              <span className="text-emerald-500">1. Load ✓</span>
+              <span className="text-emerald-500">2. Assy ✓</span>
+              <span className="text-amber-500 animate-pulse">3. QA Test</span>
+              <span className="text-slate-300">4. Dispatch</span>
+            </div>
+            <div className="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div className="h-full bg-indigo-500" style={{ width: '75%' }}></div>
+            </div>
+          </div>
+        )}
+
+        {/* 11. TAKT-TIME PACE PULSE */}
+        {widget.type === 'pulse' && (
+          <div className="p-3 bg-slate-50 dark:bg-slate-850 rounded-xl border border-slate-200/50 flex items-center justify-between">
+            <div className="space-y-0.5">
+              <span className="text-[9px] text-slate-400 font-bold block uppercase tracking-wider">Takt Pace Index</span>
+              <span className="text-xs font-bold text-slate-700 dark:text-slate-200 block font-mono">Actual: {widget.actual || 85} vs Target: {widget.target || 80}</span>
+            </div>
+            
+            {/* Pulsing indicator */}
+            <div className="relative flex h-8 w-8 items-center justify-center">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-500"></span>
             </div>
           </div>
         )}
