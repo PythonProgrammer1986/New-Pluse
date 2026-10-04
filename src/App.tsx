@@ -51,7 +51,11 @@ export default function App() {
   const [newWTitle, setNewWTitle] = useState('');
   const [newWPillar, setNewWPillar] = useState<Pillar>('Quality');
   const [newWLevel, setNewWLevel] = useState<PulseLevel>('daily');
-  const [newWType, setNewWType] = useState<'numeric' | 'checklist' | 'gauge' | 'counter' | 'chart' | 'project'>('numeric');
+  const [newWType, setNewWType] = useState<
+    'numeric' | 'checklist' | 'gauge' | 'counter' | 'chart' | 'project' |
+    'stopwatch' | 'heatmap' | 'pareto' | 'skills' | 'kanban' | 'handover' |
+    'riskGauge' | 'emission' | 'radar' | 'countdown' | 'pulse'
+  >('numeric');
   const [newWUnit, setNewWUnit] = useState('');
   const [newWTarget, setNewWTarget] = useState('');
   const [newWActual, setNewWActual] = useState('');
@@ -470,9 +474,9 @@ export default function App() {
                     onChange={(e) => setNewWLevel(e.target.value as PulseLevel)}
                     className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer font-semibold"
                   >
-                    <option value="daily font-semibold">Daily stand-up</option>
-                    <option value="weekly font-semibold">Weekly stand-up</option>
-                    <option value="monthly font-semibold">Monthly strategic</option>
+                    <option value="daily">Daily stand-up</option>
+                    <option value="weekly">Weekly stand-up</option>
+                    <option value="monthly">Monthly strategic</option>
                   </select>
                 </div>
                 <div>
@@ -482,21 +486,34 @@ export default function App() {
                     onChange={(e) => setNewWType(e.target.value as any)}
                     className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer font-semibold"
                   >
-                    <option value="numeric font-semibold">Numeric Comparison (Target vs Actual)</option>
-                    <option value="checklist font-semibold">Shift Audit Checklist</option>
-                    <option value="gauge font-semibold">Circular Performance Gauge (%)</option>
-                    <option value="counter font-semibold">Days Counter Tracker</option>
-                    <option value="chart font-semibold">Defect Pareto Chart</option>
-                    <option value="project font-semibold">Milestones Roadmap Project</option>
+                    <option value="numeric">Numeric Comparison (Target vs Actual)</option>
+                    <option value="checklist">Shift Audit Checklist</option>
+                    <option value="gauge">Circular Performance Gauge (%)</option>
+                    <option value="counter">Days Counter Tracker</option>
+                    <option value="chart">Defect Pareto Chart</option>
+                    <option value="project">Milestones Roadmap Project</option>
+                    <option value="stopwatch">⏱️ Operator Cycle Time Stopwatch</option>
+                    <option value="heatmap">🔥 24-Hour Production OEE Heatmap</option>
+                    <option value="pareto">📊 Scrap & Waste Pareto Bar Chart</option>
+                    <option value="skills">🤹 EHS & Assembly Skill Matrix Grid</option>
+                    <option value="kanban">📋 Strategic CI Ideas Kanban Board</option>
+                    <option value="handover">✍️ Shift Handover Sign-off Block</option>
+                    <option value="riskGauge">🚨 Floor Hazard Threat Index Gauge</option>
+                    <option value="emission">🍃 Carbon Footprint Emission Tracker</option>
+                    <option value="radar">🕸️ Gemba Walk 5S Audit Radar</option>
+                    <option value="countdown">📦 Rig Packing Lead-Time Countdown</option>
+                    <option value="pulse">💓 Rig Takt-Time Heartbeat Pulsar</option>
                   </select>
                 </div>
-                {newWType !== 'checklist' && newWType !== 'counter' && newWType !== 'chart' && newWType !== 'project' && (
+
+                {/* Conditionally Render Inputs based on exact requirements of Selected Style */}
+                {['numeric', 'gauge', 'stopwatch', 'riskGauge', 'emission', 'pulse'].includes(newWType) && (
                   <>
                     <div>
                       <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Unit Symbol</label>
                       <input
                         type="text"
-                        placeholder="e.g. % or kg"
+                        placeholder="e.g. % or kg or s"
                         value={newWUnit}
                         onChange={(e) => setNewWUnit(e.target.value)}
                         className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-semibold"
@@ -513,7 +530,7 @@ export default function App() {
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Initial Value</label>
+                      <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Initial Value / Actual</label>
                       <input
                         type="number"
                         placeholder="e.g. 94"
@@ -524,6 +541,20 @@ export default function App() {
                     </div>
                   </>
                 )}
+
+                {newWType === 'counter' && (
+                  <div>
+                    <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Initial Counter Value</label>
+                    <input
+                      type="number"
+                      placeholder="e.g. 100"
+                      value={newWActual}
+                      onChange={(e) => setNewWActual(e.target.value)}
+                      className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-mono font-semibold"
+                    />
+                  </div>
+                )}
+
                 {newWType === 'checklist' && (
                   <div className="sm:col-span-2">
                     <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Checklist Steps (Comma separated)</label>
