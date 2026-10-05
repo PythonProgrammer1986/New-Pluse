@@ -31,6 +31,7 @@ export default function App() {
     updateSafetyNote,
     addWidget,
     deleteWidget,
+    reorderWidgets,
     addDeviation,
     updateDeviation,
     deleteDeviation,
@@ -670,26 +671,6 @@ export default function App() {
               {/* 1. DAILY PULSE LEVEL VIEWPORT */}
               {activeLevel === 'daily' && (
                 <div className="space-y-6">
-                  {/* Daily Pulse Operational Context Summary */}
-                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-amber-50 dark:bg-slate-800 flex items-center justify-center text-[#FFC20E] font-mono font-bold text-sm border border-[#FFC20E]/20">
-                        S1
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-mono">Daily Shift Standing Status</span>
-                        <h3 className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-0.5 leading-snug">
-                          Epiroc shift huddle commenced at 08:00. Safety cross, daily throughput and scrap metrics verified.
-                        </h3>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4 text-xs font-mono text-slate-400 shrink-0">
-                      <span>PPE Audits: <span className="text-emerald-600 font-bold">100% Passed</span></span>
-                      <span>·</span>
-                      <span>Quality Pareto: <span className="text-rose-500 font-bold">1 Alert</span></span>
-                    </div>
-                  </div>
-
                   {/* Primary Daily Grid: Conditional structure based on Pillar Filtering */}
                   {selectedPillarFilter !== 'all' ? (
                     <div className="space-y-6">
@@ -727,6 +708,7 @@ export default function App() {
                             onToggleChecklist={toggleChecklistItem}
                             onDelete={deleteWidget}
                             userRole={state.currentUserRole}
+                            onReorder={reorderWidgets}
                           />
                         ))}
                       </div>
@@ -735,7 +717,20 @@ export default function App() {
                     <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
                       
                       {/* Column 1: Safety & Sustainability (Pillar S & S) */}
-                      <div className="xl:col-span-4 space-y-6">
+                      <div 
+                        onDragOver={(e) => e.preventDefault()}
+                        onDrop={(e) => {
+                          e.preventDefault();
+                          const draggedId = e.dataTransfer.getData("text/plain");
+                          if (draggedId) {
+                            const w = state.widgets.find(item => item.id === draggedId);
+                            if (w && w.pillar !== 'Safety' && w.pillar !== 'Sustainability') {
+                              updateWidgetValue(draggedId, { pillar: 'Safety' });
+                            }
+                          }
+                        }}
+                        className="xl:col-span-4 space-y-6 min-h-[400px] rounded-xl p-2 transition-all border-2 border-dashed border-transparent hover:border-slate-200/50 dark:hover:border-slate-800/40"
+                      >
                         <div className="border-b border-slate-200 dark:border-slate-800 pb-2 flex items-center gap-2">
                           <Shield className="w-4 h-4 text-slate-850 dark:text-[#FFC20E]" />
                           <h3 className="font-extrabold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-300">
@@ -773,12 +768,26 @@ export default function App() {
                               onToggleChecklist={toggleChecklistItem}
                               onDelete={deleteWidget}
                               userRole={state.currentUserRole}
+                              onReorder={reorderWidgets}
                             />
                           ))}
                       </div>
 
                       {/* Column 2: Quality & Delivery (Pillar Q & D) */}
-                      <div className="xl:col-span-4 space-y-6">
+                      <div 
+                        onDragOver={(e) => e.preventDefault()}
+                        onDrop={(e) => {
+                          e.preventDefault();
+                          const draggedId = e.dataTransfer.getData("text/plain");
+                          if (draggedId) {
+                            const w = state.widgets.find(item => item.id === draggedId);
+                            if (w && w.pillar !== 'Quality' && w.pillar !== 'Delivery') {
+                              updateWidgetValue(draggedId, { pillar: 'Quality' });
+                            }
+                          }
+                        }}
+                        className="xl:col-span-4 space-y-6 min-h-[400px] rounded-xl p-2 transition-all border-2 border-dashed border-transparent hover:border-slate-200/50 dark:hover:border-slate-800/40"
+                      >
                         <div className="border-b border-slate-200 dark:border-slate-800 pb-2 flex items-center gap-2">
                           <CheckCircle className="w-4 h-4 text-slate-850 dark:text-[#FFC20E]" />
                           <h3 className="font-extrabold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-300">
@@ -796,12 +805,26 @@ export default function App() {
                               onToggleChecklist={toggleChecklistItem}
                               onDelete={deleteWidget}
                               userRole={state.currentUserRole}
+                              onReorder={reorderWidgets}
                             />
                           ))}
                       </div>
 
                       {/* Column 3: Cost & Capital (Pillar C & C) */}
-                      <div className="xl:col-span-4 space-y-6">
+                      <div 
+                        onDragOver={(e) => e.preventDefault()}
+                        onDrop={(e) => {
+                          e.preventDefault();
+                          const draggedId = e.dataTransfer.getData("text/plain");
+                          if (draggedId) {
+                            const w = state.widgets.find(item => item.id === draggedId);
+                            if (w && w.pillar !== 'Cost' && w.pillar !== 'Capital') {
+                              updateWidgetValue(draggedId, { pillar: 'Cost' });
+                            }
+                          }
+                        }}
+                        className="xl:col-span-4 space-y-6 min-h-[400px] rounded-xl p-2 transition-all border-2 border-dashed border-transparent hover:border-slate-200/50 dark:hover:border-slate-800/40"
+                      >
                         <div className="border-b border-slate-200 dark:border-slate-800 pb-2 flex items-center gap-2">
                           <Coins className="w-4 h-4 text-slate-850 dark:text-[#FFC20E]" />
                           <h3 className="font-extrabold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-300">
@@ -819,6 +842,7 @@ export default function App() {
                               onToggleChecklist={toggleChecklistItem}
                               onDelete={deleteWidget}
                               userRole={state.currentUserRole}
+                              onReorder={reorderWidgets}
                             />
                           ))}
                       </div>
@@ -831,24 +855,6 @@ export default function App() {
               {/* 2. WEEKLY DEVIATION STAND-UP LEVEL */}
               {activeLevel === 'weekly' && (
                 <div className="space-y-6">
-                  {/* Summary Ribbon */}
-                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-slate-950 text-[#FFC20E] flex items-center justify-center font-mono font-bold text-sm">
-                        S2
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-mono">Weekly Stand-up Context</span>
-                        <h3 className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-0.5 leading-snug">
-                          Weekly deviation reviews focus on analyzing why Daily targets failed and forming rigorous Countermeasure Action Plans.
-                        </h3>
-                      </div>
-                    </div>
-                    <div className="text-xs font-mono text-slate-400 shrink-0">
-                      <span>Total Deviations this week: <span className="text-rose-500 font-bold">{currentDeviations.filter(d => !d.isResolved).length} open</span></span>
-                    </div>
-                  </div>
-
                   {/* Split Weekly Workspace: Widgets on Left, 5-Why solver on Right */}
                   <div className="space-y-6">
                     {/* First, show the Weekly level metric trackers (Highly editable) */}
@@ -863,6 +869,7 @@ export default function App() {
                             onToggleChecklist={toggleChecklistItem}
                             onDelete={deleteWidget}
                             userRole={state.currentUserRole}
+                            onReorder={reorderWidgets}
                           />
                         ))}
                     </div>
@@ -890,21 +897,6 @@ export default function App() {
               {/* 3. MONTHLY STRATEGIC LEVEL */}
               {activeLevel === 'monthly' && (
                 <div className="space-y-6">
-                  {/* Summary ribbon */}
-                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-slate-950 text-[#FFC20E] flex items-center justify-center font-mono font-bold text-sm">
-                        S3
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-mono">Monthly Strategic Alignment</span>
-                        <h3 className="text-xs font-bold text-slate-800 dark:text-slate-200 mt-0.5 leading-snug">
-                          High-level long term targets, capital project validation, corporate carbon compliance, and systemic continuous improvements.
-                        </h3>
-                      </div>
-                    </div>
-                  </div>
-
                   {/* Render the Monthly strategic Widgets */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {currentWidgets
@@ -917,6 +909,7 @@ export default function App() {
                           onToggleChecklist={toggleChecklistItem}
                           onDelete={deleteWidget}
                           userRole={state.currentUserRole}
+                          onReorder={reorderWidgets}
                         />
                       ))}
                   </div>
@@ -929,6 +922,8 @@ export default function App() {
                     actionItems={currentActionItems}
                     userRole={state.currentUserRole}
                     onUpdateDeviation={updateDeviation}
+                    onDeleteDeviation={deleteDeviation}
+                    onUpdateWidgetValue={updateWidgetValue}
                   />
                 </div>
               )}

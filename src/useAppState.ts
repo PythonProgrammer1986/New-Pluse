@@ -407,6 +407,32 @@ export function useAppState() {
     });
   };
 
+  const reorderWidgets = (draggedId: string, targetId: string) => {
+    setState((prev) => {
+      const draggedIdx = prev.widgets.findIndex((w) => w.id === draggedId);
+      const targetIdx = prev.widgets.findIndex((w) => w.id === targetId);
+      if (draggedIdx === -1 || targetIdx === -1) return prev;
+
+      const updatedWidgets = [...prev.widgets];
+      const draggedWidget = { ...updatedWidgets[draggedIdx] };
+      const targetWidget = updatedWidgets[targetIdx];
+
+      // Update the pillar of the dragged widget to match the target widget's pillar,
+      // so that it physically moves between columns (sidewise)!
+      if (draggedWidget.pillar !== targetWidget.pillar) {
+        draggedWidget.pillar = targetWidget.pillar;
+      }
+
+      updatedWidgets.splice(draggedIdx, 1);
+      updatedWidgets.splice(targetIdx, 0, draggedWidget);
+
+      return {
+        ...prev,
+        widgets: updatedWidgets
+      };
+    });
+  };
+
   const resetToTemplate = () => {
     if (window.confirm('Are you sure you want to reset the board back to the default operational template? All custom metrics and recent logs will be lost.')) {
       setState(INITIAL_STATE);
@@ -423,6 +449,7 @@ export function useAppState() {
     updateSafetyNote,
     addWidget,
     deleteWidget,
+    reorderWidgets,
     addDeviation,
     updateDeviation,
     deleteDeviation,

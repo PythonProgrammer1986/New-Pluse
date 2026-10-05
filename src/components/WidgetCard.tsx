@@ -11,6 +11,7 @@ interface WidgetCardProps {
   onToggleChecklist: (widgetId: string, itemId: string) => void;
   onDelete: (id: string) => void;
   userRole: string;
+  onReorder?: (draggedId: string, targetId: string) => void;
 }
 
 export default function WidgetCard({
@@ -19,6 +20,7 @@ export default function WidgetCard({
   onToggleChecklist,
   onDelete,
   userRole,
+  onReorder,
 }: WidgetCardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [tempActual, setTempActual] = useState(widget.actual?.toString() || '');
@@ -147,7 +149,26 @@ export default function WidgetCard({
                              widget.actual > widget.target * (widget.warningThreshold / 100);
 
   return (
-    <div className={`relative bg-white dark:bg-slate-900 border rounded-xl shadow-sm transition-all duration-300 overflow-hidden flex flex-col h-full ${
+    <div 
+      draggable="true"
+      onDragStart={(e) => {
+        e.dataTransfer.setData("text/plain", widget.id);
+        e.currentTarget.style.opacity = '0.5';
+      }}
+      onDragEnd={(e) => {
+        e.currentTarget.style.opacity = '1';
+      }}
+      onDragOver={(e) => {
+        e.preventDefault();
+      }}
+      onDrop={(e) => {
+        e.preventDefault();
+        const draggedId = e.dataTransfer.getData("text/plain");
+        if (draggedId && draggedId !== widget.id && onReorder) {
+          onReorder(draggedId, widget.id);
+        }
+      }}
+      className={`relative bg-white dark:bg-slate-900 border rounded-xl shadow-sm transition-all duration-300 overflow-hidden flex flex-col h-full cursor-grab active:cursor-grabbing ${
       isExceedingWarning 
         ? 'border-rose-500 ring-4 ring-rose-500/50 shadow-[0_0_20px_rgba(239,68,68,0.45)] animate-pulse' 
         : widget.state === 'red' 

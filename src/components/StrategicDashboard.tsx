@@ -3,7 +3,7 @@ import { MetricWidget, Deviation, ActionItem, Pillar } from '../types';
 import { 
   BarChart3, Activity, Award, CheckCircle2, TrendingUp, Cpu, Landmark, HardHat,
   Plus, Check, Flame, ThumbsUp, DollarSign, PieChart, Shield, Leaf, Coins,
-  Sliders, ArrowUpRight, HelpCircle
+  Sliders, ArrowUpRight, HelpCircle, Trash2
 } from 'lucide-react';
 
 interface StrategicDashboardProps {
@@ -12,6 +12,8 @@ interface StrategicDashboardProps {
   actionItems: ActionItem[];
   userRole: string;
   onUpdateDeviation?: (id: string, updates: Partial<Deviation>) => void;
+  onDeleteDeviation?: (id: string) => void;
+  onUpdateWidgetValue?: (id: string, updates: Partial<MetricWidget>) => void;
   onAddCustomWidget?: (widget: Omit<MetricWidget, 'id' | 'state'>) => void;
 }
 
@@ -32,6 +34,8 @@ export default function StrategicDashboard({
   actionItems,
   userRole,
   onUpdateDeviation,
+  onDeleteDeviation,
+  onUpdateWidgetValue,
   onAddCustomWidget,
 }: StrategicDashboardProps) {
   // Continuous Improvement Ideas list state
@@ -57,6 +61,8 @@ export default function StrategicDashboard({
   const [oeeQuality, setOeeQuality] = useState<number>(98);
 
   // Custom Strategic Targets (Dynamic editing in Monthly Pulse)
+  const [opeHealthActual, setOpeHealthActual] = useState<number>(94.2);
+  const [opeHealthTarget, setOpeHealthTarget] = useState<number>(95);
   const [annualPaybackProgress, setAnnualPaybackProgress] = useState<number>(114800);
   const [annualPaybackTarget, setAnnualPaybackTarget] = useState<number>(160000);
   const [copqTarget, setCopqTarget] = useState<number>(10000);
@@ -152,19 +158,49 @@ export default function StrategicDashboard({
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         
         {/* KPI 1: Overall Operational Health */}
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl shadow-sm">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Operational Health Goal</span>
-          <span className="text-2xl font-bold font-mono text-slate-800 dark:text-white mt-1 block">94.2%</span>
-          <div className="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full mt-3">
-            <div className="h-full bg-[#FFC20E] rounded-full" style={{ width: '94.2%' }}></div>
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl shadow-sm space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-bold">Operational Health Goal</span>
+            <span className="text-[9px] font-bold text-[#FFC20E] font-mono">T3 Edit</span>
           </div>
-          <span className="text-[10px] text-slate-400 block mt-1.5">Epiroc Sweden T3 Standard</span>
+          
+          <div className="flex items-center gap-2">
+            <div className="flex-1">
+              <label className="block text-[8px] text-slate-400 uppercase">Actual %</label>
+              <input 
+                type="number" 
+                step="0.1"
+                value={opeHealthActual}
+                onChange={(e) => {
+                  const val = parseFloat(e.target.value) || 0;
+                  setOpeHealthActual(val);
+                }}
+                className="w-full text-xs font-mono font-bold bg-slate-50 dark:bg-slate-800 border border-slate-200 p-1 rounded"
+              />
+            </div>
+            <div className="flex-1">
+              <label className="block text-[8px] text-slate-400 uppercase">Target %</label>
+              <input 
+                type="number" 
+                step="0.1"
+                value={opeHealthTarget}
+                onChange={(e) => {
+                  const val = parseFloat(e.target.value) || 0;
+                  setOpeHealthTarget(val);
+                }}
+                className="w-full text-xs font-mono font-bold bg-slate-50 dark:bg-slate-800 border border-slate-200 p-1 rounded"
+              />
+            </div>
+          </div>
+          <div className="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full">
+            <div className="h-full bg-[#FFC20E] rounded-full transition-all" style={{ width: `${Math.min(100, (opeHealthActual / (opeHealthTarget || 100)) * 100)}%` }}></div>
+          </div>
         </div>
 
         {/* KPI 2: Strategic COPQ (Editable) */}
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl shadow-sm space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">Cost of Poor Quality (COPQ)</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-bold">Cost of Poor Quality (COPQ)</span>
             <span className="text-[9px] font-bold text-rose-500 font-mono">T3 Edit</span>
           </div>
           
@@ -174,7 +210,13 @@ export default function StrategicDashboard({
               <input 
                 type="number" 
                 value={copqActual}
-                onChange={(e) => setCopqActual(parseFloat(e.target.value) || 0)}
+                onChange={(e) => {
+                  const val = parseFloat(e.target.value) || 0;
+                  setCopqActual(val);
+                  if (onUpdateWidgetValue) {
+                    onUpdateWidgetValue('m-quality-copq', { actual: val, state: val > copqTarget ? 'red' : 'green' });
+                  }
+                }}
                 className="w-full text-xs font-mono font-bold bg-slate-50 dark:bg-slate-800 border border-slate-200 p-1 rounded"
               />
             </div>
@@ -183,12 +225,18 @@ export default function StrategicDashboard({
               <input 
                 type="number" 
                 value={copqTarget}
-                onChange={(e) => setCopqTarget(parseFloat(e.target.value) || 0)}
+                onChange={(e) => {
+                  const val = parseFloat(e.target.value) || 0;
+                  setCopqTarget(val);
+                  if (onUpdateWidgetValue) {
+                    onUpdateWidgetValue('m-quality-copq', { target: val, state: copqActual > val ? 'red' : 'green' });
+                  }
+                }}
                 className="w-full text-xs font-mono font-bold bg-slate-50 dark:bg-slate-800 border border-slate-200 p-1 rounded"
               />
             </div>
           </div>
-          <span className={`text-[10px] block mt-1.5 font-bold ${copqActual > copqTarget ? 'text-rose-500' : 'text-emerald-500'}`}>
+          <span className={`text-[10px] block mt-1 font-bold ${copqActual > copqTarget ? 'text-rose-500' : 'text-emerald-500'}`}>
             Variance: +${(copqActual - copqTarget).toLocaleString()} {copqActual > copqTarget ? 'Loss' : 'Savings'}
           </span>
         </div>
@@ -196,7 +244,7 @@ export default function StrategicDashboard({
         {/* KPI 3: CO2 Reductions (Editable) */}
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl shadow-sm space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block">CO2 Offsets (%)</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-bold">CO2 Offsets (%)</span>
             <span className="text-[9px] font-bold text-emerald-500 font-mono">T3 Edit</span>
           </div>
           
@@ -206,7 +254,13 @@ export default function StrategicDashboard({
               <input 
                 type="number" 
                 value={co2Actual}
-                onChange={(e) => setCopco2Actual(parseFloat(e.target.value) || 0)}
+                onChange={(e) => {
+                  const val = parseFloat(e.target.value) || 0;
+                  setCopco2Actual(val);
+                  if (onUpdateWidgetValue) {
+                    onUpdateWidgetValue('m-sust-carbon', { actual: val, state: val > co2Target ? 'red' : 'green' });
+                  }
+                }}
                 className="w-full text-xs font-mono font-bold bg-slate-50 dark:bg-slate-800 border border-slate-200 p-1 rounded"
               />
             </div>
@@ -215,12 +269,18 @@ export default function StrategicDashboard({
               <input 
                 type="number" 
                 value={co2Target}
-                onChange={(e) => setCopco2Target(parseFloat(e.target.value) || 0)}
+                onChange={(e) => {
+                  const val = parseFloat(e.target.value) || 0;
+                  setCopco2Target(val);
+                  if (onUpdateWidgetValue) {
+                    onUpdateWidgetValue('m-sust-carbon', { target: val, state: co2Actual > val ? 'red' : 'green' });
+                  }
+                }}
                 className="w-full text-xs font-mono font-bold bg-slate-50 dark:bg-slate-800 border border-slate-200 p-1 rounded"
               />
             </div>
           </div>
-          <span className="text-[10px] text-slate-400 block mt-1.5 font-medium">Carbon reduction benchmark goals</span>
+          <span className="text-[10px] text-slate-400 block mt-1 font-medium">Carbon reduction benchmark goals</span>
         </div>
 
         {/* KPI 4: Capex Payback Progress (Editable) */}
@@ -296,14 +356,26 @@ export default function StrategicDashboard({
                     <strong>Observed:</strong> {dev.description} | <strong>5-Why Cause:</strong> {dev.rootCause || 'Under review...'}
                   </p>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => handleFundDeviationWithCapex(dev)}
-                  className="px-3.5 py-1.5 bg-[#FFC20E] hover:bg-[#E5B200] text-slate-950 font-extrabold text-[11px] rounded-lg shadow-sm flex items-center gap-1.5 cursor-pointer shrink-0 transition-all font-mono"
-                >
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                  <span>Fund Root Cause</span>
-                </button>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    type="button"
+                    onClick={() => handleFundDeviationWithCapex(dev)}
+                    className="px-3.5 py-1.5 bg-[#FFC20E] hover:bg-[#E5B200] text-slate-950 font-extrabold text-[11px] rounded-lg shadow-sm flex items-center gap-1.5 cursor-pointer transition-all font-mono"
+                  >
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                    <span>Fund Root Cause</span>
+                  </button>
+                  {onDeleteDeviation && (
+                    <button
+                      type="button"
+                      onClick={() => onDeleteDeviation(dev.id)}
+                      className="p-1.5 text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-lg cursor-pointer transition-colors"
+                      title="Delete Deviation"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
               </div>
             ))}
           </div>
@@ -524,9 +596,15 @@ export default function StrategicDashboard({
                     </span>
                     <span className="text-[10px] text-slate-400 font-mono">By {idea.submittedBy}</span>
                   </div>
-                  <h4 className="text-xs font-bold text-slate-800 dark:text-slate-100 leading-snug break-words" title={idea.title}>
-                    {idea.title}
-                  </h4>
+                  <input
+                    type="text"
+                    value={idea.title}
+                    onChange={(e) => {
+                      setIdeas(ideas.map(i => i.id === idea.id ? { ...i, title: e.target.value } : i));
+                    }}
+                    className="text-xs font-bold text-slate-800 dark:text-slate-100 bg-transparent hover:bg-slate-200/40 dark:hover:bg-slate-800/40 px-1 py-0.5 rounded focus:bg-white dark:focus:bg-slate-900 border border-transparent focus:border-slate-300 w-full"
+                    title="Click to edit suggestion title"
+                  />
                   <div className="flex items-center gap-4 text-[10px] text-slate-500 dark:text-slate-400 font-mono">
                     <span className="flex items-center text-emerald-600 dark:text-emerald-400 font-bold">
                       Savings: ${idea.estimatedSaving.toLocaleString()}/yr
@@ -536,8 +614,8 @@ export default function StrategicDashboard({
                   </div>
                 </div>
 
-                {/* Voting & Admin actions */}
-                <div className="flex items-center gap-2 shrink-0">
+                {/* Voting, Admin actions & Deletion */}
+                <div className="flex items-center gap-1.5 shrink-0">
                   <button 
                     onClick={() => handleVote(idea.id)}
                     className="flex items-center gap-1 px-2 py-1 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 rounded-lg text-slate-600 dark:text-slate-300 font-bold font-mono text-xs cursor-pointer transition-colors"
@@ -555,6 +633,15 @@ export default function StrategicDashboard({
                     <option value="approved">Funded</option>
                     <option value="implemented">Active SOP</option>
                   </select>
+
+                  <button 
+                    type="button"
+                    onClick={() => setIdeas(ideas.filter(i => i.id !== idea.id))}
+                    className="p-1 text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-lg transition-colors cursor-pointer"
+                    title="Delete suggestion"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
                 </div>
               </div>
             ))}
