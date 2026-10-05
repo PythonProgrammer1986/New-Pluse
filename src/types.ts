@@ -37,6 +37,7 @@ export interface MetricWidget {
   dataPoints?: DataPoint[]; // for charts/sparklines
   checklist?: ChecklistItem[]; // for checklist types
   milestones?: ProjectMilestone[]; // for capital projects or strategic targets
+  linkedWidgetId?: string; // ID of the daily widget this widget is synchronized with
 }
 
 export interface Deviation {

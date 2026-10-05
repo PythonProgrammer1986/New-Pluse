@@ -24,11 +24,15 @@ export function useAppState() {
               return true;
             });
           }
-          // Deduplicate any legacy widgets duplicates
+          // Deduplicate any legacy widgets duplicates and filter out preset weekly/monthly widgets
           if (Array.isArray(parsed.widgets)) {
             const seen = new Set();
             parsed.widgets = parsed.widgets.filter((w: any) => {
               if (!w || !w.id || seen.has(w.id)) {
+                return false;
+              }
+              // If it's a weekly or monthly widget, only allow custom created ones
+              if ((w.level === 'weekly' || w.level === 'monthly') && !w.id.includes('custom-')) {
                 return false;
               }
               seen.add(w.id);
@@ -74,7 +78,7 @@ export function useAppState() {
 
   const updateWidgetValue = (id: string, updates: Partial<MetricWidget>) => {
     setState((prev) => {
-      const updatedWidgets = prev.widgets.map((w): MetricWidget => {
+      let updatedWidgets = prev.widgets.map((w): MetricWidget => {
         if (w.id === id) {
           const nextWidget: MetricWidget = { ...w, ...updates };
           
@@ -103,6 +107,43 @@ export function useAppState() {
         }
         return w;
       });
+
+      // Synchronize linked widgets (two-way alignment)
+      const sourceWidget = updatedWidgets.find(w => w.id === id);
+      if (sourceWidget) {
+        for (let i = 0; i < updatedWidgets.length; i++) {
+          const w = updatedWidgets[i];
+          if (w.linkedWidgetId === id) {
+            updatedWidgets[i] = {
+              ...w,
+              actual: sourceWidget.actual !== undefined ? sourceWidget.actual : w.actual,
+              target: sourceWidget.target !== undefined ? sourceWidget.target : w.target,
+              value: sourceWidget.value !== undefined ? sourceWidget.value : w.value,
+              state: sourceWidget.state,
+              checklist: sourceWidget.checklist ? [...sourceWidget.checklist] : w.checklist,
+              dataPoints: sourceWidget.dataPoints ? [...sourceWidget.dataPoints] : w.dataPoints,
+              milestones: sourceWidget.milestones ? [...sourceWidget.milestones] : w.milestones,
+            };
+          } else if (id === w.id && w.linkedWidgetId) {
+            const parentWidget = updatedWidgets.find(p => p.id === w.linkedWidgetId);
+            if (parentWidget) {
+              const parentIdx = updatedWidgets.findIndex(p => p.id === w.linkedWidgetId);
+              if (parentIdx !== -1) {
+                updatedWidgets[parentIdx] = {
+                  ...parentWidget,
+                  actual: w.actual !== undefined ? w.actual : parentWidget.actual,
+                  target: w.target !== undefined ? w.target : parentWidget.target,
+                  value: w.value !== undefined ? w.value : parentWidget.value,
+                  state: w.state,
+                  checklist: w.checklist ? [...w.checklist] : parentWidget.checklist,
+                  dataPoints: w.dataPoints ? [...w.dataPoints] : parentWidget.dataPoints,
+                  milestones: w.milestones ? [...w.milestones] : parentWidget.milestones,
+                };
+              }
+            }
+          }
+        }
+      }
 
       // Automated check: if a widget changed to 'red', let's auto-suggest a deviation
       // if one doesn't exist for today.

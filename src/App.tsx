@@ -65,6 +65,7 @@ export default function App() {
   const [newWActual, setNewWActual] = useState('');
   const [newWDesc, setNewWDesc] = useState('');
   const [newWWarningThreshold, setNewWWarningThreshold] = useState<string>('110');
+  const [newWLinkedId, setNewWLinkedId] = useState<string>('');
   
   // Custom interface list items parsing (checklists, charts, projects)
   const [newChecklistText, setNewChecklistText] = useState('');
@@ -147,7 +148,8 @@ export default function App() {
       checklist: checklistData,
       dataPoints: chartData,
       milestones: milestonesData,
-      description: newWDesc || `Custom tracker for ${newWTitle}.`
+      description: newWDesc || `Custom tracker for ${newWTitle}.`,
+      linkedWidgetId: newWLinkedId || undefined
     });
 
     // Reset Widget Form
@@ -157,6 +159,7 @@ export default function App() {
     setNewWActual('');
     setNewWDesc('');
     setNewWWarningThreshold('110');
+    setNewWLinkedId('');
     setNewChecklistText('');
     setNewChartText('');
     setNewProjectText('');
@@ -636,6 +639,25 @@ export default function App() {
                     />
                   </div>
                 )}
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] text-emerald-500 font-bold uppercase tracking-wider mb-1 flex items-center gap-1">
+                    <span>🔗 Sync Link (Connect to other level's Widget)</span>
+                  </label>
+                  <select
+                    value={newWLinkedId}
+                    onChange={(e) => setNewWLinkedId(e.target.value)}
+                    className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-semibold cursor-pointer"
+                  >
+                    <option value="">Static Custom Metric (No synchronization)</option>
+                    {state.widgets
+                      .filter((w) => w.level !== newWLevel)
+                      .map((w) => (
+                        <option key={w.id} value={w.id}>
+                          [{w.level.toUpperCase()}] [{w.pillar}] {w.title}
+                        </option>
+                      ))}
+                  </select>
+                </div>
                 <div className="sm:col-span-2">
                   <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">KPI Description & Purpose</label>
                   <input

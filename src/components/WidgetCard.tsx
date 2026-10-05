@@ -184,6 +184,11 @@ export default function WidgetCard({
           </h4>
         </div>
         <div className="flex items-center gap-1 shrink-0">
+          {widget.linkedWidgetId && (
+            <div className="px-1.5 py-0.5 rounded text-[8px] font-extrabold uppercase bg-emerald-500 text-white dark:bg-emerald-600/80 tracking-widest" title="Auto-synchronizing values with connected huddleboard widget">
+              🔗 Synced
+            </div>
+          )}
           {/* Status Badge */}
           <div className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${widget.state === 'red' ? 'bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300 animate-pulse' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300'}`}>
             {widget.state === 'red' ? 'Deviation' : 'Target Met'}
