@@ -72,6 +72,14 @@ export interface TeamConfig {
   members: string[];
 }
 
+export interface AppStateSnapshot {
+  widgets: MetricWidget[];
+  deviations: Deviation[];
+  actionItems: ActionItem[];
+  safetyCross: { [dayIndex: number]: 'green' | 'red' | 'amber' | 'none' };
+  safetyNotes: { [dayIndex: number]: string };
+}
+
 export interface AppState {
   currentTeam: string;
   currentUserRole: string;
@@ -80,4 +88,5 @@ export interface AppState {
   actionItems: ActionItem[];
   safetyCross: { [dayIndex: number]: 'green' | 'red' | 'amber' | 'none' }; // for safety calendar (1-31)
   safetyNotes?: { [dayIndex: number]: string }; // Note-taking per calendar day
+  history?: { [dateString: string]: AppStateSnapshot };
 }

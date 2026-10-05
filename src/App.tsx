@@ -39,7 +39,10 @@ export default function App() {
     deleteActionItem,
     exportBackup,
     importBackup,
-    resetToTemplate
+    resetToTemplate,
+    saveSnapshot,
+    restoreSnapshot,
+    deleteSnapshot
   } = useAppState();
 
   const [activeLevel, setActiveLevel] = useState<PulseLevel>('daily');
@@ -73,8 +76,21 @@ export default function App() {
     message: string;
   } | null>(null);
 
+  // Archive snapshot selection states
+  const [selectedSnapshotDate, setSelectedSnapshotDate] = useState<string>('live');
+  const [snapshotTargetDate, setSnapshotTargetDate] = useState<string>(new Date().toISOString().split('T')[0]);
+
+  // Dynamically pull from historical backup snapshot if viewing an archive
+  const activeSnapshot = selectedSnapshotDate !== 'live' && state.history ? state.history[selectedSnapshotDate] : null;
+
+  const currentWidgets = activeSnapshot ? activeSnapshot.widgets : state.widgets;
+  const currentDeviations = activeSnapshot ? activeSnapshot.deviations : state.deviations;
+  const currentActionItems = activeSnapshot ? activeSnapshot.actionItems : state.actionItems;
+  const currentSafetyCross = activeSnapshot ? activeSnapshot.safetyCross : state.safetyCross;
+  const currentSafetyNotes = activeSnapshot ? activeSnapshot.safetyNotes : (state.safetyNotes || {});
+
   // Filter widgets by active level and pillar
-  const displayedWidgets = state.widgets.filter((w) => {
+  const displayedWidgets = currentWidgets.filter((w) => {
     const matchesLevel = w.level === activeLevel;
     const matchesPillar = selectedPillarFilter === 'all' || w.pillar === selectedPillarFilter;
     return matchesLevel && matchesPillar;
@@ -398,7 +414,7 @@ export default function App() {
         <main className="flex-1 overflow-y-auto p-6 space-y-6 bg-white dark:bg-slate-950">
           
           {/* Dashboard Context Title block */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-5">
+          <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-5">
             <div>
               {/* Breadcrumb Trail */}
               <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-bold mb-1">
@@ -415,16 +431,111 @@ export default function App() {
               </h2>
             </div>
 
-            {/* Config & Builder action buttons */}
-            {activeTab === 'board' && activeLevel !== 'monthly' && (
-              <button
-                onClick={() => setShowAddWidget(!showAddWidget)}
-                className="px-4 py-2 bg-[#FFC20E] hover:bg-[#F3AF00] text-slate-950 rounded-lg text-xs font-black flex items-center gap-1.5 shadow-lg shadow-[#FFC20E]/25 hover:shadow-[#FFC20E]/40 transition-all hover:scale-[1.02] cursor-pointer uppercase tracking-wider"
-              >
-                <Plus className="w-4 h-4" /> Add Custom Metric
-              </button>
-            )}
+            {/* Historical Snapshot Selector & Config Actions Panel */}
+            <div className="flex flex-wrap items-center gap-3 w-full xl:w-auto">
+              <div className="flex flex-wrap items-center gap-2 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 p-2 rounded-xl shadow-inner shrink-0 w-full sm:w-auto justify-between sm:justify-start">
+                <div className="flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono">Snapshot Date:</span>
+                </div>
+                <select
+                  value={selectedSnapshotDate}
+                  onChange={(e) => setSelectedSnapshotDate(e.target.value)}
+                  className="text-xs font-bold px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 cursor-pointer focus:outline-none"
+                >
+                  <option value="live">🟢 Live Board (Active Realtime State)</option>
+                  {state.history && Object.keys(state.history).sort().reverse().map((dateStr) => (
+                    <option key={dateStr} value={dateStr}>
+                      📅 {dateStr} (Historical Backup)
+                    </option>
+                  ))}
+                </select>
+
+                <div className="flex items-center gap-1.5 pl-2 border-l border-slate-250 dark:border-slate-800">
+                  <input
+                    type="date"
+                    value={snapshotTargetDate}
+                    onChange={(e) => setSnapshotTargetDate(e.target.value)}
+                    className="text-[11px] font-mono px-1.5 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (!snapshotTargetDate) {
+                        alert('Please select a date.');
+                        return;
+                      }
+                      saveSnapshot(snapshotTargetDate);
+                      setSelectedSnapshotDate(snapshotTargetDate);
+                      alert(`Successfully saved backup snapshot for: ${snapshotTargetDate}!`);
+                    }}
+                    className="px-2.5 py-1.5 bg-slate-850 hover:bg-slate-800 text-white hover:text-[#FFC20E] text-[9px] font-black rounded-lg cursor-pointer transition-all uppercase tracking-wider"
+                    title="Capture current board state and commit to historical backup registry"
+                  >
+                    Backup Current
+                  </button>
+                </div>
+              </div>
+
+              {activeTab === 'board' && activeLevel !== 'monthly' && (
+                <button
+                  onClick={() => setShowAddWidget(!showAddWidget)}
+                  className="px-4 py-2.5 bg-[#FFC20E] hover:bg-[#F3AF00] text-slate-950 rounded-lg text-xs font-black flex items-center gap-1.5 shadow-lg shadow-[#FFC20E]/25 hover:shadow-[#FFC20E]/40 transition-all hover:scale-[1.02] cursor-pointer uppercase tracking-wider w-full sm:w-auto justify-center"
+                >
+                  <Plus className="w-4 h-4" /> Add Custom Metric
+                </button>
+              )}
+            </div>
           </div>
+
+          {/* Historical View-Only Archive Mode Banner */}
+          {selectedSnapshotDate !== 'live' && (
+            <div className="bg-amber-500/10 border border-amber-500/20 p-4 rounded-xl flex flex-col lg:flex-row lg:items-center justify-between gap-4 animate-fade-in shadow-sm">
+              <div className="flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5 animate-pulse" />
+                <div>
+                  <span className="font-extrabold text-sm text-slate-800 dark:text-slate-200 block">
+                    Viewing Historical Backup Archive: {selectedSnapshotDate}
+                  </span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400 block mt-1 leading-relaxed">
+                    You are exploring a preserved huddleboard snapshot from <strong>{selectedSnapshotDate}</strong>. All actions, metrics, and safety calendar items are currently shown in <strong>Read-Only mode</strong> to safeguard archival logs. You can restore this archive state to the active live board or delete it anytime.
+                  </span>
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center gap-2 shrink-0">
+                <button
+                  onClick={() => {
+                    if (window.confirm(`Are you sure you want to overwrite today's active live board with this historical backup from ${selectedSnapshotDate}? Current un-snapshotted active changes will be replaced.`)) {
+                      restoreSnapshot(selectedSnapshotDate);
+                      setSelectedSnapshotDate('live');
+                      alert(`Successfully restored the huddleboard back to the state of ${selectedSnapshotDate}!`);
+                    }
+                  }}
+                  className="px-3.5 py-1.5 bg-[#FFC20E] text-slate-950 hover:bg-[#E5B200] text-xs font-extrabold rounded-lg shadow cursor-pointer transition-all"
+                >
+                  Restore to Live Board
+                </button>
+                <button
+                  onClick={() => {
+                    if (window.confirm(`Are you sure you want to delete this snapshot for ${selectedSnapshotDate} from the backup storage?`)) {
+                      deleteSnapshot(selectedSnapshotDate);
+                      setSelectedSnapshotDate('live');
+                      alert(`Deleted snapshot for ${selectedSnapshotDate}.`);
+                    }
+                  }}
+                  className="px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 dark:bg-rose-950/20 dark:hover:bg-rose-950/40 text-xs font-bold rounded-lg cursor-pointer transition-all"
+                >
+                  Delete Snapshot
+                </button>
+                <button
+                  onClick={() => setSelectedSnapshotDate('live')}
+                  className="px-2.5 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-850 text-slate-500 dark:text-slate-400 text-xs font-bold rounded-lg cursor-pointer transition-all"
+                >
+                  Exit Archive
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Add Widget Overlay Form */}
           {showAddWidget && (
@@ -652,19 +763,19 @@ export default function App() {
                         {/* Always display the Safety Cross Calendar if Safety pillar is active for maximum context */}
                         {selectedPillarFilter === 'Safety' && (
                           <SafetyCrossCalendar 
-                            safetyCross={state.safetyCross}
-                            safetyNotes={state.safetyNotes}
+                            safetyCross={currentSafetyCross}
+                            safetyNotes={currentSafetyNotes}
                             onDayClick={updateSafetyCross}
                             onUpdateNote={updateSafetyNote}
                             daysSinceLastLTI={
-                              state.widgets.find((w) => w.id === 'd-safety-lti')?.value || 0
+                              currentWidgets.find((w) => w.id === 'd-safety-lti')?.value || 0
                             }
                             onResetLTI={() => {
                               updateWidgetValue('d-safety-lti', { value: 0 });
                               updateSafetyCross(30, 'red');
                             }}
                             onIncrementLTI={() => {
-                              const currentVal = state.widgets.find((w) => w.id === 'd-safety-lti')?.value || 0;
+                              const currentVal = currentWidgets.find((w) => w.id === 'd-safety-lti')?.value || 0;
                               updateWidgetValue('d-safety-lti', { value: currentVal + 1 });
                             }}
                           />
@@ -696,19 +807,19 @@ export default function App() {
                         
                         {/* Safety Cross Calendar with Daily Notes */}
                         <SafetyCrossCalendar 
-                          safetyCross={state.safetyCross}
-                          safetyNotes={state.safetyNotes}
+                          safetyCross={currentSafetyCross}
+                          safetyNotes={currentSafetyNotes}
                           onDayClick={updateSafetyCross}
                           onUpdateNote={updateSafetyNote}
                           daysSinceLastLTI={
-                            state.widgets.find((w) => w.id === 'd-safety-lti')?.value || 0
+                            currentWidgets.find((w) => w.id === 'd-safety-lti')?.value || 0
                           }
                           onResetLTI={() => {
                             updateWidgetValue('d-safety-lti', { value: 0 });
                             updateSafetyCross(30, 'red'); // also trigger safety cross red
                           }}
                           onIncrementLTI={() => {
-                            const currentVal = state.widgets.find((w) => w.id === 'd-safety-lti')?.value || 0;
+                            const currentVal = currentWidgets.find((w) => w.id === 'd-safety-lti')?.value || 0;
                             updateWidgetValue('d-safety-lti', { value: currentVal + 1 });
                           }}
                         />
@@ -796,7 +907,7 @@ export default function App() {
                       </div>
                     </div>
                     <div className="text-xs font-mono text-slate-400 shrink-0">
-                      <span>Total Deviations this week: <span className="text-rose-500 font-bold">{state.deviations.filter(d => !d.isResolved).length} open</span></span>
+                      <span>Total Deviations this week: <span className="text-rose-500 font-bold">{currentDeviations.filter(d => !d.isResolved).length} open</span></span>
                     </div>
                   </div>
 
@@ -804,7 +915,7 @@ export default function App() {
                   <div className="space-y-6">
                     {/* First, show the Weekly level metric trackers (Highly editable) */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {state.widgets
+                      {currentWidgets
                         .filter((w) => w.level === 'weekly' && (selectedPillarFilter === 'all' || w.pillar === selectedPillarFilter))
                         .map((widget) => (
                           <WidgetCard
@@ -826,11 +937,11 @@ export default function App() {
                         </h3>
                       </div>
                       <DeviationSolver 
-                        deviations={state.deviations}
+                        deviations={currentDeviations}
                         onUpdateDeviation={updateDeviation}
                         onDeleteDeviation={deleteDeviation}
                         onAddActionItem={addActionItem}
-                        actionItems={state.actionItems}
+                        actionItems={currentActionItems}
                         userRole={state.currentUserRole}
                       />
                     </div>
@@ -858,7 +969,7 @@ export default function App() {
 
                   {/* Render the Monthly strategic Widgets */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {state.widgets
+                    {currentWidgets
                       .filter((w) => w.level === 'monthly' && (selectedPillarFilter === 'all' || w.pillar === selectedPillarFilter))
                       .map((widget) => (
                         <WidgetCard
@@ -875,9 +986,9 @@ export default function App() {
                   {/* Strategic Dashboard: Vulnerability matrices and CI Ideas Pipeline */}
                   {/* OVERHAULED: With interactive budget planners and funded root cause links (Request #2) */}
                   <StrategicDashboard 
-                    widgets={state.widgets}
-                    deviations={state.deviations}
-                    actionItems={state.actionItems}
+                    widgets={currentWidgets}
+                    deviations={currentDeviations}
+                    actionItems={currentActionItems}
                     userRole={state.currentUserRole}
                     onUpdateDeviation={updateDeviation}
                   />
@@ -889,7 +1000,7 @@ export default function App() {
           {/* 4. MASTER TEAM ACTIONS PLAN TABLE TAB */}
           {activeTab === 'actions' && (
             <ActionPlanTable 
-              actionItems={state.actionItems}
+              actionItems={currentActionItems}
               onUpdateActionItem={updateActionItem}
               onDeleteActionItem={deleteActionItem}
               onAddActionItem={addActionItem}

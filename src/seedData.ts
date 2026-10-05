@@ -622,7 +622,30 @@ export const INITIAL_STATE: AppState = {
   deviations: INITIAL_DEVIATIONS,
   actionItems: INITIAL_ACTION_ITEMS,
   safetyCross: INITIAL_SAFETY_CROSS,
-  safetyNotes: INITIAL_SAFETY_NOTES
+  safetyNotes: INITIAL_SAFETY_NOTES,
+  history: {
+    '2026-10-01': {
+      widgets: INITIAL_WIDGETS.map(w => w.id === 'd-safety-lti' ? { ...w, value: 139 } : w),
+      deviations: [],
+      actionItems: [],
+      safetyCross: { ...INITIAL_SAFETY_CROSS, 30: 'green' },
+      safetyNotes: { ...INITIAL_SAFETY_NOTES, 30: 'No accidents logged today. Perfect shift compliance!' }
+    },
+    '2026-10-02': {
+      widgets: INITIAL_WIDGETS.map(w => w.id === 'd-sust-energy' ? { ...w, actual: 435, state: 'red' } : w),
+      deviations: [INITIAL_DEVIATIONS[1]],
+      actionItems: [INITIAL_ACTION_ITEMS[2]],
+      safetyCross: INITIAL_SAFETY_CROSS,
+      safetyNotes: INITIAL_SAFETY_NOTES
+    },
+    '2026-10-03': {
+      widgets: INITIAL_WIDGETS.map(w => w.id === 'd-safety-hazards' ? { ...w, actual: 1, state: 'red' } : w),
+      deviations: [INITIAL_DEVIATIONS[0]],
+      actionItems: [INITIAL_ACTION_ITEMS[0]],
+      safetyCross: { ...INITIAL_SAFETY_CROSS, 29: 'amber' },
+      safetyNotes: { ...INITIAL_SAFETY_NOTES, 29: 'Near-miss: Operator reported slick floor near hydraulic loop.' }
+    }
+  }
 };
 
 export const TEAMS_LIST = [

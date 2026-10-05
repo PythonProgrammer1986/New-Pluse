@@ -361,6 +361,52 @@ export function useAppState() {
     }));
   };
 
+  const saveSnapshot = (dateString: string) => {
+    setState((prev) => {
+      const snapshot = {
+        widgets: prev.widgets,
+        deviations: prev.deviations,
+        actionItems: prev.actionItems,
+        safetyCross: prev.safetyCross,
+        safetyNotes: prev.safetyNotes || {}
+      };
+      return {
+        ...prev,
+        history: {
+          ...(prev.history || {}),
+          [dateString]: snapshot
+        }
+      };
+    });
+  };
+
+  const restoreSnapshot = (dateString: string) => {
+    setState((prev) => {
+      if (!prev.history || !prev.history[dateString]) return prev;
+      const snapshot = prev.history[dateString];
+      return {
+        ...prev,
+        widgets: snapshot.widgets,
+        deviations: snapshot.deviations,
+        actionItems: snapshot.actionItems,
+        safetyCross: snapshot.safetyCross,
+        safetyNotes: snapshot.safetyNotes
+      };
+    });
+  };
+
+  const deleteSnapshot = (dateString: string) => {
+    setState((prev) => {
+      if (!prev.history) return prev;
+      const nextHistory = { ...prev.history };
+      delete nextHistory[dateString];
+      return {
+        ...prev,
+        history: nextHistory
+      };
+    });
+  };
+
   const resetToTemplate = () => {
     if (window.confirm('Are you sure you want to reset the board back to the default operational template? All custom metrics and recent logs will be lost.')) {
       setState(INITIAL_STATE);
@@ -385,6 +431,9 @@ export function useAppState() {
     deleteActionItem,
     exportBackup,
     importBackup,
-    resetToTemplate
+    resetToTemplate,
+    saveSnapshot,
+    restoreSnapshot,
+    deleteSnapshot
   };
 }
