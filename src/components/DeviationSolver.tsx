@@ -11,6 +11,7 @@ interface DeviationSolverProps {
   onUpdateDeviation: (id: string, updates: Partial<Deviation>) => void;
   onDeleteDeviation: (id: string) => void;
   onAddActionItem: (action: Omit<ActionItem, 'id'>) => void;
+  onAddDeviation?: (deviation: Omit<Deviation, 'id' | 'isResolved'>) => void;
   actionItems: ActionItem[];
   userRole: string;
 }
@@ -20,12 +21,21 @@ export default function DeviationSolver({
   onUpdateDeviation,
   onDeleteDeviation,
   onAddActionItem,
+  onAddDeviation,
   actionItems,
   userRole,
 }: DeviationSolverProps) {
   const [selectedDevId, setSelectedDevId] = useState<string | null>(
     deviations.length > 0 ? deviations[0].id : null
   );
+
+  // Form for Manual Deviation logging
+  const [showAddDeviation, setShowAddDeviation] = useState(false);
+  const [manualTitle, setManualTitle] = useState('');
+  const [manualPillar, setManualPillar] = useState<Pillar>('Safety');
+  const [manualLevel, setManualLevel] = useState<'daily' | 'weekly' | 'monthly'>('daily');
+  const [manualDesc, setManualDesc] = useState('');
+  const [manualIshikawa, setManualIshikawa] = useState<'Machine' | 'Method' | 'Manpower' | 'Material'>('Method');
 
   // Form for adding Action Item
   const [actionTitle, setActionTitle] = useState('');
@@ -95,6 +105,39 @@ export default function DeviationSolver({
     setShowActionForm(false);
   };
 
+  const handleCreateManualDeviation = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!manualTitle || !manualDesc) return;
+
+    if (onAddDeviation) {
+      onAddDeviation({
+        widgetId: `manual-dev-${Date.now()}`,
+        widgetTitle: manualTitle,
+        pillar: manualPillar,
+        level: manualLevel,
+        date: new Date().toISOString().split('T')[0],
+        description: manualDesc,
+        fiveWhys: [
+          'Why did this operational deviation occur? (Level 1 Root Cause)',
+          'Why? (Level 2 Root Cause)',
+          'Why? (Level 3 Root Cause)',
+          'Why? (Level 4 Root Cause)',
+          'Why? (Root cause driver established)'
+        ],
+        rootCause: 'Root cause analysis pending...',
+        ishikawaCategory: manualIshikawa
+      });
+    }
+
+    // Reset Manual Deviation Form
+    setManualTitle('');
+    setManualDesc('');
+    setManualPillar('Safety');
+    setManualLevel('daily');
+    setManualIshikawa('Method');
+    setShowAddDeviation(false);
+  };
+
   const activeDeviations = deviations.filter(d => !d.isResolved);
   const resolvedDeviations = deviations.filter(d => d.isResolved);
 
@@ -114,6 +157,20 @@ export default function DeviationSolver({
           <span className="px-2 py-0.5 rounded text-[10px] bg-[#FFC20E] text-slate-900 font-bold uppercase tracking-wider font-mono">
             T2 Weekly
           </span>
+        </div>
+
+        {/* Manual exception logs creation action bar */}
+        <div className="px-4 py-3 bg-slate-900 border-b border-slate-850 flex items-center justify-between">
+          <span className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider">Manual Logs Desk</span>
+          <button
+            type="button"
+            onClick={() => setShowAddDeviation(true)}
+            className="px-2.5 py-1 bg-[#FFC20E] hover:bg-[#E5B200] text-slate-950 text-[10px] font-extrabold rounded-md flex items-center gap-1 cursor-pointer font-mono"
+            title="Log manual shopfloor deviation exception"
+          >
+            <Plus className="w-3 h-3" />
+            <span>Log Deviation</span>
+          </button>
         </div>
 
         <div className="flex-1 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800">
@@ -499,6 +556,130 @@ export default function DeviationSolver({
           </div>
         )}
       </div>
+
+      {/* MANUAL DEVIATION MODAL OVERLAY */}
+      {showAddDeviation && (
+        <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in duration-150">
+            {/* Modal Header */}
+            <div className="px-6 py-4 bg-slate-950 text-white flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <AlertTriangle className="w-5 h-5 text-[#FFC20E] shrink-0 animate-bounce" />
+                <div>
+                  <h3 className="font-bold text-sm uppercase tracking-wider">Log Operational Deviation Manually</h3>
+                  <span className="text-[10px] text-slate-400 font-mono">Shift standing exception log</span>
+                </div>
+              </div>
+              <button 
+                type="button"
+                onClick={() => setShowAddDeviation(false)}
+                className="text-slate-400 hover:text-white font-bold text-lg focus:outline-none cursor-pointer"
+              >
+                &times;
+              </button>
+            </div>
+
+            {/* Modal Form */}
+            <form onSubmit={handleCreateManualDeviation} className="p-6 space-y-4">
+              <div>
+                <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">
+                  Deviation / Exception Title
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Hydraulic valve leakage, Solder jig temperature drop"
+                  value={manualTitle}
+                  onChange={(e) => setManualTitle(e.target.value)}
+                  className="w-full text-xs px-3 py-2 border border-slate-250 dark:border-slate-750 bg-slate-50 dark:bg-slate-850 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#FFC20E] font-semibold text-slate-900 dark:text-white"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">
+                    Lean Pillar Focus
+                  </label>
+                  <select
+                    value={manualPillar}
+                    onChange={(e) => setManualPillar(e.target.value as Pillar)}
+                    className="w-full text-xs px-3 py-2 border border-slate-250 dark:border-slate-750 bg-slate-50 dark:bg-slate-850 rounded-lg focus:outline-none cursor-pointer font-semibold text-slate-900 dark:text-white"
+                  >
+                    <option value="Safety">Safety</option>
+                    <option value="Sustainability">Sustainability</option>
+                    <option value="Quality">Quality</option>
+                    <option value="Delivery">Delivery</option>
+                    <option value="Cost">Cost</option>
+                    <option value="Capital">Capital</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">
+                    Huddle Level
+                  </label>
+                  <select
+                    value={manualLevel}
+                    onChange={(e) => setManualLevel(e.target.value as any)}
+                    className="w-full text-xs px-3 py-2 border border-slate-250 dark:border-slate-750 bg-slate-50 dark:bg-slate-850 rounded-lg focus:outline-none cursor-pointer font-semibold text-slate-900 dark:text-white"
+                  >
+                    <option value="daily">Daily Pulse</option>
+                    <option value="weekly">Weekly Standup</option>
+                    <option value="monthly">Monthly Strategic</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">
+                    Ishikawa Class
+                  </label>
+                  <select
+                    value={manualIshikawa}
+                    onChange={(e) => setManualIshikawa(e.target.value as any)}
+                    className="w-full text-xs px-3 py-2 border border-slate-250 dark:border-slate-750 bg-slate-50 dark:bg-slate-850 rounded-lg focus:outline-none cursor-pointer font-semibold text-slate-900 dark:text-white"
+                  >
+                    <option value="Machine">Machine (Equipment)</option>
+                    <option value="Method">Method (Process)</option>
+                    <option value="Manpower">Manpower (Operator)</option>
+                    <option value="Material">Material (Parts)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">
+                  Detailed Incident Observation
+                </label>
+                <textarea
+                  required
+                  rows={3}
+                  placeholder="Describe exactly what happened, where the issue occurred, and who observed it on the shopfloor."
+                  value={manualDesc}
+                  onChange={(e) => setManualDesc(e.target.value)}
+                  className="w-full text-xs px-3 py-2 border border-slate-250 dark:border-slate-750 bg-slate-50 dark:bg-slate-850 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#FFC20E] font-semibold text-slate-900 dark:text-white"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+                <button
+                  type="button"
+                  onClick={() => setShowAddDeviation(false)}
+                  className="px-4 py-2 text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-850 rounded-lg font-semibold cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-[#FFC20E] hover:bg-[#E5B200] text-slate-950 text-xs font-extrabold rounded-lg shadow-sm cursor-pointer font-mono flex items-center gap-1"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Log Deviation</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

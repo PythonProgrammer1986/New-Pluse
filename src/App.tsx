@@ -11,7 +11,6 @@ import SafetyCrossCalendar from './components/SafetyCrossCalendar';
 import WidgetCard from './components/WidgetCard';
 import DeviationSolver from './components/DeviationSolver';
 import ActionPlanTable from './components/ActionPlanTable';
-import StrategicDashboard from './components/StrategicDashboard';
 import BackupPanel from './components/BackupPanel';
 import { 
   Shield, Leaf, CheckCircle, TrendingUp, Coins, HardHat,
@@ -197,7 +196,7 @@ export default function App() {
               Epiroc <span className="text-[#FFC20E] font-normal text-xs lowercase font-mono">Pulse</span>
             </h1>
             <span className="text-[10px] text-slate-400 font-bold block leading-none font-mono tracking-widest uppercase">
-              Lean Operational Board
+              EPS Board
             </span>
           </div>
         </div>
@@ -908,6 +907,7 @@ export default function App() {
                         onUpdateDeviation={updateDeviation}
                         onDeleteDeviation={deleteDeviation}
                         onAddActionItem={addActionItem}
+                        onAddDeviation={addDeviation}
                         actionItems={currentActionItems}
                         userRole={state.currentUserRole}
                       />
@@ -935,18 +935,6 @@ export default function App() {
                         />
                       ))}
                   </div>
-
-                  {/* Strategic Dashboard: Vulnerability matrices and CI Ideas Pipeline */}
-                  {/* OVERHAULED: With interactive budget planners and funded root cause links (Request #2) */}
-                  <StrategicDashboard 
-                    widgets={currentWidgets}
-                    deviations={currentDeviations}
-                    actionItems={currentActionItems}
-                    userRole={state.currentUserRole}
-                    onUpdateDeviation={updateDeviation}
-                    onDeleteDeviation={deleteDeviation}
-                    onUpdateWidgetValue={updateWidgetValue}
-                  />
                 </div>
               )}
             </>
@@ -999,7 +987,7 @@ export default function App() {
       {/* Editorial footer (No ornamental fake engine latency tickers) */}
       <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-6 py-4 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 shrink-0">
         <div className="flex items-center gap-1.5 font-mono">
-          <span>&copy; 2026 Daily Pulse Huddleboards. Built for continuous operational team excellence.</span>
+          <span>Built for continuous operational team excellence.</span>
         </div>
         <div className="flex items-center gap-4 mt-2 sm:mt-0">
           <span className="font-mono text-[9px] uppercase tracking-wide bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-600 dark:text-slate-400 border border-slate-250">
