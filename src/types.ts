@@ -30,6 +30,7 @@ export interface MetricWidget {
   unit?: string;
   target?: number;
   actual?: number;
+  warningThreshold?: number; // threshold percentage, e.g. 110 for 110% of target
   value?: number; // generic value (like days in counters)
   state: 'green' | 'red';
   description?: string;

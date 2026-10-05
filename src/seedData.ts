@@ -47,7 +47,8 @@ export const INITIAL_WIDGETS: MetricWidget[] = [
     type: 'numeric',
     unit: 'kWh',
     target: 400,
-    actual: 435,
+    actual: 445,
+    warningThreshold: 110,
     state: 'red',
     description: 'Facility daily electricity consumption. Target based on lean efficiency.'
   },
@@ -268,9 +269,10 @@ export const INITIAL_WIDGETS: MetricWidget[] = [
     pillar: 'Sustainability',
     level: 'daily',
     type: 'emission',
-    actual: 120,
+    actual: 170,
     target: 150,
-    state: 'green',
+    warningThreshold: 110,
+    state: 'red',
     description: 'Energy-equivalent CO2 output trace in kg compared to carbon footprint bounds.'
   },
   {

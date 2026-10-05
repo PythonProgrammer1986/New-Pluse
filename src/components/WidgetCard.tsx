@@ -23,6 +23,7 @@ export default function WidgetCard({
   const [isEditing, setIsEditing] = useState(false);
   const [tempActual, setTempActual] = useState(widget.actual?.toString() || '');
   const [tempTarget, setTempTarget] = useState(widget.target?.toString() || '');
+  const [tempWarningThreshold, setTempWarningThreshold] = useState(widget.warningThreshold?.toString() || '');
   const [showInfo, setShowInfo] = useState(false);
   const [tempTitle, setTempTitle] = useState(widget.title);
   const [tempDesc, setTempDesc] = useState(widget.description || '');
@@ -89,13 +90,15 @@ export default function WidgetCard({
     e.preventDefault();
     const actualNum = parseFloat(tempActual);
     const targetNum = parseFloat(tempTarget);
+    const warningNum = parseFloat(tempWarningThreshold);
     
     onUpdateValue(widget.id, {
       title: tempTitle,
       description: tempDesc || undefined,
       unit: tempUnit || undefined,
       ...( !isNaN(actualNum) ? { actual: actualNum } : {}),
-      ...( !isNaN(targetNum) ? { target: targetNum } : {})
+      ...( !isNaN(targetNum) ? { target: targetNum } : {}),
+      ...( !isNaN(warningNum) ? { warningThreshold: warningNum } : {})
     });
     setIsEditing(false);
   };
@@ -137,21 +140,40 @@ export default function WidgetCard({
     }
   };
 
+  const isExceedingWarning = widget.actual !== undefined && 
+                             widget.target !== undefined && 
+                             widget.warningThreshold !== undefined && 
+                             widget.target > 0 && 
+                             widget.actual > widget.target * (widget.warningThreshold / 100);
+
   return (
-    <div className={`relative bg-white dark:bg-slate-900 border rounded-xl shadow-sm transition-all duration-300 overflow-hidden flex flex-col h-full ${widget.state === 'red' ? 'border-rose-400 dark:border-rose-900/60 ring-1 ring-rose-100 dark:ring-rose-950/20' : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'}`}>
+    <div className={`relative bg-white dark:bg-slate-900 border rounded-xl shadow-sm transition-all duration-300 overflow-hidden flex flex-col h-full ${
+      isExceedingWarning 
+        ? 'border-rose-500 ring-4 ring-rose-500/50 shadow-[0_0_20px_rgba(239,68,68,0.45)] animate-pulse' 
+        : widget.state === 'red' 
+          ? 'border-rose-400 dark:border-rose-900/60 ring-1 ring-rose-100 dark:ring-rose-950/20' 
+          : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
+    }`}>
       {/* Widget Header */}
       <div className={`px-4 py-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between ${config.headerBg}`}>
-        <div className="flex items-center gap-2 max-w-[70%]">
+        <div className="flex items-center gap-2 max-w-[65%]">
           <IconComponent className={`w-4 h-4 ${config.themeColor}`} />
           <h4 className="font-semibold text-slate-800 dark:text-slate-100 text-[13px] truncate" title={widget.title}>
             {widget.title}
           </h4>
         </div>
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 shrink-0">
           {/* Status Badge */}
           <div className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${widget.state === 'red' ? 'bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300 animate-pulse' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300'}`}>
             {widget.state === 'red' ? 'Deviation' : 'Target Met'}
           </div>
+
+          {/* Performance Drift Alert */}
+          {isExceedingWarning && (
+            <div className="px-1.5 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-rose-600 text-white animate-bounce shadow" title={`Drift warning: Actual value has exceeded ${widget.warningThreshold}% of Target!`}>
+              ⚠️ DRIFT
+            </div>
+          )}
 
           <button 
             onClick={() => setShowInfo(!showInfo)}
@@ -168,6 +190,7 @@ export default function WidgetCard({
               setTempUnit(widget.unit || '');
               setTempActual(widget.actual?.toString() || '');
               setTempTarget(widget.target?.toString() || '');
+              setTempWarningThreshold(widget.warningThreshold?.toString() || '');
               setIsEditing(!isEditing);
             }}
             className="p-1 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-md text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
@@ -254,6 +277,19 @@ export default function WidgetCard({
                       value={tempTarget} 
                       onChange={(e) => setTempTarget(e.target.value)}
                       className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 font-semibold font-mono" 
+                    />
+                  </div>
+                )}
+                {widget.warningThreshold !== undefined && (
+                  <div className="flex-1">
+                    <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-0.5">Warning Thresh (%)</label>
+                    <input 
+                      type="number" 
+                      step="any"
+                      value={tempWarningThreshold} 
+                      onChange={(e) => setTempWarningThreshold(e.target.value)}
+                      className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 font-semibold font-mono" 
+                      placeholder="e.g. 110"
                     />
                   </div>
                 )}

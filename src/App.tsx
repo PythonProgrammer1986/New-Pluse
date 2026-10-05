@@ -63,18 +63,12 @@ export default function App() {
   const [newWTarget, setNewWTarget] = useState('');
   const [newWActual, setNewWActual] = useState('');
   const [newWDesc, setNewWDesc] = useState('');
+  const [newWWarningThreshold, setNewWWarningThreshold] = useState<string>('110');
   
   // Custom interface list items parsing (checklists, charts, projects)
   const [newChecklistText, setNewChecklistText] = useState('');
   const [newChartText, setNewChartText] = useState('');
   const [newProjectText, setNewProjectText] = useState('');
-
-  // Simulation feedback toast state
-  const [simulationAlert, setSimulationAlert] = useState<{
-    show: boolean;
-    title: string;
-    message: string;
-  } | null>(null);
 
   // Archive snapshot selection states
   const [selectedSnapshotDate, setSelectedSnapshotDate] = useState<string>('live');
@@ -137,6 +131,7 @@ export default function App() {
     const targetVal = newWTarget ? parseFloat(newWTarget) : (newWType === 'gauge' ? 100 : undefined);
     const actualVal = newWActual ? parseFloat(newWActual) : (newWType === 'gauge' ? 0 : undefined);
     const numericValue = newWType === 'counter' ? (parseFloat(newWActual) || 0) : undefined;
+    const warningThresholdVal = newWWarningThreshold ? parseFloat(newWWarningThreshold) : undefined;
 
     addWidget({
       title: newWTitle,
@@ -147,6 +142,7 @@ export default function App() {
       target: targetVal,
       actual: actualVal,
       value: numericValue,
+      warningThreshold: warningThresholdVal,
       checklist: checklistData,
       dataPoints: chartData,
       milestones: milestonesData,
@@ -159,56 +155,11 @@ export default function App() {
     setNewWTarget('');
     setNewWActual('');
     setNewWDesc('');
+    setNewWWarningThreshold('110');
     setNewChecklistText('');
     setNewChartText('');
     setNewProjectText('');
     setShowAddWidget(false);
-  };
-
-  // Run quick Lean simulation of unexpected operational failures
-  const handleTriggerSimulation = () => {
-    // 1. Shift B CNC cooler leak (Quality defects up, OEE down, Downtime minutes up)
-    const downtimeWidget = state.widgets.find(w => w.id === 'd-cost-downtime');
-    const defectWidget = state.widgets.find(w => w.id === 'd-quality-defects');
-    const safetyCrossIndex = 30; // Mark day 30 red
-    
-    if (downtimeWidget && defectWidget) {
-      updateWidgetValue('d-cost-downtime', { actual: 48 });
-      updateWidgetValue('d-quality-defects', { actual: 12 });
-      updateSafetyCross(safetyCrossIndex, 'red');
-
-      // Create a specific simulated deviation for Downtime
-      const hasExistingDev = state.deviations.some(d => d.widgetId === 'd-cost-downtime');
-      if (!hasExistingDev) {
-        addDeviation({
-          widgetId: 'd-cost-downtime',
-          widgetTitle: 'Shift Unplanned Downtime',
-          pillar: 'Cost',
-          level: 'daily',
-          date: new Date().toISOString().split('T')[0],
-          description: 'CNC Machine 3 Cooling Fan failed at 09:15, causing a thermal cutoff. Production line halted for 48 minutes.',
-          fiveWhys: [
-            'Why? Coolant loop overheated and triggered hardware thermal shutdown.',
-            'Why? Coolant pump impeller was jammed by plastic chips.',
-            'Why? The chip filtration mesh tray was torn, letting debris bypass.',
-            'Why? Mesh tray was past its rated service life (exceeded by 6 months).',
-            'Why? Missing proactive spare parts schedule for extruder sub-components.'
-          ],
-          rootCause: 'Wear replacement schedule missing from critical PM checklists.',
-          ishikawaCategory: 'Machine'
-        });
-      }
-
-      setSimulationAlert({
-        show: true,
-        title: 'Lean Operational Deviation Triggered!',
-        message: 'A thermal failure on CNC Machine 3 has halted production! Shift Unplanned Downtime exceeded targets. Head over to the "Weekly Deviation Pulse" level to analyze root causes with the team.'
-      });
-
-      // Jump to Weekly Pulse
-      setActiveLevel('weekly');
-      setActiveTab('board');
-    }
   };
 
   // Color mappings for active pillars
@@ -227,25 +178,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-300">
-      
-      {/* Simulation Banner Alarm */}
-      {simulationAlert && simulationAlert.show && (
-        <div className="bg-rose-600 text-white px-5 py-3.5 flex items-start justify-between gap-4 animate-fade-in z-50 shadow-md">
-          <div className="flex items-center gap-3">
-            <AlertTriangle className="w-5 h-5 shrink-0 animate-pulse text-rose-100" />
-            <div>
-              <span className="font-bold text-sm block tracking-wide">{simulationAlert.title}</span>
-              <span className="text-xs text-rose-100 block mt-0.5 leading-relaxed">{simulationAlert.message}</span>
-            </div>
-          </div>
-          <button 
-            onClick={() => setSimulationAlert(null)}
-            className="text-xs font-bold hover:underline bg-rose-750 px-2.5 py-1 rounded cursor-pointer shrink-0 text-white"
-          >
-            Acknowledge Alert
-          </button>
-        </div>
-      )}
 
       {/* Top Bar Navigation Contract: [Brand title] — [Nav links] — [Primary Actions] */}
       {/* OVERHAULED: Epiroc Dark Slate & Yellow brand integration (Request #1) */}
@@ -308,16 +240,6 @@ export default function App() {
 
         {/* Workspace Quick Actions */}
         <div className="flex items-center gap-3 self-end md:self-auto">
-          {/* Active Simulation button */}
-          <button
-            onClick={handleTriggerSimulation}
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-700 hover:to-amber-700 text-white text-xs font-extrabold rounded-lg shadow-sm cursor-pointer transition-all uppercase tracking-wider"
-            title="Inject simulated machinery cooler failure to demo the alignment process."
-          >
-            <Sparkles className="w-3.5 h-3.5 text-[#FFC20E]" />
-            <span>Simulate Failure</span>
-          </button>
-
           <div className="hidden lg:flex flex-col text-right font-mono text-[9px] text-slate-400">
             <span>Shift: Day Huddle</span>
             <span>Ref: 2026-10-02</span>
@@ -609,6 +531,11 @@ export default function App() {
                     <option value="kanban">10. Suggestions Kanban (Idea Incubator Cards)</option>
                     <option value="handover">11. Shift Handover Block (Supervisor Transition Sign-off)</option>
                     <option value="radar">12. Audit Radar Scorecard (5S Walkabout Radians)</option>
+                    <option value="pareto">13. Scrap & Waste Pareto Bar Chart (Static Percentage Distribution)</option>
+                    <option value="riskGauge">14. Hazard Alert Level Gauge (LOTO Risk Index)</option>
+                    <option value="emission">15. CO₂ Emission Sparkline (Carbon Footprint Trace)</option>
+                    <option value="countdown">16. Lead Time Countdown Tracker (Rig Shipping Pipeline)</option>
+                    <option value="pulse">17. Takt-Time Pace Pulse (Active Takt Pace Indicator)</option>
                   </select>
                 </div>
 
@@ -643,6 +570,17 @@ export default function App() {
                         value={newWActual}
                         onChange={(e) => setNewWActual(e.target.value)}
                         className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-mono font-semibold"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Warning Threshold (%)</label>
+                      <input
+                        type="number"
+                        placeholder="e.g. 110"
+                        value={newWWarningThreshold}
+                        onChange={(e) => setNewWWarningThreshold(e.target.value)}
+                        className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-mono font-semibold"
+                        title="If Actual exceeds this percentage of Target, a pulsing red glow is shown."
                       />
                     </div>
                   </>

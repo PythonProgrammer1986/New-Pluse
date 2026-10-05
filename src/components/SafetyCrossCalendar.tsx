@@ -349,32 +349,6 @@ export default function SafetyCrossCalendar({
               className="w-full text-xs p-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 shadow-inner font-semibold"
             />
             
-            {/* Quick-to-Apply Note Templates */}
-            <div className="space-y-1">
-              <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider block">Fast-Apply Templates (Click to insert):</span>
-              <div className="flex flex-wrap gap-1">
-                {[
-                  '🛡️ PPE Audit Pass',
-                  '🧹 5S Standard OK',
-                  '⚙️ Hyd Pressure OK',
-                  '⚠️ Spill Cleared'
-                ].map((tpl) => (
-                  <button
-                    key={tpl}
-                    type="button"
-                    onClick={() => {
-                      const next = noteText ? `${noteText} · ${tpl}` : tpl;
-                      setNoteNoteText(next);
-                      onUpdateNote(selectedDay, next);
-                    }}
-                    className="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 text-[9px] font-bold rounded cursor-pointer transition-colors"
-                  >
-                    {tpl}
-                  </button>
-                ))}
-              </div>
-            </div>
-
             <div className="flex justify-end pt-1">
               <button
                 type="button"
