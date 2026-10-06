@@ -14,11 +14,12 @@ import ActionPlanTable from './components/ActionPlanTable';
 import BackupPanel from './components/BackupPanel';
 import HoursPlanner from './components/HoursPlanner';
 import ResourceMaster from './components/ResourceMaster';
+import ExcelSyncModal from './components/ExcelSyncModal';
 import { 
   Shield, Leaf, CheckCircle, TrendingUp, Coins, HardHat,
   Users, Activity, Calendar, Award, RefreshCw, AlertTriangle,
   Plus, Check, ChevronRight, Filter, LogOut, Sparkles, BookOpen,
-  ArrowRight, Landmark
+  ArrowRight, Landmark, FileSpreadsheet
 } from 'lucide-react';
 
 export default function App() {
@@ -59,6 +60,7 @@ export default function App() {
   
   // Custom widget creation form state
   const [showAddWidget, setShowAddWidget] = useState(false);
+  const [showExcelSyncModal, setShowExcelSyncModal] = useState(false);
   const [newWTitle, setNewWTitle] = useState('');
   const [newWPillar, setNewWPillar] = useState<Pillar>('Quality');
   const [newWLevel, setNewWLevel] = useState<PulseLevel>('daily');
@@ -482,13 +484,26 @@ export default function App() {
                 </div>
               </div>
 
-              {activeTab === 'board' && activeLevel !== 'monthly' && (
-                <button
-                  onClick={() => setShowAddWidget(!showAddWidget)}
-                  className="px-4 py-2.5 bg-[#FFC20E] hover:bg-[#F3AF00] text-slate-950 rounded-lg text-xs font-black flex items-center gap-1.5 shadow-lg shadow-[#FFC20E]/25 hover:shadow-[#FFC20E]/40 transition-all hover:scale-[1.02] cursor-pointer uppercase tracking-wider w-full sm:w-auto justify-center"
-                >
-                  <Plus className="w-4 h-4" /> Add Custom Metric
-                </button>
+              {activeTab === 'board' && (
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    onClick={() => setShowExcelSyncModal(true)}
+                    className="px-3.5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white border border-slate-700 hover:border-[#FFC20E] rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-md transition-all cursor-pointer font-mono uppercase tracking-wider"
+                    title="Import & Sync daily metric values directly from Excel (.xlsx, .csv)"
+                  >
+                    <FileSpreadsheet className="w-4 h-4 text-[#FFC20E]" />
+                    <span>Sync from Excel</span>
+                  </button>
+
+                  {activeLevel !== 'monthly' && (
+                    <button
+                      onClick={() => setShowAddWidget(!showAddWidget)}
+                      className="px-4 py-2.5 bg-[#FFC20E] hover:bg-[#F3AF00] text-slate-950 rounded-lg text-xs font-black flex items-center gap-1.5 shadow-lg shadow-[#FFC20E]/25 hover:shadow-[#FFC20E]/40 transition-all hover:scale-[1.02] cursor-pointer uppercase tracking-wider font-mono"
+                    >
+                      <Plus className="w-4 h-4" /> Add Custom Metric
+                    </button>
+                  )}
+                </div>
               )}
             </div>
           </div>
@@ -1101,6 +1116,15 @@ export default function App() {
           </span>
         </div>
       </footer>
+
+      {/* EXCEL AUTO-SYNC MODAL OVERLAY */}
+      {showExcelSyncModal && (
+        <ExcelSyncModal
+          widgets={state.widgets}
+          onUpdateWidgetValue={updateWidgetValue}
+          onClose={() => setShowExcelSyncModal(false)}
+        />
+      )}
 
     </div>
   );

@@ -21,6 +21,15 @@ export interface ProjectMilestone {
   dueDate: string;
 }
 
+export interface ExcelSyncRule {
+  sheetName?: string;
+  mode: 'date_lookup' | 'day_offset' | 'fixed_cell';
+  dateColumn?: string; // e.g. "A"
+  valueColumn?: string; // e.g. "B"
+  cellCoordinate?: string; // e.g. "B12"
+  headerOffset?: number; // e.g. 1
+}
+
 export interface MetricWidget {
   id: string;
   title: string;
@@ -38,6 +47,7 @@ export interface MetricWidget {
   checklist?: ChecklistItem[]; // for checklist types
   milestones?: ProjectMilestone[]; // for capital projects or strategic targets
   linkedWidgetId?: string; // ID of the daily widget this widget is synchronized with
+  excelRule?: ExcelSyncRule; // Custom Excel dynamic cell mapping rule
 }
 
 export interface Deviation {
