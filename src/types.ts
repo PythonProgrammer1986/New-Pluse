@@ -74,12 +74,29 @@ export interface TeamConfig {
   members: string[];
 }
 
+export interface Employee {
+  id: string;
+  name: string;
+  monthlyAvailableHours: number;
+}
+
+export interface TaskTimeBooking {
+  id: string;
+  employeeId: string;
+  taskTitle: string;
+  plannedHours: number;
+  actualHours: number;
+  date: string;
+}
+
 export interface AppStateSnapshot {
   widgets: MetricWidget[];
   deviations: Deviation[];
   actionItems: ActionItem[];
   safetyCross: { [dayIndex: number]: 'green' | 'red' | 'amber' | 'none' };
   safetyNotes: { [dayIndex: number]: string };
+  employees?: Employee[];
+  timeBookings?: TaskTimeBooking[];
 }
 
 export interface AppState {
@@ -90,5 +107,7 @@ export interface AppState {
   actionItems: ActionItem[];
   safetyCross: { [dayIndex: number]: 'green' | 'red' | 'amber' | 'none' }; // for safety calendar (1-31)
   safetyNotes?: { [dayIndex: number]: string }; // Note-taking per calendar day
+  employees?: Employee[];
+  timeBookings?: TaskTimeBooking[];
   history?: { [dateString: string]: AppStateSnapshot };
 }

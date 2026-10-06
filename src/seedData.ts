@@ -462,6 +462,20 @@ export const INITIAL_SAFETY_NOTES: { [dayIndex: number]: string } = {
   30: 'Hydraulic oil leakage identified under Assembly Station 4. Slip hazard created and resolved.'
 };
 
+export const INITIAL_EMPLOYEES = [
+  { id: 'emp-1', name: 'John Doe', monthlyAvailableHours: 160 },
+  { id: 'emp-2', name: 'Sarah Connor', monthlyAvailableHours: 160 },
+  { id: 'emp-3', name: 'Alex Murphy', monthlyAvailableHours: 120 },
+  { id: 'emp-4', name: 'Ellen Ripley', monthlyAvailableHours: 180 }
+];
+
+export const INITIAL_TIME_BOOKINGS = [
+  { id: 'book-1', employeeId: 'emp-1', taskTitle: 'Audit PPE & Safety compliance on line 1', plannedHours: 10, actualHours: 8, date: '2026-10-01' },
+  { id: 'book-2', employeeId: 'emp-2', taskTitle: 'Machining coolant level reset and cleaning', plannedHours: 15, actualHours: 16, date: '2026-10-02' },
+  { id: 'book-3', employeeId: 'emp-3', taskTitle: 'Calibrate measurement micrometer jigs', plannedHours: 8, actualHours: 8, date: '2026-10-03' },
+  { id: 'book-4', employeeId: 'emp-4', taskTitle: 'Emergency response drill and evacuation log', plannedHours: 12, actualHours: 10, date: '2026-10-04' }
+];
+
 export const INITIAL_STATE: AppState = {
   currentTeam: 'Assembly Operations',
   currentUserRole: 'Team Lead',
@@ -470,27 +484,35 @@ export const INITIAL_STATE: AppState = {
   actionItems: INITIAL_ACTION_ITEMS,
   safetyCross: INITIAL_SAFETY_CROSS,
   safetyNotes: INITIAL_SAFETY_NOTES,
+  employees: INITIAL_EMPLOYEES,
+  timeBookings: INITIAL_TIME_BOOKINGS,
   history: {
     '2026-10-01': {
       widgets: INITIAL_WIDGETS.map(w => w.id === 'd-safety-lti' ? { ...w, value: 139 } : w),
       deviations: [],
       actionItems: [],
       safetyCross: { ...INITIAL_SAFETY_CROSS, 30: 'green' },
-      safetyNotes: { ...INITIAL_SAFETY_NOTES, 30: 'No accidents logged today. Perfect shift compliance!' }
+      safetyNotes: { ...INITIAL_SAFETY_NOTES, 30: 'No accidents logged today. Perfect shift compliance!' },
+      employees: INITIAL_EMPLOYEES,
+      timeBookings: INITIAL_TIME_BOOKINGS
     },
     '2026-10-02': {
       widgets: INITIAL_WIDGETS.map(w => w.id === 'd-sust-energy' ? { ...w, actual: 435, state: 'red' } : w),
       deviations: [INITIAL_DEVIATIONS[1]],
       actionItems: [INITIAL_ACTION_ITEMS[2]],
       safetyCross: INITIAL_SAFETY_CROSS,
-      safetyNotes: INITIAL_SAFETY_NOTES
+      safetyNotes: INITIAL_SAFETY_NOTES,
+      employees: INITIAL_EMPLOYEES,
+      timeBookings: INITIAL_TIME_BOOKINGS
     },
     '2026-10-03': {
       widgets: INITIAL_WIDGETS.map(w => w.id === 'd-safety-hazards' ? { ...w, actual: 1, state: 'red' } : w),
       deviations: [INITIAL_DEVIATIONS[0]],
       actionItems: [INITIAL_ACTION_ITEMS[0]],
       safetyCross: { ...INITIAL_SAFETY_CROSS, 29: 'amber' },
-      safetyNotes: { ...INITIAL_SAFETY_NOTES, 29: 'Near-miss: Operator reported slick floor near hydraulic loop.' }
+      safetyNotes: { ...INITIAL_SAFETY_NOTES, 29: 'Near-miss: Operator reported slick floor near hydraulic loop.' },
+      employees: INITIAL_EMPLOYEES,
+      timeBookings: INITIAL_TIME_BOOKINGS
     }
   }
 };

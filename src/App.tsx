@@ -12,6 +12,8 @@ import WidgetCard from './components/WidgetCard';
 import DeviationSolver from './components/DeviationSolver';
 import ActionPlanTable from './components/ActionPlanTable';
 import BackupPanel from './components/BackupPanel';
+import HoursPlanner from './components/HoursPlanner';
+import ResourceMaster from './components/ResourceMaster';
 import { 
   Shield, Leaf, CheckCircle, TrendingUp, Coins, HardHat,
   Users, Activity, Calendar, Award, RefreshCw, AlertTriangle,
@@ -42,11 +44,17 @@ export default function App() {
     resetToTemplate,
     saveSnapshot,
     restoreSnapshot,
-    deleteSnapshot
+    deleteSnapshot,
+    addEmployee,
+    updateEmployee,
+    deleteEmployee,
+    addTimeBooking,
+    updateTimeBooking,
+    deleteTimeBooking
   } = useAppState();
 
   const [activeLevel, setActiveLevel] = useState<PulseLevel>('daily');
-  const [activeTab, setActiveTab] = useState<'board' | 'actions' | 'backup'>('board');
+  const [activeTab, setActiveTab] = useState<'board' | 'actions' | 'backup' | 'hours' | 'master'>('board');
   const [selectedPillarFilter, setSelectedPillarFilter] = useState<string>('all');
   
   // Custom widget creation form state
@@ -83,6 +91,8 @@ export default function App() {
   const currentActionItems = activeSnapshot ? activeSnapshot.actionItems : state.actionItems;
   const currentSafetyCross = activeSnapshot ? activeSnapshot.safetyCross : state.safetyCross;
   const currentSafetyNotes = activeSnapshot ? activeSnapshot.safetyNotes : (state.safetyNotes || {});
+  const currentEmployees = activeSnapshot ? (activeSnapshot.employees || []) : (state.employees || []);
+  const currentTimeBookings = activeSnapshot ? (activeSnapshot.timeBookings || []) : (state.timeBookings || []);
 
   // Filter widgets by active level and pillar
   const displayedWidgets = currentWidgets.filter((w) => {
@@ -115,6 +125,31 @@ export default function App() {
             { label: 'Surface Scratches', value: 0, target: 1 },
             { label: 'Dimensional Deviations', value: 0, target: 1 }
           ];
+    } else if (newWType === 'skills') {
+      chartData = [
+        { label: 'Operator A', value: 3, target: 4 },
+        { label: 'Operator B', value: 2, target: 4 },
+        { label: 'Operator C', value: 4, target: 4 }
+      ];
+    } else if (newWType === 'radar') {
+      chartData = [
+        { label: 'Sort (Seiri)', value: 90, target: 100 },
+        { label: 'Set in Order (Seiton)', value: 85, target: 100 },
+        { label: 'Shine (Seiso)', value: 95, target: 100 },
+        { label: 'Standardize (Seiketsu)', value: 80, target: 100 },
+        { label: 'Sustain (Shitsuke)', value: 85, target: 100 }
+      ];
+    } else if (newWType === 'pareto') {
+      chartData = [
+        { label: 'Startup Loss', value: 35, target: 10 },
+        { label: 'Tool Defect', value: 25, target: 10 },
+        { label: 'Operator Error', value: 15, target: 5 }
+      ];
+    } else if (newWType === 'heatmap') {
+      chartData = Array.from({ length: 24 }).map((_, idx) => ({
+        label: `${idx}:00`,
+        value: 0 // 0 = Green (Running), 1 = Amber (Idle), 2 = Red (Downtime), 3 = Gray (Off)
+      }));
     }
 
     let milestonesData = undefined;
@@ -126,11 +161,36 @@ export default function App() {
             { id: 'm-1', name: 'Draft Design and Engineering Plan', status: 'pending' as const, owner: 'Team Lead', dueDate: new Date().toISOString().split('T')[0] },
             { id: 'm-2', name: 'Tooling installation & dry run', status: 'pending' as const, owner: 'Maintenance', dueDate: new Date().toISOString().split('T')[0] }
           ];
+    } else if (newWType === 'kanban') {
+      milestonesData = [
+        { id: `kb-1-${Date.now()}`, name: 'Tool Cart 5S Layout', status: 'pending' as const, owner: 'Operator A', dueDate: new Date().toISOString().split('T')[0] },
+        { id: `kb-2-${Date.now()}`, name: 'LED Takt Signal Indicator', status: 'active' as const, owner: 'Team Lead', dueDate: new Date().toISOString().split('T')[0] },
+        { id: `kb-3-${Date.now()}`, name: 'LOTO Safety Box Upgrade', status: 'completed' as const, owner: 'EHS Engineer', dueDate: new Date().toISOString().split('T')[0] }
+      ];
+    } else if (newWType === 'countdown') {
+      milestonesData = [
+        { id: `cd-1-${Date.now()}`, name: '1. Material Loading', status: 'completed' as const, owner: 'Logistics', dueDate: new Date().toISOString().split('T')[0] },
+        { id: `cd-2-${Date.now()}`, name: '2. Sub-Assembly', status: 'completed' as const, owner: 'Assembly', dueDate: new Date().toISOString().split('T')[0] },
+        { id: `cd-3-${Date.now()}`, name: '3. QA Test Run', status: 'active' as const, owner: 'QA Inspector', dueDate: new Date().toISOString().split('T')[0] },
+        { id: `cd-4-${Date.now()}`, name: '4. Final Dispatch', status: 'pending' as const, owner: 'Shipping', dueDate: new Date().toISOString().split('T')[0] }
+      ];
     }
 
     // Default values
-    const targetVal = newWTarget ? parseFloat(newWTarget) : (newWType === 'gauge' ? 100 : undefined);
-    const actualVal = newWActual ? parseFloat(newWActual) : (newWType === 'gauge' ? 0 : undefined);
+    const targetVal = newWTarget ? parseFloat(newWTarget) : (
+      newWType === 'gauge' ? 100 :
+      newWType === 'riskGauge' ? 100 :
+      newWType === 'emission' ? 150 :
+      newWType === 'pulse' ? 80 :
+      newWType === 'stopwatch' ? 45 : undefined
+    );
+    const actualVal = newWActual ? parseFloat(newWActual) : (
+      newWType === 'gauge' ? 0 :
+      newWType === 'riskGauge' ? 25 :
+      newWType === 'emission' ? 120 :
+      newWType === 'pulse' ? 80 :
+      newWType === 'stopwatch' ? 0 : undefined
+    );
     const numericValue = newWType === 'counter' ? (parseFloat(newWActual) || 0) : undefined;
     const warningThresholdVal = newWWarningThreshold ? parseFloat(newWWarningThreshold) : undefined;
 
@@ -228,6 +288,26 @@ export default function App() {
             }`}
           >
             Actions Register
+          </button>
+          <button
+            onClick={() => setActiveTab('hours')}
+            className={`px-3.5 py-1.5 text-xs font-bold rounded-md transition-all whitespace-nowrap cursor-pointer uppercase tracking-wider ${
+              activeTab === 'hours'
+                ? 'bg-[#FFC20E] text-slate-950 shadow-sm'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            Hours Planner
+          </button>
+          <button
+            onClick={() => setActiveTab('master')}
+            className={`px-3.5 py-1.5 text-xs font-bold rounded-md transition-all whitespace-nowrap cursor-pointer uppercase tracking-wider ${
+              activeTab === 'master'
+                ? 'bg-[#FFC20E] text-slate-950 shadow-sm'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            Resource Master
           </button>
           <button
             onClick={() => setActiveTab('backup')}
@@ -948,6 +1028,29 @@ export default function App() {
               onDeleteActionItem={deleteActionItem}
               onAddActionItem={addActionItem}
               userRole={state.currentUserRole}
+            />
+          )}
+
+          {/* TIME & HOUR BOOKINGS TAB */}
+          {activeTab === 'hours' && (
+            <HoursPlanner 
+              employees={currentEmployees}
+              timeBookings={currentTimeBookings}
+              actionItems={currentActionItems}
+              onAddTimeBooking={addTimeBooking}
+              onUpdateTimeBooking={updateTimeBooking}
+              onDeleteTimeBooking={deleteTimeBooking}
+            />
+          )}
+
+          {/* RESOURCE MASTER REGISTER TAB */}
+          {activeTab === 'master' && (
+            <ResourceMaster 
+              employees={currentEmployees}
+              timeBookings={currentTimeBookings}
+              onAddEmployee={addEmployee}
+              onUpdateEmployee={updateEmployee}
+              onDeleteEmployee={deleteEmployee}
             />
           )}
 

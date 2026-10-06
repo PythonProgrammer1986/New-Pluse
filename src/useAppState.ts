@@ -402,6 +402,77 @@ export function useAppState() {
     }));
   };
 
+  const addEmployee = (name: string, monthlyAvailableHours: number) => {
+    setState((prev) => {
+      const newEmp = {
+        id: generateId('emp'),
+        name,
+        monthlyAvailableHours
+      };
+      const currentList = prev.employees || [];
+      return {
+        ...prev,
+        employees: [...currentList, newEmp]
+      };
+    });
+  };
+
+  const updateEmployee = (id: string, updates: { name?: string; monthlyAvailableHours?: number }) => {
+    setState((prev) => {
+      const currentList = prev.employees || [];
+      return {
+        ...prev,
+        employees: currentList.map((emp) => emp.id === id ? { ...emp, ...updates } : emp)
+      };
+    });
+  };
+
+  const deleteEmployee = (id: string) => {
+    setState((prev) => {
+      const currentList = prev.employees || [];
+      const currentBookings = prev.timeBookings || [];
+      return {
+        ...prev,
+        employees: currentList.filter((emp) => emp.id !== id),
+        timeBookings: currentBookings.filter((book) => book.employeeId !== id)
+      };
+    });
+  };
+
+  const addTimeBooking = (booking: { employeeId: string; taskTitle: string; plannedHours: number; actualHours: number; date: string }) => {
+    setState((prev) => {
+      const newBook = {
+        ...booking,
+        id: generateId('book')
+      };
+      const currentList = prev.timeBookings || [];
+      return {
+        ...prev,
+        timeBookings: [newBook, ...currentList]
+      };
+    });
+  };
+
+  const updateTimeBooking = (id: string, updates: { employeeId?: string; taskTitle?: string; plannedHours?: number; actualHours?: number; date?: string }) => {
+    setState((prev) => {
+      const currentList = prev.timeBookings || [];
+      return {
+        ...prev,
+        timeBookings: currentList.map((book) => book.id === id ? { ...book, ...updates } : book)
+      };
+    });
+  };
+
+  const deleteTimeBooking = (id: string) => {
+    setState((prev) => {
+      const currentList = prev.timeBookings || [];
+      return {
+        ...prev,
+        timeBookings: currentList.filter((book) => book.id !== id)
+      };
+    });
+  };
+
   const saveSnapshot = (dateString: string) => {
     setState((prev) => {
       const snapshot = {
@@ -409,7 +480,9 @@ export function useAppState() {
         deviations: prev.deviations,
         actionItems: prev.actionItems,
         safetyCross: prev.safetyCross,
-        safetyNotes: prev.safetyNotes || {}
+        safetyNotes: prev.safetyNotes || {},
+        employees: prev.employees || [],
+        timeBookings: prev.timeBookings || []
       };
       return {
         ...prev,
@@ -431,7 +504,9 @@ export function useAppState() {
         deviations: snapshot.deviations,
         actionItems: snapshot.actionItems,
         safetyCross: snapshot.safetyCross,
-        safetyNotes: snapshot.safetyNotes
+        safetyNotes: snapshot.safetyNotes,
+        employees: snapshot.employees || prev.employees || [],
+        timeBookings: snapshot.timeBookings || prev.timeBookings || []
       };
     });
   };
@@ -502,6 +577,12 @@ export function useAppState() {
     resetToTemplate,
     saveSnapshot,
     restoreSnapshot,
-    deleteSnapshot
+    deleteSnapshot,
+    addEmployee,
+    updateEmployee,
+    deleteEmployee,
+    addTimeBooking,
+    updateTimeBooking,
+    deleteTimeBooking
   };
 }
