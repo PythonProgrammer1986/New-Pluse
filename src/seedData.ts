@@ -1,4 +1,4 @@
-import { MetricWidget, Deviation, ActionItem, AppState } from './types';
+import { MetricWidget, Deviation, ActionItem, AppState, ProjectTrackRecord } from './types';
 
 export const INITIAL_WIDGETS: MetricWidget[] = [
   // ================= DAILY LEVEL =================
@@ -18,6 +18,7 @@ export const INITIAL_WIDGETS: MetricWidget[] = [
     pillar: 'Safety',
     level: 'daily',
     type: 'checklist',
+    owner: 'John Doe',
     state: 'green',
     description: 'Active PPE conformity verification on production lines.',
     checklist: [
@@ -33,6 +34,7 @@ export const INITIAL_WIDGETS: MetricWidget[] = [
     pillar: 'Safety',
     level: 'daily',
     type: 'numeric',
+    owner: 'John Doe',
     unit: 'Hazards',
     target: 0,
     actual: 1,
@@ -45,6 +47,7 @@ export const INITIAL_WIDGETS: MetricWidget[] = [
     pillar: 'Sustainability',
     level: 'daily',
     type: 'numeric',
+    owner: 'Sarah Connor',
     unit: 'kWh',
     target: 400,
     actual: 445,
@@ -58,6 +61,7 @@ export const INITIAL_WIDGETS: MetricWidget[] = [
     pillar: 'Sustainability',
     level: 'daily',
     type: 'checklist',
+    owner: 'Sarah Connor',
     state: 'green',
     description: 'Compliance audits for sorting of hazardous vs recyclable scrap.',
     checklist: [
@@ -72,6 +76,7 @@ export const INITIAL_WIDGETS: MetricWidget[] = [
     pillar: 'Quality',
     level: 'daily',
     type: 'chart',
+    owner: 'Ellen Ripley',
     unit: 'defects',
     target: 4,
     actual: 9,
@@ -90,6 +95,7 @@ export const INITIAL_WIDGETS: MetricWidget[] = [
     pillar: 'Quality',
     level: 'daily',
     type: 'checklist',
+    owner: 'Ellen Ripley',
     state: 'green',
     description: 'Initial unit verification before startup of each shift batch.',
     checklist: [
@@ -104,6 +110,7 @@ export const INITIAL_WIDGETS: MetricWidget[] = [
     pillar: 'Delivery',
     level: 'daily',
     type: 'numeric',
+    owner: 'Alex Murphy',
     unit: 'Units',
     target: 500,
     actual: 480,
@@ -116,6 +123,7 @@ export const INITIAL_WIDGETS: MetricWidget[] = [
     pillar: 'Delivery',
     level: 'daily',
     type: 'gauge',
+    owner: 'Alex Murphy',
     unit: '%',
     target: 98,
     actual: 94.2,
@@ -128,6 +136,7 @@ export const INITIAL_WIDGETS: MetricWidget[] = [
     pillar: 'Cost',
     level: 'daily',
     type: 'gauge',
+    owner: 'Sarah Connor',
     unit: '%',
     target: 85,
     actual: 78.5,
@@ -140,6 +149,7 @@ export const INITIAL_WIDGETS: MetricWidget[] = [
     pillar: 'Cost',
     level: 'daily',
     type: 'numeric',
+    owner: 'Sarah Connor',
     unit: 'Minutes',
     target: 15,
     actual: 35,
@@ -152,11 +162,23 @@ export const INITIAL_WIDGETS: MetricWidget[] = [
     pillar: 'Capital',
     level: 'daily',
     type: 'numeric',
-    unit: '$',
-    target: 12000,
-    actual: 10500,
+    owner: 'John Doe',
+    unit: '₹',
+    target: 120000,
+    actual: 105000,
     state: 'green',
-    description: 'Daily operational capital spend on essential spare tool components.'
+    description: 'Daily operational capital spend on essential spare tool components in INR (₹).'
+  },
+  {
+    id: 'd-capital-proj-matrix',
+    title: 'Drill Rig Automation Project Matrix',
+    pillar: 'Capital',
+    level: 'daily',
+    type: 'projectMatrix',
+    owner: 'Ellen Ripley',
+    state: 'green',
+    projectId: 'prj-1',
+    description: 'Interactive Cost, Schedule, Scope, and Operational Requirements (Fixtures, BOMs, Resources, SOPs) tracking matrix.'
   },
   {
     id: 'd-support-sla',
@@ -476,6 +498,390 @@ export const INITIAL_TIME_BOOKINGS = [
   { id: 'book-4', employeeId: 'emp-4', taskTitle: 'Emergency response drill and evacuation log', plannedHours: 12, actualHours: 10, date: '2026-10-04' }
 ];
 
+export const INITIAL_PROJECT_MATRICES: ProjectTrackRecord[] = [
+  {
+    id: 'prj-1',
+    name: 'Smart Drill Rig Automation & Cell Upgrade',
+    code: 'EPI-PRJ-2026-04',
+    description: 'Lean operational execution of the automated assembly cell, tooling fixtures, robotic torque stations, and pre-production validation.',
+    targetLaunchDate: '2026-12-15',
+    overallStatus: 'green',
+    owner: 'Ellen Ripley',
+    ownerEmployeeId: 'emp-4',
+    lastUpdated: '2026-10-13',
+    customCategories: [
+      'Cost',
+      'Delivery or Schedule',
+      'Scope',
+      'Fixtures',
+      'BOMs',
+      'Resources',
+      'Knowledge Transfer',
+      'Prototype Schedule (Pre-productions)',
+      'SOPs Breakdowns',
+      'Challenges',
+      'Vendor Management',
+      'EHS Compliance'
+    ],
+    points: [
+      // 1. COST
+      {
+        id: 'pt-cost-1',
+        category: 'Cost',
+        title: 'Capital Equipment & Tooling CapEx',
+        description: 'Primary capital investment budget for cell robotics, test bench sensors, and dedicated jigs.',
+        status: 'on-track',
+        assignedToEmployeeId: 'emp-2', // Sarah Connor
+        targetDate: '2026-11-20',
+        priority: 'critical',
+        progressPercent: 85,
+        budget: 450000,
+        costActual: 418000,
+        notes: 'Currently ₹32,000 under budget; final payment pending acceptance test.',
+        subPoints: [
+          { id: 'sub-cost-1-1', title: 'Sensor Integration & Vision Package PO', status: 'completed', assignedToEmployeeId: 'emp-2', costEstimate: 85000, costActual: 82000, dueDate: '2026-10-01' },
+          { id: 'sub-cost-1-2', title: 'PLC Controller Panels & Safe-Torque Hardware', status: 'completed', assignedToEmployeeId: 'emp-2', costEstimate: 140000, costActual: 138000, dueDate: '2026-10-10' },
+          { id: 'sub-cost-1-3', title: 'Machine Guarding & Safety Light Curtains', status: 'in-progress', assignedToEmployeeId: 'emp-3', costEstimate: 65000, costActual: 62000, dueDate: '2026-10-25' }
+        ]
+      },
+      {
+        id: 'pt-cost-2',
+        category: 'Cost',
+        title: 'Operational Readiness & Ramp-Up OpEx',
+        description: 'Contractor hours, specialized tooling calibration, and team certification costs.',
+        status: 'on-track',
+        assignedToEmployeeId: 'emp-1', // John Doe
+        targetDate: '2026-12-05',
+        priority: 'high',
+        progressPercent: 70,
+        budget: 68000,
+        costActual: 51200,
+        notes: 'Travel and integration labor within targeted operational reserve.',
+        subPoints: [
+          { id: 'sub-cost-2-1', title: 'Vendor Field Engineering Support (40 hrs)', status: 'completed', assignedToEmployeeId: 'emp-1', costEstimate: 22000, costActual: 20500, dueDate: '2026-10-05' },
+          { id: 'sub-cost-2-2', title: 'Operator Ergonomic Assessment & PPE gear', status: 'in-progress', assignedToEmployeeId: 'emp-4', costEstimate: 12000, costActual: 8400, dueDate: '2026-10-30' }
+        ]
+      },
+
+      // 2. DELIVERY OR SCHEDULE
+      {
+        id: 'pt-del-1',
+        category: 'Delivery or Schedule',
+        title: 'Station 1-4 Mechanical Installation Milestone',
+        description: 'Physical anchoring, pneumatic drops, and safety barrier integration.',
+        status: 'completed',
+        assignedToEmployeeId: 'emp-3', // Alex Murphy
+        targetDate: '2026-10-10',
+        priority: 'critical',
+        progressPercent: 100,
+        notes: 'Completed 2 days ahead of master schedule with zero punch list items.',
+        subPoints: [
+          { id: 'sub-del-1-1', title: 'Anchor bolts drilling & epoxy cure tests', status: 'completed', assignedToEmployeeId: 'emp-3', dueDate: '2026-10-03' },
+          { id: 'sub-del-1-2', title: 'Gantry frame laser leveling & vibration dampening', status: 'completed', assignedToEmployeeId: 'emp-3', dueDate: '2026-10-08' }
+        ]
+      },
+      {
+        id: 'pt-del-2',
+        category: 'Delivery or Schedule',
+        title: 'Line Commissioning & Dry-Cycle Run Milestone',
+        description: 'Continuous dry cycling for 120 consecutive cycles without micro-stops.',
+        status: 'in-progress',
+        assignedToEmployeeId: 'emp-4', // Ellen Ripley
+        targetDate: '2026-11-15',
+        priority: 'high',
+        progressPercent: 60,
+        notes: 'Dry cycle currently achieving 98.4% uptime across first 60 cycles.',
+        subPoints: [
+          { id: 'sub-del-2-1', title: 'Pneumatics line pressure holding test', status: 'completed', assignedToEmployeeId: 'emp-4', dueDate: '2026-10-08' },
+          { id: 'sub-del-2-2', title: 'Emergency stop circuit SIL-3 verification', status: 'in-progress', assignedToEmployeeId: 'emp-1', dueDate: '2026-10-22' },
+          { id: 'sub-del-2-3', title: 'Master takt time benchmark (target <= 180s)', status: 'not-started', assignedToEmployeeId: 'emp-4', dueDate: '2026-11-10' }
+        ]
+      },
+
+      // 3. SCOPE
+      {
+        id: 'pt-scp-1',
+        category: 'Scope',
+        title: 'Automated Torque Fastening System Requirements',
+        description: 'Smart DC tools with traceable angle and torque logging to MES database.',
+        status: 'completed',
+        assignedToEmployeeId: 'emp-2', // Sarah Connor
+        targetDate: '2026-10-05',
+        priority: 'high',
+        progressPercent: 100,
+        notes: 'Transducer accuracy validated within ±1.2% over 500 test cycles.',
+        subPoints: [
+          { id: 'sub-scp-1-1', title: 'Wireless transducer Ethernet/IP handshake', status: 'completed', assignedToEmployeeId: 'emp-2', dueDate: '2026-09-28' },
+          { id: 'sub-scp-1-2', title: 'Batch torque tightening curve profile storage', status: 'completed', assignedToEmployeeId: 'emp-2', dueDate: '2026-10-04' }
+        ]
+      },
+      {
+        id: 'pt-scp-2',
+        category: 'Scope',
+        title: 'Vision Inspection Station for O-Ring Seating',
+        description: 'High-res industrial camera for detecting missing or twisted hydraulic seals.',
+        status: 'in-progress',
+        assignedToEmployeeId: 'emp-1', // John Doe
+        targetDate: '2026-11-08',
+        priority: 'high',
+        progressPercent: 75,
+        notes: 'False reject rate reduced to under 0.3% in test dataset.',
+        subPoints: [
+          { id: 'sub-scp-2-1', title: 'Dual LED ring illumination lighting sign-off', status: 'completed', assignedToEmployeeId: 'emp-1', dueDate: '2026-10-05' },
+          { id: 'sub-scp-2-2', title: 'Synthetic training set of 2,000 seal images', status: 'in-progress', assignedToEmployeeId: 'emp-1', dueDate: '2026-10-25' }
+        ]
+      },
+
+      // 4. OPERATIONAL: FIXTURES
+      {
+        id: 'pt-fix-1',
+        category: 'Fixtures',
+        title: 'Main Hydraulic Manifold Clamping Fixture',
+        description: 'Custom CNC-machined aluminum fixture with dual pneumatic toggle locks.',
+        status: 'on-track',
+        assignedToEmployeeId: 'emp-3', // Alex Murphy
+        targetDate: '2026-10-28',
+        priority: 'critical',
+        progressPercent: 80,
+        budget: 28000,
+        costActual: 24500,
+        notes: 'CMM inspection report passed; anodizing finish underway.',
+        subPoints: [
+          { id: 'sub-fix-1-1', title: 'CNC 5-axis machining of locating nest', status: 'completed', assignedToEmployeeId: 'emp-3', dueDate: '2026-10-02' },
+          { id: 'sub-fix-1-2', title: 'Toggle clamp ergonomic safety review', status: 'completed', assignedToEmployeeId: 'emp-3', dueDate: '2026-10-10' },
+          { id: 'sub-fix-1-3', title: 'Repeatability GR&R gauge study (target < 10%)', status: 'in-progress', assignedToEmployeeId: 'emp-2', dueDate: '2026-10-26' }
+        ]
+      },
+      {
+        id: 'pt-fix-2',
+        category: 'Fixtures',
+        title: 'Quick-Change Pallet Carrier Jigs',
+        description: 'Modular interchangeable nests for 3 drill rig chassis variants.',
+        status: 'on-track',
+        assignedToEmployeeId: 'emp-2', // Sarah Connor
+        targetDate: '2026-11-12',
+        priority: 'medium',
+        progressPercent: 65,
+        budget: 18500,
+        costActual: 16200,
+        notes: 'Variant A & B fabricated; Variant C in hardening heat treatment.',
+        subPoints: [
+          { id: 'sub-fix-2-1', title: 'Hardened dowel locating pins fitting', status: 'completed', assignedToEmployeeId: 'emp-2', dueDate: '2026-10-06' },
+          { id: 'sub-fix-2-2', title: 'RFID tag embedding for automatic program selection', status: 'in-progress', assignedToEmployeeId: 'emp-4', dueDate: '2026-10-31' }
+        ]
+      },
+
+      // 5. OPERATIONAL: BOMS
+      {
+        id: 'pt-bom-1',
+        category: 'BOMs',
+        title: 'BOM Level-1 Structural Architecture Release',
+        description: 'Full multi-level engineering BOM frozen in PLM and synced with SAP.',
+        status: 'completed',
+        assignedToEmployeeId: 'emp-2', // Sarah Connor
+        targetDate: '2026-10-01',
+        priority: 'high',
+        progressPercent: 100,
+        notes: 'Zero orphan item numbers; 100% drawings linked to SAP material masters.',
+        subPoints: [
+          { id: 'sub-bom-1-1', title: 'CAD assembly model freeze and revision B release', status: 'completed', assignedToEmployeeId: 'emp-2', dueDate: '2026-09-25' },
+          { id: 'sub-bom-1-2', title: 'Material master lead times and minimum batch sync', status: 'completed', assignedToEmployeeId: 'emp-2', dueDate: '2026-09-30' }
+        ]
+      },
+      {
+        id: 'pt-bom-2',
+        category: 'BOMs',
+        title: 'Long-Lead Sourced Sensors & Proportional Valves',
+        description: 'High-pressure proportional flow valves procurement and dual-sourcing.',
+        status: 'at-risk',
+        assignedToEmployeeId: 'emp-4', // Ellen Ripley
+        targetDate: '2026-10-24',
+        priority: 'critical',
+        progressPercent: 55,
+        budget: 42000,
+        costActual: 45000,
+        notes: 'Tier 1 European supplier quoted 4-week transit delay; alternate distributor engaged.',
+        subPoints: [
+          { id: 'sub-bom-2-1', title: 'Expedited air freight PO for first 15 units', status: 'in-progress', assignedToEmployeeId: 'emp-4', dueDate: '2026-10-18' },
+          { id: 'sub-bom-2-2', title: 'Alternate valve DIN-connector compatibility bench test', status: 'in-progress', assignedToEmployeeId: 'emp-3', dueDate: '2026-10-22' }
+        ]
+      },
+
+      // 6. OPERATIONAL: RESOURCES
+      {
+        id: 'pt-res-1',
+        category: 'Resources',
+        title: 'Multi-Skilled Assembly Cell Operators Roster',
+        description: 'Allocation of trained Grade-4 mechanical and electrical technicians.',
+        status: 'on-track',
+        assignedToEmployeeId: 'emp-1', // John Doe
+        targetDate: '2026-11-01',
+        priority: 'high',
+        progressPercent: 85,
+        notes: 'Shift A & Shift B key operators cross-trained on hydraulic torquing.',
+        subPoints: [
+          { id: 'sub-res-1-1', title: 'Allocate 2 certified assemblers per shift', status: 'completed', assignedToEmployeeId: 'emp-1', dueDate: '2026-10-05' },
+          { id: 'sub-res-1-2', title: 'Ergonomic rotation schedule mapped in Hours Planner', status: 'completed', assignedToEmployeeId: 'emp-1', dueDate: '2026-10-12' }
+        ]
+      },
+      {
+        id: 'pt-res-2',
+        category: 'Resources',
+        title: 'Dedicated Tooling & Maintenance Specialist',
+        description: '24/7 on-call technical support during pre-production commissioning.',
+        status: 'on-track',
+        assignedToEmployeeId: 'emp-3', // Alex Murphy
+        targetDate: '2026-11-15',
+        priority: 'medium',
+        progressPercent: 70,
+        notes: 'Alex Murphy assigned as primary tooling lead with dedicated mobile cart.',
+        subPoints: [
+          { id: 'sub-res-2-1', title: 'Spare parts kit (O-rings, sensors, fuses) stocked', status: 'completed', assignedToEmployeeId: 'emp-3', dueDate: '2026-10-10' },
+          { id: 'sub-res-2-2', title: 'First-response pager & digital huddle alert protocol', status: 'in-progress', assignedToEmployeeId: 'emp-3', dueDate: '2026-10-28' }
+        ]
+      },
+
+      // 7. OPERATIONAL: KNOWLEDGE TRANSFER
+      {
+        id: 'pt-kt-1',
+        category: 'Knowledge Transfer',
+        title: 'One Point Lessons (OPLs) for Fixture Changeover',
+        description: 'Visual 1-minute job aids placed directly at workstations.',
+        status: 'in-progress',
+        assignedToEmployeeId: 'emp-2', // Sarah Connor
+        targetDate: '2026-10-31',
+        priority: 'medium',
+        progressPercent: 70,
+        notes: '3 of 5 OPL cards drafted with high-res photos and torque specs.',
+        subPoints: [
+          { id: 'sub-kt-1-1', title: 'OPL-01: Rapid Nest Clamping Release & Alignment', status: 'completed', assignedToEmployeeId: 'emp-2', dueDate: '2026-10-04' },
+          { id: 'sub-kt-1-2', title: 'OPL-02: Sensor Mirror Lens Cleaning & Air Blow', status: 'completed', assignedToEmployeeId: 'emp-2', dueDate: '2026-10-09' },
+          { id: 'sub-kt-1-3', title: 'OPL-03: Barcode Scanner Calibration & Reset', status: 'in-progress', assignedToEmployeeId: 'emp-1', dueDate: '2026-10-25' }
+        ]
+      },
+      {
+        id: 'pt-kt-2',
+        category: 'Knowledge Transfer',
+        title: 'Maintenance Hands-on Fault Diagnostics Training',
+        description: '4-hour workshop covering PLC diagnostics, alarm codes, and recovery.',
+        status: 'not-started',
+        assignedToEmployeeId: 'emp-3', // Alex Murphy
+        targetDate: '2026-11-25',
+        priority: 'high',
+        progressPercent: 20,
+        notes: 'Curriculum structured; scheduled for final line commissioning week.',
+        subPoints: [
+          { id: 'sub-kt-2-1', title: 'Alarm manual laminated cheat-sheet handbook', status: 'in-progress', assignedToEmployeeId: 'emp-3', dueDate: '2026-11-05' },
+          { id: 'sub-kt-2-2', title: 'Live simulated fault injection drill for 4 technicians', status: 'not-started', assignedToEmployeeId: 'emp-3', dueDate: '2026-11-20' }
+        ]
+      },
+
+      // 8. OPERATIONAL: PROTOTYPE SCHEDULE (PRE-PRODUCTIONS)
+      {
+        id: 'pt-proto-1',
+        category: 'Prototype Schedule (Pre-productions)',
+        title: 'Prototype Build Round 1 (Offline Rig Validation)',
+        description: 'First physical assembly of full drill head on automated pallet fixture.',
+        status: 'completed',
+        assignedToEmployeeId: 'emp-4', // Ellen Ripley
+        targetDate: '2026-10-04',
+        priority: 'critical',
+        progressPercent: 100,
+        notes: 'Completed successfully! Fitment confirmed, 3 routing improvements identified.',
+        subPoints: [
+          { id: 'sub-prt-1-1', title: 'Harness wire routing length verification', status: 'completed', assignedToEmployeeId: 'emp-4', dueDate: '2026-10-02' },
+          { id: 'sub-prt-1-2', title: 'Hydraulic hose bend radius compliance check', status: 'completed', assignedToEmployeeId: 'emp-4', dueDate: '2026-10-04' }
+        ]
+      },
+      {
+        id: 'pt-proto-2',
+        category: 'Prototype Schedule (Pre-productions)',
+        title: 'Pre-Production Pilot Run (10 Units Live Shift Run)',
+        description: 'Production speed test with real shift operators and live logging.',
+        status: 'in-progress',
+        assignedToEmployeeId: 'emp-1', // John Doe
+        targetDate: '2026-11-18',
+        priority: 'critical',
+        progressPercent: 45,
+        notes: 'Material kitted for 10 units; pilot date locked for November 18.',
+        subPoints: [
+          { id: 'sub-prt-2-1', title: 'Kit 10 sets of inspected components in line supermarket', status: 'completed', assignedToEmployeeId: 'emp-1', dueDate: '2026-10-12' },
+          { id: 'sub-prt-2-2', title: 'Stopwatch time study across Stations 1 through 4', status: 'not-started', assignedToEmployeeId: 'emp-1', dueDate: '2026-11-18' },
+          { id: 'sub-prt-2-3', title: 'Tear-down quality audit on Unit #1 and Unit #10', status: 'not-started', assignedToEmployeeId: 'emp-2', dueDate: '2026-11-20' }
+        ]
+      },
+
+      // 9. OPERATIONAL: SOPS BREAKDOWNS
+      {
+        id: 'pt-sop-1',
+        category: 'SOPs Breakdowns',
+        title: 'SOP-EPS-301: Pallet Loading & Part Clamping Procedure',
+        description: 'Standard work combination sheet with photos and safety warning points.',
+        status: 'completed',
+        assignedToEmployeeId: 'emp-2', // Sarah Connor
+        targetDate: '2026-10-08',
+        priority: 'high',
+        progressPercent: 100,
+        notes: 'Signed off by EHS officer and posted on Station 1 digital monitor.',
+        subPoints: [
+          { id: 'sub-sop-1-1', title: 'Photo capture of correct vs incorrect nest seating', status: 'completed', assignedToEmployeeId: 'emp-2', dueDate: '2026-10-04' },
+          { id: 'sub-sop-1-2', title: 'EHS ergonomics & pinch-point warning validation', status: 'completed', assignedToEmployeeId: 'emp-2', dueDate: '2026-10-07' }
+        ]
+      },
+      {
+        id: 'pt-sop-2',
+        category: 'SOPs Breakdowns',
+        title: 'SOP-EPS-304: Emergency E-Stop Clearing & Safe Recovery',
+        description: 'Step-by-step procedure to reset robot axes without losing homing position.',
+        status: 'in-progress',
+        assignedToEmployeeId: 'emp-3', // Alex Murphy
+        targetDate: '2026-10-29',
+        priority: 'critical',
+        progressPercent: 65,
+        notes: 'Draft complete; undergoing peer review with maintenance supervisor.',
+        subPoints: [
+          { id: 'sub-sop-2-1', title: 'Safety interlocking recovery flow diagram', status: 'completed', assignedToEmployeeId: 'emp-3', dueDate: '2026-10-11' },
+          { id: 'sub-sop-2-2', title: 'Maintenance Lead & Plant Manager approval signoff', status: 'in-progress', assignedToEmployeeId: 'emp-3', dueDate: '2026-10-28' }
+        ]
+      },
+
+      // 10. CHALLENGES & RISKS
+      {
+        id: 'pt-chg-1',
+        category: 'Challenges',
+        title: 'Hydraulic Supply Pressure Fluctuation at Station 2',
+        description: 'Observed 12 bar pressure drop during rapid clamp cylinder actuation.',
+        status: 'at-risk',
+        assignedToEmployeeId: 'emp-4', // Ellen Ripley
+        targetDate: '2026-10-20',
+        priority: 'critical',
+        progressPercent: 50,
+        notes: 'Root cause: Shared header line starvation. Mitigation: Adding dedicated 5L accumulator.',
+        subPoints: [
+          { id: 'sub-chg-1-1', title: 'Install local 5-liter bladder accumulator', status: 'in-progress', assignedToEmployeeId: 'emp-4', dueDate: '2026-10-18' },
+          { id: 'sub-chg-1-2', title: 'Digital pressure transducer continuous datalogging', status: 'not-started', assignedToEmployeeId: 'emp-3', dueDate: '2026-10-20' }
+        ]
+      },
+      {
+        id: 'pt-chg-2',
+        category: 'Challenges',
+        title: 'Precision Linear Guide Rail Delivery Lead Time',
+        description: 'Vendor notification of customs transit delay for replacement spare rails.',
+        status: 'on-track',
+        assignedToEmployeeId: 'emp-1', // John Doe
+        targetDate: '2026-10-26',
+        priority: 'high',
+        progressPercent: 80,
+        notes: 'Regional distributor located 2 identical units in warehouse; PO transferred.',
+        subPoints: [
+          { id: 'sub-chg-2-1', title: 'Expedited domestic road freight booking', status: 'completed', assignedToEmployeeId: 'emp-1', dueDate: '2026-10-11' },
+          { id: 'sub-chg-2-2', title: 'Receiving dimensional CMM check on arrival', status: 'in-progress', assignedToEmployeeId: 'emp-2', dueDate: '2026-10-24' }
+        ]
+      }
+    ]
+  }
+];
+
 export const INITIAL_STATE: AppState = {
   currentTeam: 'Assembly Operations',
   currentUserRole: 'Team Lead',
@@ -486,6 +892,8 @@ export const INITIAL_STATE: AppState = {
   safetyNotes: INITIAL_SAFETY_NOTES,
   employees: INITIAL_EMPLOYEES,
   timeBookings: INITIAL_TIME_BOOKINGS,
+  projectMatrices: INITIAL_PROJECT_MATRICES,
+  activeProjectId: 'prj-1',
   history: {
     '2026-10-01': {
       widgets: INITIAL_WIDGETS.map(w => w.id === 'd-safety-lti' ? { ...w, value: 139 } : w),

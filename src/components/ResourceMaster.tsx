@@ -24,6 +24,7 @@ export default function ResourceMaster({
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState('');
   const [editingHours, setEditingHours] = useState('160');
+  const [empToDelete, setEmpToDelete] = useState<Employee | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -199,11 +200,7 @@ export default function ResourceMaster({
                                 <Edit2 className="w-3 h-3" />
                               </button>
                               <button
-                                onClick={() => {
-                                  if (window.confirm(`Are you sure you want to delete ${emp.name}? All tasks booked against them will be removed.`)) {
-                                    onDeleteEmployee(emp.id);
-                                  }
-                                }}
+                                onClick={() => setEmpToDelete(emp)}
                                 className="p-1 text-slate-400 hover:text-rose-500 transition-colors cursor-pointer"
                                 title="Delete employee from roster"
                               >
@@ -278,6 +275,47 @@ export default function ResourceMaster({
         </div>
 
       </div>
+
+      {/* Delete Employee Confirmation Modal */}
+      {empToDelete && (
+        <div className="fixed inset-0 bg-slate-950/75 backdrop-blur-xs flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-sm p-5 shadow-2xl space-y-4">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 border border-rose-200 dark:border-rose-800">
+                <Trash2 className="w-5 h-5" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-extrabold text-slate-900 dark:text-white text-base">
+                  Delete {empToDelete.name}?
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                  Are you sure you want to remove this employee from the roster? All capacity records and task assignments associated with them will be unassigned.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+              <button
+                type="button"
+                onClick={() => setEmpToDelete(null)}
+                className="px-3 py-1.5 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  onDeleteEmployee(empToDelete.id);
+                  setEmpToDelete(null);
+                }}
+                className="px-4 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs font-bold cursor-pointer"
+              >
+                Delete Employee
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );

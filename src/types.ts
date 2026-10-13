@@ -30,24 +30,70 @@ export interface ExcelSyncRule {
   headerOffset?: number; // e.g. 1
 }
 
+export type MatrixItemStatus = 'not-started' | 'in-progress' | 'on-track' | 'at-risk' | 'delayed' | 'completed';
+
+export interface MatrixSubPoint {
+  id: string;
+  title: string;
+  status: MatrixItemStatus;
+  assignedToEmployeeId?: string; // ID from Resource Master
+  dueDate?: string;
+  notes?: string;
+  costEstimate?: number;
+  costActual?: number;
+}
+
+export interface MatrixPoint {
+  id: string;
+  category: string; // 'Cost' | 'Delivery or Schedule' | 'Scope' | 'Fixtures' | 'BOMs' | 'Resources' | 'Knowledge Transfer' | 'Prototype Schedule (Pre-productions)' | 'SOPs Breakdowns' | 'Challenges' | custom
+  title: string;
+  description?: string;
+  status: MatrixItemStatus;
+  assignedToEmployeeId?: string; // ID from Resource Master
+  targetDate?: string;
+  priority: 'low' | 'medium' | 'high' | 'critical';
+  progressPercent: number; // 0 - 100
+  budget?: number;
+  costActual?: number;
+  notes?: string;
+  subPoints: MatrixSubPoint[];
+}
+
+export interface ProjectTrackRecord {
+  id: string;
+  name: string;
+  code: string;
+  description?: string;
+  targetLaunchDate?: string;
+  overallStatus: 'green' | 'amber' | 'red';
+  owner?: string; // Name of person who owns the project/metric
+  ownerEmployeeId?: string; // Resource master ID
+  points: MatrixPoint[];
+  customCategories?: string[];
+  lastUpdated?: string;
+}
+
 export interface MetricWidget {
   id: string;
   title: string;
   pillar: Pillar;
   level: PulseLevel;
-  type: 'numeric' | 'checklist' | 'counter' | 'chart' | 'gauge' | 'project' | 'stopwatch' | 'heatmap' | 'pareto' | 'skills' | 'kanban' | 'handover' | 'riskGauge' | 'emission' | 'radar' | 'countdown' | 'pulse';
+  type: 'numeric' | 'checklist' | 'counter' | 'chart' | 'gauge' | 'project' | 'stopwatch' | 'heatmap' | 'pareto' | 'skills' | 'kanban' | 'handover' | 'riskGauge' | 'emission' | 'radar' | 'countdown' | 'pulse' | 'projectMatrix';
   unit?: string;
   target?: number;
   actual?: number;
   warningThreshold?: number; // threshold percentage, e.g. 110 for 110% of target
   value?: number; // generic value (like days in counters)
   state: 'green' | 'red';
+  owner?: string; // Name of person who owns the metric
+  ownerEmployeeId?: string; // Resource master ID
   description?: string;
   dataPoints?: DataPoint[]; // for charts/sparklines
   checklist?: ChecklistItem[]; // for checklist types
   milestones?: ProjectMilestone[]; // for capital projects or strategic targets
   linkedWidgetId?: string; // ID of the daily widget this widget is synchronized with
   excelRule?: ExcelSyncRule; // Custom Excel dynamic cell mapping rule
+  projectId?: string; // For projectMatrix widget linking
 }
 
 export interface Deviation {
@@ -107,6 +153,8 @@ export interface AppStateSnapshot {
   safetyNotes: { [dayIndex: number]: string };
   employees?: Employee[];
   timeBookings?: TaskTimeBooking[];
+  projectMatrices?: ProjectTrackRecord[];
+  activeProjectId?: string;
 }
 
 export interface AppState {
@@ -119,5 +167,7 @@ export interface AppState {
   safetyNotes?: { [dayIndex: number]: string }; // Note-taking per calendar day
   employees?: Employee[];
   timeBookings?: TaskTimeBooking[];
+  projectMatrices?: ProjectTrackRecord[];
+  activeProjectId?: string;
   history?: { [dateString: string]: AppStateSnapshot };
 }

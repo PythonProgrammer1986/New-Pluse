@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
-import { AppState, MetricWidget, Deviation, ActionItem, Pillar, PulseLevel } from './types';
-import { INITIAL_STATE } from './seedData';
+import { 
+  AppState, MetricWidget, Deviation, ActionItem, Pillar, PulseLevel, 
+  ProjectTrackRecord, MatrixPoint, MatrixSubPoint, MatrixItemStatus 
+} from './types';
+import { INITIAL_STATE, INITIAL_PROJECT_MATRICES } from './seedData';
 
 const LOCAL_STORAGE_KEY = 'daily_pulse_huddleboards_state_v1';
 
@@ -49,6 +52,14 @@ export function useAppState() {
               seen.add(a.id);
               return true;
             });
+          }
+          // Ensure projectMatrices are populated if missing in legacy localStorage
+          if (!parsed.projectMatrices || !Array.isArray(parsed.projectMatrices) || parsed.projectMatrices.length === 0) {
+            parsed.projectMatrices = INITIAL_PROJECT_MATRICES;
+            parsed.activeProjectId = 'prj-1';
+          }
+          if (!parsed.activeProjectId && parsed.projectMatrices.length > 0) {
+            parsed.activeProjectId = parsed.projectMatrices[0].id;
           }
           return parsed;
         }
@@ -482,7 +493,9 @@ export function useAppState() {
         safetyCross: prev.safetyCross,
         safetyNotes: prev.safetyNotes || {},
         employees: prev.employees || [],
-        timeBookings: prev.timeBookings || []
+        timeBookings: prev.timeBookings || [],
+        projectMatrices: prev.projectMatrices || [],
+        activeProjectId: prev.activeProjectId
       };
       return {
         ...prev,
@@ -506,7 +519,9 @@ export function useAppState() {
         safetyCross: snapshot.safetyCross,
         safetyNotes: snapshot.safetyNotes,
         employees: snapshot.employees || prev.employees || [],
-        timeBookings: snapshot.timeBookings || prev.timeBookings || []
+        timeBookings: snapshot.timeBookings || prev.timeBookings || [],
+        projectMatrices: snapshot.projectMatrices || prev.projectMatrices || [],
+        activeProjectId: snapshot.activeProjectId || prev.activeProjectId || 'prj-1'
       };
     });
   };
@@ -520,6 +535,324 @@ export function useAppState() {
         ...prev,
         history: nextHistory
       };
+    });
+  };
+
+  // ================= PROJECT MATRIX METHODS =================
+  const setActiveProjectId = (id: string) => {
+    setState((prev) => ({ ...prev, activeProjectId: id }));
+  };
+
+  const addProjectMatrix = (projectData: { name: string; code: string; description?: string; targetLaunchDate?: string }) => {
+    const newId = generateId('prj');
+    setState((prev) => {
+      const newPrj: ProjectTrackRecord = {
+        id: newId,
+        name: projectData.name,
+        code: projectData.code,
+        description: projectData.description,
+        targetLaunchDate: projectData.targetLaunchDate,
+        overallStatus: 'green',
+        lastUpdated: new Date().toISOString().split('T')[0],
+        customCategories: [],
+        points: []
+      };
+      return {
+        ...prev,
+        projectMatrices: [...(prev.projectMatrices || []), newPrj],
+        activeProjectId: newId
+      };
+    });
+    return newId;
+  };
+
+  const updateProjectMatrix = (id: string, updates: Partial<ProjectTrackRecord>) => {
+    setState((prev) => ({
+      ...prev,
+      projectMatrices: (prev.projectMatrices || []).map((p) =>
+        p.id === id ? { ...p, ...updates, lastUpdated: new Date().toISOString().split('T')[0] } : p
+      )
+    }));
+  };
+
+  const deleteProjectMatrix = (id: string) => {
+    setState((prev) => {
+      const remaining = (prev.projectMatrices || []).filter((p) => p.id !== id);
+      const nextActiveId = remaining.length > 0 ? remaining[0].id : undefined;
+      return {
+        ...prev,
+        projectMatrices: remaining,
+        activeProjectId: prev.activeProjectId === id ? nextActiveId : prev.activeProjectId
+      };
+    });
+  };
+
+  const duplicateProjectMatrix = (id: string) => {
+    setState((prev) => {
+      const target = (prev.projectMatrices || []).find((p) => p.id === id);
+      if (!target) return prev;
+      const newId = generateId('prj');
+      const cloned: ProjectTrackRecord = {
+        ...target,
+        id: newId,
+        name: `${target.name} (Copy)`,
+        code: `${target.code}-CPY`,
+        lastUpdated: new Date().toISOString().split('T')[0],
+        points: target.points.map((pt) => ({
+          ...pt,
+          id: generateId('pt'),
+          subPoints: pt.subPoints.map((sub) => ({ ...sub, id: generateId('sub') }))
+        }))
+      };
+      return {
+        ...prev,
+        projectMatrices: [...(prev.projectMatrices || []), cloned],
+        activeProjectId: newId
+      };
+    });
+  };
+
+  const addMatrixPoint = (projectId: string, point: Omit<MatrixPoint, 'id' | 'subPoints'> & { subPoints?: MatrixSubPoint[] }) => {
+    const newPtId = generateId('pt');
+    setState((prev) => {
+      const updated = (prev.projectMatrices || []).map((prj) => {
+        if (prj.id === projectId) {
+          const newPoint: MatrixPoint = {
+            ...point,
+            id: newPtId,
+            subPoints: point.subPoints || []
+          };
+          return {
+            ...prj,
+            lastUpdated: new Date().toISOString().split('T')[0],
+            points: [...prj.points, newPoint]
+          };
+        }
+        return prj;
+      });
+      return { ...prev, projectMatrices: updated };
+    });
+  };
+
+  const updateMatrixPoint = (projectId: string, pointId: string, updates: Partial<MatrixPoint>) => {
+    setState((prev) => {
+      const updated = (prev.projectMatrices || []).map((prj) => {
+        if (prj.id === projectId) {
+          const nextPoints = prj.points.map((pt) => {
+            if (pt.id === pointId) {
+              const merged = { ...pt, ...updates };
+              // If status is updated to completed, automatically set progressPercent to 100
+              if (updates.status === 'completed' && updates.progressPercent === undefined) {
+                merged.progressPercent = 100;
+              }
+              return merged;
+            }
+            return pt;
+          });
+          return {
+            ...prj,
+            lastUpdated: new Date().toISOString().split('T')[0],
+            points: nextPoints
+          };
+        }
+        return prj;
+      });
+      return { ...prev, projectMatrices: updated };
+    });
+  };
+
+  const deleteMatrixPoint = (projectId: string, pointId: string) => {
+    setState((prev) => {
+      const updated = (prev.projectMatrices || []).map((prj) => {
+        if (prj.id === projectId) {
+          return {
+            ...prj,
+            lastUpdated: new Date().toISOString().split('T')[0],
+            points: (prj.points || []).filter((pt) => pt.id !== pointId)
+          };
+        }
+        return prj;
+      });
+      return { ...prev, projectMatrices: updated };
+    });
+  };
+
+  const duplicateMatrixPoint = (projectId: string, pointId: string) => {
+    setState((prev) => {
+      const updated = (prev.projectMatrices || []).map((prj) => {
+        if (prj.id === projectId) {
+          const source = prj.points.find((p) => p.id === pointId);
+          if (!source) return prj;
+          const cloned: MatrixPoint = {
+            ...source,
+            id: generateId('pt'),
+            title: `${source.title} (Copy)`,
+            subPoints: source.subPoints.map((s) => ({ ...s, id: generateId('sub') }))
+          };
+          return {
+            ...prj,
+            lastUpdated: new Date().toISOString().split('T')[0],
+            points: [...prj.points, cloned]
+          };
+        }
+        return prj;
+      });
+      return { ...prev, projectMatrices: updated };
+    });
+  };
+
+  const addMatrixSubPoint = (projectId: string, pointId: string, subPoint: Omit<MatrixSubPoint, 'id'>) => {
+    const newSubId = generateId('sub');
+    setState((prev) => {
+      const updated = (prev.projectMatrices || []).map((prj) => {
+        if (prj.id === projectId) {
+          const nextPoints = prj.points.map((pt) => {
+            if (pt.id === pointId) {
+              const newSub: MatrixSubPoint = {
+                ...subPoint,
+                id: newSubId
+              };
+              const updatedSubPoints = [...pt.subPoints, newSub];
+              // Calculate progress % based on sub-points completion
+              const completedCount = updatedSubPoints.filter((s) => s.status === 'completed').length;
+              const autoProgress = Math.round((completedCount / updatedSubPoints.length) * 100);
+
+              return {
+                ...pt,
+                subPoints: updatedSubPoints,
+                progressPercent: autoProgress
+              };
+            }
+            return pt;
+          });
+          return {
+            ...prj,
+            lastUpdated: new Date().toISOString().split('T')[0],
+            points: nextPoints
+          };
+        }
+        return prj;
+      });
+      return { ...prev, projectMatrices: updated };
+    });
+  };
+
+  const updateMatrixSubPoint = (projectId: string, pointId: string, subPointId: string, updates: Partial<MatrixSubPoint>) => {
+    setState((prev) => {
+      const updated = (prev.projectMatrices || []).map((prj) => {
+        if (prj.id === projectId) {
+          const nextPoints = (prj.points || []).map((pt) => {
+            if (pt.id === pointId) {
+              const currentSubs = pt.subPoints || [];
+              const nextSubPoints = currentSubs.map((s) => (s.id === subPointId ? { ...s, ...updates } : s));
+              const completedCount = nextSubPoints.filter((s) => s.status === 'completed').length;
+              const autoProgress = nextSubPoints.length > 0 ? Math.round((completedCount / nextSubPoints.length) * 100) : (pt.progressPercent || 0);
+              const isAllDone = nextSubPoints.length > 0 && nextSubPoints.every((s) => s.status === 'completed');
+
+              return {
+                ...pt,
+                subPoints: nextSubPoints,
+                progressPercent: autoProgress,
+                status: isAllDone ? 'completed' : pt.status
+              };
+            }
+            return pt;
+          });
+          return {
+            ...prj,
+            lastUpdated: new Date().toISOString().split('T')[0],
+            points: nextPoints
+          };
+        }
+        return prj;
+      });
+      return { ...prev, projectMatrices: updated };
+    });
+  };
+
+  const deleteMatrixSubPoint = (projectId: string, pointId: string, subPointId: string) => {
+    setState((prev) => {
+      const updated = (prev.projectMatrices || []).map((prj) => {
+        if (prj.id === projectId) {
+          const nextPoints = (prj.points || []).map((pt) => {
+            if (pt.id === pointId) {
+              const currentSubs = pt.subPoints || [];
+              const remaining = currentSubs.filter((s) => s.id !== subPointId);
+              const completedCount = remaining.filter((s) => s.status === 'completed').length;
+              const autoProgress = remaining.length > 0 ? Math.round((completedCount / remaining.length) * 100) : (pt.progressPercent || 0);
+              return {
+                ...pt,
+                subPoints: remaining,
+                progressPercent: autoProgress
+              };
+            }
+            return pt;
+          });
+          return {
+            ...prj,
+            lastUpdated: new Date().toISOString().split('T')[0],
+            points: nextPoints
+          };
+        }
+        return prj;
+      });
+      return { ...prev, projectMatrices: updated };
+    });
+  };
+
+  const addCustomMatrixCategory = (projectId: string, categoryName: string) => {
+    const trimmed = categoryName.trim();
+    if (!trimmed) return;
+    setState((prev) => {
+      const updated = (prev.projectMatrices || []).map((prj) => {
+        if (prj.id === projectId) {
+          const current = prj.customCategories || [];
+          if (current.some((c) => c.toLowerCase() === trimmed.toLowerCase())) return prj;
+          return {
+            ...prj,
+            lastUpdated: new Date().toISOString().split('T')[0],
+            customCategories: [...current, trimmed]
+          };
+        }
+        return prj;
+      });
+      return { ...prev, projectMatrices: updated };
+    });
+  };
+
+  const deleteCustomMatrixCategory = (projectId: string, categoryName: string) => {
+    const target = categoryName.trim().toLowerCase();
+    setState((prev) => {
+      const updated = (prev.projectMatrices || []).map((prj) => {
+        if (prj.id === projectId) {
+          return {
+            ...prj,
+            lastUpdated: new Date().toISOString().split('T')[0],
+            customCategories: (prj.customCategories || []).filter((c) => c.trim().toLowerCase() !== target),
+            points: (prj.points || []).filter((pt) => pt.category?.trim().toLowerCase() !== target)
+          };
+        }
+        return prj;
+      });
+      return { ...prev, projectMatrices: updated };
+    });
+  };
+
+  const updateCustomMatrixCategory = (projectId: string, oldName: string, newName: string) => {
+    if (!newName.trim() || oldName === newName.trim()) return;
+    setState((prev) => {
+      const updated = (prev.projectMatrices || []).map((prj) => {
+        if (prj.id === projectId) {
+          const current = prj.customCategories || [];
+          return {
+            ...prj,
+            customCategories: current.map((c) => c === oldName ? newName.trim() : c),
+            points: prj.points.map((pt) => pt.category === oldName ? { ...pt, category: newName.trim() } : pt)
+          };
+        }
+        return prj;
+      });
+      return { ...prev, projectMatrices: updated };
     });
   };
 
@@ -550,9 +883,7 @@ export function useAppState() {
   };
 
   const resetToTemplate = () => {
-    if (window.confirm('Are you sure you want to reset the board back to the default operational template? All custom metrics and recent logs will be lost.')) {
-      setState(INITIAL_STATE);
-    }
+    setState(INITIAL_STATE);
   };
 
   return {
@@ -583,6 +914,22 @@ export function useAppState() {
     deleteEmployee,
     addTimeBooking,
     updateTimeBooking,
-    deleteTimeBooking
+    deleteTimeBooking,
+    // Project Matrix methods
+    setActiveProjectId,
+    addProjectMatrix,
+    updateProjectMatrix,
+    deleteProjectMatrix,
+    duplicateProjectMatrix,
+    addMatrixPoint,
+    updateMatrixPoint,
+    deleteMatrixPoint,
+    duplicateMatrixPoint,
+    addMatrixSubPoint,
+    updateMatrixSubPoint,
+    deleteMatrixSubPoint,
+    addCustomMatrixCategory,
+    deleteCustomMatrixCategory,
+    updateCustomMatrixCategory
   };
 }

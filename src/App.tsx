@@ -15,11 +15,12 @@ import BackupPanel from './components/BackupPanel';
 import HoursPlanner from './components/HoursPlanner';
 import ResourceMaster from './components/ResourceMaster';
 import ExcelSyncModal from './components/ExcelSyncModal';
+import ProjectMatrixView from './components/ProjectMatrixView';
 import { 
   Shield, Leaf, CheckCircle, TrendingUp, Coins, HardHat,
   Users, Activity, Calendar, Award, RefreshCw, AlertTriangle,
   Plus, Check, ChevronRight, Filter, LogOut, Sparkles, BookOpen,
-  ArrowRight, Landmark, FileSpreadsheet
+  ArrowRight, Landmark, FileSpreadsheet, FolderKanban
 } from 'lucide-react';
 
 export default function App() {
@@ -51,11 +52,27 @@ export default function App() {
     deleteEmployee,
     addTimeBooking,
     updateTimeBooking,
-    deleteTimeBooking
+    deleteTimeBooking,
+    // Project Matrix state methods
+    setActiveProjectId,
+    addProjectMatrix,
+    updateProjectMatrix,
+    deleteProjectMatrix,
+    duplicateProjectMatrix,
+    addMatrixPoint,
+    updateMatrixPoint,
+    deleteMatrixPoint,
+    duplicateMatrixPoint,
+    addMatrixSubPoint,
+    updateMatrixSubPoint,
+    deleteMatrixSubPoint,
+    addCustomMatrixCategory,
+    deleteCustomMatrixCategory,
+    updateCustomMatrixCategory
   } = useAppState();
 
   const [activeLevel, setActiveLevel] = useState<PulseLevel>('daily');
-  const [activeTab, setActiveTab] = useState<'board' | 'actions' | 'backup' | 'hours' | 'master'>('board');
+  const [activeTab, setActiveTab] = useState<'board' | 'actions' | 'backup' | 'hours' | 'master' | 'matrix'>('board');
   const [selectedPillarFilter, setSelectedPillarFilter] = useState<string>('all');
   
   // Custom widget creation form state
@@ -67,12 +84,13 @@ export default function App() {
   const [newWType, setNewWType] = useState<
     'numeric' | 'checklist' | 'gauge' | 'counter' | 'chart' | 'project' |
     'stopwatch' | 'heatmap' | 'pareto' | 'skills' | 'kanban' | 'handover' |
-    'riskGauge' | 'emission' | 'radar' | 'countdown' | 'pulse'
+    'riskGauge' | 'emission' | 'radar' | 'countdown' | 'pulse' | 'projectMatrix'
   >('numeric');
   const [newWUnit, setNewWUnit] = useState('');
   const [newWTarget, setNewWTarget] = useState('');
   const [newWActual, setNewWActual] = useState('');
   const [newWDesc, setNewWDesc] = useState('');
+  const [newWOwner, setNewWOwner] = useState('');
   const [newWWarningThreshold, setNewWWarningThreshold] = useState<string>('110');
   const [newWLinkedId, setNewWLinkedId] = useState<string>('');
   
@@ -202,6 +220,7 @@ export default function App() {
       level: newWLevel,
       type: newWType,
       unit: newWUnit || undefined,
+      owner: newWOwner || undefined,
       target: targetVal,
       actual: actualVal,
       value: numericValue,
@@ -215,6 +234,7 @@ export default function App() {
 
     // Reset Widget Form
     setNewWTitle('');
+    setNewWOwner('');
     setNewWUnit('');
     setNewWTarget('');
     setNewWActual('');
@@ -310,6 +330,21 @@ export default function App() {
             }`}
           >
             Resource Master
+          </button>
+          <button
+            onClick={() => setActiveTab('matrix')}
+            className={`px-3.5 py-1.5 text-xs font-bold rounded-md transition-all whitespace-nowrap cursor-pointer uppercase tracking-wider flex items-center gap-1.5 ${
+              activeTab === 'matrix'
+                ? 'bg-[#FFC20E] text-slate-950 shadow-sm'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <span>Project Matrix</span>
+            <span className={`text-[9px] px-1 py-0.2 rounded font-mono font-black uppercase ${
+              activeTab === 'matrix' ? 'bg-slate-950 text-[#FFC20E]' : 'bg-[#FFC20E]/20 text-[#FFC20E]'
+            }`}>
+              New
+            </span>
           </button>
           <button
             onClick={() => setActiveTab('backup')}
@@ -525,11 +560,8 @@ export default function App() {
               <div className="flex flex-wrap items-center gap-2 shrink-0">
                 <button
                   onClick={() => {
-                    if (window.confirm(`Are you sure you want to overwrite today's active live board with this historical backup from ${selectedSnapshotDate}? Current un-snapshotted active changes will be replaced.`)) {
-                      restoreSnapshot(selectedSnapshotDate);
-                      setSelectedSnapshotDate('live');
-                      alert(`Successfully restored the huddleboard back to the state of ${selectedSnapshotDate}!`);
-                    }
+                    restoreSnapshot(selectedSnapshotDate);
+                    setSelectedSnapshotDate('live');
                   }}
                   className="px-3.5 py-1.5 bg-[#FFC20E] text-slate-950 hover:bg-[#E5B200] text-xs font-extrabold rounded-lg shadow cursor-pointer transition-all"
                 >
@@ -537,11 +569,8 @@ export default function App() {
                 </button>
                 <button
                   onClick={() => {
-                    if (window.confirm(`Are you sure you want to delete this snapshot for ${selectedSnapshotDate} from the backup storage?`)) {
-                      deleteSnapshot(selectedSnapshotDate);
-                      setSelectedSnapshotDate('live');
-                      alert(`Deleted snapshot for ${selectedSnapshotDate}.`);
-                    }
+                    deleteSnapshot(selectedSnapshotDate);
+                    setSelectedSnapshotDate('live');
                   }}
                   className="px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 dark:bg-rose-950/20 dark:hover:bg-rose-950/40 text-xs font-bold rounded-lg cursor-pointer transition-all"
                 >
@@ -571,7 +600,7 @@ export default function App() {
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
                 <div>
                   <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">KPI Title</label>
                   <input
@@ -580,6 +609,16 @@ export default function App() {
                     value={newWTitle}
                     onChange={(e) => setNewWTitle(e.target.value)}
                     placeholder="e.g. Daily Air Recirculation Rate"
+                    className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 font-semibold"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Metric Owner (Person)</label>
+                  <input
+                    type="text"
+                    value={newWOwner}
+                    onChange={(e) => setNewWOwner(e.target.value)}
+                    placeholder="e.g. Sarah Connor, John Doe"
                     className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 font-semibold"
                   />
                 </div>
@@ -634,6 +673,7 @@ export default function App() {
                     <option value="emission">15. CO₂ Emission Sparkline (Carbon Footprint Trace)</option>
                     <option value="countdown">16. Lead Time Countdown Tracker (Rig Shipping Pipeline)</option>
                     <option value="pulse">17. Takt-Time Pace Pulse (Active Takt Pace Indicator)</option>
+                    <option value="projectMatrix">18. Project Tracking Matrix (Cost, Schedule, Scope, Fixtures, BOMs, Resources, SOPs)</option>
                   </select>
                 </div>
 
@@ -885,6 +925,7 @@ export default function App() {
                               onDelete={deleteWidget}
                               userRole={state.currentUserRole}
                               onReorder={reorderWidgets}
+                              onNavigateToProjectMatrix={() => setActiveTab('matrix')}
                             />
                           ))}
                       </div>
@@ -922,6 +963,7 @@ export default function App() {
                               onDelete={deleteWidget}
                               userRole={state.currentUserRole}
                               onReorder={reorderWidgets}
+                              onNavigateToProjectMatrix={() => setActiveTab('matrix')}
                             />
                           ))}
                       </div>
@@ -959,6 +1001,7 @@ export default function App() {
                               onDelete={deleteWidget}
                               userRole={state.currentUserRole}
                               onReorder={reorderWidgets}
+                              onNavigateToProjectMatrix={() => setActiveTab('matrix')}
                             />
                           ))}
                       </div>
@@ -986,6 +1029,7 @@ export default function App() {
                             onDelete={deleteWidget}
                             userRole={state.currentUserRole}
                             onReorder={reorderWidgets}
+                            onNavigateToProjectMatrix={() => setActiveTab('matrix')}
                           />
                         ))}
                     </div>
@@ -1027,6 +1071,7 @@ export default function App() {
                           onDelete={deleteWidget}
                           userRole={state.currentUserRole}
                           onReorder={reorderWidgets}
+                          onNavigateToProjectMatrix={() => setActiveTab('matrix')}
                         />
                       ))}
                   </div>
@@ -1066,6 +1111,31 @@ export default function App() {
               onAddEmployee={addEmployee}
               onUpdateEmployee={updateEmployee}
               onDeleteEmployee={deleteEmployee}
+            />
+          )}
+
+          {/* PROJECT TRACKING MATRIX TAB */}
+          {activeTab === 'matrix' && (
+            <ProjectMatrixView
+              projects={state.projectMatrices || []}
+              activeProjectId={state.activeProjectId}
+              employees={currentEmployees}
+              onSelectProject={setActiveProjectId}
+              onAddProject={addProjectMatrix}
+              onUpdateProject={updateProjectMatrix}
+              onDeleteProject={deleteProjectMatrix}
+              onDuplicateProject={duplicateProjectMatrix}
+              onAddPoint={addMatrixPoint}
+              onUpdatePoint={updateMatrixPoint}
+              onDeletePoint={deleteMatrixPoint}
+              onDuplicatePoint={duplicateMatrixPoint}
+              onAddSubPoint={addMatrixSubPoint}
+              onUpdateSubPoint={updateMatrixSubPoint}
+              onDeleteSubPoint={deleteMatrixSubPoint}
+              onAddCustomCategory={addCustomMatrixCategory}
+              onDeleteCustomCategory={deleteCustomMatrixCategory}
+              onUpdateCustomCategory={updateCustomMatrixCategory}
+              onNavigateToResourceMaster={() => setActiveTab('master')}
             />
           )}
 

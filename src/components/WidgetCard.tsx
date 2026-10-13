@@ -3,7 +3,7 @@ import { MetricWidget, Pillar, DataPoint } from '../types';
 import { 
   Shield, Leaf, CheckCircle, TrendingUp, Coins, HardHat, 
   Trash2, Edit, Check, Play, Pause, RotateCcw, Info, AlertTriangle, 
-  Plus, Star, Layers, Clock, Sliders, X
+  Plus, Star, Layers, Clock, Sliders, X, ArrowRight, FolderKanban
 } from 'lucide-react';
 
 interface WidgetCardProps {
@@ -13,6 +13,7 @@ interface WidgetCardProps {
   onDelete: (id: string) => void;
   userRole: string;
   onReorder?: (draggedId: string, targetId: string) => void;
+  onNavigateToProjectMatrix?: () => void;
 }
 
 export default function WidgetCard({
@@ -22,6 +23,7 @@ export default function WidgetCard({
   onDelete,
   userRole,
   onReorder,
+  onNavigateToProjectMatrix
 }: WidgetCardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [tempActual, setTempActual] = useState(widget.actual?.toString() || '');
@@ -31,6 +33,7 @@ export default function WidgetCard({
   const [tempTitle, setTempTitle] = useState(widget.title);
   const [tempDesc, setTempDesc] = useState(widget.description || '');
   const [tempUnit, setTempUnit] = useState(widget.unit || '');
+  const [tempOwner, setTempOwner] = useState(widget.owner || '');
 
   // Timer state for stopwatch type
   const [isTimerRunning, setIsTimerRunning] = useState(false);
@@ -114,6 +117,7 @@ export default function WidgetCard({
       title: tempTitle,
       description: tempDesc || undefined,
       unit: tempUnit || undefined,
+      owner: tempOwner || undefined,
       ...( !isNaN(actualNum) ? { actual: actualNum } : {}),
       ...( !isNaN(targetNum) ? { target: targetNum } : {}),
       ...( !isNaN(warningNum) ? { warningThreshold: warningNum } : {})
@@ -232,11 +236,19 @@ export default function WidgetCard({
     }`}>
       {/* Widget Header */}
       <div className={`px-4 py-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between ${config.headerBg}`}>
-        <div className="flex items-center gap-2 max-w-[65%]">
-          <IconComponent className={`w-4 h-4 ${config.themeColor}`} />
-          <h4 className="font-semibold text-slate-800 dark:text-slate-100 text-[13px] truncate" title={widget.title}>
-            {widget.title}
-          </h4>
+        <div className="flex items-center gap-2 max-w-[65%] min-w-0">
+          <IconComponent className={`w-4 h-4 shrink-0 ${config.themeColor}`} />
+          <div className="min-w-0">
+            <h4 className="font-semibold text-slate-800 dark:text-slate-100 text-[13px] truncate" title={widget.title}>
+              {widget.title}
+            </h4>
+            <div className="flex items-center gap-1 text-[10px] text-slate-500 dark:text-slate-400 font-mono">
+              <span className="text-[9px] uppercase font-bold text-slate-400 dark:text-slate-500">Owner:</span>
+              <span className="font-bold text-slate-700 dark:text-slate-300 truncate" title={widget.owner || 'Operational Champion'}>
+                {widget.owner || (widget.pillar === 'Safety' ? 'EHS Lead' : widget.pillar === 'Quality' ? 'Quality Lead' : widget.pillar === 'Delivery' ? 'Production Planner' : widget.pillar === 'Cost' ? 'Cost Lead' : widget.pillar === 'Sustainability' ? 'EHS Champion' : 'Team Lead')}
+              </span>
+            </div>
+          </div>
         </div>
         <div className="flex items-center gap-1 shrink-0">
           {widget.linkedWidgetId && (
@@ -269,13 +281,14 @@ export default function WidgetCard({
               setTempTitle(widget.title);
               setTempDesc(widget.description || '');
               setTempUnit(widget.unit || '');
+              setTempOwner(widget.owner || '');
               setTempActual(widget.actual?.toString() || '');
               setTempTarget(widget.target?.toString() || '');
               setTempWarningThreshold(widget.warningThreshold?.toString() || '');
               setIsEditing(!isEditing);
             }}
             className="p-1 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-md text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
-            title="Edit Target/Value & Sub-points"
+            title="Edit Target/Value, Owner & Sub-points"
           >
             <Edit className="w-3.5 h-3.5" />
           </button>
@@ -313,6 +326,29 @@ export default function WidgetCard({
                 />
               </div>
               <div>
+                <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-0.5">Metric Owner (Person)</label>
+                <input 
+                  type="text" 
+                  value={tempOwner} 
+                  onChange={(e) => setTempOwner(e.target.value)}
+                  placeholder="e.g. Sarah Connor, John Doe"
+                  className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-[#FFC20E] font-semibold" 
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-0.5">KPI Description</label>
+                <input 
+                  type="text" 
+                  value={tempDesc} 
+                  onChange={(e) => setTempDesc(e.target.value)}
+                  placeholder="Brief reason for tracking this..."
+                  className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-[#FFC20E] font-semibold" 
+                />
+              </div>
+              <div>
                 <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-0.5">Unit Symbol</label>
                 <input 
                   type="text" 
@@ -322,17 +358,6 @@ export default function WidgetCard({
                   className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-[#FFC20E] font-semibold font-mono" 
                 />
               </div>
-            </div>
-            
-            <div>
-              <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-0.5">KPI Description</label>
-              <input 
-                type="text" 
-                value={tempDesc} 
-                onChange={(e) => setTempDesc(e.target.value)}
-                placeholder="Brief reason for tracking this..."
-                className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-[#FFC20E] font-semibold" 
-              />
             </div>
             
             <div className="flex items-end justify-between gap-3 pt-1">
@@ -1227,6 +1252,71 @@ export default function WidgetCard({
             <div className="relative flex h-8 w-8 items-center justify-center">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-500"></span>
+            </div>
+          </div>
+        )}
+
+        {/* PROJECT TRACKING MATRIX TYPE */}
+        {widget.type === 'projectMatrix' && (
+          <div className="space-y-3 py-1">
+            <div className="p-3.5 bg-slate-900 text-white rounded-xl border border-slate-800 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <FolderKanban className="w-4 h-4 text-[#FFC20E]" />
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#FFC20E]">
+                    EPI-PRJ Matrix Tracker
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => onUpdateValue(widget.id, { state: widget.state === 'green' ? 'red' : 'green' })}
+                  className={`text-[10px] font-mono font-black uppercase px-2 py-0.5 rounded cursor-pointer transition-all ${
+                    widget.state === 'green'
+                      ? 'bg-emerald-950 text-emerald-300 border border-emerald-700 hover:bg-emerald-900'
+                      : 'bg-rose-950 text-rose-300 border border-rose-700 hover:bg-rose-900'
+                  }`}
+                  title="Click to toggle health status"
+                >
+                  {widget.state === 'green' ? '🟢 On Track' : '🔴 At Risk'}
+                </button>
+              </div>
+
+              {/* Progress Bar & Readiness */}
+              <div className="space-y-1">
+                <div className="flex justify-between text-[10px] font-mono">
+                  <span className="text-slate-400">Total Completion</span>
+                  <span className="text-[#FFC20E] font-bold">78% Progress</span>
+                </div>
+                <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                  <div className="bg-[#FFC20E] h-full rounded-full" style={{ width: '78%' }}></div>
+                </div>
+              </div>
+
+              {/* Matrix Dimensions Grid */}
+              <div className="grid grid-cols-2 gap-2 text-[10px] font-mono pt-1">
+                <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                  <span className="text-slate-400 block text-[9px] uppercase font-bold">Cost Variance</span>
+                  <span className="text-emerald-400 font-bold">+$32,000 Under</span>
+                </div>
+                <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                  <span className="text-slate-400 block text-[9px] uppercase font-bold">Op Readiness</span>
+                  <span className="text-emerald-400 font-bold">85% Verified</span>
+                </div>
+              </div>
+
+              {/* Action Button: Jump to Full Interactive Matrix */}
+              <button
+                type="button"
+                onClick={() => {
+                  if (onNavigateToProjectMatrix) {
+                    onNavigateToProjectMatrix();
+                  }
+                }}
+                className="w-full py-2 bg-[#FFC20E] hover:bg-[#E5B200] text-slate-950 text-xs font-black rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider font-mono shadow-sm"
+              >
+                <span>Open Project Matrix</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
         )}
