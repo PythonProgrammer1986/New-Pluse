@@ -865,6 +865,7 @@ export default function App() {
                             onDelete={deleteWidget}
                             userRole={state.currentUserRole}
                             onReorder={reorderWidgets}
+                            projects={state.projectMatrices || []}
                           />
                         ))}
                       </div>
@@ -926,6 +927,7 @@ export default function App() {
                               userRole={state.currentUserRole}
                               onReorder={reorderWidgets}
                               onNavigateToProjectMatrix={() => setActiveTab('matrix')}
+                              projects={state.projectMatrices || []}
                             />
                           ))}
                       </div>
@@ -964,6 +966,7 @@ export default function App() {
                               userRole={state.currentUserRole}
                               onReorder={reorderWidgets}
                               onNavigateToProjectMatrix={() => setActiveTab('matrix')}
+                              projects={state.projectMatrices || []}
                             />
                           ))}
                       </div>
@@ -1002,6 +1005,7 @@ export default function App() {
                               userRole={state.currentUserRole}
                               onReorder={reorderWidgets}
                               onNavigateToProjectMatrix={() => setActiveTab('matrix')}
+                              projects={state.projectMatrices || []}
                             />
                           ))}
                       </div>
@@ -1030,6 +1034,7 @@ export default function App() {
                             userRole={state.currentUserRole}
                             onReorder={reorderWidgets}
                             onNavigateToProjectMatrix={() => setActiveTab('matrix')}
+                            projects={state.projectMatrices || []}
                           />
                         ))}
                     </div>
@@ -1072,6 +1077,7 @@ export default function App() {
                           userRole={state.currentUserRole}
                           onReorder={reorderWidgets}
                           onNavigateToProjectMatrix={() => setActiveTab('matrix')}
+                          projects={state.projectMatrices || []}
                         />
                       ))}
                   </div>

@@ -119,6 +119,12 @@ export function useAppState() {
         return w;
       });
 
+      let nextProjectMatrices = prev.projectMatrices || [];
+      const updatedWidget = updatedWidgets.find(w => w.id === id);
+      if (updatedWidget && updatedWidget.projectId && updates.title !== undefined) {
+        nextProjectMatrices = nextProjectMatrices.map(p => p.id === updatedWidget.projectId ? { ...p, name: updates.title! } : p);
+      }
+
       // Synchronize linked widgets (two-way alignment)
       const sourceWidget = updatedWidgets.find(w => w.id === id);
       if (sourceWidget) {
@@ -207,6 +213,7 @@ export function useAppState() {
       return {
         ...prev,
         widgets: updatedWidgets,
+        projectMatrices: nextProjectMatrices,
         deviations: nextDeviations,
         actionItems: nextActionItems
       };
@@ -557,9 +564,20 @@ export function useAppState() {
         customCategories: [],
         points: []
       };
+      const newWidget: MetricWidget = {
+        id: generateId('widget'),
+        title: projectData.name,
+        pillar: 'Cost',
+        level: 'daily',
+        type: 'projectMatrix',
+        state: 'green',
+        projectId: newId,
+        description: projectData.description || `Project matrix tracking for ${projectData.name} (${projectData.code})`
+      };
       return {
         ...prev,
         projectMatrices: [...(prev.projectMatrices || []), newPrj],
+        widgets: [...prev.widgets, newWidget],
         activeProjectId: newId
       };
     });
@@ -567,21 +585,31 @@ export function useAppState() {
   };
 
   const updateProjectMatrix = (id: string, updates: Partial<ProjectTrackRecord>) => {
-    setState((prev) => ({
-      ...prev,
-      projectMatrices: (prev.projectMatrices || []).map((p) =>
+    setState((prev) => {
+      const nextProjects = (prev.projectMatrices || []).map((p) =>
         p.id === id ? { ...p, ...updates, lastUpdated: new Date().toISOString().split('T')[0] } : p
-      )
-    }));
+      );
+      let nextWidgets = prev.widgets;
+      if (updates.name !== undefined) {
+        nextWidgets = prev.widgets.map((w) => (w.projectId === id ? { ...w, title: updates.name! } : w));
+      }
+      return {
+        ...prev,
+        projectMatrices: nextProjects,
+        widgets: nextWidgets
+      };
+    });
   };
 
   const deleteProjectMatrix = (id: string) => {
     setState((prev) => {
       const remaining = (prev.projectMatrices || []).filter((p) => p.id !== id);
-      const nextActiveId = remaining.length > 0 ? remaining[0].id : undefined;
+      const nextWidgets = (prev.widgets || []).filter((w) => w.projectId !== id);
+      const nextActiveId = remaining.length > 0 ? remaining.length > 0 ? remaining[0].id : undefined : undefined;
       return {
         ...prev,
         projectMatrices: remaining,
+        widgets: nextWidgets,
         activeProjectId: prev.activeProjectId === id ? nextActiveId : prev.activeProjectId
       };
     });
@@ -821,15 +849,18 @@ export function useAppState() {
   };
 
   const deleteCustomMatrixCategory = (projectId: string, categoryName: string) => {
-    const target = categoryName.trim().toLowerCase();
+    const target = categoryName.trim();
     setState((prev) => {
       const updated = (prev.projectMatrices || []).map((prj) => {
         if (prj.id === projectId) {
+          const currentCustom = prj.customCategories || [];
+          const currentHidden = prj.hiddenCategories || [];
           return {
             ...prj,
             lastUpdated: new Date().toISOString().split('T')[0],
-            customCategories: (prj.customCategories || []).filter((c) => c.trim().toLowerCase() !== target),
-            points: (prj.points || []).filter((pt) => pt.category?.trim().toLowerCase() !== target)
+            customCategories: currentCustom.filter((c) => c.trim().toLowerCase() !== target.toLowerCase()),
+            hiddenCategories: [...new Set([...currentHidden, target])],
+            points: (prj.points || []).filter((pt) => pt.category?.trim().toLowerCase() !== target.toLowerCase())
           };
         }
         return prj;

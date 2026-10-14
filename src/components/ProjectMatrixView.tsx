@@ -132,16 +132,22 @@ export default function ProjectMatrixView({
   // Dynamic dimensions for active project (NOT a forced standard list!)
   const allCategories = useMemo(() => {
     if (!currentProject) return [];
+    const hidden = (currentProject.hiddenCategories || []).map((h) => h.toLowerCase());
     const list: string[] = [];
+    SUGGESTED_DIMENSIONS.forEach((d) => {
+      if (!hidden.includes(d.toLowerCase()) && !list.includes(d)) {
+        list.push(d);
+      }
+    });
     if (currentProject.customCategories && currentProject.customCategories.length > 0) {
       currentProject.customCategories.forEach((c) => {
-        if (!list.includes(c)) list.push(c);
+        if (!hidden.includes(c.toLowerCase()) && !list.includes(c)) list.push(c);
       });
     }
     // Also include categories that already have points in this project
     if (currentProject.points && currentProject.points.length > 0) {
       currentProject.points.forEach((pt) => {
-        if (pt.category && !list.includes(pt.category)) {
+        if (pt.category && !hidden.includes(pt.category.toLowerCase()) && !list.includes(pt.category)) {
           list.push(pt.category);
         }
       });

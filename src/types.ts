@@ -70,6 +70,7 @@ export interface ProjectTrackRecord {
   ownerEmployeeId?: string; // Resource master ID
   points: MatrixPoint[];
   customCategories?: string[];
+  hiddenCategories?: string[];
   lastUpdated?: string;
 }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { MetricWidget, Pillar, DataPoint } from '../types';
+import { MetricWidget, Pillar, DataPoint, ProjectTrackRecord } from '../types';
 import { 
   Shield, Leaf, CheckCircle, TrendingUp, Coins, HardHat, 
   Trash2, Edit, Check, Play, Pause, RotateCcw, Info, AlertTriangle, 
@@ -14,6 +14,7 @@ interface WidgetCardProps {
   userRole: string;
   onReorder?: (draggedId: string, targetId: string) => void;
   onNavigateToProjectMatrix?: () => void;
+  projects?: ProjectTrackRecord[];
 }
 
 export default function WidgetCard({
@@ -23,7 +24,8 @@ export default function WidgetCard({
   onDelete,
   userRole,
   onReorder,
-  onNavigateToProjectMatrix
+  onNavigateToProjectMatrix,
+  projects
 }: WidgetCardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [tempActual, setTempActual] = useState(widget.actual?.toString() || '');
@@ -1259,65 +1261,83 @@ export default function WidgetCard({
         {/* PROJECT TRACKING MATRIX TYPE */}
         {widget.type === 'projectMatrix' && (
           <div className="space-y-3 py-1">
-            <div className="p-3.5 bg-slate-900 text-white rounded-xl border border-slate-800 space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <FolderKanban className="w-4 h-4 text-[#FFC20E]" />
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#FFC20E]">
-                    EPI-PRJ Matrix Tracker
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => onUpdateValue(widget.id, { state: widget.state === 'green' ? 'red' : 'green' })}
-                  className={`text-[10px] font-mono font-black uppercase px-2 py-0.5 rounded cursor-pointer transition-all ${
-                    widget.state === 'green'
-                      ? 'bg-emerald-950 text-emerald-300 border border-emerald-700 hover:bg-emerald-900'
-                      : 'bg-rose-950 text-rose-300 border border-rose-700 hover:bg-rose-900'
-                  }`}
-                  title="Click to toggle health status"
-                >
-                  {widget.state === 'green' ? '🟢 On Track' : '🔴 At Risk'}
-                </button>
-              </div>
+            {(() => {
+              const matchedProject = (projects || []).find((p) => p.id === widget.projectId) || (projects || []).find((p) => p.name.toLowerCase() === widget.title.toLowerCase()) || (projects || [])[0];
+              const points = matchedProject?.points || [];
+              const totalPoints = points.length;
+              const totalProgress = totalPoints > 0 
+                ? Math.round(points.reduce((acc, p) => acc + (p.progressPercent || 0), 0) / totalPoints) 
+                : 0;
 
-              {/* Progress Bar & Readiness */}
-              <div className="space-y-1">
-                <div className="flex justify-between text-[10px] font-mono">
-                  <span className="text-slate-400">Total Completion</span>
-                  <span className="text-[#FFC20E] font-bold">78% Progress</span>
-                </div>
-                <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                  <div className="bg-[#FFC20E] h-full rounded-full" style={{ width: '78%' }}></div>
-                </div>
-              </div>
+              const totalBudget = points.reduce((acc, p) => acc + (p.budget || 0), 0);
+              const totalActual = points.reduce((acc, p) => acc + (p.costActual || 0), 0);
+              const availableCost = totalBudget - totalActual;
+              const projectEndDate = matchedProject?.targetLaunchDate || 'N/A';
 
-              {/* Matrix Dimensions Grid */}
-              <div className="grid grid-cols-2 gap-2 text-[10px] font-mono pt-1">
-                <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
-                  <span className="text-slate-400 block text-[9px] uppercase font-bold">Cost Variance</span>
-                  <span className="text-emerald-400 font-bold">+$32,000 Under</span>
-                </div>
-                <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
-                  <span className="text-slate-400 block text-[9px] uppercase font-bold">Op Readiness</span>
-                  <span className="text-emerald-400 font-bold">85% Verified</span>
-                </div>
-              </div>
+              return (
+                <div className="p-3.5 bg-slate-900 text-white rounded-xl border border-slate-800 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <FolderKanban className="w-4 h-4 text-[#FFC20E]" />
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#FFC20E]">
+                        {matchedProject ? matchedProject.code : 'EPI-PRJ'} Matrix Tracker
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => onUpdateValue(widget.id, { state: widget.state === 'green' ? 'red' : 'green' })}
+                      className={`text-[10px] font-mono font-black uppercase px-2 py-0.5 rounded cursor-pointer transition-all ${
+                        widget.state === 'green'
+                          ? 'bg-emerald-950 text-emerald-300 border border-emerald-700 hover:bg-emerald-900'
+                          : 'bg-rose-950 text-rose-300 border border-rose-700 hover:bg-rose-900'
+                      }`}
+                      title="Click to toggle health status"
+                    >
+                      {widget.state === 'green' ? '🟢 On Track' : '🔴 At Risk'}
+                    </button>
+                  </div>
 
-              {/* Action Button: Jump to Full Interactive Matrix */}
-              <button
-                type="button"
-                onClick={() => {
-                  if (onNavigateToProjectMatrix) {
-                    onNavigateToProjectMatrix();
-                  }
-                }}
-                className="w-full py-2 bg-[#FFC20E] hover:bg-[#E5B200] text-slate-950 text-xs font-black rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider font-mono shadow-sm"
-              >
-                <span>Open Project Matrix</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
+                  {/* Progress Bar & Readiness */}
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-[10px] font-mono">
+                      <span className="text-slate-400">Total Completion</span>
+                      <span className="text-[#FFC20E] font-bold">{totalProgress}% Progress</span>
+                    </div>
+                    <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                      <div className="bg-[#FFC20E] h-full rounded-full transition-all" style={{ width: `${totalProgress}%` }}></div>
+                    </div>
+                  </div>
+
+                  {/* Matrix Dimensions Grid: Available Cost & End Date */}
+                  <div className="grid grid-cols-2 gap-2 text-[10px] font-mono pt-1">
+                    <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                      <span className="text-slate-400 block text-[9px] uppercase font-bold">Available Cost / Budget</span>
+                      <span className={`font-bold ${availableCost >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                        {availableCost >= 0 ? `₹${availableCost.toLocaleString()}` : `-₹${Math.abs(availableCost).toLocaleString()}`}
+                      </span>
+                    </div>
+                    <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
+                      <span className="text-slate-400 block text-[9px] uppercase font-bold">Project End Date</span>
+                      <span className="text-slate-200 font-bold">{projectEndDate}</span>
+                    </div>
+                  </div>
+
+                  {/* Action Button: Jump to Full Interactive Matrix */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (onNavigateToProjectMatrix) {
+                        onNavigateToProjectMatrix();
+                      }
+                    }}
+                    className="w-full py-2 bg-[#FFC20E] hover:bg-[#E5B200] text-slate-950 text-xs font-black rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider font-mono shadow-sm"
+                  >
+                    <span>Open Project Matrix</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              );
+            })()}
           </div>
         )}
       </div>
