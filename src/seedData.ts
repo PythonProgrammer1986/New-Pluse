@@ -1,4 +1,4 @@
-import { MetricWidget, Deviation, ActionItem, AppState, ProjectTrackRecord } from './types';
+import { MetricWidget, Deviation, ActionItem, AppState, ProjectTrackRecord, StickyNote } from './types';
 
 export const INITIAL_WIDGETS: MetricWidget[] = [
   // ================= DAILY LEVEL =================
@@ -882,6 +882,36 @@ export const INITIAL_PROJECT_MATRICES: ProjectTrackRecord[] = [
   }
 ];
 
+export const INITIAL_STICKY_NOTES: StickyNote[] = [
+  {
+    id: 'sn-1',
+    title: 'Shift Handover Note',
+    content: 'Line 2 pneumatic valve tested and signed off. All night-shift operators completed safety checklist.',
+    color: 'yellow',
+    author: 'Sarah Connor',
+    createdAt: '2026-10-17 07:15',
+    pinned: true
+  },
+  {
+    id: 'sn-2',
+    title: 'Floor Kudos ⭐',
+    content: 'Huge shoutout to Alex for identifying the loose hydraulic fitting before startup!',
+    color: 'green',
+    author: 'John Doe',
+    createdAt: '2026-10-17 08:30',
+    pinned: true
+  },
+  {
+    id: 'sn-3',
+    title: 'Audit Preparation',
+    content: 'ISO 9001 internal mock audit scheduled for Thursday. Ensure calibration stamps are visible.',
+    color: 'blue',
+    author: 'Elena Rostova',
+    createdAt: '2026-10-16 14:00',
+    pinned: false
+  }
+];
+
 export const INITIAL_STATE: AppState = {
   currentTeam: 'Assembly Operations',
   currentUserRole: 'Team Lead',
@@ -894,6 +924,7 @@ export const INITIAL_STATE: AppState = {
   timeBookings: INITIAL_TIME_BOOKINGS,
   projectMatrices: INITIAL_PROJECT_MATRICES,
   activeProjectId: 'prj-1',
+  stickyNotes: INITIAL_STICKY_NOTES,
   history: {
     '2026-10-01': {
       widgets: INITIAL_WIDGETS.map(w => w.id === 'd-safety-lti' ? { ...w, value: 139 } : w),
@@ -902,7 +933,8 @@ export const INITIAL_STATE: AppState = {
       safetyCross: { ...INITIAL_SAFETY_CROSS, 30: 'green' },
       safetyNotes: { ...INITIAL_SAFETY_NOTES, 30: 'No accidents logged today. Perfect shift compliance!' },
       employees: INITIAL_EMPLOYEES,
-      timeBookings: INITIAL_TIME_BOOKINGS
+      timeBookings: INITIAL_TIME_BOOKINGS,
+      stickyNotes: INITIAL_STICKY_NOTES
     },
     '2026-10-02': {
       widgets: INITIAL_WIDGETS.map(w => w.id === 'd-sust-energy' ? { ...w, actual: 435, state: 'red' } : w),
@@ -911,7 +943,8 @@ export const INITIAL_STATE: AppState = {
       safetyCross: INITIAL_SAFETY_CROSS,
       safetyNotes: INITIAL_SAFETY_NOTES,
       employees: INITIAL_EMPLOYEES,
-      timeBookings: INITIAL_TIME_BOOKINGS
+      timeBookings: INITIAL_TIME_BOOKINGS,
+      stickyNotes: INITIAL_STICKY_NOTES
     },
     '2026-10-03': {
       widgets: INITIAL_WIDGETS.map(w => w.id === 'd-safety-hazards' ? { ...w, actual: 1, state: 'red' } : w),
@@ -920,7 +953,8 @@ export const INITIAL_STATE: AppState = {
       safetyCross: { ...INITIAL_SAFETY_CROSS, 29: 'amber' },
       safetyNotes: { ...INITIAL_SAFETY_NOTES, 29: 'Near-miss: Operator reported slick floor near hydraulic loop.' },
       employees: INITIAL_EMPLOYEES,
-      timeBookings: INITIAL_TIME_BOOKINGS
+      timeBookings: INITIAL_TIME_BOOKINGS,
+      stickyNotes: INITIAL_STICKY_NOTES
     }
   }
 };

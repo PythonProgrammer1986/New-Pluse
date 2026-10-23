@@ -32,6 +32,25 @@ export interface ExcelSyncRule {
 
 export type MatrixItemStatus = 'not-started' | 'in-progress' | 'on-track' | 'at-risk' | 'delayed' | 'completed';
 
+export interface Attachment {
+  id: string;
+  name: string;
+  type: 'photo' | 'drawing';
+  dataUrl: string;
+  timestamp: string;
+}
+
+export interface StickyNote {
+  id: string;
+  title: string;
+  content: string;
+  color: 'yellow' | 'blue' | 'green' | 'pink' | 'purple';
+  author: string;
+  createdAt: string;
+  pinned?: boolean;
+  drawingUrl?: string;
+}
+
 export interface MatrixSubPoint {
   id: string;
   title: string;
@@ -41,6 +60,7 @@ export interface MatrixSubPoint {
   notes?: string;
   costEstimate?: number;
   costActual?: number;
+  attachments?: Attachment[];
 }
 
 export interface MatrixPoint {
@@ -50,12 +70,15 @@ export interface MatrixPoint {
   description?: string;
   status: MatrixItemStatus;
   assignedToEmployeeId?: string; // ID from Resource Master
+  startDate?: string;
   targetDate?: string;
   priority: 'low' | 'medium' | 'high' | 'critical';
   progressPercent: number; // 0 - 100
   budget?: number;
   costActual?: number;
   notes?: string;
+  pinned?: boolean;
+  attachments?: Attachment[];
   subPoints: MatrixSubPoint[];
 }
 
@@ -95,6 +118,7 @@ export interface MetricWidget {
   linkedWidgetId?: string; // ID of the daily widget this widget is synchronized with
   excelRule?: ExcelSyncRule; // Custom Excel dynamic cell mapping rule
   projectId?: string; // For projectMatrix widget linking
+  pinned?: boolean;
 }
 
 export interface Deviation {
@@ -111,6 +135,7 @@ export interface Deviation {
   isResolved: boolean;
   ishikawaCategory?: 'Machine' | 'Method' | 'Manpower' | 'Material'; // Lean Ishikawa classification
   fundedAmount?: number; // Linked Strategic Capex funding
+  attachments?: Attachment[];
 }
 
 export interface ActionItem {
@@ -123,6 +148,7 @@ export interface ActionItem {
   status: 'open' | 'in-progress' | 'resolved';
   deviationId?: string; // Linked deviation ID
   notes?: string;
+  attachments?: Attachment[];
 }
 
 export interface TeamConfig {
@@ -156,6 +182,7 @@ export interface AppStateSnapshot {
   timeBookings?: TaskTimeBooking[];
   projectMatrices?: ProjectTrackRecord[];
   activeProjectId?: string;
+  stickyNotes?: StickyNote[];
 }
 
 export interface AppState {
@@ -170,5 +197,6 @@ export interface AppState {
   timeBookings?: TaskTimeBooking[];
   projectMatrices?: ProjectTrackRecord[];
   activeProjectId?: string;
+  stickyNotes?: StickyNote[];
   history?: { [dateString: string]: AppStateSnapshot };
 }

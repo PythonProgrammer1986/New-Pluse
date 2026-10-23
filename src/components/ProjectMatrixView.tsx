@@ -1,14 +1,19 @@
 import React, { useState, useMemo } from 'react';
 import { 
-  ProjectTrackRecord, MatrixPoint, MatrixSubPoint, MatrixItemStatus, Employee 
+  ProjectTrackRecord, MatrixPoint, MatrixSubPoint, MatrixItemStatus, Employee, Attachment 
 } from '../types';
+import VoiceInputButton from './VoiceInputButton';
+import PhotoDrawingAttachmentModal from './PhotoDrawingAttachmentModal';
+import GanttTimelineView from './GanttTimelineView';
+import ProjectKanbanView from './ProjectKanbanView';
 import { 
   Coins, Calendar, Target, Wrench, Boxes, Users, GraduationCap, 
   Rocket, FileText, AlertTriangle, Plus, Trash2, Edit2, Copy, 
   CheckCircle2, Clock, AlertCircle, ChevronDown, ChevronRight, 
   Filter, Search, Download, Check, X, User, ArrowUpRight, 
   Percent, ShieldAlert, Sparkles, FolderKanban, SlidersHorizontal,
-  Layers, BarChart3, HelpCircle
+  Layers, BarChart3, HelpCircle, LayoutGrid, CalendarRange, 
+  Table as TableIcon, Paperclip, Pin
 } from 'lucide-react';
 
 interface ProjectMatrixViewProps {
@@ -31,6 +36,10 @@ interface ProjectMatrixViewProps {
   onDeleteCustomCategory: (projectId: string, categoryName: string) => void;
   onUpdateCustomCategory?: (projectId: string, oldName: string, newName: string) => void;
   onNavigateToResourceMaster?: () => void;
+  onTogglePinPoint?: (projectId: string, pointId: string) => void;
+  onAddPointAttachment?: (projectId: string, pointId: string, attachment: Omit<Attachment, 'id' | 'timestamp'>) => void;
+  onDeletePointAttachment?: (projectId: string, pointId: string, attachmentId: string) => void;
+  onLoadLinkedOperations?: () => Promise<boolean>;
 }
 
 // Optional suggested dimensions for quick 1-click addition (NOT forced as mandatory defaults)
@@ -66,7 +75,11 @@ export default function ProjectMatrixView({
   onAddCustomCategory,
   onDeleteCustomCategory,
   onUpdateCustomCategory,
-  onNavigateToResourceMaster
+  onNavigateToResourceMaster,
+  onTogglePinPoint,
+  onAddPointAttachment,
+  onDeletePointAttachment,
+  onLoadLinkedOperations
 }: ProjectMatrixViewProps) {
   // Current active project
   const currentProject = useMemo(() => {
@@ -77,6 +90,10 @@ export default function ProjectMatrixView({
     }
     return projects[0];
   }, [projects, activeProjectId]);
+
+  // View Mode: 'matrix' | 'kanban' | 'gantt'
+  const [viewMode, setViewMode] = useState<'matrix' | 'kanban' | 'gantt'>('matrix');
+  const [attachmentModalPoint, setAttachmentModalPoint] = useState<MatrixPoint | null>(null);
 
   // Filters state
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('all');
@@ -747,6 +764,68 @@ export default function ProjectMatrixView({
               </select>
             </div>
 
+            {/* View Mode Switcher: Matrix, Kanban, Gantt */}
+            <div className="flex items-center gap-1 bg-slate-800 p-1 rounded-xl border border-slate-700">
+              <button
+                type="button"
+                onClick={() => setViewMode('matrix')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                  viewMode === 'matrix'
+                    ? 'bg-[#FFC20E] text-slate-950 font-black shadow-sm'
+                    : 'text-slate-300 hover:text-white'
+                }`}
+                title="Structured Matrix Grid View"
+              >
+                <TableIcon className="w-3.5 h-3.5" />
+                <span>Matrix</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setViewMode('kanban')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                  viewMode === 'kanban'
+                    ? 'bg-[#FFC20E] text-slate-950 font-black shadow-sm'
+                    : 'text-slate-300 hover:text-white'
+                }`}
+                title="Interactive Kanban Card View"
+              >
+                <LayoutGrid className="w-3.5 h-3.5" />
+                <span>Kanban</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setViewMode('gantt')}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                  viewMode === 'gantt'
+                    ? 'bg-[#FFC20E] text-slate-950 font-black shadow-sm'
+                    : 'text-slate-300 hover:text-white'
+                }`}
+                title="Interactive Drag-to-Adjust Gantt Timeline"
+              >
+                <CalendarRange className="w-3.5 h-3.5" />
+                <span>Gantt</span>
+              </button>
+            </div>
+
+            {onLoadLinkedOperations && (
+              <button
+                type="button"
+                onClick={async () => {
+                  const ok = await onLoadLinkedOperations();
+                  if (ok) {
+                    // dataset linked successfully
+                  }
+                }}
+                className="px-3 py-1.5 bg-[#FFC20E] hover:bg-[#F3AF00] text-slate-950 font-black text-xs rounded-lg transition-all flex items-center gap-1.5 cursor-pointer shadow-sm uppercase font-mono tracking-wider hover:scale-[1.02]"
+                title="Link actual project & tasks dataset from File_to_link_16492beb.json"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Link Dataset</span>
+              </button>
+            )}
+
             <button
               onClick={() => setShowNewProjectModal(true)}
               className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold rounded-lg transition-colors flex items-center gap-1.5 cursor-pointer"
@@ -964,8 +1043,27 @@ export default function ProjectMatrixView({
         </div>
       </div>
 
-      {/* Interactive Controls & Filters Bar */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl shadow-sm space-y-3">
+      {viewMode === 'gantt' ? (
+        <GanttTimelineView
+          project={currentProject}
+          employees={employees}
+          onUpdatePoint={onUpdatePoint}
+          onSelectPoint={(point) => handleOpenEdit(point)}
+          allCategories={allCategories}
+        />
+      ) : viewMode === 'kanban' ? (
+        <ProjectKanbanView
+          project={currentProject}
+          employees={employees}
+          onUpdatePoint={onUpdatePoint}
+          onSelectPoint={(point) => handleOpenEdit(point)}
+          onTogglePin={onTogglePinPoint ? (ptId) => onTogglePinPoint(currentProject.id, ptId) : undefined}
+          allCategories={allCategories}
+        />
+      ) : (
+        <>
+          {/* Interactive Controls & Filters Bar */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-xl shadow-sm space-y-3">
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           {/* Search Box */}
           <div className="relative flex-1">
@@ -1704,6 +1802,8 @@ export default function ProjectMatrixView({
         })
       )}
     </div>
+        </>
+      )}
 
       {/* Modal: Add / Edit Tracking Point */}
       {showAddPointModal && (
@@ -1824,9 +1924,14 @@ export default function ProjectMatrixView({
 
               {/* Title */}
               <div>
-                <label className="block text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1 text-[10px]">
-                  Point Title *
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider text-[10px]">
+                    Point Title *
+                  </label>
+                  <VoiceInputButton
+                    onTranscript={(txt) => setFormTitle((prev) => prev ? `${prev} ${txt}` : txt)}
+                  />
+                </div>
                 <input
                   type="text"
                   required
@@ -1935,9 +2040,14 @@ export default function ProjectMatrixView({
 
               {/* Notes */}
               <div>
-                <label className="block text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1 text-[10px]">
-                  Daily Huddle Notes / Mitigation Steps
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider text-[10px]">
+                    Daily Huddle Notes / Mitigation Steps
+                  </label>
+                  <VoiceInputButton
+                    onTranscript={(txt) => setFormNotes((prev) => prev ? `${prev} ${txt}` : txt)}
+                  />
+                </div>
                 <textarea
                   rows={2}
                   placeholder="Status update, blocker explanations, next steps for team huddle..."
@@ -1950,24 +2060,34 @@ export default function ProjectMatrixView({
               {/* Form Buttons */}
               <div className="flex items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
                 {editingPoint ? (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const ptToDelete = editingPoint;
-                      setShowAddPointModal(false);
-                      setEditingPoint(null);
-                      setDeleteModal({
-                        type: 'point',
-                        id: ptToDelete.id,
-                        title: `Delete Point "${ptToDelete.title}"`,
-                        details: `Are you sure you want to delete this tracking point? All associated specifications and ${(ptToDelete.subPoints || []).length} sub-tasks will be permanently deleted.`
-                      });
-                    }}
-                    className="px-3 py-2 text-rose-600 hover:text-rose-700 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg font-bold transition-colors flex items-center gap-1.5 cursor-pointer text-xs"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                    Delete Point
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setAttachmentModalPoint(editingPoint)}
+                      className="px-3 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-750 text-slate-700 dark:text-slate-200 rounded-lg font-bold transition-colors flex items-center gap-1.5 cursor-pointer text-xs"
+                    >
+                      <Paperclip className="w-3.5 h-3.5 text-amber-500" />
+                      <span>Photos & Drawings ({editingPoint.attachments?.length || 0})</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const ptToDelete = editingPoint;
+                        setShowAddPointModal(false);
+                        setEditingPoint(null);
+                        setDeleteModal({
+                          type: 'point',
+                          id: ptToDelete.id,
+                          title: `Delete Point "${ptToDelete.title}"`,
+                          details: `Are you sure you want to delete this tracking point? All associated specifications and ${(ptToDelete.subPoints || []).length} sub-tasks will be permanently deleted.`
+                        });
+                      }}
+                      className="px-3 py-2 text-rose-600 hover:text-rose-700 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg font-bold transition-colors flex items-center gap-1.5 cursor-pointer text-xs"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      Delete Point
+                    </button>
+                  </div>
                 ) : (
                   <div />
                 )}
@@ -2268,6 +2388,33 @@ export default function ProjectMatrixView({
             </div>
           </div>
         </div>
+      )}
+
+      {/* Attachment Modal for Project Points */}
+      {attachmentModalPoint && currentProject && (
+        <PhotoDrawingAttachmentModal
+          title={`Point Attachment: ${attachmentModalPoint.title}`}
+          attachments={attachmentModalPoint.attachments || []}
+          onAddAttachment={(att) => {
+            if (onAddPointAttachment) {
+              onAddPointAttachment(currentProject.id, attachmentModalPoint.id, att);
+            } else {
+              onUpdatePoint(currentProject.id, attachmentModalPoint.id, {
+                attachments: [...(attachmentModalPoint.attachments || []), { ...att, id: `att-${Date.now()}`, timestamp: new Date().toISOString() }]
+              });
+            }
+          }}
+          onDeleteAttachment={(attId) => {
+            if (onDeletePointAttachment) {
+              onDeletePointAttachment(currentProject.id, attachmentModalPoint.id, attId);
+            } else {
+              onUpdatePoint(currentProject.id, attachmentModalPoint.id, {
+                attachments: (attachmentModalPoint.attachments || []).filter((a) => a.id !== attId)
+              });
+            }
+          }}
+          onClose={() => setAttachmentModalPoint(null)}
+        />
       )}
     </div>
   );

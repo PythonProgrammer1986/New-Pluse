@@ -5,12 +5,14 @@ interface BackupPanelProps {
   onExport: () => void;
   onImport: (jsonString: string) => boolean;
   onReset: () => void;
+  onLoadLinkedOperations?: () => Promise<boolean>;
 }
 
 export default function BackupPanel({
   onExport,
   onImport,
   onReset,
+  onLoadLinkedOperations,
 }: BackupPanelProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [importStatus, setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
@@ -56,6 +58,40 @@ export default function BackupPanel({
           Save, backup, and restore your full team configuration and huddleboard metrics instantly.
         </p>
       </div>
+
+      {/* Linked Operations Dataset 1-Click Sync */}
+      {onLoadLinkedOperations && (
+        <div className="bg-[#FFC20E]/10 border border-[#FFC20E]/30 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 animate-fade-in">
+          <div className="flex items-start gap-2.5">
+            <FileText className="w-5 h-5 text-[#FFC20E] shrink-0 mt-0.5" />
+            <div>
+              <span className="text-xs font-bold text-slate-800 dark:text-slate-100 block">
+                Linked Operations Dataset Available (File_to_link_16492beb.json)
+              </span>
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 block mt-0.5 leading-relaxed">
+                Contains live projects (SmartROC T45, ST1030, RC 30, Boomer M2D), 40+ production tasks, employee rosters & hour bookings.
+              </span>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={async () => {
+              const ok = await onLoadLinkedOperations();
+              if (ok) {
+                setImportStatus('success');
+                setErrorMessage('');
+                setTimeout(() => setImportStatus('idle'), 4000);
+              } else {
+                setImportStatus('error');
+                setErrorMessage('Could not load File_to_link_16492beb.json. Check file availability.');
+              }
+            }}
+            className="px-3.5 py-2 bg-[#FFC20E] hover:bg-[#F3AF00] text-slate-950 font-black text-xs rounded-lg shadow-sm shrink-0 cursor-pointer transition-all uppercase tracking-wider"
+          >
+            Load Linked Operations Data
+          </button>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
         {/* Export Button */}

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { ActionItem, Pillar } from '../types';
+import VoiceInputButton from './VoiceInputButton';
+import PhotoDrawingAttachmentModal from './PhotoDrawingAttachmentModal';
 import { 
   Search, Shield, Leaf, CheckCircle, TrendingUp, Coins, HardHat, 
   Plus, Edit, Trash2, Calendar, User, Filter, AlertTriangle, CheckSquare,
-  Bell, Send, Check, AlarmClock
+  Bell, Send, Check, AlarmClock, LayoutGrid, Table as TableIcon, Paperclip
 } from 'lucide-react';
 
 interface ActionPlanTableProps {
@@ -11,6 +13,8 @@ interface ActionPlanTableProps {
   onUpdateActionItem: (id: string, updates: Partial<ActionItem>) => void;
   onDeleteActionItem: (id: string) => void;
   onAddActionItem: (action: Omit<ActionItem, 'id'>) => void;
+  onAddAttachment?: (actionId: string, att: any) => void;
+  onDeleteAttachment?: (actionId: string, attId: string) => void;
   userRole: string;
 }
 
@@ -19,11 +23,15 @@ export default function ActionPlanTable({
   onUpdateActionItem,
   onDeleteActionItem,
   onAddActionItem,
+  onAddAttachment,
+  onDeleteAttachment,
   userRole,
 }: ActionPlanTableProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'open' | 'in-progress' | 'resolved'>('all');
   const [pillarFilter, setPillarFilter] = useState<string>('all');
+  const [viewMode, setViewMode] = useState<'table' | 'kanban'>('table');
+  const [attachmentAction, setAttachmentAction] = useState<ActionItem | null>(null);
   
   // Custom Action Item Creation form toggles
   const [showAddForm, setShowAddForm] = useState(false);
@@ -168,7 +176,31 @@ export default function ActionPlanTable({
               </p>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
+              {/* View Mode Toggle */}
+              <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+                <button
+                  type="button"
+                  onClick={() => setViewMode('table')}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer ${
+                    viewMode === 'table' ? 'bg-white dark:bg-slate-900 shadow-sm text-slate-900 dark:text-white' : 'text-slate-400'
+                  }`}
+                >
+                  <TableIcon className="w-3.5 h-3.5" />
+                  <span>Table</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode('kanban')}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer ${
+                    viewMode === 'kanban' ? 'bg-white dark:bg-slate-900 shadow-sm text-slate-900 dark:text-white' : 'text-slate-400'
+                  }`}
+                >
+                  <LayoutGrid className="w-3.5 h-3.5" />
+                  <span>Kanban</span>
+                </button>
+              </div>
+
               {pendingActions.length > 0 && (
                 <button
                   type="button"
@@ -402,253 +434,407 @@ export default function ActionPlanTable({
           </form>
         )}
 
-        {/* Spreadsheet Workspace */}
-        <div className="flex-1 overflow-auto">
-          <table className="w-full border-collapse text-left text-xs table-fixed">
-            <thead className="bg-slate-50 dark:bg-slate-850/60 text-slate-400 font-bold uppercase tracking-wider text-[10px] border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
-              <tr>
-                <th className="py-2.5 px-3 w-[140px]">Pillar</th>
-                <th className="py-2.5 px-3 w-[350px]">Action Item Details</th>
-                <th className="py-2.5 px-3 w-[150px]">Owner</th>
-                <th className="py-2.5 px-3 w-[130px]">Target Date</th>
-                <th className="py-2.5 px-3 w-[100px]">Priority</th>
-                <th className="py-2.5 px-3 w-[130px]">Status</th>
-                <th className="py-2.5 px-3 w-[50px]"></th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-              {/* SPREADSHEET QUICK-ADD ROW */}
-              <tr className="bg-amber-500/10 dark:bg-amber-400/5 border-b-2 border-indigo-200 dark:border-indigo-950/60">
-                <td className="py-2 px-3">
-                  <select
-                    value={newPillar}
-                    onChange={(e) => setNewPillar(e.target.value as Pillar)}
-                    className="w-full text-xs font-bold font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white"
-                  >
-                    <option value="Safety">Safety</option>
-                    <option value="Sustainability">Sustainability</option>
-                    <option value="Quality">Quality</option>
-                    <option value="Delivery">Delivery</option>
-                    <option value="Cost">Cost</option>
-                    <option value="Capital">Capital</option>
-                  </select>
-                </td>
-                <td className="py-2 px-3">
-                  <div className="flex flex-col gap-1">
-                    <input
-                      type="text"
-                      placeholder="Type new action description here..."
-                      value={newTitle}
-                      onChange={(e) => setNewTitle(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' && newTitle && newOwner) {
-                          handleCreateAction(e);
-                        }
-                      }}
-                      className="w-full text-xs font-bold px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#FFC20E]"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Add notes / root cause context..."
-                      value={newNotes}
-                      onChange={(e) => setNewNotes(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' && newTitle && newOwner) {
-                          handleCreateAction(e);
-                        }
-                      }}
-                      className="w-full text-[10px] px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 focus:outline-none"
-                    />
-                  </div>
-                </td>
-                <td className="py-2 px-3">
-                  <input
-                    type="text"
-                    placeholder="Owner name..."
-                    value={newOwner}
-                    onChange={(e) => setNewOwner(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' && newTitle && newOwner) {
-                        handleCreateAction(e);
-                      }
+        {/* SPREADSHEET OR KANBAN WORKSPACE */}
+        {viewMode === 'kanban' ? (
+          <div className="flex-1 overflow-x-auto p-4 bg-slate-50 dark:bg-slate-950">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 min-w-[720px] h-full">
+              {(['open', 'in-progress', 'resolved'] as const).map((colStatus) => {
+                const colItems = filteredActions.filter((a) => a.status === colStatus);
+                return (
+                  <div
+                    key={colStatus}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      const id = e.dataTransfer.getData('text/plain');
+                      if (id) onUpdateActionItem(id, { status: colStatus });
                     }}
-                    className="w-full text-xs font-semibold px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white focus:outline-none"
-                  />
-                </td>
-                <td className="py-2 px-3">
-                  <input
-                    type="date"
-                    value={newDueDate}
-                    onChange={(e) => setNewDueDate(e.target.value)}
-                    className="w-full text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white"
-                  />
-                </td>
-                <td className="py-2 px-3">
-                  <select
-                    value={newPriority}
-                    onChange={(e) => setNewPriority(e.target.value as any)}
-                    className="w-full text-xs font-bold font-mono px-1 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white"
+                    className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5 flex flex-col h-full shadow-sm"
                   >
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                  </select>
-                </td>
-                <td className="py-2 px-3" colSpan={2}>
-                  <button
-                    type="button"
-                    onClick={handleCreateAction}
-                    disabled={!newTitle || !newOwner}
-                    className={`w-full py-1.5 rounded-lg text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1 transition-all ${
-                      newTitle && newOwner
-                        ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm cursor-pointer'
-                        : 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-600 cursor-not-allowed'
-                    }`}
-                  >
-                    <Plus className="w-3.5 h-3.5" /> Save Row
-                  </button>
-                </td>
-              </tr>
+                    <div className="flex items-center justify-between pb-2.5 border-b border-slate-150 dark:border-slate-800 mb-2.5">
+                      <div className="flex items-center gap-2">
+                        <span className={`w-2.5 h-2.5 rounded-full ${
+                          colStatus === 'open' ? 'bg-rose-500' :
+                          colStatus === 'in-progress' ? 'bg-[#FFC20E]' : 'bg-emerald-500'
+                        }`} />
+                        <span className="text-xs font-black uppercase tracking-wider font-mono text-slate-800 dark:text-slate-100">
+                          {colStatus === 'open' ? 'Open' : colStatus === 'in-progress' ? 'In Progress' : 'Resolved'}
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-mono">
+                        {colItems.length}
+                      </span>
+                    </div>
 
-              {filteredActions.length === 0 ? (
+                    <div className="flex-1 overflow-y-auto space-y-2.5">
+                      {colItems.map((action) => {
+                        const hasAttachments = action.attachments && action.attachments.length > 0;
+                        return (
+                          <div
+                            key={action.id}
+                            draggable
+                            onDragStart={(e) => e.dataTransfer.setData('text/plain', action.id)}
+                            className="p-3 bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-750 rounded-xl shadow-xs hover:shadow-md cursor-grab active:cursor-grabbing transition-all space-y-2 group"
+                          >
+                            <div className="flex items-center justify-between gap-1">
+                              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded uppercase font-mono bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                                {action.pillar}
+                              </span>
+                              <span className={`text-[8px] font-bold px-1.5 py-0.2 rounded uppercase ${
+                                action.priority === 'high' ? 'bg-rose-100 text-rose-700 dark:bg-rose-950' : 'bg-slate-200 text-slate-700 dark:bg-slate-700'
+                              }`}>
+                                {action.priority}
+                              </span>
+                            </div>
+
+                            <h5 className={`text-xs font-bold leading-snug ${
+                              action.status === 'resolved' ? 'line-through text-slate-400 dark:text-slate-500' : 'text-slate-850 dark:text-slate-100'
+                            }`}>
+                              {action.title}
+                            </h5>
+
+                            {action.notes && (
+                              <p className="text-[10px] text-slate-500 italic line-clamp-2">
+                                {action.notes}
+                              </p>
+                            )}
+
+                            <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[10px] text-slate-400 font-mono">
+                              <span className="truncate max-w-[90px]">{action.owner}</span>
+                              <div className="flex items-center gap-1.5">
+                                <button
+                                  type="button"
+                                  onClick={() => setAttachmentAction(action)}
+                                  title="Attach photo or drawing"
+                                  className={`p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer flex items-center gap-0.5 ${
+                                    hasAttachments ? 'text-amber-500 font-bold' : 'text-slate-400'
+                                  }`}
+                                >
+                                  <Paperclip className="w-3 h-3" />
+                                  {hasAttachments && <span>{action.attachments?.length}</span>}
+                                </button>
+                                <span>{action.dueDate.slice(5)}</span>
+                                <button
+                                  onClick={() => onDeleteActionItem(action.id)}
+                                  className="hover:text-rose-500 p-0.5 cursor-pointer opacity-60 hover:opacity-100"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                      {colItems.length === 0 && (
+                        <div className="h-28 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl flex items-center justify-center text-slate-400 text-[10px] font-mono">
+                          Drag actions here
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <div className="flex-1 overflow-auto">
+            <table className="w-full border-collapse text-left text-xs table-fixed">
+              <thead className="bg-slate-50 dark:bg-slate-850/60 text-slate-400 font-bold uppercase tracking-wider text-[10px] border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-slate-400">
-                    <span className="text-xs font-semibold block">No Actions Match Filters</span>
-                    <span className="text-[10px] mt-1 block">Try typing above to add a new row or clear search keywords.</span>
+                  <th className="py-2.5 px-3 w-[130px]">Pillar</th>
+                  <th className="py-2.5 px-3 w-[350px]">Action Item Details</th>
+                  <th className="py-2.5 px-3 w-[140px]">Owner</th>
+                  <th className="py-2.5 px-3 w-[120px]">Target Date</th>
+                  <th className="py-2.5 px-3 w-[100px]">Priority</th>
+                  <th className="py-2.5 px-3 w-[120px]">Status</th>
+                  <th className="py-2.5 px-3 w-[70px]"></th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                {/* SPREADSHEET QUICK-ADD ROW */}
+                <tr className="bg-amber-500/10 dark:bg-amber-400/5 border-b-2 border-indigo-200 dark:border-indigo-950/60">
+                  <td className="py-2 px-3">
+                    <select
+                      value={newPillar}
+                      onChange={(e) => setNewPillar(e.target.value as Pillar)}
+                      className="w-full text-xs font-bold font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white"
+                    >
+                      <option value="Safety">Safety</option>
+                      <option value="Sustainability">Sustainability</option>
+                      <option value="Quality">Quality</option>
+                      <option value="Delivery">Delivery</option>
+                      <option value="Cost">Cost</option>
+                      <option value="Capital">Capital</option>
+                    </select>
+                  </td>
+                  <td className="py-2 px-3">
+                    <div className="flex flex-col gap-1">
+                      <div className="flex items-center gap-1.5">
+                        <input
+                          type="text"
+                          placeholder="Type new action description here..."
+                          value={newTitle}
+                          onChange={(e) => setNewTitle(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter' && newTitle && newOwner) {
+                              handleCreateAction(e);
+                            }
+                          }}
+                          className="w-full text-xs font-bold px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#FFC20E]"
+                        />
+                        <VoiceInputButton
+                          onTranscript={(txt) => setNewTitle((prev) => prev ? `${prev} ${txt}` : txt)}
+                        />
+                      </div>
+                      <input
+                        type="text"
+                        placeholder="Add notes / root cause context..."
+                        value={newNotes}
+                        onChange={(e) => setNewNotes(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && newTitle && newOwner) {
+                            handleCreateAction(e);
+                          }
+                        }}
+                        className="w-full text-[10px] px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 focus:outline-none"
+                      />
+                    </div>
+                  </td>
+                  <td className="py-2 px-3">
+                    <input
+                      type="text"
+                      placeholder="Owner name..."
+                      value={newOwner}
+                      onChange={(e) => setNewOwner(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && newTitle && newOwner) {
+                          handleCreateAction(e);
+                        }
+                      }}
+                      className="w-full text-xs font-semibold px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white focus:outline-none"
+                    />
+                  </td>
+                  <td className="py-2 px-3">
+                    <input
+                      type="date"
+                      value={newDueDate}
+                      onChange={(e) => setNewDueDate(e.target.value)}
+                      className="w-full text-xs font-mono px-2 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white"
+                    />
+                  </td>
+                  <td className="py-2 px-3">
+                    <select
+                      value={newPriority}
+                      onChange={(e) => setNewPriority(e.target.value as any)}
+                      className="w-full text-xs font-bold font-mono px-1 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white"
+                    >
+                      <option value="low">Low</option>
+                      <option value="medium">Medium</option>
+                      <option value="high">High</option>
+                    </select>
+                  </td>
+                  <td className="py-2 px-3" colSpan={2}>
+                    <button
+                      type="button"
+                      onClick={handleCreateAction}
+                      disabled={!newTitle || !newOwner}
+                      className={`w-full py-1.5 rounded-lg text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1 transition-all ${
+                        newTitle && newOwner
+                          ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm cursor-pointer'
+                          : 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-600 cursor-not-allowed'
+                      }`}
+                    >
+                      <Plus className="w-3.5 h-3.5" /> Save Row
+                    </button>
                   </td>
                 </tr>
-              ) : (
-                filteredActions.map((action) => {
-                  return (
-                    <tr key={action.id} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors">
-                      {/* Live Editable Pillar */}
-                      <td className="py-2.5 px-3">
-                        <select
-                          value={action.pillar}
-                          onChange={(e) => onUpdateActionItem(action.id, { pillar: e.target.value as any })}
-                          className={`w-full text-[10px] font-bold font-mono px-2 py-1 rounded border border-transparent hover:border-slate-200 dark:hover:border-slate-700 focus:border-indigo-500 focus:outline-none cursor-pointer uppercase ${
-                            action.pillar === 'Safety' ? 'text-rose-600 bg-rose-50/40 dark:bg-rose-950/20' :
-                            action.pillar === 'Sustainability' ? 'text-emerald-600 bg-emerald-50/40 dark:bg-emerald-950/20' :
-                            action.pillar === 'Quality' ? 'text-blue-600 bg-blue-50/40 dark:bg-blue-950/20' :
-                            action.pillar === 'Delivery' ? 'text-amber-600 bg-amber-50/40 dark:bg-amber-950/20' :
-                            action.pillar === 'Cost' ? 'text-indigo-600 bg-indigo-50/40 dark:bg-indigo-950/20' :
-                            'text-slate-600 bg-slate-50/40 dark:bg-slate-800/40'
-                          }`}
-                        >
-                          <option value="Safety">⚠️ Safety</option>
-                          <option value="Sustainability">🌱 Sustainability</option>
-                          <option value="Quality">✅ Quality</option>
-                          <option value="Delivery">📈 Delivery</option>
-                          <option value="Cost">💰 Cost</option>
-                          <option value="Capital">🧱 Capital</option>
-                        </select>
-                      </td>
 
-                      {/* Live Editable Action Details (Title & Notes) */}
-                      <td className="py-2.5 px-3">
-                        <div className="flex flex-col gap-1 w-full">
-                          <input
-                            type="text"
-                            value={action.title}
-                            onChange={(e) => onUpdateActionItem(action.id, { title: e.target.value })}
-                            placeholder="Action description..."
-                            className={`w-full text-xs font-bold bg-transparent border-b border-transparent hover:border-slate-200 dark:hover:border-slate-700 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 rounded px-1 py-0.5 focus:outline-none ${
-                              action.status === 'resolved' ? 'line-through text-slate-400 dark:text-slate-500 font-normal' : 'text-slate-850 dark:text-slate-100'
+                {filteredActions.length === 0 ? (
+                  <tr>
+                    <td colSpan={7} className="py-12 text-center text-slate-400">
+                      <span className="text-xs font-semibold block">No Actions Match Filters</span>
+                      <span className="text-[10px] mt-1 block">Try typing above to add a new row or clear search keywords.</span>
+                    </td>
+                  </tr>
+                ) : (
+                  filteredActions.map((action) => {
+                    const hasAttachments = action.attachments && action.attachments.length > 0;
+                    return (
+                      <tr key={action.id} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40 transition-colors">
+                        {/* Live Editable Pillar */}
+                        <td className="py-2.5 px-3">
+                          <select
+                            value={action.pillar}
+                            onChange={(e) => onUpdateActionItem(action.id, { pillar: e.target.value as any })}
+                            className={`w-full text-[10px] font-bold font-mono px-2 py-1 rounded border border-transparent hover:border-slate-200 dark:hover:border-slate-700 focus:border-indigo-500 focus:outline-none cursor-pointer uppercase ${
+                              action.pillar === 'Safety' ? 'text-rose-600 bg-rose-50/40 dark:bg-rose-950/20' :
+                              action.pillar === 'Sustainability' ? 'text-emerald-600 bg-emerald-50/40 dark:bg-emerald-950/20' :
+                              action.pillar === 'Quality' ? 'text-blue-600 bg-blue-50/40 dark:bg-blue-950/20' :
+                              action.pillar === 'Delivery' ? 'text-amber-600 bg-amber-50/40 dark:bg-amber-950/20' :
+                              action.pillar === 'Cost' ? 'text-indigo-600 bg-indigo-50/40 dark:bg-indigo-950/20' :
+                              'text-slate-600 bg-slate-50/40 dark:bg-slate-800/40'
                             }`}
-                          />
-                          <div className="flex items-center gap-1.5 w-full">
+                          >
+                            <option value="Safety">⚠️ Safety</option>
+                            <option value="Sustainability">🌱 Sustainability</option>
+                            <option value="Quality">✅ Quality</option>
+                            <option value="Delivery">📈 Delivery</option>
+                            <option value="Cost">💰 Cost</option>
+                            <option value="Capital">🧱 Capital</option>
+                          </select>
+                        </td>
+
+                        {/* Live Editable Action Details (Title & Notes) */}
+                        <td className="py-2.5 px-3">
+                          <div className="flex flex-col gap-1 w-full">
                             <input
                               type="text"
-                              value={action.notes || ''}
-                              onChange={(e) => onUpdateActionItem(action.id, { notes: e.target.value })}
-                              placeholder="Add notes / feedback..."
-                              className="w-full text-[10px] text-slate-400 bg-transparent border-b border-transparent hover:border-slate-200 dark:hover:border-slate-700 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 rounded px-1 py-0.5 focus:outline-none italic"
+                              value={action.title}
+                              onChange={(e) => onUpdateActionItem(action.id, { title: e.target.value })}
+                              placeholder="Action description..."
+                              className={`w-full text-xs font-bold bg-transparent border-b border-transparent hover:border-slate-200 dark:hover:border-slate-700 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 rounded px-1 py-0.5 focus:outline-none ${
+                                action.status === 'resolved' ? 'line-through text-slate-400 dark:text-slate-500 font-normal' : 'text-slate-850 dark:text-slate-100'
+                              }`}
                             />
-                            {action.deviationId && (
-                              <span className="shrink-0 text-[8px] font-bold text-rose-500 bg-rose-50 dark:bg-rose-950/40 px-1 py-0.5 rounded uppercase font-mono">
-                                Linked
-                              </span>
-                            )}
+                            <div className="flex items-center gap-1.5 w-full">
+                              <input
+                                type="text"
+                                value={action.notes || ''}
+                                onChange={(e) => onUpdateActionItem(action.id, { notes: e.target.value })}
+                                placeholder="Add notes / feedback..."
+                                className="w-full text-[10px] text-slate-400 bg-transparent border-b border-transparent hover:border-slate-200 dark:hover:border-slate-700 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 rounded px-1 py-0.5 focus:outline-none italic"
+                              />
+                              {action.deviationId && (
+                                <span className="shrink-0 text-[8px] font-bold text-rose-500 bg-rose-50 dark:bg-rose-950/40 px-1 py-0.5 rounded uppercase font-mono">
+                                  Linked
+                                </span>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      </td>
+                        </td>
 
-                      {/* Live Editable Owner */}
-                      <td className="py-2.5 px-3">
-                        <div className="flex items-center gap-1 w-full">
-                          <User className="w-3 h-3 text-slate-300 shrink-0" />
+                        {/* Live Editable Owner */}
+                        <td className="py-2.5 px-3">
+                          <div className="flex items-center gap-1 w-full">
+                            <User className="w-3 text-slate-300 shrink-0" />
+                            <input
+                              type="text"
+                              value={action.owner}
+                              onChange={(e) => onUpdateActionItem(action.id, { owner: e.target.value })}
+                              placeholder="Assignee..."
+                              className="w-full text-xs font-bold bg-transparent border-b border-transparent hover:border-slate-200 dark:hover:border-slate-700 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 rounded px-1 focus:outline-none text-slate-700 dark:text-slate-250"
+                            />
+                          </div>
+                        </td>
+
+                        {/* Live Editable Due Date */}
+                        <td className="py-2.5 px-3">
                           <input
-                            type="text"
-                            value={action.owner}
-                            onChange={(e) => onUpdateActionItem(action.id, { owner: e.target.value })}
-                            placeholder="Assignee..."
-                            className="w-full text-xs font-bold bg-transparent border-b border-transparent hover:border-slate-200 dark:hover:border-slate-700 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 rounded px-1 focus:outline-none text-slate-700 dark:text-slate-250"
+                            type="date"
+                            value={action.dueDate}
+                            onChange={(e) => onUpdateActionItem(action.id, { dueDate: e.target.value })}
+                            className="w-full text-xs font-mono bg-transparent border border-transparent hover:border-slate-200 dark:hover:border-slate-700 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 rounded px-1 py-0.5 focus:outline-none text-slate-500 dark:text-slate-400"
                           />
-                        </div>
-                      </td>
+                        </td>
 
-                      {/* Live Editable Due Date */}
-                      <td className="py-2.5 px-3">
-                        <input
-                          type="date"
-                          value={action.dueDate}
-                          onChange={(e) => onUpdateActionItem(action.id, { dueDate: e.target.value })}
-                          className="w-full text-xs font-mono bg-transparent border border-transparent hover:border-slate-200 dark:hover:border-slate-700 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-900 rounded px-1 py-0.5 focus:outline-none text-slate-500 dark:text-slate-400"
-                        />
-                      </td>
+                        {/* Live Editable Priority */}
+                        <td className="py-2.5 px-3">
+                          <select
+                            value={action.priority}
+                            onChange={(e) => onUpdateActionItem(action.id, { priority: e.target.value as any })}
+                            className={`w-full text-[10px] font-bold font-mono px-1.5 py-1 rounded border border-transparent hover:border-slate-200 dark:hover:border-slate-700 focus:border-indigo-500 focus:outline-none cursor-pointer uppercase ${
+                              action.priority === 'high' ? 'text-rose-600 bg-rose-50/40' :
+                              action.priority === 'medium' ? 'text-amber-600 bg-amber-50/40' :
+                              'text-slate-500 bg-slate-50/40'
+                            }`}
+                          >
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                          </select>
+                        </td>
 
-                      {/* Live Editable Priority */}
-                      <td className="py-2.5 px-3">
-                        <select
-                          value={action.priority}
-                          onChange={(e) => onUpdateActionItem(action.id, { priority: e.target.value as any })}
-                          className={`w-full text-[10px] font-bold font-mono px-1.5 py-1 rounded border border-transparent hover:border-slate-200 dark:hover:border-slate-700 focus:border-indigo-500 focus:outline-none cursor-pointer uppercase ${
-                            action.priority === 'high' ? 'text-rose-600 bg-rose-50/40' :
-                            action.priority === 'medium' ? 'text-amber-600 bg-amber-50/40' :
-                            'text-slate-500 bg-slate-50/40'
-                          }`}
-                        >
-                          <option value="low">Low</option>
-                          <option value="medium">Medium</option>
-                          <option value="high">High</option>
-                        </select>
-                      </td>
+                        {/* Live Editable Status dropdown */}
+                        <td className="py-2.5 px-3">
+                          <select
+                            value={action.status}
+                            onChange={(e) => onUpdateActionItem(action.id, { status: e.target.value as any })}
+                            className={`w-full text-[10px] font-bold uppercase font-mono px-2 py-1.5 rounded border focus:outline-none cursor-pointer ${
+                              action.status === 'resolved' ? 'bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-950/20 dark:border-emerald-900/40 dark:text-emerald-400' :
+                              action.status === 'in-progress' ? 'bg-amber-50 border-amber-200 text-amber-800 dark:bg-amber-950/20 dark:border-[#FFC20E]/40 dark:text-[#FFC20E]' :
+                              'bg-slate-50 border-slate-200 text-slate-800 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300'
+                            }`}
+                          >
+                            <option value="open">Open</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="resolved">Resolved</option>
+                          </select>
+                        </td>
 
-                      {/* Live Editable Status dropdown */}
-                      <td className="py-2.5 px-3">
-                        <select
-                          value={action.status}
-                          onChange={(e) => onUpdateActionItem(action.id, { status: e.target.value as any })}
-                          className={`w-full text-[10px] font-bold uppercase font-mono px-2 py-1.5 rounded border focus:outline-none cursor-pointer ${
-                            action.status === 'resolved' ? 'bg-emerald-50 border-emerald-200 text-emerald-800 dark:bg-emerald-950/20 dark:border-emerald-900/40 dark:text-emerald-400' :
-                            action.status === 'in-progress' ? 'bg-amber-50 border-amber-200 text-amber-800 dark:bg-amber-950/20 dark:border-[#FFC20E]/40 dark:text-[#FFC20E]' :
-                            'bg-slate-50 border-slate-200 text-slate-800 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-300'
-                          }`}
-                        >
-                          <option value="open">Open</option>
-                          <option value="in-progress">In Progress</option>
-                          <option value="resolved">Resolved</option>
-                        </select>
-                      </td>
-
-                      {/* Delete button */}
-                      <td className="py-2.5 px-3 text-center">
-                        <button
-                          onClick={() => onDeleteActionItem(action.id)}
-                          className="p-1 hover:bg-rose-50 dark:hover:bg-rose-950/50 text-slate-450 hover:text-rose-600 dark:hover:text-rose-400 rounded transition-colors cursor-pointer"
-                          title="Delete Action"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })
-              )}
-            </tbody>
-          </table>
-        </div>
+                        {/* Actions (Attachment & Delete) */}
+                        <td className="py-2.5 px-3 text-center">
+                          <div className="flex items-center justify-center gap-1">
+                            <button
+                              type="button"
+                              onClick={() => setAttachmentAction(action)}
+                              title="Attach photo or drawing sketch"
+                              className={`p-1 rounded hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer relative ${
+                                hasAttachments ? 'text-amber-500' : 'text-slate-400 hover:text-amber-500'
+                              }`}
+                            >
+                              <Paperclip className="w-3.5 h-3.5" />
+                              {hasAttachments && (
+                                <span className="absolute -top-1 -right-1 bg-amber-500 text-slate-950 font-mono text-[8px] font-black w-3.5 h-3.5 rounded-full flex items-center justify-center">
+                                  {action.attachments?.length}
+                                </span>
+                              )}
+                            </button>
+                            <button
+                              onClick={() => onDeleteActionItem(action.id)}
+                              className="p-1 hover:bg-rose-50 dark:hover:bg-rose-950/50 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 rounded transition-colors cursor-pointer"
+                              title="Delete Action"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
+
+      {/* Action Item Photo & Drawing Attachment Modal */}
+      {attachmentAction && (
+        <PhotoDrawingAttachmentModal
+          title={`Action Item: ${attachmentAction.title}`}
+          attachments={attachmentAction.attachments || []}
+          onAddAttachment={(att) => {
+            if (onAddAttachment) {
+              onAddAttachment(attachmentAction.id, att);
+            } else {
+              onUpdateActionItem(attachmentAction.id, {
+                attachments: [...(attachmentAction.attachments || []), { ...att, id: `att-${Date.now()}`, timestamp: new Date().toISOString() }]
+              });
+            }
+          }}
+          onDeleteAttachment={(attId) => {
+            if (onDeleteAttachment) {
+              onDeleteAttachment(attachmentAction.id, attId);
+            } else {
+              onUpdateActionItem(attachmentAction.id, {
+                attachments: (attachmentAction.attachments || []).filter((a) => a.id !== attId)
+              });
+            }
+          }}
+          onClose={() => setAttachmentAction(null)}
+        />
+      )}
     </div>
   );
 }
+

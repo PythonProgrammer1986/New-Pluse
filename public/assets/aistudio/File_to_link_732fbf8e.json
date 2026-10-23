@@ -1,0 +1,6108 @@
+{
+  "version": "5.7.3",
+  "tasks": [
+    {
+      "id": "trtq2ojmf",
+      "history": [
+        {
+          "timestamp": "2026-01-01T03:34:56.235Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "task": "ARD35 MarkII Operation numbers updation ",
+      "owner": "Ravindra Ahire",
+      "category": "Priority",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 0,
+      "hours": 4,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-01-02",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null
+    },
+    {
+      "id": "z397almsg",
+      "history": [
+        {
+          "timestamp": "2026-01-01T03:35:01.322Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "task": "SOP Stage 2",
+      "owner": "Aditya Shitut",
+      "category": "Short Term Project",
+      "project": "",
+      "status": "On Hold",
+      "priority": null,
+      "progress": 10,
+      "hours": 60,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-05-25T03:44:00.321Z",
+      "originalDueDate": "2026-12-31"
+    },
+    {
+      "id": "ladsk2jbr",
+      "history": [
+        {
+          "timestamp": "2026-01-01T04:23:01.853Z",
+          "change": "Operation initialized"
+        },
+        {
+          "timestamp": "2026-05-21T03:39:53.825Z",
+          "change": "Status transitioned to Completed"
+        }
+      ],
+      "comments": [],
+      "task": "I4 for Pin Pressing Fixture",
+      "owner": "Aditya Shitut",
+      "category": "Support Required",
+      "project": "",
+      "status": "Completed",
+      "priority": null,
+      "progress": 100,
+      "hours": 2,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-02-12",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-05-21T03:39:53.825Z",
+      "originalDueDate": "2026-01-02"
+    },
+    {
+      "id": "s0oas1l0y",
+      "history": [
+        {
+          "timestamp": "2026-01-05T10:56:28.713Z",
+          "change": "Operation initialized"
+        },
+        {
+          "timestamp": "2026-01-29T05:48:22.846Z",
+          "change": "Status transitioned to In Progress"
+        }
+      ],
+      "comments": [],
+      "task": "Assembly Line Improvements",
+      "owner": "Sanjay Buwa",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 0,
+      "hours": 400,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null
+    },
+    {
+      "id": "6akdz9l9d",
+      "history": [
+        {
+          "timestamp": "2026-01-05T11:16:10.641Z",
+          "change": "Operation initialized"
+        },
+        {
+          "timestamp": "2026-01-29T05:38:47.683Z",
+          "change": "Status transitioned to In Progress"
+        }
+      ],
+      "comments": [],
+      "task": "Kaizen working",
+      "owner": "Sanjay Buwa",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 0,
+      "hours": 500,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null
+    },
+    {
+      "id": "n3eqqwdap",
+      "history": [
+        {
+          "timestamp": "2026-01-05T11:22:19.440Z",
+          "change": "Operation initialized"
+        },
+        {
+          "timestamp": "2026-01-29T06:18:44.158Z",
+          "change": "Status transitioned to In Progress"
+        }
+      ],
+      "comments": [],
+      "task": "Safety Equipment's",
+      "owner": "Sanjay Buwa",
+      "category": "Safety",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 0,
+      "hours": 150,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null
+    },
+    {
+      "id": "byny3plhe",
+      "history": [
+        {
+          "timestamp": "2026-01-05T11:25:46.587Z",
+          "change": "Operation initialized"
+        },
+        {
+          "timestamp": "2026-01-29T05:41:56.109Z",
+          "change": "Status transitioned to In Progress"
+        }
+      ],
+      "comments": [],
+      "task": "Assembly Fixtures",
+      "owner": "Sanjay Buwa",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 0,
+      "hours": 650,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null
+    },
+    {
+      "id": "k43qkje50",
+      "history": [
+        {
+          "timestamp": "2026-01-06T03:20:21.691Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "task": "MT33 Coolant Filling Station",
+      "owner": "Kailas Thorwat",
+      "category": "Short Term Project",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 50,
+      "hours": 30,
+      "startDate": "2025-11-01",
+      "dueDate": "2026-03-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null
+    },
+    {
+      "id": "nqf2019ir",
+      "history": [
+        {
+          "timestamp": "2026-01-06T03:28:24.402Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "task": "Weekly Production Meeting",
+      "owner": "Kailas Thorwat",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 41,
+      "hours": 0,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-05-29T10:48:18.893Z",
+      "originalDueDate": "2026-12-31"
+    },
+    {
+      "id": "cgetsh50l",
+      "history": [
+        {
+          "timestamp": "2026-01-06T03:32:55.187Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "task": "Daily Meetings + Meet others",
+      "owner": "Kailas Thorwat",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 0,
+      "hours": 250,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null
+    },
+    {
+      "id": "mbo2a29sk",
+      "history": [
+        {
+          "timestamp": "2026-01-06T11:13:08.708Z",
+          "change": "Operation initialized"
+        },
+        {
+          "timestamp": "2026-01-30T11:54:14.268Z",
+          "change": "Status transitioned to In Progress"
+        }
+      ],
+      "comments": [],
+      "task": "Process Other Activities",
+      "owner": "Sanjay Buwa",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 0,
+      "hours": 550,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null
+    },
+    {
+      "id": "pkj7cff2x",
+      "history": [
+        {
+          "timestamp": "2026-01-07T11:46:47.811Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "task": "Bom /Operation number update",
+      "owner": "Kailas Thorwat",
+      "category": "Task Wise Activity",
+      "project": "szyj9a5a7",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 0,
+      "hours": 0,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null
+    },
+    {
+      "id": "16gc7bugi",
+      "history": [
+        {
+          "timestamp": "2026-01-09T11:28:17.648Z",
+          "change": "Operation initialized"
+        },
+        {
+          "timestamp": "2026-01-29T06:15:17.889Z",
+          "change": "Status transitioned to In Progress"
+        }
+      ],
+      "comments": [],
+      "task": "Dexterity Development",
+      "owner": "Sanjay Buwa",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 0,
+      "hours": 100,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null
+    },
+    {
+      "id": "en7qqnrjf",
+      "history": [
+        {
+          "timestamp": "2026-01-13T11:47:38.727Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "task": "Monthly Meeting UD",
+      "owner": "Kailas Thorwat",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 0,
+      "hours": 24,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null
+    },
+    {
+      "id": "4uzuzfjfv",
+      "history": [
+        {
+          "timestamp": "2026-01-14T12:06:51.611Z",
+          "change": "Operation initialized"
+        },
+        {
+          "timestamp": "2026-01-29T05:44:17.843Z",
+          "change": "Status transitioned to In Progress"
+        }
+      ],
+      "comments": [],
+      "task": "SOP",
+      "owner": "Sanjay Buwa",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 0,
+      "hours": 200,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null
+    },
+    {
+      "id": "5g8z1nokg",
+      "history": [
+        {
+          "timestamp": "2026-01-20T04:18:21.623Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "task": "Learning",
+      "owner": "Safety Team",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 0,
+      "hours": 0,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null
+    },
+    {
+      "id": "oi1yipkb2",
+      "history": [
+        {
+          "timestamp": "2026-01-29T06:18:01.236Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "task": "Daily Meetings + Meet Others",
+      "owner": "Sanjay Buwa",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 0,
+      "hours": 200,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null
+    },
+    {
+      "id": "fppc9mb34",
+      "history": [
+        {
+          "timestamp": "2026-01-30T11:48:34.731Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "task": "Layout",
+      "owner": "Sanjay Buwa",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 0,
+      "hours": 400,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null
+    },
+    {
+      "id": "86zwek104",
+      "history": [
+        {
+          "timestamp": "2026-02-06T04:00:22.913Z",
+          "change": "Operation initialized"
+        },
+        {
+          "timestamp": "2026-05-27T03:38:45.276Z",
+          "change": "Status transitioned to Completed"
+        }
+      ],
+      "comments": [],
+      "task": "SOP Craft training to EITC Team ",
+      "owner": "Girish Aher",
+      "category": "Information & Team Suggestions",
+      "project": "",
+      "status": "Completed",
+      "priority": null,
+      "progress": 100,
+      "hours": 0,
+      "startDate": "2026-02-06",
+      "dueDate": "2026-02-06",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-05-27T03:38:45.276Z",
+      "originalDueDate": "2026-02-06"
+    },
+    {
+      "id": "h6vnjj8cp",
+      "history": [
+        {
+          "timestamp": "2026-01-06T12:15:10.469Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "task": "SR2FA Compressor & base motor assly Kaizen working ",
+      "owner": "Ravindra Ahire",
+      "category": "Safety",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 81,
+      "hours": 6,
+      "startDate": "2026-01-05",
+      "dueDate": "2026-01-16",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null
+    },
+    {
+      "id": "ejdvog7q4",
+      "history": [
+        {
+          "timestamp": "2026-01-21T12:18:19.271Z",
+          "change": "Operation initialized"
+        },
+        {
+          "timestamp": "2026-07-29T03:28:27.211Z",
+          "change": "Status transitioned to Completed"
+        }
+      ],
+      "comments": [],
+      "task": "LTH Tier III Checklist Routing preparation ",
+      "owner": "Ravindra Ahire",
+      "category": "Support Required",
+      "project": "",
+      "status": "Completed",
+      "priority": null,
+      "progress": 100,
+      "hours": 5,
+      "startDate": "2026-01-21",
+      "dueDate": "2026-06-16",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-07-29T03:28:27.211Z",
+      "originalDueDate": "2026-06-16"
+    },
+    {
+      "id": "tfk911157",
+      "history": [
+        {
+          "timestamp": "2026-01-21T12:27:39.277Z",
+          "change": "Operation initialized"
+        },
+        {
+          "timestamp": "2026-06-08T03:58:50.030Z",
+          "change": "Status transitioned to Completed"
+        }
+      ],
+      "comments": [],
+      "task": "PowerROC D45 4th machine Pump 1 Pressure setting support ",
+      "owner": "Ravindra Ahire",
+      "category": "Support Required",
+      "project": "",
+      "status": "Completed",
+      "priority": null,
+      "progress": 51,
+      "hours": 3,
+      "startDate": "2026-01-21",
+      "dueDate": "2026-01-21",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-06-08T03:58:50.030Z",
+      "originalDueDate": "2026-01-21"
+    },
+    {
+      "id": "ej9g5v0tp",
+      "category": "Information & Team Suggestions",
+      "task": "Improvement: DMH undercarriage  Master pin pressing require pin pressing fixture ",
+      "owner": "Ravindra Ahire",
+      "project": "",
+      "status": "Not Started",
+      "priority": "Medium",
+      "progress": 0,
+      "hours": 0,
+      "startDate": "2026-02-23",
+      "dueDate": "2026-02-23",
+      "notes": "Auto-generated from Idea Matrix. Impact: High, Cost: High",
+      "ideaLink": "8o4dvqd6z",
+      "history": [
+        {
+          "timestamp": "2026-02-23T04:00:16.536Z",
+          "change": "Operation initialized from Idea Matrix"
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "9lnyy36dh",
+      "category": "Information & Team Suggestions",
+      "task": "Improvement: Currently icm 260 complete machine removing from fixture risky activity,(not safety) we can develop hydraulic jack type fixture for unloading the machine",
+      "owner": "Ravindra Ahire",
+      "project": "",
+      "status": "Not Started",
+      "priority": "Medium",
+      "progress": 0,
+      "hours": 0,
+      "startDate": "2026-02-23",
+      "dueDate": "2026-02-23",
+      "notes": "Auto-generated from Idea Matrix. Impact: High, Cost: Medium",
+      "ideaLink": "ynzg583sh",
+      "history": [
+        {
+          "timestamp": "2026-02-23T04:14:22.484Z",
+          "change": "Operation initialized from Idea Matrix"
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "iszap4kma",
+      "history": [
+        {
+          "timestamp": "2026-05-19T08:59:32.247Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "2026-12-31",
+      "task": "TIA Risk Reporting",
+      "owner": "Aditya Shitut",
+      "category": "Safety",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 4,
+      "hours": 0,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "81ofc2xyb",
+      "keyResultLink": "vuwvr",
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-05-19T09:02:34.759Z"
+    },
+    {
+      "id": "1o7aaa0ug",
+      "category": "Continuous Improvement",
+      "task": "Improvement: BOM Quality Improvement",
+      "owner": "Aditya Shitut",
+      "project": "",
+      "status": "Not Started",
+      "priority": "Medium",
+      "progress": 0,
+      "hours": 0,
+      "startDate": "2026-05-21",
+      "dueDate": "2026-05-21",
+      "notes": "Auto-generated from Pick Chart. Impact: High, Cost/Effort: Low",
+      "ideaLink": "jg14xvjnx",
+      "history": [
+        {
+          "timestamp": "2026-05-21T03:44:10.514Z",
+          "change": "Operation initialized from Pick Chart"
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "9f34v8xpv",
+      "history": [
+        {
+          "timestamp": "2026-05-21T05:52:21.714Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "2026-05-29",
+      "task": "ICM260 TC and M3 BOM alignment",
+      "owner": "Pratik Uphade",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 20,
+      "hours": 100,
+      "startDate": "2026-05-19",
+      "dueDate": "2026-05-29",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "jg14xvjnx",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-05-21T05:52:21.714Z"
+    },
+    {
+      "id": "jn6r53df4",
+      "history": [
+        {
+          "timestamp": "2026-05-14T08:21:02.402Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "",
+      "task": "ST22 ",
+      "owner": "Engineering",
+      "category": "Support Required",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 11,
+      "hours": 40,
+      "startDate": "2026-10-14",
+      "dueDate": "",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "updatedAt": "2026-05-14T08:21:02.402Z"
+    },
+    {
+      "id": "6deg22jx2",
+      "history": [
+        {
+          "timestamp": "2026-05-28T06:36:11.889Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "2026-06-30",
+      "task": "PLM Manufacturing for MT65",
+      "owner": "Kalyani Sarode",
+      "category": "Short Term Project",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 12,
+      "hours": 100,
+      "startDate": "2026-05-11",
+      "dueDate": "2026-06-30",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-05-28T06:36:11.888Z"
+    },
+    {
+      "id": "rsxzasjcl",
+      "history": [
+        {
+          "timestamp": "2026-05-28T06:40:05.522Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "2026-06-05",
+      "task": "MT65 Stage II & V MK3 Checklist – Cross Check for All Available Options",
+      "owner": "Kalyani Sarode",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 40,
+      "hours": 60,
+      "startDate": "2026-05-18",
+      "dueDate": "2026-06-05",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-05-28T06:40:05.522Z"
+    },
+    {
+      "id": "te6kywsuv",
+      "history": [
+        {
+          "timestamp": "2026-05-28T07:22:48.631Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "2026-12-31",
+      "task": "Support in resolving daily issues raised by the assembly team.",
+      "owner": "Kalyani Sarode",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 34,
+      "hours": 700,
+      "startDate": "2026-01-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-05-28T07:22:48.631Z"
+    },
+    {
+      "id": "14ec4zhi1",
+      "history": [
+        {
+          "timestamp": "2026-05-28T07:25:05.041Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "2026-12-31",
+      "task": "MO BOM Review for MT & VENT Models",
+      "owner": "Kalyani Sarode",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 23,
+      "hours": 200,
+      "startDate": "2026-01-30",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-05-28T07:25:05.041Z"
+    },
+    {
+      "id": "gfm8cyfj2",
+      "history": [
+        {
+          "timestamp": "2026-05-28T07:26:04.272Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "2026-12-31",
+      "task": "Weekly Meeting - Review and Alignment of MO BOM with MO Specifications",
+      "owner": "Kalyani Sarode",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 0,
+      "hours": 200,
+      "startDate": "2026-05-27",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-05-28T07:26:04.272Z"
+    },
+    {
+      "id": "6yguivom6",
+      "history": [
+        {
+          "timestamp": "2026-05-28T07:38:48.409Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "2026-12-31",
+      "task": "Ongoing Updates for MT22 and MT436 Checklist",
+      "owner": "Kalyani Sarode",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 13,
+      "hours": 70,
+      "startDate": "2026-05-01",
+      "dueDate": "2026-12-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-05-28T07:38:48.409Z"
+    },
+    {
+      "id": "spbw9d49w",
+      "history": [
+        {
+          "timestamp": "2026-05-27T03:42:07.661Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "2026-05-25",
+      "task": "ICM260 New checklist operation numbers allocation ",
+      "owner": "Ravindra Ahire",
+      "category": "Priority",
+      "project": "",
+      "status": "Completed",
+      "priority": null,
+      "progress": 100,
+      "hours": 8,
+      "startDate": "2026-05-25",
+      "dueDate": "2026-05-25",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-06-08T03:58:28.464Z"
+    },
+    {
+      "id": "xu07ta162",
+      "history": [
+        {
+          "timestamp": "2026-06-01T05:04:19.130Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "2026-06-02",
+      "task": "IMS Internal Audit Schedule – URE Engineering ",
+      "owner": "Kalyani Sarode",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "Not Started",
+      "priority": null,
+      "progress": 100,
+      "hours": 5,
+      "startDate": "2026-06-01",
+      "dueDate": "2026-06-02",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-06-04T10:50:26.794Z"
+    },
+    {
+      "id": "s88he7cw9",
+      "history": [
+        {
+          "timestamp": "2026-06-16T04:32:57.697Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "2026-05-16",
+      "task": "ICM260 ROPS FOPS  New checklist operation numbers allocation ",
+      "owner": "Ravindra Ahire",
+      "category": "Priority",
+      "project": "",
+      "status": "Completed",
+      "priority": null,
+      "progress": 100,
+      "hours": 6,
+      "startDate": "2026-05-15",
+      "dueDate": "2026-05-16",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-06-16T04:32:57.697Z"
+    },
+    {
+      "id": "lka1yi6fj",
+      "history": [
+        {
+          "timestamp": "2026-06-16T04:35:22.397Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "2026-06-16",
+      "task": "ICM 260 Main frame resting fixture trial pending ",
+      "owner": "Ravindra Ahire",
+      "category": "Priority",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 81,
+      "hours": 3,
+      "startDate": "2026-06-15",
+      "dueDate": "2026-06-16",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-06-16T04:35:22.397Z"
+    },
+    {
+      "id": "lk5cpi2cb",
+      "history": [
+        {
+          "timestamp": "2026-06-16T04:38:32.740Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "2026-06-12",
+      "task": "PowerROC T25 Track lifting fixture PR Process ",
+      "owner": "Ravindra Ahire",
+      "category": "Priority",
+      "project": "",
+      "status": "Completed",
+      "priority": null,
+      "progress": 100,
+      "hours": 2,
+      "startDate": "2026-06-12",
+      "dueDate": "2026-06-12",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-06-16T04:38:32.740Z"
+    },
+    {
+      "id": "au67963re",
+      "history": [
+        {
+          "timestamp": "2026-06-16T04:40:32.207Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "2026-07-31",
+      "task": "PowerROC T25 Product SOPs preparation ",
+      "owner": "Ravindra Ahire",
+      "category": "Task Wise Activity",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 50,
+      "hours": 200,
+      "startDate": "2026-06-01",
+      "dueDate": "2026-07-31",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-06-16T04:40:32.207Z"
+    },
+    {
+      "id": "5pyj9wdcg",
+      "history": [
+        {
+          "timestamp": "2026-07-29T03:24:07.314Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "2026-07-27",
+      "task": "PowerROC T25 Cabin missing in BOM parts Added ",
+      "owner": "Ravindra Ahire",
+      "category": "Priority",
+      "project": "",
+      "status": "Completed",
+      "priority": null,
+      "progress": 100,
+      "hours": 4,
+      "startDate": "2026-07-27",
+      "dueDate": "2026-07-27",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-07-29T03:24:07.314Z"
+    },
+    {
+      "id": "a2el20xor",
+      "history": [
+        {
+          "timestamp": "2026-07-29T03:26:54.739Z",
+          "change": "Operation initialized"
+        }
+      ],
+      "comments": [],
+      "originalDueDate": "",
+      "task": "DMH Test pad new sub modification started  ",
+      "owner": "Ravindra Ahire",
+      "category": "Quality",
+      "project": "",
+      "status": "In Progress",
+      "priority": null,
+      "progress": 50,
+      "hours": 5,
+      "startDate": "2026-07-28",
+      "dueDate": "",
+      "okrLink": "",
+      "keyResultLink": null,
+      "ideaLink": "",
+      "notes": null,
+      "escalated": false,
+      "escalationReason": "",
+      "updatedAt": "2026-07-29T03:26:54.739Z"
+    }
+  ],
+  "archivedTasks": [],
+  "archivedItems": [
+    {
+      "id": "c88czdfn4",
+      "type": "Task",
+      "item": {
+        "id": "c88czdfn4",
+        "history": [
+          {
+            "timestamp": "2026-03-26T09:14:27.464Z",
+            "change": "Operation initialized"
+          },
+          {
+            "timestamp": "2026-05-14T11:39:10.239Z",
+            "change": "Status transitioned to Completed"
+          }
+        ],
+        "comments": [],
+        "task": "ICM260 Main frame mounting fixture (supplier visit for understanding)",
+        "owner": "Ravindra Ahire",
+        "category": "Safety",
+        "project": "",
+        "status": "Completed",
+        "priority": null,
+        "progress": 100,
+        "hours": 3,
+        "startDate": "2026-03-25",
+        "dueDate": "2026-03-25",
+        "okrLink": "",
+        "keyResultLink": null,
+        "ideaLink": "",
+        "notes": null,
+        "updatedAt": "2026-05-14T11:39:10.238Z",
+        "originalDueDate": "2026-03-25"
+      },
+      "archivedAt": "2026-05-14T11:39:19.056Z"
+    },
+    {
+      "id": "iare66c64",
+      "type": "Task",
+      "item": {
+        "id": "iare66c64",
+        "category": "Information & Team Suggestions",
+        "task": "Improvement: Currently icm 260 complete machine removing from fixture risky activity,(not safety) we can develop hydraulic jack type fixture for unloading the machine",
+        "owner": "Ravindra Ahire",
+        "project": "",
+        "status": "Completed",
+        "priority": null,
+        "progress": 100,
+        "hours": 0,
+        "startDate": "2026-02-23",
+        "dueDate": "2026-02-23",
+        "notes": null,
+        "ideaLink": "",
+        "history": [
+          {
+            "timestamp": "2026-02-23T04:15:30.040Z",
+            "change": "Operation initialized from Idea Matrix"
+          },
+          {
+            "timestamp": "2026-05-19T03:23:52.731Z",
+            "change": "Status transitioned to Completed"
+          }
+        ],
+        "comments": [],
+        "okrLink": "",
+        "keyResultLink": null,
+        "escalated": false,
+        "escalationReason": "",
+        "updatedAt": "2026-05-19T03:23:52.731Z",
+        "originalDueDate": "2026-02-23"
+      },
+      "archivedAt": "2026-05-19T03:24:12.834Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": "gnzrhlnh6",
+      "progress": 10,
+      "name": "RC 30",
+      "manager": "Aditya Shitut",
+      "status": "In Progress",
+      "startDate": "2025-09-01",
+      "endDate": "2026-11-30",
+      "hours": 320,
+      "description": "Project Added"
+    },
+    {
+      "id": "djq1k8bny",
+      "progress": 90,
+      "name": "SmartROC T45 - 7 machine",
+      "manager": "Aditya Shitut",
+      "status": "In Progress",
+      "startDate": "2026-08-01",
+      "endDate": "2026-12-31",
+      "hours": 100,
+      "description": "Task will open till completion of 7th machine"
+    },
+    {
+      "id": "o6567pwp8",
+      "progress": 42,
+      "name": "Fixture Safe Working Load marking",
+      "manager": "Sanjay Buwa",
+      "status": "In Progress",
+      "startDate": "2025-12-01",
+      "endDate": "2026-02-28",
+      "hours": 60,
+      "description": "Assembly fixtures for SRD & URE Completed , SCM is pending."
+    },
+    {
+      "id": "1y586lb0n",
+      "progress": 50,
+      "name": "ST1030",
+      "manager": "Kailas Thorwat",
+      "status": "In Progress",
+      "startDate": "2025-06-01",
+      "endDate": "2026-12-31",
+      "hours": 125,
+      "description": ""
+    },
+    {
+      "id": "szyj9a5a7",
+      "progress": 0,
+      "name": "MO Approve & BOM Creation",
+      "manager": "Kailas Thorwat",
+      "status": "In Progress",
+      "startDate": "2026-01-01",
+      "endDate": "2026-12-31",
+      "hours": 500,
+      "description": ""
+    },
+    {
+      "id": "4a6fhn3sb",
+      "progress": 50,
+      "name": "MT33G Electrorath",
+      "manager": "Kailas Thorwat",
+      "status": "In Progress",
+      "startDate": "2025-06-01",
+      "endDate": "2026-06-30",
+      "hours": 200,
+      "description": ""
+    },
+    {
+      "id": "r9h544i0c",
+      "progress": 0,
+      "name": "RCS/FAM Program Creation",
+      "manager": "Kailas Thorwat",
+      "status": "In Progress",
+      "startDate": "2026-01-01",
+      "endDate": "2026-12-31",
+      "hours": 500,
+      "description": ""
+    },
+    {
+      "id": "3sdnnr34h",
+      "progress": 0,
+      "name": "CN/JIRA",
+      "manager": "Kailas Thorwat",
+      "status": "In Progress",
+      "startDate": "2026-01-01",
+      "endDate": "2026-12-31",
+      "hours": 250,
+      "description": "CN/Jira Review & Update"
+    },
+    {
+      "id": "akbjnl0us",
+      "progress": 18,
+      "name": "Boomer M2D (BUT MD – 57052) Small Square Boom Project",
+      "manager": "Kalyani Sarode",
+      "status": "In Progress",
+      "startDate": "2025-07-17",
+      "endDate": "2026-02-02",
+      "hours": 150,
+      "description": ""
+    },
+    {
+      "id": "7k2p83eto",
+      "progress": 0,
+      "name": "Boomer M20 S Dual Capability Project",
+      "manager": "Kailas Thorwat",
+      "status": "In Progress",
+      "startDate": "2026-02-01",
+      "endDate": "2026-12-31",
+      "hours": 150,
+      "description": ""
+    },
+    {
+      "id": "ezj3yap7u",
+      "progress": 20,
+      "name": "SR2FA Feed extension support kaizen idea",
+      "manager": "Ravindra Ahire",
+      "status": "In Progress",
+      "startDate": "2026-01-05",
+      "endDate": "2026-01-09",
+      "hours": 20,
+      "description": "Pictorial view shared with balaji mali "
+    },
+    {
+      "id": "vrzsz8orx",
+      "progress": 26,
+      "name": " Update in SOP based on  CN ",
+      "manager": "Sapna Shirsat",
+      "status": "In Progress",
+      "startDate": "2026-07-01",
+      "endDate": "2027-02-07",
+      "hours": 180,
+      "description": "CN implementing in SOP "
+    },
+    {
+      "id": "v0pd2ojvy",
+      "progress": 6,
+      "name": "EPS ",
+      "manager": "Sapna Shirsat",
+      "status": "In Progress",
+      "startDate": "2026-04-01",
+      "endDate": "2027-02-28",
+      "hours": 200,
+      "description": "EPS Level One Sustenance and level 2 introduction."
+    }
+  ],
+  "ideas": [
+    {
+      "id": "8o4dvqd6z",
+      "idea": "DMH undercarriage  Master pin pressing require pin pressing fixture ",
+      "proposer": "Ravindra Ahire",
+      "impact": "High",
+      "cost": "High",
+      "status": "New",
+      "date": "2026-02-23"
+    },
+    {
+      "id": "ynzg583sh",
+      "idea": "Currently icm 260 complete machine removing from fixture risky activity,(not safety) we can develop hydraulic jack type fixture for unloading the machine",
+      "proposer": "Ravindra Ahire",
+      "impact": "High",
+      "cost": "Low",
+      "status": "New",
+      "date": "2026-02-23",
+      "updatedAt": "2026-05-19T03:23:29.586Z"
+    },
+    {
+      "id": "jg14xvjnx",
+      "idea": "BOM Quality Improvement",
+      "proposer": "Aditya Shitut",
+      "impact": "High",
+      "cost": "Low",
+      "status": "New",
+      "date": "2026-05-21"
+    }
+  ],
+  "kpis": [
+    {
+      "id": "ouq7x74i2",
+      "dailyLogs": [],
+      "name": "URE Nos of MO Received & Approved in Sales Portal",
+      "target": "Per day",
+      "targetNumber": 0,
+      "actualNumber": 10,
+      "completion": 0,
+      "remarks": ""
+    },
+    {
+      "id": "bz95vm9vo",
+      "dailyLogs": [],
+      "name": "URE Nos of BOM Prepared in TC & M3",
+      "target": "Per Day",
+      "targetNumber": 0,
+      "actualNumber": 0,
+      "completion": 0,
+      "remarks": ""
+    },
+    {
+      "id": "m3qozv217",
+      "dailyLogs": [],
+      "name": "URE No of Kaizen Received",
+      "target": "Per Day",
+      "targetNumber": 0,
+      "actualNumber": 0,
+      "completion": 0,
+      "remarks": ""
+    },
+    {
+      "id": "6tbeur9mr",
+      "dailyLogs": [],
+      "name": "URE No of BOM errors in R&D approved BOM",
+      "target": "Per Day",
+      "targetNumber": 0,
+      "actualNumber": 0,
+      "completion": 0,
+      "remarks": ""
+    },
+    {
+      "id": "fmi9c7fxz",
+      "dailyLogs": [],
+      "name": "SED No of Kaizen Received",
+      "target": "Per Day",
+      "targetNumber": 0,
+      "actualNumber": 0,
+      "completion": 0,
+      "remarks": ""
+    },
+    {
+      "id": "p213eqru4",
+      "dailyLogs": [
+        {
+          "id": "bwfvds345",
+          "date": "2026-05-04",
+          "targetNumber": 0,
+          "actualNumber": 3,
+          "progress": 0,
+          "remarks": "Approved in sales portal"
+        },
+        {
+          "id": "utvrhnigc",
+          "date": "2026-05-25",
+          "targetNumber": 0,
+          "actualNumber": 5,
+          "progress": 0,
+          "remarks": "8998091900, 8998093300, 8998093400, 8440281438, & 8440281439 Approved in sales portal"
+        }
+      ],
+      "name": "NO of MO Approved in Sales Portal",
+      "target": "Per day",
+      "targetNumber": 0,
+      "actualNumber": 5,
+      "completion": 0,
+      "remarks": "8998091900, 8998093300, 8998093400, 8440281438, & 8440281439 Approved in sales portal"
+    },
+    {
+      "id": "ioia8vo2y",
+      "dailyLogs": [
+        {
+          "id": "t2hs9a7ah",
+          "date": "2026-05-04",
+          "targetNumber": 0,
+          "actualNumber": 4,
+          "progress": 0,
+          "remarks": "4 BOM prepared in M3"
+        },
+        {
+          "id": "ulenj0l6k",
+          "date": "2026-05-05",
+          "targetNumber": 0,
+          "actualNumber": 2,
+          "progress": 0,
+          "remarks": "2 MO BOM Prepared in M3"
+        },
+        {
+          "id": "f7cee97ur",
+          "date": "2026-05-06",
+          "targetNumber": 0,
+          "actualNumber": 1,
+          "progress": 0,
+          "remarks": "1 MO BOM prepared in M3"
+        },
+        {
+          "id": "j86ml4d5m",
+          "date": "2026-05-07",
+          "targetNumber": 0,
+          "actualNumber": 0,
+          "progress": 0,
+          "remarks": "-"
+        },
+        {
+          "id": "n6sfinfzn",
+          "date": "2026-05-08",
+          "targetNumber": 0,
+          "actualNumber": 0,
+          "progress": 0,
+          "remarks": "-"
+        },
+        {
+          "id": "jo692b8e5",
+          "date": "2026-05-25",
+          "targetNumber": 0,
+          "actualNumber": 3,
+          "progress": 0,
+          "remarks": "MT22 8998061200, 8998061300, & 8998061400 Released in M3"
+        }
+      ],
+      "name": "NO of BOM Released in M3",
+      "target": "Per Day",
+      "targetNumber": 0,
+      "actualNumber": 3,
+      "completion": 0,
+      "remarks": "MT22 8998061200, 8998061300, & 8998061400 Released in M3"
+    }
+  ],
+  "kudos": [],
+  "okrs": [
+    {
+      "id": "81ofc2xyb",
+      "objective": "TIA Report Risk Observations",
+      "keyResults": [
+        {
+          "id": "vuwvr",
+          "kr": "Number of TIA : 48"
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "name": "Aditya Shitut",
+      "capacity": 160
+    },
+    {
+      "name": "Girish Aher",
+      "capacity": 160
+    },
+    {
+      "name": "Akash Tejankar",
+      "capacity": 160
+    },
+    {
+      "name": "Kailas Thorwat",
+      "capacity": 160
+    },
+    {
+      "name": "Kalyani Sarode",
+      "capacity": 160
+    },
+    {
+      "name": "Krishna Karad",
+      "capacity": 160
+    },
+    {
+      "name": "Pratik Uphade",
+      "capacity": 160
+    },
+    {
+      "name": "Ravindra Ahire",
+      "capacity": 160
+    },
+    {
+      "name": "Sanjay Buwa",
+      "capacity": 160
+    },
+    {
+      "name": "Sapna Shirsat",
+      "capacity": 160
+    }
+  ],
+  "bookings": [
+    {
+      "id": "y65sgxhcz",
+      "date": "2026-01-01",
+      "userId": "Ravindra Ahire",
+      "targetId": "trtq2ojmf",
+      "targetType": "task",
+      "hours": 4,
+      "description": "Operation numbers updation "
+    },
+    {
+      "id": "56af0w5xc",
+      "date": "2026-01-08",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Fixture folow up, Kitting trolley moving Disc, Tyre assly fixt folloeup and updation"
+    },
+    {
+      "id": "i8ra6vb7a",
+      "date": "2026-01-08",
+      "userId": "Sanjay Buwa",
+      "targetId": "byny3plhe",
+      "targetType": "task",
+      "hours": 2.5,
+      "description": "Assembly fixt design for Steering pin holding fixt MT436, and updation in A50 lifting fixt design"
+    },
+    {
+      "id": "bcx2fkzm5",
+      "date": "2026-01-08",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 4,
+      "description": "MY voice conclusion ,  ST1030 MEETING"
+    },
+    {
+      "id": "s6s9chnc1",
+      "date": "2026-01-08",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 1.5,
+      "description": "Disc. On process and Creeper board"
+    },
+    {
+      "id": "8d00ggji8",
+      "date": "2026-01-07",
+      "userId": "Sanjay Buwa",
+      "targetId": "6akdz9l9d",
+      "targetType": "task",
+      "hours": 1.5,
+      "description": "Kaizen data sharing, and Fixtures status Updation"
+    },
+    {
+      "id": "69nme6cg7",
+      "date": "2026-01-07",
+      "userId": "Sanjay Buwa",
+      "targetId": "byny3plhe",
+      "targetType": "task",
+      "hours": 2,
+      "description": "ST1030, Tyre assly and Kaizen Fixtures follow up "
+    },
+    {
+      "id": "ojv46qfn7",
+      "date": "2026-01-07",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 2.5,
+      "description": "Kitting Trolley Pulling arrangement with New AMR machine, Trial, and etc "
+    },
+    {
+      "id": "7yfj3vknl",
+      "date": "2026-01-07",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 3,
+      "description": "MT436, C section fixt,  Boomer A50 EL. Box lifting fixt, Boomer Cabin assly Ladder Trial, CP & Roadcraft Gun disc"
+    },
+    {
+      "id": "4qzx7dg2q",
+      "date": "2026-01-06",
+      "userId": "Sanjay Buwa",
+      "targetId": "6akdz9l9d",
+      "targetType": "task",
+      "hours": 1.5,
+      "description": "Disc on Boomer A50 pannel lifting fixt for modification"
+    },
+    {
+      "id": "bq4xre4b1",
+      "date": "2026-01-06",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 1,
+      "description": "MT65,436 improvements"
+    },
+    {
+      "id": "6zl897o7i",
+      "date": "2026-01-06",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 6,
+      "description": "CP Make Pulse Gun Team visit on assembly line and Training on Advance features trial conduct at assembly line"
+    },
+    {
+      "id": "0wp6v1ouh",
+      "date": "2026-01-05",
+      "userId": "Sanjay Buwa",
+      "targetId": "byny3plhe",
+      "targetType": "task",
+      "hours": 3,
+      "description": "Working on Tyre assembly fixt, Supplier visit for Hammer elimination dolly's and ST1030 Fixt"
+    },
+    {
+      "id": "05qglqurr",
+      "date": "2026-01-05",
+      "userId": "Sanjay Buwa",
+      "targetId": "n3eqqwdap",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Safety Glows Enquiry with suppliers"
+    },
+    {
+      "id": "8r0m036ry",
+      "date": "2026-01-05",
+      "userId": "Sanjay Buwa",
+      "targetId": "6akdz9l9d",
+      "targetType": "task",
+      "hours": 3,
+      "description": "Kaizen files updation, Kaizen fixture follow up, Data sharing with Assembly team,"
+    },
+    {
+      "id": "02iam0vi4",
+      "date": "2026-01-05",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 2,
+      "description": "MT65, 436 Fixtures Improvement, "
+    },
+    {
+      "id": "bs004hy22",
+      "date": "2026-01-05",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 3,
+      "description": "Project updates & Monthly report preparation "
+    },
+    {
+      "id": "sdwm3vsd0",
+      "date": "2026-01-05",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "cobstq0cr",
+      "date": "2026-01-05",
+      "userId": "Kailas Thorwat",
+      "targetId": "nqf2019ir",
+      "targetType": "task",
+      "hours": 1,
+      "description": "UD Weekly production meeting"
+    },
+    {
+      "id": "3gkb83al3",
+      "date": "2026-01-05",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 4,
+      "description": "MT2200 machines program created "
+    },
+    {
+      "id": "vq6rapiot",
+      "date": "2026-01-07",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 4,
+      "description": "MT65 RCS Program created"
+    },
+    {
+      "id": "sovmpkt3a",
+      "date": "2026-01-07",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 2,
+      "description": "ST1030 CN's Update"
+    },
+    {
+      "id": "j9abk0mpt",
+      "date": "2026-01-07",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "821695gmr",
+      "date": "2026-01-07",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Investment application - Guidance on the filling the form and approval process "
+    },
+    {
+      "id": "fl074s9r8",
+      "date": "2026-01-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Daily Meetings"
+    },
+    {
+      "id": "tfjjmzm61",
+      "date": "2026-01-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Battery operated tools Trial & discussion with CP team"
+    },
+    {
+      "id": "i2soz8ltb",
+      "date": "2026-01-08",
+      "userId": "Kailas Thorwat",
+      "targetId": "byny3plhe",
+      "targetType": "task",
+      "hours": 0.5,
+      "description": "ST1030 Lifting fixture handover"
+    },
+    {
+      "id": "z5s54sejl",
+      "date": "2026-01-08",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 1,
+      "description": "JIRA UPDATE"
+    },
+    {
+      "id": "1aemmvyml",
+      "date": "2026-01-08",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 1,
+      "description": "ST1030 Dual Capability Coordination Forum PPT preparation & Meeting"
+    },
+    {
+      "id": "gm6z2t8mz",
+      "date": "2026-01-08",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 4,
+      "description": "Daily pluse + My Voice conclusion"
+    },
+    {
+      "id": "uglt95316",
+      "date": "2026-01-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 1,
+      "description": "MT33 Part creation & review"
+    },
+    {
+      "id": "egud2rv6o",
+      "date": "2026-01-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 4,
+      "description": "MT22 RCS programs created  "
+    },
+    {
+      "id": "6pag2vplw",
+      "date": "2026-01-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": " BOM Review"
+    },
+    {
+      "id": "y839wszvh",
+      "date": "2026-01-07",
+      "userId": "Kailas Thorwat",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 1,
+      "description": "CN & BOM process review"
+    },
+    {
+      "id": "0sbrr8yur",
+      "date": "2026-01-09",
+      "userId": "Sanjay Buwa",
+      "targetId": "16gc7bugi",
+      "targetType": "task",
+      "hours": 1.5,
+      "description": "Pulse Gun sent to supplier for repairing"
+    },
+    {
+      "id": "nzi791vty",
+      "date": "2026-01-09",
+      "userId": "Sanjay Buwa",
+      "targetId": "6akdz9l9d",
+      "targetType": "task",
+      "hours": 2,
+      "description": "L2D drill Rod Preservation fixt, Creeper Board Devp on assly line, PR Raised for kaizens"
+    },
+    {
+      "id": "ebi8ralgu",
+      "date": "2026-01-09",
+      "userId": "Sanjay Buwa",
+      "targetId": "byny3plhe",
+      "targetType": "task",
+      "hours": 3,
+      "description": "Tyre assembly fixt devp. supplier visit"
+    },
+    {
+      "id": "zd6y8atpx",
+      "date": "2026-01-09",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Line Improvements"
+    },
+    {
+      "id": "xtcb73n1c",
+      "date": "2026-01-12",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 1.5,
+      "description": "CP8628 Gun trial conduct At MT2200 Transmission assembly"
+    },
+    {
+      "id": "4q9cm6yub",
+      "date": "2026-01-12",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 5,
+      "description": "Kaizen Fixtures design, PR Raising, Disc with supplier, Fixtures handed over to assembly line"
+    },
+    {
+      "id": "ahn7h2d08",
+      "date": "2026-01-12",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Assembly line improvements"
+    },
+    {
+      "id": "33pi2uenu",
+      "date": "2026-01-14",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Town hall meeting & PR Raising"
+    },
+    {
+      "id": "r9dkbrad4",
+      "date": "2026-01-14",
+      "userId": "Sanjay Buwa",
+      "targetId": "4uzuzfjfv",
+      "targetType": "task",
+      "hours": 1.5,
+      "description": "SOP- MT436, Converter & Boomer,"
+    },
+    {
+      "id": "zv61k4lki",
+      "date": "2026-01-14",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 1,
+      "description": "URE Fixt Validation project- Work permit follow up, supplier follow up, "
+    },
+    {
+      "id": "1dgnt67mx",
+      "date": "2026-01-14",
+      "userId": "Sanjay Buwa",
+      "targetId": "byny3plhe",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Tyre assly fixt. kaizen fixt, and supplier follow up"
+    },
+    {
+      "id": "wyu61db2f",
+      "date": "2026-01-14",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Assly line improvements -on sub assly area Fixture reqd, disc wt Supervisors and scope"
+    },
+    {
+      "id": "dd09ssd7t",
+      "date": "2026-01-13",
+      "userId": "Sanjay Buwa",
+      "targetId": "16gc7bugi",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Pneumatic Gun received  with proper calibration"
+    },
+    {
+      "id": "6h5ubwik1",
+      "date": "2026-01-13",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 4,
+      "description": "MT2200 Swivel Pin pressing activity, Sop Created,  Rear Axel Bolt tightening, 1235 NM torque,  Introduced CP8628 Gun, "
+    },
+    {
+      "id": "1w23ez4z4",
+      "date": "2026-01-13",
+      "userId": "Sanjay Buwa",
+      "targetId": "6akdz9l9d",
+      "targetType": "task",
+      "hours": 2.5,
+      "description": "A50 El. box, Boomer Fuel Tank Axel, and Radiator Assly fixt design"
+    },
+    {
+      "id": "oky4q4ogj",
+      "date": "2026-01-13",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 1.5,
+      "description": "Mt65 Cabin Electrical Working Panel designing, MT436 Transmission mounting"
+    },
+    {
+      "id": "esgk9hg4y",
+      "date": "2026-01-13",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 0.5,
+      "description": "working on Battery coolant filling station & ST1030 project update "
+    },
+    {
+      "id": "lw2qwf6p7",
+      "date": "2026-01-13",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 5,
+      "description": "Boomer L2 MO Approve & BOM creation"
+    },
+    {
+      "id": "d6m39pojh",
+      "date": "2026-01-13",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Indirect Purchase Process  IMS Policy update - Reconnect in New Year /Installation and validation of drill control valve leakage issue - 3217983460 "
+    },
+    {
+      "id": "a9p21vx3u",
+      "date": "2026-01-13",
+      "userId": "Kailas Thorwat",
+      "targetId": "en7qqnrjf",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Underground Division Team Meeting"
+    },
+    {
+      "id": "q3bpc13ls",
+      "date": "2026-01-12",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 2,
+      "description": "CN review & update"
+    },
+    {
+      "id": "y0hgqxnk6",
+      "date": "2026-01-12",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 0.5,
+      "description": "Meeting for Issue with Updated AC Hose (PN: 6060143270)"
+    },
+    {
+      "id": "74qxtk6od",
+      "date": "2026-01-12",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Meeting BOM up dation for Backflush items."
+    },
+    {
+      "id": "nv4xipitg",
+      "date": "2026-01-12",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 1,
+      "description": "MO Approve & Rev Check"
+    },
+    {
+      "id": "0o67v1arq",
+      "date": "2026-01-12",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 2,
+      "description": "BOM updated & 8417 issue resolved"
+    },
+    {
+      "id": "ttwelje7u",
+      "date": "2026-01-12",
+      "userId": "Kailas Thorwat",
+      "targetId": "nqf2019ir",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Weekly production meeting"
+    },
+    {
+      "id": "gfqo8h3bw",
+      "date": "2026-01-12",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Daily meetings + Meet others"
+    },
+    {
+      "id": "m61g2vmgk",
+      "date": "2026-01-09",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 1,
+      "description": "Projects updates & communicated to Nicole "
+    },
+    {
+      "id": "p8qmeqrpl",
+      "date": "2026-01-09",
+      "userId": "Kailas Thorwat",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 0.5,
+      "description": "Order Machine program site training given to Rohini"
+    },
+    {
+      "id": "7tzjaugpr",
+      "date": "2026-01-09",
+      "userId": "Kailas Thorwat",
+      "targetId": "gnzrhlnh6",
+      "targetType": "project",
+      "hours": 2,
+      "description": "MT2200 RCS program creation."
+    },
+    {
+      "id": "mqroju8kb",
+      "date": "2026-01-09",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 2,
+      "description": "Jira/CN report published & format discussions with Vishal"
+    },
+    {
+      "id": "807gfx60p",
+      "date": "2026-01-09",
+      "userId": "Kailas Thorwat",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Shop floor round & sop discussion  "
+    },
+    {
+      "id": "y0c46c2m4",
+      "date": "2026-01-09",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Daily Meeting"
+    },
+    {
+      "id": "84flidpak",
+      "date": "2026-01-08",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 2.5,
+      "description": "BOM verification & update"
+    },
+    {
+      "id": "vfknzdk5y",
+      "date": "2026-01-16",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 2,
+      "description": "PR Raising, Fixture validation of URE DIV Fixtures, CP4289 Hammer Gun Sent out for repairing,  AMR Machine trial- Kitting trolley updation"
+    },
+    {
+      "id": "a216ld4t0",
+      "date": "2026-01-16",
+      "userId": "Sanjay Buwa",
+      "targetId": "byny3plhe",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Tyre assembly fixture,"
+    },
+    {
+      "id": "8jriav4bb",
+      "date": "2026-01-16",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 3,
+      "description": "Supplier Visits-for safety PPE, Overhead Rails, cranes, Water hose Reel fixt for PDI "
+    },
+    {
+      "id": "iorzferoz",
+      "date": "2026-01-16",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 2,
+      "description": "MT436 Kaizen trial- Axel mount, C section assly fixt"
+    },
+    {
+      "id": "gc6cmqu0p",
+      "date": "2026-01-14",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "jztc5c8yd",
+      "date": "2026-01-14",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 1,
+      "description": "PK discussion + Tools update "
+    },
+    {
+      "id": "k61gysb5q",
+      "date": "2026-01-14",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 3,
+      "description": "BOOMER MO Approve & BOM Creation"
+    },
+    {
+      "id": "02flyhw2z",
+      "date": "2026-01-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "xiy6b6hdf",
+      "date": "2026-01-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 1,
+      "description": "MT22 Mark II Improvements"
+    },
+    {
+      "id": "jgk3mouy2",
+      "date": "2026-01-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": "BOM Review Meeting"
+    },
+    {
+      "id": "pnq2lji8i",
+      "date": "2026-01-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 4,
+      "description": "L2D BOM Creation & released"
+    },
+    {
+      "id": "t37igads2",
+      "date": "2026-01-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 1,
+      "description": "CN's & Jira Updates"
+    },
+    {
+      "id": "9m17nkqpl",
+      "date": "2026-01-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Parts & Structure created."
+    },
+    {
+      "id": "tw1hxuqux",
+      "date": "2026-01-16",
+      "userId": "Sanjay Buwa",
+      "targetId": "6akdz9l9d",
+      "targetType": "task",
+      "hours": 0.5,
+      "description": "Kaizen fixt - Boomer Radiator"
+    },
+    {
+      "id": "fk47f6hft",
+      "date": "2026-01-19",
+      "userId": "Sanjay Buwa",
+      "targetId": "byny3plhe",
+      "targetType": "task",
+      "hours": 2,
+      "description": "MT65 Fixtures development and meeting with Assembly Team"
+    },
+    {
+      "id": "r6e51eygn",
+      "date": "2026-01-19",
+      "userId": "Sanjay Buwa",
+      "targetId": "4uzuzfjfv",
+      "targetType": "task",
+      "hours": 0.5,
+      "description": "Boomer repositioning disc  "
+    },
+    {
+      "id": "rtlf3er8h",
+      "date": "2026-01-19",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 4,
+      "description": "PLM -Training"
+    },
+    {
+      "id": "hor7fas41",
+      "date": "2026-01-19",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Safety Issue disc- MT436 Machine Chair Assembly fixt and Sub assembly Area Fixtures"
+    },
+    {
+      "id": "0bn8rayfx",
+      "date": "2026-01-19",
+      "userId": "Sanjay Buwa",
+      "targetId": "6akdz9l9d",
+      "targetType": "task",
+      "hours": 0.5,
+      "description": "Boomer-attachment fixt & M2D Fixt trial "
+    },
+    {
+      "id": "uafi5dpma",
+      "date": "2026-01-20",
+      "userId": "Kailas Thorwat",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 2,
+      "description": "BOM preparation knowledge sharing "
+    },
+    {
+      "id": "p7o822wwl",
+      "date": "2026-01-20",
+      "userId": "Kailas Thorwat",
+      "targetId": "5g8z1nokg",
+      "targetType": "task",
+      "hours": 3,
+      "description": "Training Session Nashik - Configuration Engineers - Half day 2"
+    },
+    {
+      "id": "aftyc0aoc",
+      "date": "2026-01-20",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 2,
+      "description": "MO BOM update & part issue resolved"
+    },
+    {
+      "id": "lbqucphuh",
+      "date": "2026-01-20",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Daily + M1D BOM Review Meeting"
+    },
+    {
+      "id": "kl94sia1g",
+      "date": "2026-01-19",
+      "userId": "Kailas Thorwat",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Citrix Software Installation"
+    },
+    {
+      "id": "ndpv0omw0",
+      "date": "2026-01-19",
+      "userId": "Kailas Thorwat",
+      "targetId": "5g8z1nokg",
+      "targetType": "task",
+      "hours": 4,
+      "description": "Training Session Nashik - Configuration Engineers - Half day 1"
+    },
+    {
+      "id": "bnlg3f53q",
+      "date": "2026-01-19",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 2,
+      "description": "BOM & Operation number update 841700 & 7972"
+    },
+    {
+      "id": "p3kose7w3",
+      "date": "2026-01-19",
+      "userId": "Kailas Thorwat",
+      "targetId": "nqf2019ir",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "68c6spgqg",
+      "date": "2026-01-19",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "6ivcj844m",
+      "date": "2026-01-20",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 4,
+      "description": "Training On  Configuration Engineers"
+    },
+    {
+      "id": "yvxefbm23",
+      "date": "2026-01-20",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Fixture Validation Marking - Meeting wt Team, actual working,"
+    },
+    {
+      "id": "rfsru99jf",
+      "date": "2026-01-20",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Line improvements,  Cp Torque Gun disc,  Sub Assembly Fixt. Improvements, "
+    },
+    {
+      "id": "t2lplqzax",
+      "date": "2026-01-21",
+      "userId": "Kailas Thorwat",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 1,
+      "description": " Weighing machine & Torque testing tool (vendor visited Nashik pc)"
+    },
+    {
+      "id": "dejx646uv",
+      "date": "2026-01-21",
+      "userId": "Kailas Thorwat",
+      "targetId": "gnzrhlnh6",
+      "targetType": "project",
+      "hours": 5,
+      "description": "MO BOM Creation  for 8312 & 6990"
+    },
+    {
+      "id": "cd574lsaz",
+      "date": "2026-01-21",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 1,
+      "description": "Report creation "
+    },
+    {
+      "id": "0d514yyd0",
+      "date": "2026-01-21",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "keflkenol",
+      "date": "2026-01-21",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Fixture validation, Kitting trolley Working ATI,  Fixture plate In details Info disc with suplier, Hammer Gun Trial"
+    },
+    {
+      "id": "9m0cd9ehs",
+      "date": "2026-01-21",
+      "userId": "Sanjay Buwa",
+      "targetId": "byny3plhe",
+      "targetType": "task",
+      "hours": 1,
+      "description": "MT65 Fixture fixture modification in design"
+    },
+    {
+      "id": "shaq0kxv3",
+      "date": "2026-01-21",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 2.5,
+      "description": "Supplier visit for Fixtures"
+    },
+    {
+      "id": "gk2l865gl",
+      "date": "2026-01-21",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 2.5,
+      "description": "MT436 - Loadman Assembly fixture disc and designing, safety ladder disc for A50 ele. panel, MT2200 Chain for Load frame lift"
+    },
+    {
+      "id": "7dx82hzlb",
+      "date": "2026-01-21",
+      "userId": "Sanjay Buwa",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": "MT65-Chain slings details"
+    },
+    {
+      "id": "n0fyg8ljm",
+      "date": "2026-01-20",
+      "userId": "Sanjay Buwa",
+      "targetId": "6akdz9l9d",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Front Grill Fixt MT 436,  Seat Assly, MT2200 Load Frame Lifting Idea Disc"
+    },
+    {
+      "id": "x8j3mx1r7",
+      "date": "2026-01-23",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Fixture Validation work With Bedmutha team"
+    },
+    {
+      "id": "q3z0kohln",
+      "date": "2026-01-23",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 4,
+      "description": "Training on Configuration Engg- Production engg"
+    },
+    {
+      "id": "ht7g29dmr",
+      "date": "2026-01-23",
+      "userId": "Sanjay Buwa",
+      "targetId": "6akdz9l9d",
+      "targetType": "task",
+      "hours": 2,
+      "description": "MT436 Loadman Fixt, and Boomer Attachment fixt trial"
+    },
+    {
+      "id": "7kgvgtv8d",
+      "date": "2026-01-23",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Assembly line Improvements"
+    },
+    {
+      "id": "ql27fj6if",
+      "date": "2026-01-23",
+      "userId": "Sanjay Buwa",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Daily Meetings and follow up"
+    },
+    {
+      "id": "95mdn33a8",
+      "date": "2026-01-22",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 3.5,
+      "description": "Training Configuration Engineers- Production engg"
+    },
+    {
+      "id": "zexzeolaa",
+      "date": "2026-01-22",
+      "userId": "Sanjay Buwa",
+      "targetId": "6akdz9l9d",
+      "targetType": "task",
+      "hours": 3,
+      "description": "MT436 Loadmann fixture designing"
+    },
+    {
+      "id": "n49zqwn8i",
+      "date": "2026-01-22",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 1,
+      "description": "MT65 Fixturing, study"
+    },
+    {
+      "id": "ozidjs0mg",
+      "date": "2026-01-22",
+      "userId": "Sanjay Buwa",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Daily Meetings, Safety Share, and Observation on assly line"
+    },
+    {
+      "id": "t8hs90n9h",
+      "date": "2026-01-22",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 1,
+      "description": "FAM 3 Program update 8312"
+    },
+    {
+      "id": "5988hx7nu",
+      "date": "2026-01-22",
+      "userId": "Aditya Shitut",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 4,
+      "description": "MO Approve & BOM Creation"
+    },
+    {
+      "id": "a1m6vnc55",
+      "date": "2026-01-22",
+      "userId": "Kailas Thorwat",
+      "targetId": "5g8z1nokg",
+      "targetType": "task",
+      "hours": 3,
+      "description": "Training Session Nashik - Production Engineering - Half day 1"
+    },
+    {
+      "id": "6o9ixxo17",
+      "date": "2026-01-22",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "3ofma2gd9",
+      "date": "2026-01-27",
+      "userId": "Kailas Thorwat",
+      "targetId": "5g8z1nokg",
+      "targetType": "task",
+      "hours": 3,
+      "description": "Training Session Nashik - Configuration Engineers"
+    },
+    {
+      "id": "7ic974yfy",
+      "date": "2026-01-27",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 5,
+      "description": "MO Approve & BOM creation 8690/8634/8635/8153"
+    },
+    {
+      "id": "oq7jnmjzh",
+      "date": "2026-01-27",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "t3nmvmduo",
+      "date": "2026-01-23",
+      "userId": "Kailas Thorwat",
+      "targetId": "5g8z1nokg",
+      "targetType": "task",
+      "hours": 3,
+      "description": "Training Session Nashik - Production Engineering - "
+    },
+    {
+      "id": "6i0dxfkje",
+      "date": "2026-01-23",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 4,
+      "description": "MO approve & BOB creation & Released 8530 + Part creation "
+    },
+    {
+      "id": "tfhm0vcuj",
+      "date": "2026-01-23",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 1,
+      "description": "MT33G Electrorath: Project Readiness : Release Status, Part ETAs, Planning, HV Training"
+    },
+    {
+      "id": "fxt2un0o6",
+      "date": "2026-01-23",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "h4jkxksvz",
+      "date": "2026-01-27",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 1.5,
+      "description": "Fixt Validation, Kaizen disc wt Initiator"
+    },
+    {
+      "id": "1muu1v5zk",
+      "date": "2026-01-27",
+      "userId": "Sanjay Buwa",
+      "targetId": "byny3plhe",
+      "targetType": "task",
+      "hours": 3,
+      "description": "Fixt design"
+    },
+    {
+      "id": "5rmtf4jk7",
+      "date": "2026-01-27",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 1.5,
+      "description": "Boomer & Minetruck "
+    },
+    {
+      "id": "72shxwqng",
+      "date": "2026-01-27",
+      "userId": "Sanjay Buwa",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 2.5,
+      "description": "Daily Meetings, MOL sop Meetings,  FAM3 setting SOP Meeting"
+    },
+    {
+      "id": "ugqcyu7qo",
+      "date": "2026-01-28",
+      "userId": "Kailas Thorwat",
+      "targetId": "5g8z1nokg",
+      "targetType": "task",
+      "hours": 3,
+      "description": "Training Session Nashik - Production Planners "
+    },
+    {
+      "id": "lkg9r3lwe",
+      "date": "2026-01-28",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 4,
+      "description": "MO approve & BOM creation 8634 & 8635"
+    },
+    {
+      "id": "gv525mmn2",
+      "date": "2026-01-28",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": "BOM review Meeting"
+    },
+    {
+      "id": "urjmfbsdq",
+      "date": "2026-01-28",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "4glqpom6c",
+      "date": "2026-01-28",
+      "userId": "Sanjay Buwa",
+      "targetId": "16gc7bugi",
+      "targetType": "task",
+      "hours": 0.5,
+      "description": "Dexterity working"
+    },
+    {
+      "id": "za41pmsbx",
+      "date": "2026-01-28",
+      "userId": "Sanjay Buwa",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 2.5,
+      "description": "Fixt validation, heavy fab material fixt  disc with supplier, Name plates on fixt disc wt vendor"
+    },
+    {
+      "id": "2u54tllk9",
+      "date": "2026-01-28",
+      "userId": "Sanjay Buwa",
+      "targetId": "byny3plhe",
+      "targetType": "task",
+      "hours": 1.5,
+      "description": "MT2200 Chair assly fixt, Load frame lifting chain & MT436 Power frame lift fixt disc"
+    },
+    {
+      "id": "v0s3eru47",
+      "date": "2026-01-28",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Line improvements"
+    },
+    {
+      "id": "6hjliq5wf",
+      "date": "2026-01-28",
+      "userId": "Sanjay Buwa",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 3.5,
+      "description": "Daily Meetings, Line Meetings, Supplier disc and KK Wagh collage student Industrial visit conduct"
+    },
+    {
+      "id": "z5impn2og",
+      "date": "2026-01-29",
+      "userId": "Sanjay Buwa",
+      "targetId": "s0oas1l0y",
+      "targetType": "task",
+      "hours": 2,
+      "description": "assly line improvement"
+    },
+    {
+      "id": "eqknh68z2",
+      "date": "2026-01-29",
+      "userId": "Sanjay Buwa",
+      "targetId": "byny3plhe",
+      "targetType": "task",
+      "hours": 3,
+      "description": "Load fixt desgn"
+    },
+    {
+      "id": "9sawg9kdg",
+      "date": "2026-01-29",
+      "userId": "Sanjay Buwa",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 2.5,
+      "description": "daily meetings, N2 project, Boomer Repositioning,"
+    },
+    {
+      "id": "ssuijfzyb",
+      "date": "2026-01-29",
+      "userId": "Sanjay Buwa",
+      "targetId": "6akdz9l9d",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Boomer sub assly fixt"
+    },
+    {
+      "id": "oi9gt38wg",
+      "date": "2026-02-11",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 1,
+      "description": "ST1030 & Boomer BOM updates "
+    },
+    {
+      "id": "aclkxd85m",
+      "date": "2026-02-11",
+      "userId": "Kailas Thorwat",
+      "targetId": "5g8z1nokg",
+      "targetType": "task",
+      "hours": 8,
+      "description": "HV Battery & Driveline Technical Training"
+    },
+    {
+      "id": "jiwei6480",
+      "date": "2026-02-10",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 1,
+      "description": "MT65 program update with New Version "
+    },
+    {
+      "id": "ow4s1km34",
+      "date": "2026-02-10",
+      "userId": "Kailas Thorwat",
+      "targetId": "5g8z1nokg",
+      "targetType": "task",
+      "hours": 8,
+      "description": "HV Battery & Driveline Technical Training"
+    },
+    {
+      "id": "t0vuvvw6z",
+      "date": "2026-02-09",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 1,
+      "description": "RCS Program created MT65 for Stage V Machine"
+    },
+    {
+      "id": "kgtzncyjx",
+      "date": "2026-02-09",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 2,
+      "description": "MO Approve & BOM creation - Scooptram /M2D  "
+    },
+    {
+      "id": "0b1oe7838",
+      "date": "2026-02-09",
+      "userId": "Kailas Thorwat",
+      "targetId": "5g8z1nokg",
+      "targetType": "task",
+      "hours": 6,
+      "description": "HV Battery & Driveline Technical Training (Week 7)"
+    },
+    {
+      "id": "0rqia2tor",
+      "date": "2026-02-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 1,
+      "description": "ST1030 Project update"
+    },
+    {
+      "id": "m4dbxatme",
+      "date": "2026-02-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 1,
+      "description": "BOM update as per CN &Mail communication "
+    },
+    {
+      "id": "eimpdbby3",
+      "date": "2026-02-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "z397almsg",
+      "targetType": "task",
+      "hours": 1,
+      "description": "MT33G SOP creation discussion with Thulasi & team "
+    },
+    {
+      "id": "jmridu748",
+      "date": "2026-02-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 1,
+      "description": "BOM formula sheet Update"
+    },
+    {
+      "id": "0gotzrx8g",
+      "date": "2026-02-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 2,
+      "description": "Issue with Updated AC Hose (PN: 6060143270)/CN close on SCP"
+    },
+    {
+      "id": "2k81bombg",
+      "date": "2026-02-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 2,
+      "description": "FAM Program creation -8999844500 "
+    },
+    {
+      "id": "3pg9qo3jr",
+      "date": "2026-02-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "dgxigx3s4",
+      "date": "2026-02-05",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Bom updates as per CN's & Mail communication"
+    },
+    {
+      "id": "641jfwhx5",
+      "date": "2026-02-05",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 1,
+      "description": "MT33G part verification & discussion with team "
+    },
+    {
+      "id": "ra8ivop62",
+      "date": "2026-02-05",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 2,
+      "description": "ST1030 Project update& monthly report preparation"
+    },
+    {
+      "id": "ksircc8zu",
+      "date": "2026-02-05",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 2,
+      "description": "RCS& FAM program created -   8998039400/8998038200/8999850300"
+    },
+    {
+      "id": "59juuugx5",
+      "date": "2026-02-05",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Weekly PSM/CPI Review-URE / MT33G/MT33G Parts secure - Aparna"
+    },
+    {
+      "id": "4j8pmhn2i",
+      "date": "2026-01-30",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Boomer Wheel set updated"
+    },
+    {
+      "id": "zqs3h8cc2",
+      "date": "2026-01-30",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 1,
+      "description": "CN/JIRA update & report published"
+    },
+    {
+      "id": "tidtnauyx",
+      "date": "2026-01-30",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "jak9gixjf",
+      "date": "2026-01-29",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 5,
+      "description": "BOM Creation & Released 899986900/8999 863400 & 8999 863500/8999815300"
+    },
+    {
+      "id": "d9ctm2bb0",
+      "date": "2026-01-29",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 2.5,
+      "description": "Weekly PSM/CPI Review-URE /CN Monthly meeting & update"
+    },
+    {
+      "id": "ljvlvi888",
+      "date": "2026-01-29",
+      "userId": "Kailas Thorwat",
+      "targetId": "oi1yipkb2",
+      "targetType": "task",
+      "hours": 0.5,
+      "description": "Support for SOP Preparation - Understand the requirements"
+    },
+    {
+      "id": "a5y4lgjy2",
+      "date": "2026-01-29",
+      "userId": "Kailas Thorwat",
+      "targetId": "oi1yipkb2",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "k9ce7cryz",
+      "date": "2026-02-17",
+      "userId": "Kailas Thorwat",
+      "targetId": "7k2p83eto",
+      "targetType": "project",
+      "hours": 2,
+      "description": "Boomer M20 S Dual Capability Kick Off Meeting (PPT preparation)"
+    },
+    {
+      "id": "hv02njmgi",
+      "date": "2026-02-17",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 1,
+      "description": "Projects updates (Follow-ups )"
+    },
+    {
+      "id": "fp68dkg32",
+      "date": "2026-02-17",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Important : Phase In / Phase out of Square Boom - L20 (CFT meeting & updates checklist)"
+    },
+    {
+      "id": "rpe91j0sr",
+      "date": "2026-02-17",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 2,
+      "description": "MT2200 RCS Program Creation 8998027300 ,8998027400,8998050400,8998039500"
+    },
+    {
+      "id": "kdjf7kpqh",
+      "date": "2026-02-17",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "fx95jc18x",
+      "date": "2026-02-17",
+      "userId": "Kailas Thorwat",
+      "targetId": "nqf2019ir",
+      "targetType": "task",
+      "hours": 1,
+      "description": "BOM review meeting"
+    },
+    {
+      "id": "j4e9nn2wo",
+      "date": "2026-02-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Boomer operation list update"
+    },
+    {
+      "id": "c0zeulo6b",
+      "date": "2026-02-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Important : Phase In / Phase out of Square Boom - L20 "
+    },
+    {
+      "id": "qkvcfhyd7",
+      "date": "2026-02-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 5,
+      "description": "MO approve & BOM creation 8740, 8741, 8633, &8636"
+    },
+    {
+      "id": "5inuiiij7",
+      "date": "2026-02-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "nqf2019ir",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "n2q0tpzw3",
+      "date": "2026-02-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "ejdi2qdb3",
+      "date": "2026-02-13",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 2,
+      "description": "BOM updates as per CN & Mail"
+    },
+    {
+      "id": "ysvwvccdt",
+      "date": "2026-02-13",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 2,
+      "description": "CN & Jira Review & Acknowledge "
+    },
+    {
+      "id": "a5dc3wx4z",
+      "date": "2026-02-13",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 2,
+      "description": "BOM creation Kit 90 & AC hoses "
+    },
+    {
+      "id": "sov6bul65",
+      "date": "2026-02-13",
+      "userId": "Kailas Thorwat",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 1,
+      "description": "New laptop Installation "
+    },
+    {
+      "id": "7ihzw19nv",
+      "date": "2026-02-13",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 1,
+      "description": "MT33G GA Reviews & Seq of Production"
+    },
+    {
+      "id": "58gv22ybv",
+      "date": "2026-02-13",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "i8244vry1",
+      "date": "2026-02-12",
+      "userId": "Kailas Thorwat",
+      "targetId": "7k2p83eto",
+      "targetType": "project",
+      "hours": 1.5,
+      "description": "Boomer M20 S - Production Engineering Information Sharing Kick Off (PPT preparation) "
+    },
+    {
+      "id": "exoajkjkc",
+      "date": "2026-02-12",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 1.5,
+      "description": "Weekly PSM/CPI Review-URE &CN meeting"
+    },
+    {
+      "id": "txbh2s1ca",
+      "date": "2026-02-12",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 1,
+      "description": "MT33G GA Reviews & SOP review with CFT"
+    },
+    {
+      "id": "3wigxs131",
+      "date": "2026-02-12",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 2,
+      "description": "MT65 RCS programs update with New Version"
+    },
+    {
+      "id": "vm5rl1x7l",
+      "date": "2026-02-12",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 2,
+      "description": "M2D MO approve & BOM creation 8190"
+    },
+    {
+      "id": "ja4gs1btl",
+      "date": "2026-02-12",
+      "userId": "Kailas Thorwat",
+      "targetId": "oi1yipkb2",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "vg0lpi3yy",
+      "date": "2026-02-03",
+      "userId": "Ravindra Ahire",
+      "targetId": "djq1k8bny",
+      "targetType": "project",
+      "hours": 4,
+      "description": "For 5th & 6th machine parts added & support to line  "
+    },
+    {
+      "id": "1gy38jthi",
+      "date": "2026-02-03",
+      "userId": "Ravindra Ahire",
+      "targetId": "ejdvog7q4",
+      "targetType": "task",
+      "hours": 6,
+      "description": "Check list Excel sheet prepared for both checklist"
+    },
+    {
+      "id": "jp81dmwm0",
+      "date": "2026-01-06",
+      "userId": "Ravindra Ahire",
+      "targetId": "djq1k8bny",
+      "targetType": "project",
+      "hours": 2,
+      "description": "Shortage material line up "
+    },
+    {
+      "id": "o0yh4k71q",
+      "date": "2026-02-23",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 1.5,
+      "description": "Power pack structure create & ST1030"
+    },
+    {
+      "id": "rwbq4eet1",
+      "date": "2026-02-23",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 3,
+      "description": "1st KIT issue resolved & Shopfloor visit"
+    },
+    {
+      "id": "turydezlh",
+      "date": "2026-02-23",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 2,
+      "description": "M2D MO approve & BOM creation"
+    },
+    {
+      "id": "brrbpnjzr",
+      "date": "2026-02-23",
+      "userId": "Kailas Thorwat",
+      "targetId": "byny3plhe",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "g3y7euyol",
+      "date": "2026-02-23",
+      "userId": "Kailas Thorwat",
+      "targetId": "oi1yipkb2",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "6b7rxn9dv",
+      "date": "2026-02-20",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 2,
+      "description": "Task list update on Site"
+    },
+    {
+      "id": "5c8kdp8jg",
+      "date": "2026-02-20",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 3,
+      "description": "SOP verification &CN's & BOM prepartion"
+    },
+    {
+      "id": "6ulimvk59",
+      "date": "2026-02-20",
+      "userId": "Kailas Thorwat",
+      "targetId": "7k2p83eto",
+      "targetType": "project",
+      "hours": 1,
+      "description": "Drilling M/E - Change notifications and how to work with B M20S Dual Capabilities (Nicole & Orebro team)"
+    },
+    {
+      "id": "1fdfmm2ug",
+      "date": "2026-02-20",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 2,
+      "description": "1st KIT Part Verification & alloaction"
+    },
+    {
+      "id": "zd1a5skxa",
+      "date": "2026-02-20",
+      "userId": "Kailas Thorwat",
+      "targetId": "oi1yipkb2",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "vcpjsm5f7",
+      "date": "2026-02-19",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 1,
+      "description": "M1D BOM issue identify & discussions with CFT"
+    },
+    {
+      "id": "e8m3ncuyd",
+      "date": "2026-02-19",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 1,
+      "description": "PSD support for FAM3 Program 7618"
+    },
+    {
+      "id": "ozs29sabg",
+      "date": "2026-02-19",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 3,
+      "description": "MT33G BOM Creation & Issue findings with CN's"
+    },
+    {
+      "id": "19gyvas1o",
+      "date": "2026-02-19",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 2,
+      "description": "KIT missing part verification & Discussed with Team"
+    },
+    {
+      "id": "5bmzjqaff",
+      "date": "2026-02-19",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 1,
+      "description": "8312 BOM Update"
+    },
+    {
+      "id": "4jfhzskbz",
+      "date": "2026-02-19",
+      "userId": "Kailas Thorwat",
+      "targetId": "oi1yipkb2",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "w2ivbqd1i",
+      "date": "2026-02-18",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Checklist & % forcaste update"
+    },
+    {
+      "id": "882uv6kb5",
+      "date": "2026-02-18",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 2,
+      "description": "Discussion on ST1030 , 1st kit received , station allocation & kitting "
+    },
+    {
+      "id": "7muo1bzov",
+      "date": "2026-02-18",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 1,
+      "description": "Pre-CN meeting-Drilling &CN"
+    },
+    {
+      "id": "ilvjbu0g1",
+      "date": "2026-02-18",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 1,
+      "description": "MT33G weekly Team Connect & updates"
+    },
+    {
+      "id": "q7lyipcuc",
+      "date": "2026-02-18",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 3,
+      "description": "M2 & L2 Bom created & released 8740,8741,8636&8633"
+    },
+    {
+      "id": "cgualisif",
+      "date": "2026-02-18",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "t3ntkipjk",
+      "date": "2026-02-26",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 2,
+      "description": "MO Approve & BOM creation M2D 8153"
+    },
+    {
+      "id": "lh062b053",
+      "date": "2026-02-26",
+      "userId": "Kailas Thorwat",
+      "targetId": "7k2p83eto",
+      "targetType": "project",
+      "hours": 3,
+      "description": "Requirement list Compiled for support required from Orebro (PPT preparation)"
+    },
+    {
+      "id": "odppfezv8",
+      "date": "2026-02-26",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 2,
+      "description": "CN/PSM Meeting & Updates"
+    },
+    {
+      "id": "sc3eurrja",
+      "date": "2026-02-26",
+      "userId": "Kailas Thorwat",
+      "targetId": "oi1yipkb2",
+      "targetType": "task",
+      "hours": 1.5,
+      "description": "Daily meeting + Town Hall"
+    },
+    {
+      "id": "ajfc2m6qd",
+      "date": "2026-02-25",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 3,
+      "description": "BOM update as per mail & CN's"
+    },
+    {
+      "id": "vrwsnel4x",
+      "date": "2026-02-25",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 2,
+      "description": "Parts Identify & shopfloor visit  "
+    },
+    {
+      "id": "qmi78ct9t",
+      "date": "2026-02-25",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 1,
+      "description": "Working on tools, fixture updates"
+    },
+    {
+      "id": "ip3pc6vvu",
+      "date": "2026-02-25",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 1,
+      "description": "pre cn meeting & updates"
+    },
+    {
+      "id": "jguzj2nh5",
+      "date": "2026-02-25",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "popvgidae",
+      "date": "2026-02-24",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 2,
+      "description": "BOM updates as per mail & CN's"
+    },
+    {
+      "id": "1d0w80d7y",
+      "date": "2026-02-24",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 3,
+      "description": "Weekly projects update ,kit 1st shortage parts finding , Item master creation"
+    },
+    {
+      "id": "7m6uahlkq",
+      "date": "2026-02-24",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 2,
+      "description": "M2D 8999837900 BOM creation & released"
+    },
+    {
+      "id": "qnkke8d4f",
+      "date": "2026-02-24",
+      "userId": "Kailas Thorwat",
+      "targetId": "nqf2019ir",
+      "targetType": "task",
+      "hours": 1,
+      "description": "BOM review Meeting"
+    },
+    {
+      "id": "11fwmb0h5",
+      "date": "2026-02-24",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "u2lq1k15s",
+      "date": "2026-02-27",
+      "userId": "Kailas Thorwat",
+      "targetId": "7k2p83eto",
+      "targetType": "project",
+      "hours": 1,
+      "description": "Support requirements complied & PPT shared with Orebro team."
+    },
+    {
+      "id": "gz3ew7cgz",
+      "date": "2026-02-27",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 2,
+      "description": "RCS Program creation for MT65 & Boomer (PSD Support)"
+    },
+    {
+      "id": "sxtnm1ja0",
+      "date": "2026-02-27",
+      "userId": "Kailas Thorwat",
+      "targetId": "gnzrhlnh6",
+      "targetType": "project",
+      "hours": 1,
+      "description": "ST1030 Bucket Revision 5580017781  R09 / R10, change review"
+    },
+    {
+      "id": "hqkcs2oel",
+      "date": "2026-02-27",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 4,
+      "description": "MT33G BOM review with CFT - 8998002300 (Structure update)"
+    },
+    {
+      "id": "xfajvf1bq",
+      "date": "2026-02-27",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "7jkrrpnqu",
+      "date": "2026-02-26",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 0.5,
+      "description": "MO planned inactive"
+    },
+    {
+      "id": "spljszui2",
+      "date": "2026-03-03",
+      "userId": "Kailas Thorwat",
+      "targetId": "7k2p83eto",
+      "targetType": "project",
+      "hours": 2,
+      "description": "working on Project - requirements & KPI discussion  "
+    },
+    {
+      "id": "xg16spahi",
+      "date": "2026-03-03",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 3,
+      "description": "MT33G Assembly sequencing & Operation number allocation / SOP's status update"
+    },
+    {
+      "id": "9t09h3k7d",
+      "date": "2026-03-03",
+      "userId": "Kailas Thorwat",
+      "targetId": "nqf2019ir",
+      "targetType": "task",
+      "hours": 1,
+      "description": "BOM review Meeting"
+    },
+    {
+      "id": "lxal3qdfn",
+      "date": "2026-03-03",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 2,
+      "description": "M2D MO approve & BOM creation"
+    },
+    {
+      "id": "ps8o1r2jg",
+      "date": "2026-03-03",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "x8rtry2z8",
+      "date": "2026-03-02",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 3,
+      "description": "BOM updates as per mail& CN's"
+    },
+    {
+      "id": "746rjfxos",
+      "date": "2026-03-02",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 1.5,
+      "description": "Shopfloor visit for assembly verification & issue discussion "
+    },
+    {
+      "id": "k30rqbock",
+      "date": "2026-03-02",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 2,
+      "description": "FAM 3 Program creation "
+    },
+    {
+      "id": "o56na3ag1",
+      "date": "2026-03-02",
+      "userId": "Kailas Thorwat",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 0.5,
+      "description": "Monthly Check-in "
+    },
+    {
+      "id": "siyib0555",
+      "date": "2026-03-02",
+      "userId": "Kailas Thorwat",
+      "targetId": "nqf2019ir",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "7ujwzwb1b",
+      "date": "2026-03-02",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "nzlp5ijkh",
+      "date": "2026-03-04",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 1,
+      "description": "CN updates & verified with assembly team"
+    },
+    {
+      "id": "52srzupaq",
+      "date": "2026-03-04",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 1,
+      "description": "working on RCS &PLC program for 1 st machine"
+    },
+    {
+      "id": "gzt9v8d2e",
+      "date": "2026-03-04",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 3,
+      "description": "Project update -Monthly Report prepared "
+    },
+    {
+      "id": "amr5ckuuy",
+      "date": "2026-03-04",
+      "userId": "Kailas Thorwat",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Data collection &  PPT preparation for UD Monthly Meeting"
+    },
+    {
+      "id": "i6ad1w775",
+      "date": "2026-03-04",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 2,
+      "description": "Project updates/SOP'S/Tools/Operation Number"
+    },
+    {
+      "id": "uvkbfwhmn",
+      "date": "2026-03-04",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "pt9vf6wit",
+      "date": "2026-03-17",
+      "userId": "Kailas Thorwat",
+      "targetId": "nqf2019ir",
+      "targetType": "task",
+      "hours": 1,
+      "description": "BOM review Meeting"
+    },
+    {
+      "id": "eq16j7ctm",
+      "date": "2026-03-17",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 2,
+      "description": "ST1030 1st machine Program Creation"
+    },
+    {
+      "id": "2hnwh68iw",
+      "date": "2026-03-17",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 2,
+      "description": "ST1030 BOM Creation & released"
+    },
+    {
+      "id": "xqg3xe72i",
+      "date": "2026-03-17",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "hciky3f8h",
+      "date": "2026-03-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 2,
+      "description": "BOM & Item master updated as per mail & CN's"
+    },
+    {
+      "id": "nghy5lui9",
+      "date": "2026-03-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 1,
+      "description": "SOP & Operation number review"
+    },
+    {
+      "id": "jigs7z8q1",
+      "date": "2026-03-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 1,
+      "description": "M1D FAM 3 program trouble shooting"
+    },
+    {
+      "id": "a3r1s0ch1",
+      "date": "2026-03-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "nqf2019ir",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "rjcktvluz",
+      "date": "2026-03-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "7k2p83eto",
+      "targetType": "project",
+      "hours": 2,
+      "description": "KIP discussion & agreement / PPT preaption"
+    },
+    {
+      "id": "l7ravld79",
+      "date": "2026-03-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 1,
+      "description": "SCP portal report review"
+    },
+    {
+      "id": "iwj3wom0y",
+      "date": "2026-03-16",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": "SOT  - Q1"
+    },
+    {
+      "id": "98qmzhugd",
+      "date": "2026-03-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 2,
+      "description": "Truck RCS program creation "
+    },
+    {
+      "id": "idwj8y924",
+      "date": "2026-03-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 3,
+      "description": "Operation numbers & sequencing set"
+    },
+    {
+      "id": "awfsh51va",
+      "date": "2026-03-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 2,
+      "description": "MO approve flow issue discussion & assembly line visit."
+    },
+    {
+      "id": "wzo8uj1z1",
+      "date": "2026-03-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 1,
+      "description": "M1D - 8999850300 - Shortages & Assembly reviews"
+    },
+    {
+      "id": "67xrzpubq",
+      "date": "2026-03-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "jookjmhvk",
+      "date": "2026-03-05",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 1,
+      "description": "Shop floor Visit for assembly progress & issue discussion "
+    },
+    {
+      "id": "uxf87j1kl",
+      "date": "2026-03-05",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 2,
+      "description": "BOM Update "
+    },
+    {
+      "id": "ldpnbffg1",
+      "date": "2026-03-05",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 4,
+      "description": "Item master update as mail & CN'S"
+    },
+    {
+      "id": "o9evc106g",
+      "date": "2026-03-05",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Hour Meter A10 cabinet and New Hose drum kit for 19 machine order L2D"
+    },
+    {
+      "id": "40uixp65r",
+      "date": "2026-03-05",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "c06i0s5oc",
+      "date": "2026-03-23",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 4,
+      "description": "BOM issue resolved / support Girish &Ganesh "
+    },
+    {
+      "id": "43jym7u2b",
+      "date": "2026-03-23",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 3,
+      "description": "Assembly support - Bucket assembly"
+    },
+    {
+      "id": "hcpqo3zp8",
+      "date": "2026-03-23",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "rvh9ke5x3",
+      "date": "2026-03-20",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "cl98s7nre",
+      "date": "2026-03-20",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 2,
+      "description": "Assembly line Visit "
+    },
+    {
+      "id": "v7l14gkje",
+      "date": "2026-03-20",
+      "userId": "Kailas Thorwat",
+      "targetId": "mbo2a29sk",
+      "targetType": "task",
+      "hours": 1,
+      "description": "MT33G Process document review"
+    },
+    {
+      "id": "8rfp7t3j8",
+      "date": "2026-03-20",
+      "userId": "Kailas Thorwat",
+      "targetId": "7k2p83eto",
+      "targetType": "project",
+      "hours": 2,
+      "description": "PPT Preparation & KPI discussions with Nicole "
+    },
+    {
+      "id": "4xk9n3jiy",
+      "date": "2026-03-20",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 2,
+      "description": "FAM & RCS program creation"
+    },
+    {
+      "id": "28zw1o3db",
+      "date": "2026-03-20",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "oqz0qh4mk",
+      "date": "2026-03-18",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 2,
+      "description": "RCS program creation "
+    },
+    {
+      "id": "5hyrvbe8z",
+      "date": "2026-03-18",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 3,
+      "description": "Assembly line visit with CC team"
+    },
+    {
+      "id": "uhyvov5m2",
+      "date": "2026-03-18",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 2,
+      "description": "ST1030 CN's Update & CFT meeting"
+    },
+    {
+      "id": "3hz7m16sa",
+      "date": "2026-03-18",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": "MT33G weekly Team Connect"
+    },
+    {
+      "id": "zirjlvk5m",
+      "date": "2026-03-18",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "gy30nq5z2",
+      "date": "2026-03-17",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 3,
+      "description": "Operation Number & structure creation"
+    },
+    {
+      "id": "co5xul8zp",
+      "date": "2026-03-25",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 2,
+      "description": "CN Review "
+    },
+    {
+      "id": "s2vj7p0eu",
+      "date": "2026-03-25",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 2,
+      "description": "ST1030 Project update & task list update"
+    },
+    {
+      "id": "lupt2vwnp",
+      "date": "2026-03-25",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "w78tgoi9a",
+      "date": "2026-03-24",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Trucks BOM ssue resolved & CN support with Girish & Ganesh "
+    },
+    {
+      "id": "dht82haiu",
+      "date": "2026-03-24",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 3,
+      "description": "RCS program Creation & Trouble shooting"
+    },
+    {
+      "id": "f4vzk6thu",
+      "date": "2026-03-24",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 2,
+      "description": "Assembly support"
+    },
+    {
+      "id": "9gv6da7gl",
+      "date": "2026-03-24",
+      "userId": "Kailas Thorwat",
+      "targetId": "nqf2019ir",
+      "targetType": "task",
+      "hours": 1,
+      "description": "BOM review Meeting"
+    },
+    {
+      "id": "xilzqmbiw",
+      "date": "2026-03-24",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": "1"
+    },
+    {
+      "id": "sa20u1y7q",
+      "date": "2026-03-23",
+      "userId": "Kailas Thorwat",
+      "targetId": "nqf2019ir",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "p8tdpnr7m",
+      "date": "2026-03-30",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 2,
+      "description": "BOM /CN's review & update"
+    },
+    {
+      "id": "k2hnx6lsp",
+      "date": "2026-03-30",
+      "userId": "Kailas Thorwat",
+      "targetId": "7k2p83eto",
+      "targetType": "project",
+      "hours": 1,
+      "description": "Meeting with Nicole & preparation  "
+    },
+    {
+      "id": "dom7sgpob",
+      "date": "2026-03-30",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 1,
+      "description": "MO approve & bom creation"
+    },
+    {
+      "id": "4o5mbqor1",
+      "date": "2026-03-30",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 2,
+      "description": "RCS program troubleshooting "
+    },
+    {
+      "id": "ei2wl2jd4",
+      "date": "2026-03-30",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "tfrw9b5gy",
+      "date": "2026-03-26",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Working on checklist "
+    },
+    {
+      "id": "o6lhqw6wi",
+      "date": "2026-03-26",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 1,
+      "description": "ST1030 Project Task List Discussion"
+    },
+    {
+      "id": "n0rn7c8fh",
+      "date": "2026-03-26",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 1,
+      "description": "MT65 program creation"
+    },
+    {
+      "id": "nat3ej614",
+      "date": "2026-03-26",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 2,
+      "description": "PSM - (CN- Boomer/ MT/AVH) Meting with CFT & Updates "
+    },
+    {
+      "id": "o6ptnjqxz",
+      "date": "2026-03-26",
+      "userId": "Aditya Shitut",
+      "targetId": "nqf2019ir",
+      "targetType": "task",
+      "hours": 1,
+      "description": "Weekly PSM/CPI Review-URE"
+    },
+    {
+      "id": "8q5kpp7t1",
+      "date": "2026-03-26",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "2qnsnnveb",
+      "date": "2026-03-25",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 4,
+      "description": "working on Checklist "
+    },
+    {
+      "id": "3yijrddnk",
+      "date": "2026-04-02",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 2,
+      "description": "working on Project"
+    },
+    {
+      "id": "egj3pthrq",
+      "date": "2026-04-02",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 3,
+      "description": "Item masters & Checklist updates as per communications"
+    },
+    {
+      "id": "gw3p3mgh1",
+      "date": "2026-04-02",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": "New 6800 Feed series implementation and regularization"
+    },
+    {
+      "id": "sjxzp54zj",
+      "date": "2026-04-02",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 1,
+      "description": "Weekly PSM/CPI Review-URE"
+    },
+    {
+      "id": "gbtu5a5tn",
+      "date": "2026-04-02",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "3ff8ftj68",
+      "date": "2026-03-31",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 2,
+      "description": "Working on project updates"
+    },
+    {
+      "id": "t4ks2ufy0",
+      "date": "2026-03-31",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 3,
+      "description": "Working on Checklist & BOM"
+    },
+    {
+      "id": "p6d6n47x5",
+      "date": "2026-03-31",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 2,
+      "description": "CN follow-up & Discussion with  EITC"
+    },
+    {
+      "id": "o5ainbfh8",
+      "date": "2026-03-31",
+      "userId": "Kailas Thorwat",
+      "targetId": "nqf2019ir",
+      "targetType": "task",
+      "hours": 1,
+      "description": "BOM review Meeting"
+    },
+    {
+      "id": "0auu1gc8y",
+      "date": "2026-03-31",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "3fwafguew",
+      "date": "2026-04-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "1y586lb0n",
+      "targetType": "project",
+      "hours": 6,
+      "description": "Working on ST1030 Trouble shooting & Audit preparation"
+    },
+    {
+      "id": "o5t141txk",
+      "date": "2026-04-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "szyj9a5a7",
+      "targetType": "project",
+      "hours": 2,
+      "description": "MO approve & Bom Creation"
+    },
+    {
+      "id": "gyliyhuto",
+      "date": "2026-04-06",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "9vuiiat77",
+      "date": "2026-04-03",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 3,
+      "description": "Working on Checklist &  item master update"
+    },
+    {
+      "id": "yamxq1nfg",
+      "date": "2026-04-03",
+      "userId": "Kailas Thorwat",
+      "targetId": "3sdnnr34h",
+      "targetType": "project",
+      "hours": 3,
+      "description": "CN& PSM review & update"
+    },
+    {
+      "id": "u5ldhmdsq",
+      "date": "2026-04-03",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 2,
+      "description": "RCS program creation"
+    },
+    {
+      "id": "zjsz9eey9",
+      "date": "2026-04-03",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "n4ffqe4b4",
+      "date": "2026-05-29",
+      "userId": "Kailas Thorwat",
+      "targetId": "cgetsh50l",
+      "targetType": "task",
+      "hours": 1,
+      "description": ""
+    },
+    {
+      "id": "fszya39hq",
+      "date": "2026-05-29",
+      "userId": "Kailas Thorwat",
+      "targetId": "7k2p83eto",
+      "targetType": "project",
+      "hours": 2,
+      "description": "PPT preparation for CN"
+    },
+    {
+      "id": "tobh46g1t",
+      "date": "2026-05-29",
+      "userId": "Kailas Thorwat",
+      "targetId": "pkj7cff2x",
+      "targetType": "task",
+      "hours": 2,
+      "description": "Item master update & structure creation "
+    },
+    {
+      "id": "kecahh7zt",
+      "date": "2026-05-29",
+      "userId": "Kailas Thorwat",
+      "targetId": "r9h544i0c",
+      "targetType": "project",
+      "hours": 2,
+      "description": "Working on RCS program troubleshooting "
+    },
+    {
+      "id": "xn99sbn5d",
+      "date": "2026-05-29",
+      "userId": "Kailas Thorwat",
+      "targetId": "4a6fhn3sb",
+      "targetType": "project",
+      "hours": 1,
+      "description": "working on MT33G BOM"
+    }
+  ],
+  "categories": [
+    "Safety",
+    "Priority",
+    "Support Required",
+    "Long Term Project",
+    "Short Term Project",
+    "Task Wise Activity",
+    "Results Achieved",
+    "Information & Team Suggestions",
+    "External Dependencies",
+    "Quality"
+  ],
+  "safetyStatus": {
+    "2025-12-01": {
+      "status": "green"
+    },
+    "2025-12-02": {
+      "status": "green"
+    },
+    "2025-12-03": {
+      "status": "green"
+    },
+    "2025-12-05": {
+      "status": "green"
+    },
+    "2025-12-06": {
+      "status": "green"
+    },
+    "2025-12-29": {
+      "status": "green"
+    },
+    "2025-12-31": {
+      "status": "green"
+    },
+    "2026-01-01": {
+      "notes": "1)Any changes require in Meeting: Timing and Format",
+      "status": "green"
+    },
+    "2026-01-02": {
+      "notes": "SOP Status",
+      "status": "green",
+      "safetyDaily": "Silicon balls on shopfloor.\nCabin Ladder rework.\n",
+      "resultsAchieved": ""
+    },
+    "2026-01-05": {
+      "status": "green",
+      "notes": "",
+      "externalDependencies": "",
+      "supportRequired": "",
+      "teamSuggestions": "1) China Team visit for ST1030 and MT2200 training : 1st week of March"
+    },
+    "2026-01-06": {
+      "status": "green",
+      "notes": "",
+      "supportRequired": "Kaizen Board Update\nNew Excel of Kaizen with formula 2026\nPPT for Kaizen 2026\nSOP File",
+      "teamSuggestions": "CP team -CP8613 Disc",
+      "resultsAchieved": "LTH Mandrel Trial Taken Successfully"
+    },
+    "2026-01-07": {
+      "status": "green",
+      "notes": "",
+      "teamSuggestions": "Start using SOP craft; as we need calculate returns & get approval for next phase",
+      "safetyDaily": "Hand gloves are ordered."
+    },
+    "2026-01-08": {
+      "status": "green",
+      "notes": "",
+      "teamSuggestions": "1) 9.5lakh and onwards capital filling is require.",
+      "safetyDaily": "1) MT65 ladder break: Escalated to Ankush ",
+      "resultsAchieved": ""
+    },
+    "2026-01-12": {
+      "status": "green",
+      "notes": "",
+      "externalDependencies": "IDM 45 SOP Close",
+      "safetyDaily": "",
+      "resultsAchieved": "Dolly received for AirROC",
+      "teamSuggestions": "8620 Tool Arriving-MT65\n"
+    },
+    "2026-01-13": {
+      "status": "green",
+      "notes": "",
+      "resultsAchieved": "1)A50 electrical box lifting fixture received and handed over to assembly line.\n\n"
+    },
+    "2026-01-09": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-01-14": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-01-16": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-01-15": {
+      "status": "green",
+      "notes": "Holiday"
+    },
+    "2026-01-21": {
+      "status": "green",
+      "notes": "",
+      "safetyDaily": "1) Safety Ladder discussion with supplier & assembler done.",
+      "resultsAchieved": "1) Mt436 Front grill fixture\n2) 2FA compressor assembly fixture."
+    },
+    "2026-01-22": {
+      "status": "green",
+      "notes": "",
+      "resultsAchieved": "1)Front Grill fixture received trial pending.\n2)IDM45 yoke assembly fixture received trial pending.\n\n"
+    },
+    "2026-01-27": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-01-26": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-01-25": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-01-24": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-01-23": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-01-20": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-01-28": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-01-29": {
+      "status": "green",
+      "notes": "",
+      "supportRequired": "5S Audit Shop Floor Calendar  Preparation . ",
+      "externalDependencies": "",
+      "safetyDaily": "",
+      "resultsAchieved": ""
+    },
+    "2026-01-11": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-01-04": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-01-18": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-01-19": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-03": {
+      "status": "green",
+      "notes": "",
+      "resultsAchieved": "Impeller fixture received",
+      "supportRequired": ""
+    },
+    "2026-02-06": {
+      "status": "green",
+      "notes": "",
+      "resultsAchieved": "1)Impeller lifting fixture received trail pending.\n"
+    },
+    "2026-02-05": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-04": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-02": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-01": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-12": {
+      "status": "green",
+      "notes": "",
+      "resultsAchieved": "1)Impeller pressing fixture trial done.\n2) worm gear assembly fixture trial"
+    },
+    "2026-02-11": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-10": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-09": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-08": {
+      "status": "green",
+      "notes": "",
+      "resultsAchieved": "1)Impeller pressing fixture tested Okay.\n2)worm gear assembly fixture."
+    },
+    "2026-02-16": {
+      "status": "green",
+      "notes": "",
+      "resultsAchieved": "Feed Rod Assembly Fixtured Prepared and Tested ., DMH Pin Pressing Fixture Received and trial Pending. ",
+      "teamSuggestions": "MT 65  Fixture On Going ( Almost Done )"
+    },
+    "2026-02-17": {
+      "status": "green",
+      "notes": "",
+      "resultsAchieved": "Surprise audit conducted - Many observation identified."
+    },
+    "2026-02-18": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-13": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-14": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-15": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-07": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-23": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-22": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-24": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-26": {
+      "status": "green",
+      "notes": "",
+      "resultsAchieved": "AirRoc Pin Removing Successfull , 5th M/c Dispatch (SRT45)"
+    },
+    "2026-02-19": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-20": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-21": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-02-27": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-02": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-03": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-04": {
+      "status": "green",
+      "notes": "",
+      "teamSuggestions": "Safety Week Started ",
+      "supportRequired": ""
+    },
+    "2026-03-05": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-06": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-07": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-08": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-09": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-10": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-11": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-12": {
+      "status": "green",
+      "notes": "",
+      "externalDependencies": "\n\n"
+    },
+    "2026-03-17": {
+      "status": "green",
+      "notes": "",
+      "externalDependencies": ""
+    },
+    "2026-03-16": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-18": {
+      "status": "green",
+      "notes": "",
+      "externalDependencies": ""
+    },
+    "2026-03-20": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-23": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-24": {
+      "status": "green",
+      "notes": "",
+      "supportRequired": "",
+      "externalDependencies": ""
+    },
+    "2026-03-13": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-26": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-27": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-30": {
+      "status": "green",
+      "notes": "",
+      "resultsAchieved": "Hose reel received"
+    },
+    "2026-03-19": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-01": {
+      "status": "green",
+      "notes": "",
+      "teamSuggestions": "PLM Manufacturing team visit."
+    },
+    "2026-04-03": {
+      "status": "green",
+      "notes": "",
+      "resultsAchieved": "ICM 260 cabin Fixture received, Oscillation cylinder fixture received",
+      "teamSuggestions": "LTH stage 3, stage 5 order received, "
+    },
+    "2026-04-06": {
+      "status": "green",
+      "notes": "",
+      "safetyDaily": "",
+      "resultsAchieved": "ST1030 Under Testing"
+    },
+    "2026-04-07": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-02": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-03-31": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-08": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-09": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-25": {
+      "status": "green",
+      "notes": "",
+      "supportRequired": "\n"
+    },
+    "2026-04-10": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-13": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-14": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-15": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-21": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-20": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-17": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-16": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-24": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-27": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-28": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-29": {
+      "status": "green",
+      "notes": "power rock fixture move from proto shop",
+      "safetyDaily": "material gate safety ladder additional platform required to improve safety"
+    },
+    "2026-05-04": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-01": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-04-30": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-05": {
+      "status": "green",
+      "notes": "",
+      "teamSuggestions": ""
+    },
+    "2026-05-12": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-11": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-07": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-08": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-13": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-14": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-19": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-18": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-20": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-15": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-21": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-22": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-25": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-26": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-27": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-05-29": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-01": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-03": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-04": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-05": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-08": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-10": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-09": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-11": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-15": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-17": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-16": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-18": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-19": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-26": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-25": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-24": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-30": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-23": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-22": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-06-29": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-07-01": {
+      "status": "green",
+      "notes": "",
+      "resultsAchieved": ""
+    },
+    "2026-07-02": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-07-03": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-07-06": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-07-08": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-07-10": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-07-09": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-07-15": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-07-16": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-07-21": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-07-20": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-07-17": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-07-14": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-07-13": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-07-22": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-07-23": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-08-03": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-08-05": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-08-06": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-08-07": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-08-11": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-08-13": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-08-14": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-09-01": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-09-02": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-09-07": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-09-08": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-09-10": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-09-09": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-09-04": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-09-03": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-09-15": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-09-23": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-09-26": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-09-28": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-09-29": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-10-06": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-10-08": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-10-16": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-10-19": {
+      "status": "green",
+      "notes": ""
+    },
+    "2026-10-23": {
+      "status": "green",
+      "notes": ""
+    }
+  },
+  "dailyAgenda": {
+    "Monday": "Machine Orders (MO) & BOM - Rockdrill Operations",
+    "Tuesday": "SOP and Fixtures - Safety Review",
+    "Wednesday": "Project Updates - Engineering Focus",
+    "Thursday": "CN and EITC Support - Technical Review",
+    "Friday": "Weekly Review & Planning - Team Alignment",
+    "Saturday": "Cleanup & Maintenance - Equipment Check",
+    "Sunday": "Strategy & Innovation - Continuous Improvement"
+  },
+  "lastBackupDate": "2026-01-01",
+  "deletedItemIds": [
+    "yggnsqg9n",
+    "b8etycnfy",
+    "7r1pckp9t",
+    "evvwl16fv",
+    "ujfkunvek",
+    "g5m42nsxu",
+    "wu8k4h2jt",
+    "0zhmjj4r7",
+    "ma5ncs8pi",
+    "45nowqp0l",
+    "4zaog6e9n",
+    "851ow25oh",
+    "thqlen6o7",
+    "hzhsnwiga",
+    "dpr2l9lp2",
+    "uypu06uam",
+    "0vwkjv8sn",
+    "vp7e3fc5x",
+    "7a7i2nasv",
+    "2b1hqg112",
+    "3mqw6f1x9",
+    "sezyvpgdu",
+    "xrn3m3nuk",
+    "f7azkmpwi",
+    "8bi50gjtt",
+    "g5ibyciz0",
+    "lggbt0bp1",
+    "029pyukya",
+    "zj2e05vx6",
+    "o6fvnqzvn",
+    "c86rtekzr",
+    "54vhv8ytt",
+    "1mzfv8vz8",
+    "dd3jtluvt",
+    "xhnm66ugk",
+    "9gxs9uk39",
+    "j7wb66cjy",
+    "lcev7bwkz",
+    "3dcol9pzt",
+    "8iuhoqjk7",
+    "yx2pds6ow",
+    "n67mbn77s",
+    "94ic6immz",
+    "uyo3obz65",
+    "4hzruw4lr",
+    "uzbdujnkf",
+    "p1v6ywf1d",
+    "1m2z6ir1i",
+    "z8o0z0mhv",
+    "mqw4u1tgb",
+    "rgvp60cgj",
+    "he90h3lsd",
+    "62wcb4toy",
+    "z1n0orbj9",
+    "h175ibpcr",
+    "1og6ac2ic",
+    "cn3mkk6y3",
+    "qakh02ymw",
+    "stnpovery",
+    "35dhwv6r9",
+    "gg2bnypjy",
+    "7i3wqc11p",
+    "c88czdfn4",
+    "iare66c64",
+    "ho5wihzsi",
+    "ufn9rrfb1",
+    "6e7a9hrtc"
+  ],
+  "activeLocks": {
+    "n3eqqwdap": {
+      "userId": "pa5yneoyf",
+      "timestamp": "2026-05-15T08:05:21.694Z"
+    },
+    "h6vnjj8cp": {
+      "userId": "5q295hfnp",
+      "timestamp": "2026-05-18T11:12:26.233Z"
+    },
+    "iszap4kma": {
+      "userId": "4b41uogqe",
+      "timestamp": "2026-05-19T09:02:17.224Z"
+    },
+    "9lnyy36dh": {
+      "userId": "cmwbfs7l1",
+      "timestamp": "2026-05-19T10:34:23.480Z"
+    },
+    "k43qkje50": {
+      "userId": "ya5tbat4j",
+      "timestamp": "2026-05-19T11:05:32.455Z"
+    },
+    "pkj7cff2x": {
+      "userId": "8w2c6r7aq",
+      "timestamp": "2026-05-20T03:30:29.669Z"
+    },
+    "trtq2ojmf": {
+      "userId": "7w0cwp8b0",
+      "timestamp": "2026-05-20T03:42:36.183Z"
+    },
+    "ladsk2jbr": {
+      "userId": "4b41uogqe",
+      "timestamp": "2026-05-19T08:59:58.174Z"
+    },
+    "jn6r53df4": {
+      "userId": "bqo7lwaea",
+      "timestamp": "2026-05-14T08:25:23.840Z"
+    },
+    "86zwek104": {
+      "userId": "l58wqjrq1",
+      "timestamp": "2026-05-27T03:40:31.033Z"
+    },
+    "byny3plhe": {
+      "userId": "v1gem5qip",
+      "timestamp": "2026-05-27T11:45:38.506Z"
+    },
+    "mbo2a29sk": {
+      "userId": "v1gem5qip",
+      "timestamp": "2026-05-27T11:46:20.156Z"
+    },
+    "cgetsh50l": {
+      "userId": "gtjibh5s0",
+      "timestamp": "2026-05-27T11:53:06.658Z"
+    },
+    "oi1yipkb2": {
+      "userId": "xlz8wujhz",
+      "timestamp": "2026-05-28T04:18:29.032Z"
+    },
+    "rsxzasjcl": {
+      "userId": "d1zyoknb1",
+      "timestamp": "2026-05-31T12:28:43.700Z"
+    },
+    "te6kywsuv": {
+      "userId": "d1zyoknb1",
+      "timestamp": "2026-05-31T12:30:34.288Z"
+    },
+    "z397almsg": {
+      "userId": "8tu302lci",
+      "timestamp": "2026-05-25T03:43:41.384Z"
+    },
+    "ej9g5v0tp": {
+      "userId": "gj548r9sq",
+      "timestamp": "2026-06-04T08:27:47.229Z"
+    },
+    "1o7aaa0ug": {
+      "userId": "wtnotq2am",
+      "timestamp": "2026-06-08T03:58:55.282Z"
+    },
+    "tfk911157": {
+      "userId": "wtnotq2am",
+      "timestamp": "2026-06-08T03:58:41.375Z"
+    }
+  },
+  "dailyFollowUp": [
+    {
+      "id": "2fdody9kl",
+      "date": "2026-07-03",
+      "text": "DMH SOPs",
+      "completed": true
+    },
+    {
+      "id": "cu3v9gatj",
+      "date": "2026-07-03",
+      "text": "PowerROC T25 SOPs",
+      "completed": true
+    },
+    {
+      "id": "k49d0548j",
+      "date": "2026-07-29",
+      "text": "PowerROC T25 Sops- Completed - 58%",
+      "completed": true
+    },
+    {
+      "id": "opulg5xi4",
+      "date": "2026-08-07",
+      "text": "Poweroc T25 - 60% Completed",
+      "completed": true
+    },
+    {
+      "id": "bd6ql7cye",
+      "date": "2026-08-26",
+      "text": "DMH-SOPS  Completed 60%.",
+      "completed": true
+    },
+    {
+      "id": "ytd14x3x7",
+      "date": "2026-08-28",
+      "text": "UAT Test-for M3 Cloud enviornment"
+    },
+    {
+      "id": "fbnsbeduj",
+      "date": "2026-08-28",
+      "text": "c685 Fixtures, & Sop"
+    },
+    {
+      "id": "e5yp3q5nu",
+      "date": "2026-08-31",
+      "text": "MT65 SOPs Status Review"
+    },
+    {
+      "id": "j7km88esm",
+      "date": "2026-09-08",
+      "text": "DMH SOPs 68% Done",
+      "completed": true
+    },
+    {
+      "id": "ho2lreg2n",
+      "date": "2026-09-10",
+      "text": "PRT 25-70% Completed",
+      "completed": true
+    },
+    {
+      "id": "79ms8vbel",
+      "date": "2026-09-23",
+      "text": "PRT25 - 78%",
+      "completed": true
+    },
+    {
+      "id": "5u35d6221",
+      "date": "2026-09-28",
+      "text": "PRT25 - 89%",
+      "completed": true
+    },
+    {
+      "id": "gdw4pg55x",
+      "date": "2026-09-29",
+      "text": "DMH Electrical 19% - data collected for boxes.",
+      "completed": true
+    },
+    {
+      "id": "qj7ae90cq",
+      "date": "2026-10-12",
+      "text": "PRT25-95 %"
+    },
+    {
+      "id": "0eox7bi1r",
+      "date": "2026-10-12",
+      "text": "CN Related SOPs All Product both division and  Operation NO."
+    },
+    {
+      "id": "n0amdqw7h",
+      "date": "2026-10-12",
+      "text": "EVH BOM Verification",
+      "completed": true
+    },
+    {
+      "id": "wm8cilymr",
+      "date": "2026-10-12",
+      "text": "CN Closing (Ganesh , Krushna)"
+    },
+    {
+      "id": "l91ztmhhr",
+      "date": "2026-10-16",
+      "text": "DMH-02 - 16% Tower Completed"
+    }
+  ],
+  "ssqdcc_safety": [
+    {
+      "id": "lihnbwlr1",
+      "date": "2026-06-08",
+      "text": "Reaction arm for MT33G",
+      "completed": true
+    },
+    {
+      "id": "dwyxqxp86",
+      "date": "2026-06-08",
+      "text": "Battery Training",
+      "completed": true
+    },
+    {
+      "id": "94oi2l4se",
+      "date": "2026-06-16",
+      "text": "MT65 Ramp"
+    },
+    {
+      "id": "2v0168btf",
+      "date": "2026-06-22",
+      "text": "Diesel Unit"
+    },
+    {
+      "id": "7g6ot6fw7",
+      "date": "2026-06-24",
+      "text": "ST1030 fixture height reduction or jack height increase",
+      "completed": true
+    },
+    {
+      "id": "8vsm963kj",
+      "date": "2026-06-24",
+      "text": "ST1030 rework issue 6M Analysis",
+      "completed": true
+    },
+    {
+      "id": "hpleed7mz",
+      "date": "2026-06-24",
+      "text": "SED finger injury fixture analysis",
+      "completed": true
+    }
+  ],
+  "ssqdcc_sustainability": [
+    {
+      "id": "tqiz489p8",
+      "date": "2026-06-01",
+      "text": "Fixtures sustainability"
+    },
+    {
+      "id": "517ftybk9",
+      "date": "2026-06-11",
+      "text": "Fume Extractor",
+      "completed": true
+    },
+    {
+      "id": "pp0bls347",
+      "date": "2026-06-17",
+      "text": "Fixture Tagging"
+    },
+    {
+      "id": "cbv5lgy8y",
+      "date": "2026-09-03",
+      "text": "Monthly Kaizen Boards Updated",
+      "completed": true
+    }
+  ],
+  "ssqdcc_quality": [
+    {
+      "id": "6wihl1c92",
+      "date": "2026-05-21",
+      "text": "Setup MO BOM Review meeting with R&D",
+      "completed": true
+    },
+    {
+      "id": "h8oz7g4rw",
+      "date": "2026-05-25",
+      "text": "Impact of changes in M3",
+      "completed": true
+    },
+    {
+      "id": "qf5l3u6rq",
+      "date": "2026-06-01",
+      "text": "CN Monthly Meeting",
+      "completed": true
+    },
+    {
+      "id": "4v19etbod",
+      "date": "2026-06-16",
+      "text": "ZTEMPL100 for Check List",
+      "completed": true
+    },
+    {
+      "id": "zdnqn0y1d",
+      "date": "2026-06-24",
+      "text": "CN Meeting",
+      "completed": true
+    },
+    {
+      "id": "yy8jpq4j0",
+      "date": "2026-07-03",
+      "text": "ST1030 BOM Review ongoing",
+      "completed": true
+    },
+    {
+      "id": "feexqpjm7",
+      "date": "2026-08-11",
+      "text": "URE BOM First Level Correction"
+    }
+  ],
+  "ssqdcc_delivery": [
+    {
+      "id": "axpdrf4gp",
+      "date": "2026-05-21",
+      "text": "Support for DHM SOP Creation",
+      "completed": true
+    },
+    {
+      "id": "7nu2emegb",
+      "date": "2026-05-21",
+      "text": "MT33G SOP creation",
+      "completed": true
+    },
+    {
+      "id": "7qgtymi6v",
+      "date": "2026-05-26",
+      "text": "Chain slings provided to MT65 Transmission",
+      "completed": true
+    },
+    {
+      "id": "fw2589b2q",
+      "date": "2026-05-27",
+      "text": "MT65 Fixture received",
+      "completed": true
+    },
+    {
+      "id": "qmzczsoyx",
+      "date": "2026-05-27",
+      "text": "Scooptram bottom plate fixture received",
+      "completed": true
+    },
+    {
+      "id": "bmmimtcfz",
+      "date": "2026-06-01",
+      "text": "Index Preparation for SOP",
+      "completed": true
+    },
+    {
+      "id": "tu4cdwczw",
+      "date": "2026-06-02",
+      "text": "ICM260 MAIN FRAME RESTING NEW FIXTURE RECEIVED",
+      "completed": true
+    },
+    {
+      "id": "87ik3wr4a",
+      "date": "2026-06-03",
+      "text": "Socket and D45 machine board provided to AirRoc",
+      "completed": true
+    },
+    {
+      "id": "swzkmudxp",
+      "date": "2026-06-03",
+      "text": "ST1030 Transmission fixture delivered and trail taken",
+      "completed": true
+    },
+    {
+      "id": "jzhp819io",
+      "date": "2026-06-09",
+      "text": "Working Stools Handover to assembly powerroc shop",
+      "completed": true
+    },
+    {
+      "id": "e2hhr5irf",
+      "date": "2026-06-09",
+      "text": "4 step safety ladder handover to SED PROC Shop",
+      "completed": true
+    },
+    {
+      "id": "73naa7c4o",
+      "date": "2026-06-10",
+      "text": "Boomer feed lifting fixture received"
+    },
+    {
+      "id": "0ixzgu937",
+      "date": "2026-06-15",
+      "text": "Dump Sensor Setting Fixture Delivered",
+      "completed": true
+    },
+    {
+      "id": "ca0vn6fn6",
+      "date": "2026-06-15",
+      "text": "Boomer M20s Checklist",
+      "completed": true
+    },
+    {
+      "id": "0vytji33f",
+      "date": "2026-06-29",
+      "text": "Water pump fixture provided Boomer",
+      "completed": true
+    },
+    {
+      "id": "v7ruy4bnp",
+      "date": "2026-07-22",
+      "text": "Powerroc T25 track lifting fixture",
+      "completed": true
+    },
+    {
+      "id": "yq8v2kfb6",
+      "date": "2026-07-29",
+      "text": "SRD Battery charging unit handover to assembly",
+      "completed": true
+    },
+    {
+      "id": "x1d3c7ex1",
+      "date": "2026-07-30",
+      "text": "ST1030 Transmission fixture rework done",
+      "completed": true
+    },
+    {
+      "id": "s6jfsj5qd",
+      "date": "2026-08-20",
+      "text": "MT65 bolt torq plate provided",
+      "completed": true
+    },
+    {
+      "id": "obzpz692j",
+      "date": "2026-10-12",
+      "text": "MT-65 All chain Sling recived"
+    },
+    {
+      "id": "rrcvllivu",
+      "date": "2026-10-12",
+      "text": "Toolings for MT-65 Fixture"
+    }
+  ],
+  "ssqdcc_cost": [
+    {
+      "id": "dhhvarkk4",
+      "date": "2026-05-21",
+      "text": "RC30 Budget approval",
+      "completed": true
+    },
+    {
+      "id": "81e5uiyys",
+      "date": "2026-05-29",
+      "text": "EPS Budget Estimation",
+      "completed": true
+    },
+    {
+      "id": "jmwzvcf22",
+      "date": "2026-06-02",
+      "text": "C685 BUDGET"
+    },
+    {
+      "id": "g5bo0g5nn",
+      "date": "2026-06-03",
+      "text": "ST22 Fixtures costing",
+      "completed": true
+    },
+    {
+      "id": "mzzfc2uqk",
+      "date": "2026-06-16",
+      "text": "SmartROC T45 Budget",
+      "completed": true
+    },
+    {
+      "id": "ucv97hd4z",
+      "date": "2026-06-16",
+      "text": "MT42 Budget"
+    },
+    {
+      "id": "9ww8yy4i3",
+      "date": "2026-06-25",
+      "text": "SmartROC T45 Budget",
+      "completed": true
+    },
+    {
+      "id": "uism29rof",
+      "date": "2026-07-07",
+      "text": "M20 S Budget"
+    }
+  ],
+  "ssqdcc_capital": [
+    {
+      "id": "uzhhhjotm",
+      "date": "2026-05-21",
+      "text": "I4 for material movement",
+      "completed": true
+    },
+    {
+      "id": "9bb1fqsw9",
+      "date": "2026-06-02",
+      "text": "Oil Filtration need inputs from nikhil wagh",
+      "completed": true
+    },
+    {
+      "id": "fvad0ktdm",
+      "date": "2026-06-03",
+      "text": "Battery Charging Unit",
+      "completed": true
+    },
+    {
+      "id": "nef8pvn5b",
+      "date": "2026-07-24",
+      "text": "Diesel Unit"
+    }
+  ],
+  "general_notes": [
+    {
+      "id": "m56iaoc5w",
+      "date": "2026-06-08",
+      "text": "Party on 19th June",
+      "completed": true
+    },
+    {
+      "id": "amk0gm1i9",
+      "date": "2026-07-07",
+      "text": "Audit from 13  to 17",
+      "completed": true
+    },
+    {
+      "id": "ezi2a65oy",
+      "date": "2026-09-11",
+      "text": "jugenrich Demo palate truck received"
+    }
+  ],
+  "groups": [],
+  "models": [],
+  "productionPrepData": [
+    {
+      "id": "iq6mii2sy",
+      "moReceivedDate": "",
+      "moNo": "",
+      "rev": "",
+      "moDetails": "",
+      "specialRequest": "",
+      "noOfMoBomLines": null,
+      "noOfIssuesWithMoBomLines": null,
+      "cnIdActive": "",
+      "tcMoBomCreationDate": "",
+      "m3MoBomCreationDate": "",
+      "status": "",
+      "cnIdInactive": "",
+      "date": "",
+      "remarks1": "",
+      "revisedMoBom": "",
+      "statusIndicator": "",
+      "odAction": "",
+      "bomReview": "",
+      "drawingNumber": "",
+      "sameSpecMo": "",
+      "preMoNumber": "",
+      "businessUnit": "",
+      "manualsForMt65": "",
+      "enginePartNumber": "",
+      "concernPart": "",
+      "phantomPurchase": "",
+      "noOfLine": "",
+      "responsibleFunction": "",
+      "remarks2": "",
+      "group": "",
+      "model": "",
+      "noMoOfBomRelease": "",
+      "noOfTotalBomLines": null,
+      "noOfErrorReported": null,
+      "noOfActualErrorsBomLines": null,
+      "remarks3": ""
+    },
+    {
+      "id": "ewdzw06fp",
+      "moReceivedDate": "",
+      "moNo": "",
+      "rev": "",
+      "moDetails": "",
+      "specialRequest": "",
+      "noOfMoBomLines": null,
+      "noOfIssuesWithMoBomLines": null,
+      "cnIdActive": "",
+      "tcMoBomCreationDate": "",
+      "m3MoBomCreationDate": "",
+      "status": "",
+      "cnIdInactive": "",
+      "date": "",
+      "remarks1": "",
+      "revisedMoBom": "",
+      "statusIndicator": "",
+      "odAction": "",
+      "bomReview": "",
+      "drawingNumber": "",
+      "sameSpecMo": "",
+      "preMoNumber": "",
+      "businessUnit": "",
+      "manualsForMt65": "",
+      "enginePartNumber": "",
+      "concernPart": "",
+      "phantomPurchase": "",
+      "noOfLine": "",
+      "responsibleFunction": "",
+      "remarks2": "",
+      "group": "",
+      "model": "",
+      "noMoOfBomRelease": "",
+      "noOfTotalBomLines": null,
+      "noOfErrorReported": null,
+      "noOfActualErrorsBomLines": null,
+      "remarks3": ""
+    }
+  ],
+  "topic_friday": [
+    {
+      "id": "phs2y31uz",
+      "date": "2026-06-19",
+      "text": "CN Process improvement",
+      "completed": true
+    },
+    {
+      "id": "5f7aeas6b",
+      "date": "2026-07-24",
+      "text": "Live Work elimination -4 are in green  4 in action to be taken , 2 are on going"
+    }
+  ],
+  "topic_wednesday": [
+    {
+      "id": "zw55t8nw4",
+      "date": "2026-06-24",
+      "text": "1) SmartROC T45"
+    },
+    {
+      "id": "oexzzhizi",
+      "date": "2026-07-29",
+      "text": "2) RC30"
+    },
+    {
+      "id": "5eb5dh30w",
+      "date": "2026-08-05",
+      "text": "C685"
+    }
+  ],
+  "topic_thursday": [
+    {
+      "id": "dx6iymvza",
+      "date": "2026-07-09",
+      "text": "CN  Closing status"
+    }
+  ]
+}

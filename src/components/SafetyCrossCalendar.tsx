@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Shield, CheckCircle, AlertTriangle, FileText, Check } from 'lucide-react';
+import VoiceInputButton from './VoiceInputButton';
 
 interface SafetyCrossCalendarProps {
   safetyCross: { [dayIndex: number]: 'green' | 'red' | 'amber' | 'none' };
@@ -340,6 +341,14 @@ export default function SafetyCrossCalendar({
           </div>
 
           <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] font-bold text-slate-500 uppercase font-mono">
+                Shift Safety Note
+              </span>
+              <VoiceInputButton
+                onTranscript={(txt) => setNoteNoteText((prev) => prev ? `${prev} ${txt}` : txt)}
+              />
+            </div>
             <textarea
               value={noteText}
               onChange={(e) => setNoteNoteText(e.target.value)}

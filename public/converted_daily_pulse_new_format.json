@@ -1,0 +1,6476 @@
+{
+  "currentTeam": "Epiroc Assembly & Rockdrill Operations",
+  "currentUserRole": "Team Lead",
+  "widgets": [
+    {
+      "id": "w-prj-gnzrhlnh6",
+      "title": "RC 30",
+      "pillar": "Cost",
+      "level": "daily",
+      "type": "projectMatrix",
+      "state": "red",
+      "projectId": "gnzrhlnh6",
+      "owner": "Aditya Shitut",
+      "description": "Project Added"
+    },
+    {
+      "id": "w-prj-djq1k8bny",
+      "title": "SmartROC T45 - 7 machine",
+      "pillar": "Cost",
+      "level": "daily",
+      "type": "projectMatrix",
+      "state": "green",
+      "projectId": "djq1k8bny",
+      "owner": "Aditya Shitut",
+      "description": "Task will open till completion of 7th machine"
+    },
+    {
+      "id": "w-prj-o6567pwp8",
+      "title": "Fixture Safe Working Load marking",
+      "pillar": "Cost",
+      "level": "daily",
+      "type": "projectMatrix",
+      "state": "red",
+      "projectId": "o6567pwp8",
+      "owner": "Sanjay Buwa",
+      "description": "Assembly fixtures for SRD & URE Completed , SCM is pending."
+    },
+    {
+      "id": "w-prj-1y586lb0n",
+      "title": "ST1030",
+      "pillar": "Cost",
+      "level": "daily",
+      "type": "projectMatrix",
+      "state": "green",
+      "projectId": "1y586lb0n",
+      "owner": "Kailas Thorwat",
+      "description": "Live synced project tracking for ST1030 (ST1030)."
+    },
+    {
+      "id": "w-prj-szyj9a5a7",
+      "title": "MO Approve & BOM Creation",
+      "pillar": "Cost",
+      "level": "daily",
+      "type": "projectMatrix",
+      "state": "green",
+      "projectId": "szyj9a5a7",
+      "owner": "Kailas Thorwat",
+      "description": "Live synced project tracking for MO Approve & BOM Creation (MOAPPROV)."
+    },
+    {
+      "id": "w-prj-4a6fhn3sb",
+      "title": "MT33G Electrorath",
+      "pillar": "Cost",
+      "level": "daily",
+      "type": "projectMatrix",
+      "state": "green",
+      "projectId": "4a6fhn3sb",
+      "owner": "Kailas Thorwat",
+      "description": "Live synced project tracking for MT33G Electrorath (MT33GELE)."
+    },
+    {
+      "id": "w-prj-r9h544i0c",
+      "title": "RCS/FAM Program Creation",
+      "pillar": "Cost",
+      "level": "daily",
+      "type": "projectMatrix",
+      "state": "green",
+      "projectId": "r9h544i0c",
+      "owner": "Kailas Thorwat",
+      "description": "Live synced project tracking for RCS/FAM Program Creation (RCSFAMPR)."
+    },
+    {
+      "id": "w-prj-3sdnnr34h",
+      "title": "CN/JIRA",
+      "pillar": "Cost",
+      "level": "daily",
+      "type": "projectMatrix",
+      "state": "green",
+      "projectId": "3sdnnr34h",
+      "owner": "Kailas Thorwat",
+      "description": "CN/Jira Review & Update"
+    },
+    {
+      "id": "w-prj-akbjnl0us",
+      "title": "Boomer M2D (BUT MD – 57052) Small Square Boom Project",
+      "pillar": "Cost",
+      "level": "daily",
+      "type": "projectMatrix",
+      "state": "red",
+      "projectId": "akbjnl0us",
+      "owner": "Kalyani Sarode",
+      "description": "Live synced project tracking for Boomer M2D (BUT MD – 57052) Small Square Boom Project (BOOMERM2)."
+    },
+    {
+      "id": "w-prj-7k2p83eto",
+      "title": "Boomer M20 S Dual Capability Project",
+      "pillar": "Cost",
+      "level": "daily",
+      "type": "projectMatrix",
+      "state": "green",
+      "projectId": "7k2p83eto",
+      "owner": "Kailas Thorwat",
+      "description": "Live synced project tracking for Boomer M20 S Dual Capability Project (BOOMERM2)."
+    },
+    {
+      "id": "w-prj-ezj3yap7u",
+      "title": "SR2FA Feed extension support kaizen idea",
+      "pillar": "Cost",
+      "level": "daily",
+      "type": "projectMatrix",
+      "state": "red",
+      "projectId": "ezj3yap7u",
+      "owner": "Ravindra Ahire",
+      "description": "Pictorial view shared with balaji mali "
+    },
+    {
+      "id": "w-prj-vrzsz8orx",
+      "title": " Update in SOP based on  CN ",
+      "pillar": "Cost",
+      "level": "daily",
+      "type": "projectMatrix",
+      "state": "red",
+      "projectId": "vrzsz8orx",
+      "owner": "Sapna Shirsat",
+      "description": "CN implementing in SOP "
+    },
+    {
+      "id": "w-prj-v0pd2ojvy",
+      "title": "EPS ",
+      "pillar": "Cost",
+      "level": "daily",
+      "type": "projectMatrix",
+      "state": "red",
+      "projectId": "v0pd2ojvy",
+      "owner": "Sapna Shirsat",
+      "description": "EPS Level One Sustenance and level 2 introduction."
+    },
+    {
+      "id": "d-safety-lti",
+      "title": "Days Since Last LTI",
+      "pillar": "Safety",
+      "level": "daily",
+      "type": "counter",
+      "value": 142,
+      "state": "green",
+      "description": "Number of operational days since the last Lost Time Injury (LTI)."
+    },
+    {
+      "id": "d-safety-ppe",
+      "title": "Daily PPE & Safety Audits",
+      "pillar": "Safety",
+      "level": "daily",
+      "type": "checklist",
+      "owner": "John Doe",
+      "state": "green",
+      "description": "Active PPE conformity verification on production lines.",
+      "checklist": [
+        {
+          "id": "ppe-1",
+          "label": "Safety Glasses & Face Shields worn",
+          "checked": true
+        },
+        {
+          "id": "ppe-2",
+          "label": "Steel-toed boots in designated zones",
+          "checked": true
+        },
+        {
+          "id": "ppe-3",
+          "label": "Ear protection active near grinders",
+          "checked": true
+        },
+        {
+          "id": "ppe-4",
+          "label": "Lifting harnesses inspected",
+          "checked": true
+        }
+      ]
+    },
+    {
+      "id": "d-safety-hazards",
+      "title": "Daily Hazards Identified",
+      "pillar": "Safety",
+      "level": "daily",
+      "type": "numeric",
+      "owner": "John Doe",
+      "unit": "Hazards",
+      "target": 0,
+      "actual": 1,
+      "state": "red",
+      "description": "New safety hazards or near-miss conditions spotted today."
+    },
+    {
+      "id": "d-sust-energy",
+      "title": "Daily Energy Consumption",
+      "pillar": "Sustainability",
+      "level": "daily",
+      "type": "numeric",
+      "owner": "Sarah Connor",
+      "unit": "kWh",
+      "target": 400,
+      "actual": 445,
+      "warningThreshold": 110,
+      "state": "red",
+      "description": "Facility daily electricity consumption. Target based on lean efficiency."
+    },
+    {
+      "id": "d-sust-waste",
+      "title": "Daily Waste Stream Sorting",
+      "pillar": "Sustainability",
+      "level": "daily",
+      "type": "checklist",
+      "owner": "Sarah Connor",
+      "state": "green",
+      "description": "Compliance audits for sorting of hazardous vs recyclable scrap.",
+      "checklist": [
+        {
+          "id": "ws-1",
+          "label": "Coolant filters sorted to hazardous bins",
+          "checked": true
+        },
+        {
+          "id": "ws-2",
+          "label": "Cardboard & plastic wrapping baled",
+          "checked": true
+        },
+        {
+          "id": "ws-3",
+          "label": "Machining chips cleaned from gutters",
+          "checked": true
+        }
+      ]
+    },
+    {
+      "id": "d-quality-defects",
+      "title": "Daily Defect Pareto Log",
+      "pillar": "Quality",
+      "level": "daily",
+      "type": "chart",
+      "owner": "Ellen Ripley",
+      "unit": "defects",
+      "target": 4,
+      "actual": 9,
+      "state": "red",
+      "description": "Defects logged on the inspection station today.",
+      "dataPoints": [
+        {
+          "label": "Surface Scratch",
+          "value": 4,
+          "target": 1
+        },
+        {
+          "label": "Dimensional Error",
+          "value": 3,
+          "target": 1
+        },
+        {
+          "label": "Solder Crack",
+          "value": 2,
+          "target": 1
+        },
+        {
+          "label": "Label Misaligned",
+          "value": 0,
+          "target": 1
+        }
+      ]
+    },
+    {
+      "id": "d-quality-firstoff",
+      "title": "First-Off Inspection Audits",
+      "pillar": "Quality",
+      "level": "daily",
+      "type": "checklist",
+      "owner": "Ellen Ripley",
+      "state": "green",
+      "description": "Initial unit verification before startup of each shift batch.",
+      "checklist": [
+        {
+          "id": "fo-1",
+          "label": "Shift A first-off signoff",
+          "checked": true
+        },
+        {
+          "id": "fo-2",
+          "label": "Shift B first-off signoff",
+          "checked": true
+        },
+        {
+          "id": "fo-3",
+          "label": "Measurement jig calibrated",
+          "checked": true
+        }
+      ]
+    },
+    {
+      "id": "d-delivery-throughput",
+      "title": "Daily Line Throughput",
+      "pillar": "Delivery",
+      "level": "daily",
+      "type": "numeric",
+      "owner": "Alex Murphy",
+      "unit": "Units",
+      "target": 500,
+      "actual": 480,
+      "state": "red",
+      "description": "Completed products rolled off Assembly Line 2."
+    },
+    {
+      "id": "d-delivery-otif",
+      "title": "OTIF (On-Time In-Full) Rate",
+      "pillar": "Delivery",
+      "level": "daily",
+      "type": "gauge",
+      "owner": "Alex Murphy",
+      "unit": "%",
+      "target": 98,
+      "actual": 94.2,
+      "state": "red",
+      "description": "Orders shipped exactly on schedule and with correct item count."
+    },
+    {
+      "id": "d-cost-oee",
+      "title": "Overall Equipment Effectiveness",
+      "pillar": "Cost",
+      "level": "daily",
+      "type": "gauge",
+      "owner": "Sarah Connor",
+      "unit": "%",
+      "target": 85,
+      "actual": 78.5,
+      "state": "red",
+      "description": "Integrated metric for machine Availability, Performance, and Quality."
+    },
+    {
+      "id": "d-cost-downtime",
+      "title": "Shift Unplanned Downtime",
+      "pillar": "Cost",
+      "level": "daily",
+      "type": "numeric",
+      "owner": "Sarah Connor",
+      "unit": "Minutes",
+      "target": 15,
+      "actual": 35,
+      "state": "red",
+      "description": "Minutes the CNC machines or conveyor lines were down unexpectedly."
+    },
+    {
+      "id": "d-capital-tools",
+      "title": "Critical Spare Parts Capex",
+      "pillar": "Capital",
+      "level": "daily",
+      "type": "numeric",
+      "owner": "John Doe",
+      "unit": "₹",
+      "target": 120000,
+      "actual": 105000,
+      "state": "green",
+      "description": "Daily operational capital spend on essential spare tool components in INR (₹)."
+    },
+    {
+      "id": "d-support-sla",
+      "title": "Support SLA Ticket Adherence",
+      "pillar": "Delivery",
+      "level": "daily",
+      "type": "gauge",
+      "unit": "%",
+      "target": 95,
+      "actual": 91.5,
+      "state": "red",
+      "description": "Percentage of support tickets (IT, Procurement, Maintenance) resolved within target SLA windows."
+    },
+    {
+      "id": "d-support-audits",
+      "title": "Safety Actions Closed <24h",
+      "pillar": "Safety",
+      "level": "daily",
+      "type": "numeric",
+      "unit": "%",
+      "target": 100,
+      "actual": 92,
+      "state": "red",
+      "description": "Rate of corrective action closure within 24 hours of EHS hazard reports."
+    },
+    {
+      "id": "d-support-procedures",
+      "title": "Support Preventive Checklist",
+      "pillar": "Sustainability",
+      "level": "daily",
+      "type": "checklist",
+      "state": "green",
+      "description": "Daily administrative and facility waste elimination protocols completed.",
+      "checklist": [
+        {
+          "id": "proc-1",
+          "label": "Procurement PO backlog review and dispute resolution",
+          "checked": true
+        },
+        {
+          "id": "proc-2",
+          "label": "Facilities hazardous waste storage area audit",
+          "checked": true
+        },
+        {
+          "id": "proc-3",
+          "label": "Daily cloud systems server backup verification",
+          "checked": true
+        }
+      ]
+    },
+    {
+      "id": "d-delivery-stopwatch",
+      "title": "Operator Standard Cycle Time Stopwatch",
+      "pillar": "Delivery",
+      "level": "daily",
+      "type": "stopwatch",
+      "actual": 42,
+      "target": 45,
+      "state": "green",
+      "description": "Displays real-time cycle times against standard work takt. Warns if operator step exceeds standard."
+    },
+    {
+      "id": "d-cost-heatmap",
+      "title": "24-Hour Production OEE Machine Heatmap",
+      "pillar": "Cost",
+      "level": "daily",
+      "type": "heatmap",
+      "state": "green",
+      "description": "Mini hourly heat grid showing machine running/uptime state over past 24 hours."
+    },
+    {
+      "id": "d-quality-pareto",
+      "title": "Scrap & Waste Pareto Bar Chart",
+      "pillar": "Quality",
+      "level": "daily",
+      "type": "pareto",
+      "state": "red",
+      "description": "A horizontal bar chart pinpointing active scrap sources on the shopfloor."
+    },
+    {
+      "id": "d-safety-skills",
+      "title": "EHS & Assembly Skill Matrix Grid",
+      "pillar": "Safety",
+      "level": "daily",
+      "type": "skills",
+      "state": "green",
+      "description": "Tracks supervisor and operator machinery cross-training certifications."
+    },
+    {
+      "id": "d-capital-kanban",
+      "title": "Strategic CI Ideas Kanban",
+      "pillar": "Capital",
+      "level": "daily",
+      "type": "kanban",
+      "state": "green",
+      "description": "Track team waste elimination ideas through stages: To Do, Testing, Standardized."
+    },
+    {
+      "id": "d-quality-handover",
+      "title": "Supervisor Shift Handover Sign-off Block",
+      "pillar": "Quality",
+      "level": "daily",
+      "type": "handover",
+      "state": "green",
+      "description": "Handover sign-off checklist and supervisor timestamp validation."
+    },
+    {
+      "id": "d-safety-risk",
+      "title": "Active Floor Hazard Alert Index",
+      "pillar": "Safety",
+      "level": "daily",
+      "type": "riskGauge",
+      "actual": 35,
+      "target": 70,
+      "state": "green",
+      "description": "Gauge dial showing shopfloor threat indexing based on active LOTO isolations."
+    },
+    {
+      "id": "d-sust-emissions",
+      "title": "Shopfloor Carbon Emission Tracker",
+      "pillar": "Sustainability",
+      "level": "daily",
+      "type": "emission",
+      "actual": 170,
+      "target": 150,
+      "warningThreshold": 110,
+      "state": "red",
+      "description": "Energy-equivalent CO2 output trace in kg compared to carbon footprint bounds."
+    },
+    {
+      "id": "d-sust-radar",
+      "title": "Gemba Walk 5S Audit Radar",
+      "pillar": "Sustainability",
+      "level": "daily",
+      "type": "radar",
+      "state": "green",
+      "description": "Interactively score Sort, Set, Shine, Standardize, and Sustain walkabouts."
+    },
+    {
+      "id": "d-delivery-countdown",
+      "title": "Rig Packing Lead-Time Countdown",
+      "pillar": "Delivery",
+      "level": "daily",
+      "type": "countdown",
+      "state": "green",
+      "description": "Progress milestone trail showing rig dispatch from factory to shipping bay."
+    },
+    {
+      "id": "d-delivery-pulse",
+      "title": "Rig Takt-Time Heartbeat Pulsar",
+      "pillar": "Delivery",
+      "level": "daily",
+      "type": "pulse",
+      "actual": 85,
+      "target": 80,
+      "state": "green",
+      "description": "Pulsing indicator reflecting whether assembly pace meets high customer demand."
+    }
+  ],
+  "deviations": [
+    {
+      "id": "dev-101",
+      "widgetId": "d-safety-hazards",
+      "widgetTitle": "Daily Hazards Identified",
+      "pillar": "Safety",
+      "level": "daily",
+      "date": "2026-10-01",
+      "description": "Hydraulic oil leakage identified under Assembly Station 4. Slip hazard created.",
+      "fiveWhys": [
+        "Why? Accumulation of oil on plant floor around Station 4.",
+        "Why? O-ring seal failed on the hydraulic manifold pressure line.",
+        "Why? High-pressure seal was not rated for high-temperature cycles.",
+        "Why? Replacement seal sourced from local general catalog instead of OEM.",
+        "Why? Maintenance stockout of genuine OEM heat-resistant seals."
+      ],
+      "rootCause": "Maintenance stockout led to installation of an incorrect, sub-standard temporary seal.",
+      "actionItemId": "act-201",
+      "isResolved": false,
+      "ishikawaCategory": "Material"
+    },
+    {
+      "id": "dev-102",
+      "widgetId": "d-quality-defects",
+      "widgetTitle": "Daily Defect Pareto Log",
+      "pillar": "Quality",
+      "level": "daily",
+      "date": "2026-09-30",
+      "description": "Spike in \"Surface Scratch\" defects on extruded aluminum housings during Shift B.",
+      "fiveWhys": [
+        "Why? Heavy surface scratches found on 8 out of 50 housings.",
+        "Why? Unloading tray guide-rails were metal-on-metal with no protection pads.",
+        "Why? The Teflon protective sleeves on the guide rails had worn completely away.",
+        "Why? Guide rails were not included in the PM (Preventive Maintenance) checklist.",
+        "Why? Line layout changed 3 months ago; PM schedules were not updated post-change."
+      ],
+      "rootCause": "Guide-rail wear checklist was missing from regular preventive maintenance procedures post-layout changes.",
+      "actionItemId": "act-202",
+      "isResolved": false,
+      "ishikawaCategory": "Machine"
+    },
+    {
+      "id": "dev-103",
+      "widgetId": "d-sust-energy",
+      "widgetTitle": "Daily Energy Consumption",
+      "pillar": "Sustainability",
+      "level": "daily",
+      "date": "2026-10-02",
+      "description": "Energy spike of 435 kWh exceeded daily target of 400 kWh during inactive night shifts.",
+      "fiveWhys": [
+        "Why? Power demand remained high (70 kW) even during plant shutdown hours.",
+        "Why? CNC heating chambers and cooling loops left fully powered on overnight.",
+        "Why? Operators skipped the shutdown checklist before leaving.",
+        "Why? Shift handoff occurred 30 mins early due to transport schedule changes.",
+        "Why? Early handoff guidelines omit standard verification of shutdown protocols."
+      ],
+      "rootCause": "Lack of shutdown compliance check in early-shift handoff protocols.",
+      "actionItemId": "act-203",
+      "isResolved": false,
+      "ishikawaCategory": "Method"
+    },
+    {
+      "id": "dev-104",
+      "widgetId": "d-support-sla",
+      "widgetTitle": "Support SLA Ticket Adherence",
+      "pillar": "Delivery",
+      "level": "daily",
+      "date": "2026-10-02",
+      "description": "SLA dipped to 91.5% due to delayed Procurement releases of spare tooling orders.",
+      "fiveWhys": [
+        "Why? Core PO approval stalled in the system.",
+        "Why? Purchase requisition lacked signature from the regional safety auditor.",
+        "Why? Auditor was off-site conducting safety walkthrough audits.",
+        "Why? Approval workflow had no backup delegate assigned in the ERP.",
+        "Why? Absence and delegate backup delegation SOP is missing from HR profiles."
+      ],
+      "rootCause": "Lack of backup delegate assignment protocols in ERP purchase order approval workflows.",
+      "actionItemId": "act-205",
+      "isResolved": false,
+      "ishikawaCategory": "Method"
+    }
+  ],
+  "actionItems": [
+    {
+      "id": "trtq2ojmf",
+      "pillar": "Delivery",
+      "title": "ARD35 MarkII Operation numbers updation ",
+      "owner": "Ravindra Ahire",
+      "dueDate": "2026-01-02",
+      "status": "in-progress",
+      "priority": "high",
+      "notes": "Category: Priority"
+    },
+    {
+      "id": "z397almsg",
+      "pillar": "Delivery",
+      "title": "SOP Stage 2",
+      "owner": "Aditya Shitut",
+      "dueDate": "2026-12-31",
+      "status": "open",
+      "priority": "medium",
+      "notes": "Category: Short Term Project"
+    },
+    {
+      "id": "ladsk2jbr",
+      "pillar": "Delivery",
+      "title": "I4 for Pin Pressing Fixture",
+      "owner": "Aditya Shitut",
+      "dueDate": "2026-02-12",
+      "status": "resolved",
+      "priority": "medium",
+      "notes": "Category: Support Required"
+    },
+    {
+      "id": "s0oas1l0y",
+      "pillar": "Delivery",
+      "title": "Assembly Line Improvements",
+      "owner": "Sanjay Buwa",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "6akdz9l9d",
+      "pillar": "Delivery",
+      "title": "Kaizen working",
+      "owner": "Sanjay Buwa",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "n3eqqwdap",
+      "pillar": "Safety",
+      "title": "Safety Equipment's",
+      "owner": "Sanjay Buwa",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Safety"
+    },
+    {
+      "id": "byny3plhe",
+      "pillar": "Delivery",
+      "title": "Assembly Fixtures",
+      "owner": "Sanjay Buwa",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "k43qkje50",
+      "pillar": "Delivery",
+      "title": "MT33 Coolant Filling Station",
+      "owner": "Kailas Thorwat",
+      "dueDate": "2026-03-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Short Term Project"
+    },
+    {
+      "id": "nqf2019ir",
+      "pillar": "Delivery",
+      "title": "Weekly Production Meeting",
+      "owner": "Kailas Thorwat",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "cgetsh50l",
+      "pillar": "Delivery",
+      "title": "Daily Meetings + Meet others",
+      "owner": "Kailas Thorwat",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "mbo2a29sk",
+      "pillar": "Delivery",
+      "title": "Process Other Activities",
+      "owner": "Sanjay Buwa",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "pkj7cff2x",
+      "pillar": "Delivery",
+      "title": "Bom /Operation number update",
+      "owner": "Kailas Thorwat",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "16gc7bugi",
+      "pillar": "Delivery",
+      "title": "Dexterity Development",
+      "owner": "Sanjay Buwa",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "en7qqnrjf",
+      "pillar": "Delivery",
+      "title": "Monthly Meeting UD",
+      "owner": "Kailas Thorwat",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "4uzuzfjfv",
+      "pillar": "Delivery",
+      "title": "SOP",
+      "owner": "Sanjay Buwa",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "5g8z1nokg",
+      "pillar": "Delivery",
+      "title": "Learning",
+      "owner": "Safety Team",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "oi1yipkb2",
+      "pillar": "Delivery",
+      "title": "Daily Meetings + Meet Others",
+      "owner": "Sanjay Buwa",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "fppc9mb34",
+      "pillar": "Delivery",
+      "title": "Layout",
+      "owner": "Sanjay Buwa",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "86zwek104",
+      "pillar": "Delivery",
+      "title": "SOP Craft training to EITC Team ",
+      "owner": "Girish Aher",
+      "dueDate": "2026-02-06",
+      "status": "resolved",
+      "priority": "medium",
+      "notes": "Category: Information & Team Suggestions"
+    },
+    {
+      "id": "h6vnjj8cp",
+      "pillar": "Safety",
+      "title": "SR2FA Compressor & base motor assly Kaizen working ",
+      "owner": "Ravindra Ahire",
+      "dueDate": "2026-01-16",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Safety"
+    },
+    {
+      "id": "ejdvog7q4",
+      "pillar": "Delivery",
+      "title": "LTH Tier III Checklist Routing preparation ",
+      "owner": "Ravindra Ahire",
+      "dueDate": "2026-06-16",
+      "status": "resolved",
+      "priority": "medium",
+      "notes": "Category: Support Required"
+    },
+    {
+      "id": "tfk911157",
+      "pillar": "Delivery",
+      "title": "PowerROC D45 4th machine Pump 1 Pressure setting support ",
+      "owner": "Ravindra Ahire",
+      "dueDate": "2026-01-21",
+      "status": "resolved",
+      "priority": "medium",
+      "notes": "Category: Support Required"
+    },
+    {
+      "id": "ej9g5v0tp",
+      "pillar": "Delivery",
+      "title": "Improvement: DMH undercarriage  Master pin pressing require pin pressing fixture ",
+      "owner": "Ravindra Ahire",
+      "dueDate": "2026-02-23",
+      "status": "open",
+      "priority": "medium",
+      "notes": "Auto-generated from Idea Matrix. Impact: High, Cost: High"
+    },
+    {
+      "id": "9lnyy36dh",
+      "pillar": "Delivery",
+      "title": "Improvement: Currently icm 260 complete machine removing from fixture risky activity,(not safety) we can develop hydraulic jack type fixture for unloading the machine",
+      "owner": "Ravindra Ahire",
+      "dueDate": "2026-02-23",
+      "status": "open",
+      "priority": "medium",
+      "notes": "Auto-generated from Idea Matrix. Impact: High, Cost: Medium"
+    },
+    {
+      "id": "iszap4kma",
+      "pillar": "Safety",
+      "title": "TIA Risk Reporting",
+      "owner": "Aditya Shitut",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Safety"
+    },
+    {
+      "id": "1o7aaa0ug",
+      "pillar": "Delivery",
+      "title": "Improvement: BOM Quality Improvement",
+      "owner": "Aditya Shitut",
+      "dueDate": "2026-05-21",
+      "status": "open",
+      "priority": "medium",
+      "notes": "Auto-generated from Pick Chart. Impact: High, Cost/Effort: Low"
+    },
+    {
+      "id": "9f34v8xpv",
+      "pillar": "Delivery",
+      "title": "ICM260 TC and M3 BOM alignment",
+      "owner": "Pratik Uphade",
+      "dueDate": "2026-05-29",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "jn6r53df4",
+      "pillar": "Delivery",
+      "title": "ST22 ",
+      "owner": "Engineering",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Support Required"
+    },
+    {
+      "id": "6deg22jx2",
+      "pillar": "Delivery",
+      "title": "PLM Manufacturing for MT65",
+      "owner": "Kalyani Sarode",
+      "dueDate": "2026-06-30",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Short Term Project"
+    },
+    {
+      "id": "rsxzasjcl",
+      "pillar": "Delivery",
+      "title": "MT65 Stage II & V MK3 Checklist – Cross Check for All Available Options",
+      "owner": "Kalyani Sarode",
+      "dueDate": "2026-06-05",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "te6kywsuv",
+      "pillar": "Delivery",
+      "title": "Support in resolving daily issues raised by the assembly team.",
+      "owner": "Kalyani Sarode",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "14ec4zhi1",
+      "pillar": "Delivery",
+      "title": "MO BOM Review for MT & VENT Models",
+      "owner": "Kalyani Sarode",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "gfm8cyfj2",
+      "pillar": "Delivery",
+      "title": "Weekly Meeting - Review and Alignment of MO BOM with MO Specifications",
+      "owner": "Kalyani Sarode",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "6yguivom6",
+      "pillar": "Delivery",
+      "title": "Ongoing Updates for MT22 and MT436 Checklist",
+      "owner": "Kalyani Sarode",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "spbw9d49w",
+      "pillar": "Delivery",
+      "title": "ICM260 New checklist operation numbers allocation ",
+      "owner": "Ravindra Ahire",
+      "dueDate": "2026-05-25",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "Category: Priority"
+    },
+    {
+      "id": "xu07ta162",
+      "pillar": "Delivery",
+      "title": "IMS Internal Audit Schedule – URE Engineering ",
+      "owner": "Kalyani Sarode",
+      "dueDate": "2026-06-02",
+      "status": "open",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "s88he7cw9",
+      "pillar": "Delivery",
+      "title": "ICM260 ROPS FOPS  New checklist operation numbers allocation ",
+      "owner": "Ravindra Ahire",
+      "dueDate": "2026-05-16",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "Category: Priority"
+    },
+    {
+      "id": "lka1yi6fj",
+      "pillar": "Delivery",
+      "title": "ICM 260 Main frame resting fixture trial pending ",
+      "owner": "Ravindra Ahire",
+      "dueDate": "2026-06-16",
+      "status": "in-progress",
+      "priority": "high",
+      "notes": "Category: Priority"
+    },
+    {
+      "id": "lk5cpi2cb",
+      "pillar": "Delivery",
+      "title": "PowerROC T25 Track lifting fixture PR Process ",
+      "owner": "Ravindra Ahire",
+      "dueDate": "2026-06-12",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "Category: Priority"
+    },
+    {
+      "id": "au67963re",
+      "pillar": "Delivery",
+      "title": "PowerROC T25 Product SOPs preparation ",
+      "owner": "Ravindra Ahire",
+      "dueDate": "2026-07-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Task Wise Activity"
+    },
+    {
+      "id": "5pyj9wdcg",
+      "pillar": "Delivery",
+      "title": "PowerROC T25 Cabin missing in BOM parts Added ",
+      "owner": "Ravindra Ahire",
+      "dueDate": "2026-07-27",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "Category: Priority"
+    },
+    {
+      "id": "a2el20xor",
+      "pillar": "Quality",
+      "title": "DMH Test pad new sub modification started  ",
+      "owner": "Ravindra Ahire",
+      "dueDate": "2026-12-31",
+      "status": "in-progress",
+      "priority": "medium",
+      "notes": "Category: Quality"
+    },
+    {
+      "id": "lihnbwlr1",
+      "pillar": "Safety",
+      "title": "Reaction arm for MT33G",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-08",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Safety Action"
+    },
+    {
+      "id": "dwyxqxp86",
+      "pillar": "Safety",
+      "title": "Battery Training",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-08",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Safety Action"
+    },
+    {
+      "id": "94oi2l4se",
+      "pillar": "Safety",
+      "title": "MT65 Ramp",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-16",
+      "status": "open",
+      "priority": "high",
+      "notes": "SSQDCC Safety Action"
+    },
+    {
+      "id": "2v0168btf",
+      "pillar": "Safety",
+      "title": "Diesel Unit",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-22",
+      "status": "open",
+      "priority": "high",
+      "notes": "SSQDCC Safety Action"
+    },
+    {
+      "id": "7g6ot6fw7",
+      "pillar": "Safety",
+      "title": "ST1030 fixture height reduction or jack height increase",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-24",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Safety Action"
+    },
+    {
+      "id": "8vsm963kj",
+      "pillar": "Safety",
+      "title": "ST1030 rework issue 6M Analysis",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-24",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Safety Action"
+    },
+    {
+      "id": "hpleed7mz",
+      "pillar": "Safety",
+      "title": "SED finger injury fixture analysis",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-24",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Safety Action"
+    },
+    {
+      "id": "tqiz489p8",
+      "pillar": "Sustainability",
+      "title": "Fixtures sustainability",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-01",
+      "status": "open",
+      "priority": "high",
+      "notes": "SSQDCC Sustainability Action"
+    },
+    {
+      "id": "517ftybk9",
+      "pillar": "Sustainability",
+      "title": "Fume Extractor",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-11",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Sustainability Action"
+    },
+    {
+      "id": "pp0bls347",
+      "pillar": "Sustainability",
+      "title": "Fixture Tagging",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-17",
+      "status": "open",
+      "priority": "high",
+      "notes": "SSQDCC Sustainability Action"
+    },
+    {
+      "id": "cbv5lgy8y",
+      "pillar": "Sustainability",
+      "title": "Monthly Kaizen Boards Updated",
+      "owner": "Floor Champion",
+      "dueDate": "2026-09-03",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Sustainability Action"
+    },
+    {
+      "id": "6wihl1c92",
+      "pillar": "Quality",
+      "title": "Setup MO BOM Review meeting with R&D",
+      "owner": "Floor Champion",
+      "dueDate": "2026-05-21",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Quality Action"
+    },
+    {
+      "id": "h8oz7g4rw",
+      "pillar": "Quality",
+      "title": "Impact of changes in M3",
+      "owner": "Floor Champion",
+      "dueDate": "2026-05-25",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Quality Action"
+    },
+    {
+      "id": "qf5l3u6rq",
+      "pillar": "Quality",
+      "title": "CN Monthly Meeting",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-01",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Quality Action"
+    },
+    {
+      "id": "4v19etbod",
+      "pillar": "Quality",
+      "title": "ZTEMPL100 for Check List",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-16",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Quality Action"
+    },
+    {
+      "id": "zdnqn0y1d",
+      "pillar": "Quality",
+      "title": "CN Meeting",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-24",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Quality Action"
+    },
+    {
+      "id": "yy8jpq4j0",
+      "pillar": "Quality",
+      "title": "ST1030 BOM Review ongoing",
+      "owner": "Floor Champion",
+      "dueDate": "2026-07-03",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Quality Action"
+    },
+    {
+      "id": "feexqpjm7",
+      "pillar": "Quality",
+      "title": "URE BOM First Level Correction",
+      "owner": "Floor Champion",
+      "dueDate": "2026-08-11",
+      "status": "open",
+      "priority": "high",
+      "notes": "SSQDCC Quality Action"
+    },
+    {
+      "id": "axpdrf4gp",
+      "pillar": "Delivery",
+      "title": "Support for DHM SOP Creation",
+      "owner": "Floor Champion",
+      "dueDate": "2026-05-21",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "7nu2emegb",
+      "pillar": "Delivery",
+      "title": "MT33G SOP creation",
+      "owner": "Floor Champion",
+      "dueDate": "2026-05-21",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "7qgtymi6v",
+      "pillar": "Delivery",
+      "title": "Chain slings provided to MT65 Transmission",
+      "owner": "Floor Champion",
+      "dueDate": "2026-05-26",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "fw2589b2q",
+      "pillar": "Delivery",
+      "title": "MT65 Fixture received",
+      "owner": "Floor Champion",
+      "dueDate": "2026-05-27",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "qmzczsoyx",
+      "pillar": "Delivery",
+      "title": "Scooptram bottom plate fixture received",
+      "owner": "Floor Champion",
+      "dueDate": "2026-05-27",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "bmmimtcfz",
+      "pillar": "Delivery",
+      "title": "Index Preparation for SOP",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-01",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "tu4cdwczw",
+      "pillar": "Delivery",
+      "title": "ICM260 MAIN FRAME RESTING NEW FIXTURE RECEIVED",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-02",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "87ik3wr4a",
+      "pillar": "Delivery",
+      "title": "Socket and D45 machine board provided to AirRoc",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-03",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "swzkmudxp",
+      "pillar": "Delivery",
+      "title": "ST1030 Transmission fixture delivered and trail taken",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-03",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "jzhp819io",
+      "pillar": "Delivery",
+      "title": "Working Stools Handover to assembly powerroc shop",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-09",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "e2hhr5irf",
+      "pillar": "Delivery",
+      "title": "4 step safety ladder handover to SED PROC Shop",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-09",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "73naa7c4o",
+      "pillar": "Delivery",
+      "title": "Boomer feed lifting fixture received",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-10",
+      "status": "open",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "0ixzgu937",
+      "pillar": "Delivery",
+      "title": "Dump Sensor Setting Fixture Delivered",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-15",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "ca0vn6fn6",
+      "pillar": "Delivery",
+      "title": "Boomer M20s Checklist",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-15",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "0vytji33f",
+      "pillar": "Delivery",
+      "title": "Water pump fixture provided Boomer",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-29",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "v7ruy4bnp",
+      "pillar": "Delivery",
+      "title": "Powerroc T25 track lifting fixture",
+      "owner": "Floor Champion",
+      "dueDate": "2026-07-22",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "yq8v2kfb6",
+      "pillar": "Delivery",
+      "title": "SRD Battery charging unit handover to assembly",
+      "owner": "Floor Champion",
+      "dueDate": "2026-07-29",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "x1d3c7ex1",
+      "pillar": "Delivery",
+      "title": "ST1030 Transmission fixture rework done",
+      "owner": "Floor Champion",
+      "dueDate": "2026-07-30",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "s6jfsj5qd",
+      "pillar": "Delivery",
+      "title": "MT65 bolt torq plate provided",
+      "owner": "Floor Champion",
+      "dueDate": "2026-08-20",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "obzpz692j",
+      "pillar": "Delivery",
+      "title": "MT-65 All chain Sling recived",
+      "owner": "Floor Champion",
+      "dueDate": "2026-10-12",
+      "status": "open",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "rrcvllivu",
+      "pillar": "Delivery",
+      "title": "Toolings for MT-65 Fixture",
+      "owner": "Floor Champion",
+      "dueDate": "2026-10-12",
+      "status": "open",
+      "priority": "high",
+      "notes": "SSQDCC Delivery Action"
+    },
+    {
+      "id": "dhhvarkk4",
+      "pillar": "Cost",
+      "title": "RC30 Budget approval",
+      "owner": "Floor Champion",
+      "dueDate": "2026-05-21",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Cost Action"
+    },
+    {
+      "id": "81e5uiyys",
+      "pillar": "Cost",
+      "title": "EPS Budget Estimation",
+      "owner": "Floor Champion",
+      "dueDate": "2026-05-29",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Cost Action"
+    },
+    {
+      "id": "jmwzvcf22",
+      "pillar": "Cost",
+      "title": "C685 BUDGET",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-02",
+      "status": "open",
+      "priority": "high",
+      "notes": "SSQDCC Cost Action"
+    },
+    {
+      "id": "g5bo0g5nn",
+      "pillar": "Cost",
+      "title": "ST22 Fixtures costing",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-03",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Cost Action"
+    },
+    {
+      "id": "mzzfc2uqk",
+      "pillar": "Cost",
+      "title": "SmartROC T45 Budget",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-16",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Cost Action"
+    },
+    {
+      "id": "ucv97hd4z",
+      "pillar": "Cost",
+      "title": "MT42 Budget",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-16",
+      "status": "open",
+      "priority": "high",
+      "notes": "SSQDCC Cost Action"
+    },
+    {
+      "id": "9ww8yy4i3",
+      "pillar": "Cost",
+      "title": "SmartROC T45 Budget",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-25",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Cost Action"
+    },
+    {
+      "id": "uism29rof",
+      "pillar": "Cost",
+      "title": "M20 S Budget",
+      "owner": "Floor Champion",
+      "dueDate": "2026-07-07",
+      "status": "open",
+      "priority": "high",
+      "notes": "SSQDCC Cost Action"
+    },
+    {
+      "id": "uzhhhjotm",
+      "pillar": "Capital",
+      "title": "I4 for material movement",
+      "owner": "Floor Champion",
+      "dueDate": "2026-05-21",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Capital Action"
+    },
+    {
+      "id": "9bb1fqsw9",
+      "pillar": "Capital",
+      "title": "Oil Filtration need inputs from nikhil wagh",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-02",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Capital Action"
+    },
+    {
+      "id": "fvad0ktdm",
+      "pillar": "Capital",
+      "title": "Battery Charging Unit",
+      "owner": "Floor Champion",
+      "dueDate": "2026-06-03",
+      "status": "resolved",
+      "priority": "high",
+      "notes": "SSQDCC Capital Action"
+    },
+    {
+      "id": "nef8pvn5b",
+      "pillar": "Capital",
+      "title": "Diesel Unit",
+      "owner": "Floor Champion",
+      "dueDate": "2026-07-24",
+      "status": "open",
+      "priority": "high",
+      "notes": "SSQDCC Capital Action"
+    }
+  ],
+  "safetyCross": {
+    "1": "green",
+    "2": "green",
+    "3": "green",
+    "4": "green",
+    "5": "green",
+    "6": "green",
+    "7": "green",
+    "8": "green",
+    "9": "green",
+    "10": "green",
+    "11": "green",
+    "12": "green",
+    "13": "green",
+    "14": "green",
+    "15": "green",
+    "16": "green",
+    "17": "green",
+    "18": "green",
+    "19": "green",
+    "20": "green",
+    "21": "green",
+    "22": "green",
+    "23": "green",
+    "24": "green",
+    "25": "green",
+    "26": "green",
+    "27": "green",
+    "28": "green",
+    "29": "green",
+    "30": "green",
+    "31": "green"
+  },
+  "safetyNotes": {
+    "7": "Hand gloves are ordered.",
+    "8": "1) MT65 ladder break: Escalated to Ankush ",
+    "12": "Dolly received for AirROC",
+    "13": "1)A50 electrical box lifting fixture received and handed over to assembly line.\n\n",
+    "15": "Holiday",
+    "17": "Surprise audit conducted - Many observation identified.",
+    "21": "1) Safety Ladder discussion with supplier & assembler done. | 1) Mt436 Front grill fixture\n2) 2FA compressor assembly fixture.",
+    "22": "1)Front Grill fixture received trial pending.\n2)IDM45 yoke assembly fixture received trial pending.\n\n",
+    "30": "Hose reel received"
+  },
+  "employees": [
+    {
+      "id": "emp-user-1",
+      "name": "Aditya Shitut",
+      "monthlyAvailableHours": 160
+    },
+    {
+      "id": "emp-user-2",
+      "name": "Girish Aher",
+      "monthlyAvailableHours": 160
+    },
+    {
+      "id": "emp-user-3",
+      "name": "Akash Tejankar",
+      "monthlyAvailableHours": 160
+    },
+    {
+      "id": "emp-user-4",
+      "name": "Kailas Thorwat",
+      "monthlyAvailableHours": 160
+    },
+    {
+      "id": "emp-user-5",
+      "name": "Kalyani Sarode",
+      "monthlyAvailableHours": 160
+    },
+    {
+      "id": "emp-user-6",
+      "name": "Krishna Karad",
+      "monthlyAvailableHours": 160
+    },
+    {
+      "id": "emp-user-7",
+      "name": "Pratik Uphade",
+      "monthlyAvailableHours": 160
+    },
+    {
+      "id": "emp-user-8",
+      "name": "Ravindra Ahire",
+      "monthlyAvailableHours": 160
+    },
+    {
+      "id": "emp-user-9",
+      "name": "Sanjay Buwa",
+      "monthlyAvailableHours": 160
+    },
+    {
+      "id": "emp-user-10",
+      "name": "Sapna Shirsat",
+      "monthlyAvailableHours": 160
+    }
+  ],
+  "timeBookings": [
+    {
+      "id": "y65sgxhcz",
+      "employeeId": "emp-user-8",
+      "taskTitle": "Operation numbers updation ",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-01-01"
+    },
+    {
+      "id": "56af0w5xc",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Fixture folow up, Kitting trolley moving Disc, Tyre assly fixt folloeup and updation",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-08"
+    },
+    {
+      "id": "i8ra6vb7a",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Assembly fixt design for Steering pin holding fixt MT436, and updation in A50 lifting fixt design",
+      "plannedHours": 2.5,
+      "actualHours": 2.5,
+      "date": "2026-01-08"
+    },
+    {
+      "id": "bcx2fkzm5",
+      "employeeId": "emp-user-9",
+      "taskTitle": "MY voice conclusion ,  ST1030 MEETING",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-01-08"
+    },
+    {
+      "id": "s6s9chnc1",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Disc. On process and Creeper board",
+      "plannedHours": 1.5,
+      "actualHours": 1.5,
+      "date": "2026-01-08"
+    },
+    {
+      "id": "8d00ggji8",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Kaizen data sharing, and Fixtures status Updation",
+      "plannedHours": 1.5,
+      "actualHours": 1.5,
+      "date": "2026-01-07"
+    },
+    {
+      "id": "69nme6cg7",
+      "employeeId": "emp-user-9",
+      "taskTitle": "ST1030, Tyre assly and Kaizen Fixtures follow up ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-07"
+    },
+    {
+      "id": "ojv46qfn7",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Kitting Trolley Pulling arrangement with New AMR machine, Trial, and etc ",
+      "plannedHours": 2.5,
+      "actualHours": 2.5,
+      "date": "2026-01-07"
+    },
+    {
+      "id": "7yfj3vknl",
+      "employeeId": "emp-user-9",
+      "taskTitle": "MT436, C section fixt,  Boomer A50 EL. Box lifting fixt, Boomer Cabin assly Ladder Trial, CP & Roadcraft Gun disc",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-01-07"
+    },
+    {
+      "id": "4qzx7dg2q",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Disc on Boomer A50 pannel lifting fixt for modification",
+      "plannedHours": 1.5,
+      "actualHours": 1.5,
+      "date": "2026-01-06"
+    },
+    {
+      "id": "bq4xre4b1",
+      "employeeId": "emp-user-9",
+      "taskTitle": "MT65,436 improvements",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-06"
+    },
+    {
+      "id": "6zl897o7i",
+      "employeeId": "emp-user-9",
+      "taskTitle": "CP Make Pulse Gun Team visit on assembly line and Training on Advance features trial conduct at assembly line",
+      "plannedHours": 6,
+      "actualHours": 6,
+      "date": "2026-01-06"
+    },
+    {
+      "id": "0wp6v1ouh",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Working on Tyre assembly fixt, Supplier visit for Hammer elimination dolly's and ST1030 Fixt",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-01-05"
+    },
+    {
+      "id": "05qglqurr",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Safety Glows Enquiry with suppliers",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-05"
+    },
+    {
+      "id": "8r0m036ry",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Kaizen files updation, Kaizen fixture follow up, Data sharing with Assembly team,",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-01-05"
+    },
+    {
+      "id": "02iam0vi4",
+      "employeeId": "emp-user-9",
+      "taskTitle": "MT65, 436 Fixtures Improvement, ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-05"
+    },
+    {
+      "id": "bs004hy22",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Project updates & Monthly report preparation ",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-01-05"
+    },
+    {
+      "id": "sdwm3vsd0",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-05"
+    },
+    {
+      "id": "cobstq0cr",
+      "employeeId": "emp-user-4",
+      "taskTitle": "UD Weekly production meeting",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-05"
+    },
+    {
+      "id": "3gkb83al3",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT2200 machines program created ",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-01-05"
+    },
+    {
+      "id": "vq6rapiot",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT65 RCS Program created",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-01-07"
+    },
+    {
+      "id": "sovmpkt3a",
+      "employeeId": "emp-user-4",
+      "taskTitle": "ST1030 CN's Update",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-07"
+    },
+    {
+      "id": "j9abk0mpt",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-07"
+    },
+    {
+      "id": "821695gmr",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Investment application - Guidance on the filling the form and approval process ",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-07"
+    },
+    {
+      "id": "fl074s9r8",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Daily Meetings",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-06"
+    },
+    {
+      "id": "tfjjmzm61",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Battery operated tools Trial & discussion with CP team",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-06"
+    },
+    {
+      "id": "i2soz8ltb",
+      "employeeId": "emp-user-4",
+      "taskTitle": "ST1030 Lifting fixture handover",
+      "plannedHours": 0.5,
+      "actualHours": 0.5,
+      "date": "2026-01-08"
+    },
+    {
+      "id": "z5s54sejl",
+      "employeeId": "emp-user-4",
+      "taskTitle": "JIRA UPDATE",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-08"
+    },
+    {
+      "id": "1aemmvyml",
+      "employeeId": "emp-user-4",
+      "taskTitle": "ST1030 Dual Capability Coordination Forum PPT preparation & Meeting",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-08"
+    },
+    {
+      "id": "gm6z2t8mz",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Daily pluse + My Voice conclusion",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-01-08"
+    },
+    {
+      "id": "uglt95316",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT33 Part creation & review",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-06"
+    },
+    {
+      "id": "egud2rv6o",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT22 RCS programs created  ",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-01-06"
+    },
+    {
+      "id": "6pag2vplw",
+      "employeeId": "emp-user-4",
+      "taskTitle": " BOM Review",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-06"
+    },
+    {
+      "id": "y839wszvh",
+      "employeeId": "emp-user-4",
+      "taskTitle": "CN & BOM process review",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-07"
+    },
+    {
+      "id": "0sbrr8yur",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Pulse Gun sent to supplier for repairing",
+      "plannedHours": 1.5,
+      "actualHours": 1.5,
+      "date": "2026-01-09"
+    },
+    {
+      "id": "nzi791vty",
+      "employeeId": "emp-user-9",
+      "taskTitle": "L2D drill Rod Preservation fixt, Creeper Board Devp on assly line, PR Raised for kaizens",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-09"
+    },
+    {
+      "id": "ebi8ralgu",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Tyre assembly fixt devp. supplier visit",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-01-09"
+    },
+    {
+      "id": "zd6y8atpx",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Line Improvements",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-09"
+    },
+    {
+      "id": "xtcb73n1c",
+      "employeeId": "emp-user-9",
+      "taskTitle": "CP8628 Gun trial conduct At MT2200 Transmission assembly",
+      "plannedHours": 1.5,
+      "actualHours": 1.5,
+      "date": "2026-01-12"
+    },
+    {
+      "id": "4q9cm6yub",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Kaizen Fixtures design, PR Raising, Disc with supplier, Fixtures handed over to assembly line",
+      "plannedHours": 5,
+      "actualHours": 5,
+      "date": "2026-01-12"
+    },
+    {
+      "id": "ahn7h2d08",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Assembly line improvements",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-12"
+    },
+    {
+      "id": "33pi2uenu",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Town hall meeting & PR Raising",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-14"
+    },
+    {
+      "id": "r9dkbrad4",
+      "employeeId": "emp-user-9",
+      "taskTitle": "SOP- MT436, Converter & Boomer,",
+      "plannedHours": 1.5,
+      "actualHours": 1.5,
+      "date": "2026-01-14"
+    },
+    {
+      "id": "zv61k4lki",
+      "employeeId": "emp-user-9",
+      "taskTitle": "URE Fixt Validation project- Work permit follow up, supplier follow up, ",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-14"
+    },
+    {
+      "id": "1dgnt67mx",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Tyre assly fixt. kaizen fixt, and supplier follow up",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-14"
+    },
+    {
+      "id": "wyu61db2f",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Assly line improvements -on sub assly area Fixture reqd, disc wt Supervisors and scope",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-14"
+    },
+    {
+      "id": "dd09ssd7t",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Pneumatic Gun received  with proper calibration",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-13"
+    },
+    {
+      "id": "6h5ubwik1",
+      "employeeId": "emp-user-9",
+      "taskTitle": "MT2200 Swivel Pin pressing activity, Sop Created,  Rear Axel Bolt tightening, 1235 NM torque,  Introduced CP8628 Gun, ",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-01-13"
+    },
+    {
+      "id": "1w23ez4z4",
+      "employeeId": "emp-user-9",
+      "taskTitle": "A50 El. box, Boomer Fuel Tank Axel, and Radiator Assly fixt design",
+      "plannedHours": 2.5,
+      "actualHours": 2.5,
+      "date": "2026-01-13"
+    },
+    {
+      "id": "oky4q4ogj",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Mt65 Cabin Electrical Working Panel designing, MT436 Transmission mounting",
+      "plannedHours": 1.5,
+      "actualHours": 1.5,
+      "date": "2026-01-13"
+    },
+    {
+      "id": "esgk9hg4y",
+      "employeeId": "emp-user-4",
+      "taskTitle": "working on Battery coolant filling station & ST1030 project update ",
+      "plannedHours": 0.5,
+      "actualHours": 0.5,
+      "date": "2026-01-13"
+    },
+    {
+      "id": "lw2qwf6p7",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Boomer L2 MO Approve & BOM creation",
+      "plannedHours": 5,
+      "actualHours": 5,
+      "date": "2026-01-13"
+    },
+    {
+      "id": "d6m39pojh",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Indirect Purchase Process  IMS Policy update - Reconnect in New Year /Installation and validation of drill control valve leakage issue - 3217983460 ",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-13"
+    },
+    {
+      "id": "a9p21vx3u",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Underground Division Team Meeting",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-13"
+    },
+    {
+      "id": "q3bpc13ls",
+      "employeeId": "emp-user-4",
+      "taskTitle": "CN review & update",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-12"
+    },
+    {
+      "id": "y0hgqxnk6",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Meeting for Issue with Updated AC Hose (PN: 6060143270)",
+      "plannedHours": 0.5,
+      "actualHours": 0.5,
+      "date": "2026-01-12"
+    },
+    {
+      "id": "74qxtk6od",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Meeting BOM up dation for Backflush items.",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-12"
+    },
+    {
+      "id": "nv4xipitg",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MO Approve & Rev Check",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-12"
+    },
+    {
+      "id": "0o67v1arq",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM updated & 8417 issue resolved",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-12"
+    },
+    {
+      "id": "ttwelje7u",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Weekly production meeting",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-12"
+    },
+    {
+      "id": "gfqo8h3bw",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Daily meetings + Meet others",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-12"
+    },
+    {
+      "id": "m61g2vmgk",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Projects updates & communicated to Nicole ",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-09"
+    },
+    {
+      "id": "p8qmeqrpl",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Order Machine program site training given to Rohini",
+      "plannedHours": 0.5,
+      "actualHours": 0.5,
+      "date": "2026-01-09"
+    },
+    {
+      "id": "7tzjaugpr",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT2200 RCS program creation.",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-09"
+    },
+    {
+      "id": "mqroju8kb",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Jira/CN report published & format discussions with Vishal",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-09"
+    },
+    {
+      "id": "807gfx60p",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Shop floor round & sop discussion  ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-09"
+    },
+    {
+      "id": "y0c46c2m4",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Daily Meeting",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-09"
+    },
+    {
+      "id": "84flidpak",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM verification & update",
+      "plannedHours": 2.5,
+      "actualHours": 2.5,
+      "date": "2026-01-08"
+    },
+    {
+      "id": "vfknzdk5y",
+      "employeeId": "emp-user-9",
+      "taskTitle": "PR Raising, Fixture validation of URE DIV Fixtures, CP4289 Hammer Gun Sent out for repairing,  AMR Machine trial- Kitting trolley updation",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-16"
+    },
+    {
+      "id": "a216ld4t0",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Tyre assembly fixture,",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-16"
+    },
+    {
+      "id": "8jriav4bb",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Supplier Visits-for safety PPE, Overhead Rails, cranes, Water hose Reel fixt for PDI ",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-01-16"
+    },
+    {
+      "id": "iorzferoz",
+      "employeeId": "emp-user-9",
+      "taskTitle": "MT436 Kaizen trial- Axel mount, C section assly fixt",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-16"
+    },
+    {
+      "id": "gc6cmqu0p",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-14"
+    },
+    {
+      "id": "jztc5c8yd",
+      "employeeId": "emp-user-4",
+      "taskTitle": "PK discussion + Tools update ",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-14"
+    },
+    {
+      "id": "k61gysb5q",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOOMER MO Approve & BOM Creation",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-01-14"
+    },
+    {
+      "id": "02flyhw2z",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-16"
+    },
+    {
+      "id": "xiy6b6hdf",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT22 Mark II Improvements",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-16"
+    },
+    {
+      "id": "jgk3mouy2",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM Review Meeting",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-16"
+    },
+    {
+      "id": "pnq2lji8i",
+      "employeeId": "emp-user-4",
+      "taskTitle": "L2D BOM Creation & released",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-01-16"
+    },
+    {
+      "id": "t37igads2",
+      "employeeId": "emp-user-4",
+      "taskTitle": "CN's & Jira Updates",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-16"
+    },
+    {
+      "id": "9m17nkqpl",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Parts & Structure created.",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-16"
+    },
+    {
+      "id": "tw1hxuqux",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Kaizen fixt - Boomer Radiator",
+      "plannedHours": 0.5,
+      "actualHours": 0.5,
+      "date": "2026-01-16"
+    },
+    {
+      "id": "fk47f6hft",
+      "employeeId": "emp-user-9",
+      "taskTitle": "MT65 Fixtures development and meeting with Assembly Team",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-19"
+    },
+    {
+      "id": "r6e51eygn",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Boomer repositioning disc  ",
+      "plannedHours": 0.5,
+      "actualHours": 0.5,
+      "date": "2026-01-19"
+    },
+    {
+      "id": "rtlf3er8h",
+      "employeeId": "emp-user-9",
+      "taskTitle": "PLM -Training",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-01-19"
+    },
+    {
+      "id": "hor7fas41",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Safety Issue disc- MT436 Machine Chair Assembly fixt and Sub assembly Area Fixtures",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-19"
+    },
+    {
+      "id": "0bn8rayfx",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Boomer-attachment fixt & M2D Fixt trial ",
+      "plannedHours": 0.5,
+      "actualHours": 0.5,
+      "date": "2026-01-19"
+    },
+    {
+      "id": "uafi5dpma",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM preparation knowledge sharing ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-20"
+    },
+    {
+      "id": "p7o822wwl",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Training Session Nashik - Configuration Engineers - Half day 2",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-01-20"
+    },
+    {
+      "id": "aftyc0aoc",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MO BOM update & part issue resolved",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-20"
+    },
+    {
+      "id": "lbqucphuh",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Daily + M1D BOM Review Meeting",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-20"
+    },
+    {
+      "id": "kl94sia1g",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Citrix Software Installation",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-19"
+    },
+    {
+      "id": "ndpv0omw0",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Training Session Nashik - Configuration Engineers - Half day 1",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-01-19"
+    },
+    {
+      "id": "bnlg3f53q",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM & Operation number update 841700 & 7972",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-19"
+    },
+    {
+      "id": "p3kose7w3",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-19"
+    },
+    {
+      "id": "68c6spgqg",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-19"
+    },
+    {
+      "id": "6ivcj844m",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Training On  Configuration Engineers",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-01-20"
+    },
+    {
+      "id": "yvxefbm23",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Fixture Validation Marking - Meeting wt Team, actual working,",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-20"
+    },
+    {
+      "id": "rfsru99jf",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Line improvements,  Cp Torque Gun disc,  Sub Assembly Fixt. Improvements, ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-20"
+    },
+    {
+      "id": "t2lplqzax",
+      "employeeId": "emp-user-4",
+      "taskTitle": " Weighing machine & Torque testing tool (vendor visited Nashik pc)",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-21"
+    },
+    {
+      "id": "dejx646uv",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MO BOM Creation  for 8312 & 6990",
+      "plannedHours": 5,
+      "actualHours": 5,
+      "date": "2026-01-21"
+    },
+    {
+      "id": "cd574lsaz",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Report creation ",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-21"
+    },
+    {
+      "id": "0d514yyd0",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-21"
+    },
+    {
+      "id": "keflkenol",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Fixture validation, Kitting trolley Working ATI,  Fixture plate In details Info disc with suplier, Hammer Gun Trial",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-21"
+    },
+    {
+      "id": "9m0cd9ehs",
+      "employeeId": "emp-user-9",
+      "taskTitle": "MT65 Fixture fixture modification in design",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-21"
+    },
+    {
+      "id": "shaq0kxv3",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Supplier visit for Fixtures",
+      "plannedHours": 2.5,
+      "actualHours": 2.5,
+      "date": "2026-01-21"
+    },
+    {
+      "id": "gk2l865gl",
+      "employeeId": "emp-user-9",
+      "taskTitle": "MT436 - Loadman Assembly fixture disc and designing, safety ladder disc for A50 ele. panel, MT2200 Chain for Load frame lift",
+      "plannedHours": 2.5,
+      "actualHours": 2.5,
+      "date": "2026-01-21"
+    },
+    {
+      "id": "7dx82hzlb",
+      "employeeId": "emp-user-9",
+      "taskTitle": "MT65-Chain slings details",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-21"
+    },
+    {
+      "id": "n0fyg8ljm",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Front Grill Fixt MT 436,  Seat Assly, MT2200 Load Frame Lifting Idea Disc",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-20"
+    },
+    {
+      "id": "x8j3mx1r7",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Fixture Validation work With Bedmutha team",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-23"
+    },
+    {
+      "id": "q3z0kohln",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Training on Configuration Engg- Production engg",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-01-23"
+    },
+    {
+      "id": "ht7g29dmr",
+      "employeeId": "emp-user-9",
+      "taskTitle": "MT436 Loadman Fixt, and Boomer Attachment fixt trial",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-23"
+    },
+    {
+      "id": "7kgvgtv8d",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Assembly line Improvements",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-23"
+    },
+    {
+      "id": "ql27fj6if",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Daily Meetings and follow up",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-23"
+    },
+    {
+      "id": "95mdn33a8",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Training Configuration Engineers- Production engg",
+      "plannedHours": 3.5,
+      "actualHours": 3.5,
+      "date": "2026-01-22"
+    },
+    {
+      "id": "zexzeolaa",
+      "employeeId": "emp-user-9",
+      "taskTitle": "MT436 Loadmann fixture designing",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-01-22"
+    },
+    {
+      "id": "n49zqwn8i",
+      "employeeId": "emp-user-9",
+      "taskTitle": "MT65 Fixturing, study",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-22"
+    },
+    {
+      "id": "ozidjs0mg",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Daily Meetings, Safety Share, and Observation on assly line",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-22"
+    },
+    {
+      "id": "t8hs90n9h",
+      "employeeId": "emp-user-4",
+      "taskTitle": "FAM 3 Program update 8312",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-22"
+    },
+    {
+      "id": "5988hx7nu",
+      "employeeId": "emp-user-1",
+      "taskTitle": "MO Approve & BOM Creation",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-01-22"
+    },
+    {
+      "id": "a1m6vnc55",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Training Session Nashik - Production Engineering - Half day 1",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-01-22"
+    },
+    {
+      "id": "6o9ixxo17",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-22"
+    },
+    {
+      "id": "3ofma2gd9",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Training Session Nashik - Configuration Engineers",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-01-27"
+    },
+    {
+      "id": "7ic974yfy",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MO Approve & BOM creation 8690/8634/8635/8153",
+      "plannedHours": 5,
+      "actualHours": 5,
+      "date": "2026-01-27"
+    },
+    {
+      "id": "oq7jnmjzh",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-27"
+    },
+    {
+      "id": "t3nmvmduo",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Training Session Nashik - Production Engineering - ",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-01-23"
+    },
+    {
+      "id": "6i0dxfkje",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MO approve & BOB creation & Released 8530 + Part creation ",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-01-23"
+    },
+    {
+      "id": "tfhm0vcuj",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT33G Electrorath: Project Readiness : Release Status, Part ETAs, Planning, HV Training",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-23"
+    },
+    {
+      "id": "fxt2un0o6",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-23"
+    },
+    {
+      "id": "h4jkxksvz",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Fixt Validation, Kaizen disc wt Initiator",
+      "plannedHours": 1.5,
+      "actualHours": 1.5,
+      "date": "2026-01-27"
+    },
+    {
+      "id": "1muu1v5zk",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Fixt design",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-01-27"
+    },
+    {
+      "id": "5rmtf4jk7",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Boomer & Minetruck ",
+      "plannedHours": 1.5,
+      "actualHours": 1.5,
+      "date": "2026-01-27"
+    },
+    {
+      "id": "72shxwqng",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Daily Meetings, MOL sop Meetings,  FAM3 setting SOP Meeting",
+      "plannedHours": 2.5,
+      "actualHours": 2.5,
+      "date": "2026-01-27"
+    },
+    {
+      "id": "ugqcyu7qo",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Training Session Nashik - Production Planners ",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-01-28"
+    },
+    {
+      "id": "lkg9r3lwe",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MO approve & BOM creation 8634 & 8635",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-01-28"
+    },
+    {
+      "id": "gv525mmn2",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM review Meeting",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-28"
+    },
+    {
+      "id": "urjmfbsdq",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-28"
+    },
+    {
+      "id": "4glqpom6c",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Dexterity working",
+      "plannedHours": 0.5,
+      "actualHours": 0.5,
+      "date": "2026-01-28"
+    },
+    {
+      "id": "za41pmsbx",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Fixt validation, heavy fab material fixt  disc with supplier, Name plates on fixt disc wt vendor",
+      "plannedHours": 2.5,
+      "actualHours": 2.5,
+      "date": "2026-01-28"
+    },
+    {
+      "id": "2u54tllk9",
+      "employeeId": "emp-user-9",
+      "taskTitle": "MT2200 Chair assly fixt, Load frame lifting chain & MT436 Power frame lift fixt disc",
+      "plannedHours": 1.5,
+      "actualHours": 1.5,
+      "date": "2026-01-28"
+    },
+    {
+      "id": "v0s3eru47",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Line improvements",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-28"
+    },
+    {
+      "id": "6hjliq5wf",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Daily Meetings, Line Meetings, Supplier disc and KK Wagh collage student Industrial visit conduct",
+      "plannedHours": 3.5,
+      "actualHours": 3.5,
+      "date": "2026-01-28"
+    },
+    {
+      "id": "z5impn2og",
+      "employeeId": "emp-user-9",
+      "taskTitle": "assly line improvement",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-29"
+    },
+    {
+      "id": "eqknh68z2",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Load fixt desgn",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-01-29"
+    },
+    {
+      "id": "9sawg9kdg",
+      "employeeId": "emp-user-9",
+      "taskTitle": "daily meetings, N2 project, Boomer Repositioning,",
+      "plannedHours": 2.5,
+      "actualHours": 2.5,
+      "date": "2026-01-29"
+    },
+    {
+      "id": "ssuijfzyb",
+      "employeeId": "emp-user-9",
+      "taskTitle": "Boomer sub assly fixt",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-29"
+    },
+    {
+      "id": "oi9gt38wg",
+      "employeeId": "emp-user-4",
+      "taskTitle": "ST1030 & Boomer BOM updates ",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-11"
+    },
+    {
+      "id": "aclkxd85m",
+      "employeeId": "emp-user-4",
+      "taskTitle": "HV Battery & Driveline Technical Training",
+      "plannedHours": 8,
+      "actualHours": 8,
+      "date": "2026-02-11"
+    },
+    {
+      "id": "jiwei6480",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT65 program update with New Version ",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-10"
+    },
+    {
+      "id": "ow4s1km34",
+      "employeeId": "emp-user-4",
+      "taskTitle": "HV Battery & Driveline Technical Training",
+      "plannedHours": 8,
+      "actualHours": 8,
+      "date": "2026-02-10"
+    },
+    {
+      "id": "t0vuvvw6z",
+      "employeeId": "emp-user-4",
+      "taskTitle": "RCS Program created MT65 for Stage V Machine",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-09"
+    },
+    {
+      "id": "kgtzncyjx",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MO Approve & BOM creation - Scooptram /M2D  ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-09"
+    },
+    {
+      "id": "0b1oe7838",
+      "employeeId": "emp-user-4",
+      "taskTitle": "HV Battery & Driveline Technical Training (Week 7)",
+      "plannedHours": 6,
+      "actualHours": 6,
+      "date": "2026-02-09"
+    },
+    {
+      "id": "0rqia2tor",
+      "employeeId": "emp-user-4",
+      "taskTitle": "ST1030 Project update",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-06"
+    },
+    {
+      "id": "m4dbxatme",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM update as per CN &Mail communication ",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-06"
+    },
+    {
+      "id": "eimpdbby3",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT33G SOP creation discussion with Thulasi & team ",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-06"
+    },
+    {
+      "id": "jmridu748",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM formula sheet Update",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-06"
+    },
+    {
+      "id": "0gotzrx8g",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Issue with Updated AC Hose (PN: 6060143270)/CN close on SCP",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-06"
+    },
+    {
+      "id": "2k81bombg",
+      "employeeId": "emp-user-4",
+      "taskTitle": "FAM Program creation -8999844500 ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-06"
+    },
+    {
+      "id": "3pg9qo3jr",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-06"
+    },
+    {
+      "id": "dgxigx3s4",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Bom updates as per CN's & Mail communication",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-05"
+    },
+    {
+      "id": "641jfwhx5",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT33G part verification & discussion with team ",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-05"
+    },
+    {
+      "id": "ra8ivop62",
+      "employeeId": "emp-user-4",
+      "taskTitle": "ST1030 Project update& monthly report preparation",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-05"
+    },
+    {
+      "id": "ksircc8zu",
+      "employeeId": "emp-user-4",
+      "taskTitle": "RCS& FAM program created -   8998039400/8998038200/8999850300",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-05"
+    },
+    {
+      "id": "59juuugx5",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Weekly PSM/CPI Review-URE / MT33G/MT33G Parts secure - Aparna",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-05"
+    },
+    {
+      "id": "4j8pmhn2i",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Boomer Wheel set updated",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-30"
+    },
+    {
+      "id": "zqs3h8cc2",
+      "employeeId": "emp-user-4",
+      "taskTitle": "CN/JIRA update & report published",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-30"
+    },
+    {
+      "id": "tidtnauyx",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-30"
+    },
+    {
+      "id": "jak9gixjf",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM Creation & Released 899986900/8999 863400 & 8999 863500/8999815300",
+      "plannedHours": 5,
+      "actualHours": 5,
+      "date": "2026-01-29"
+    },
+    {
+      "id": "d9ctm2bb0",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Weekly PSM/CPI Review-URE /CN Monthly meeting & update",
+      "plannedHours": 2.5,
+      "actualHours": 2.5,
+      "date": "2026-01-29"
+    },
+    {
+      "id": "ljvlvi888",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Support for SOP Preparation - Understand the requirements",
+      "plannedHours": 0.5,
+      "actualHours": 0.5,
+      "date": "2026-01-29"
+    },
+    {
+      "id": "a5y4lgjy2",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-01-29"
+    },
+    {
+      "id": "k9ce7cryz",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Boomer M20 S Dual Capability Kick Off Meeting (PPT preparation)",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-17"
+    },
+    {
+      "id": "hv02njmgi",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Projects updates (Follow-ups )",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-17"
+    },
+    {
+      "id": "fp68dkg32",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Important : Phase In / Phase out of Square Boom - L20 (CFT meeting & updates checklist)",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-17"
+    },
+    {
+      "id": "rpe91j0sr",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT2200 RCS Program Creation 8998027300 ,8998027400,8998050400,8998039500",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-17"
+    },
+    {
+      "id": "kdjf7kpqh",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-17"
+    },
+    {
+      "id": "fx95jc18x",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM review meeting",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-17"
+    },
+    {
+      "id": "j4e9nn2wo",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Boomer operation list update",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-16"
+    },
+    {
+      "id": "c0zeulo6b",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Important : Phase In / Phase out of Square Boom - L20 ",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-16"
+    },
+    {
+      "id": "qkvcfhyd7",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MO approve & BOM creation 8740, 8741, 8633, &8636",
+      "plannedHours": 5,
+      "actualHours": 5,
+      "date": "2026-02-16"
+    },
+    {
+      "id": "5inuiiij7",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-16"
+    },
+    {
+      "id": "n2q0tpzw3",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-16"
+    },
+    {
+      "id": "ejdi2qdb3",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM updates as per CN & Mail",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-13"
+    },
+    {
+      "id": "ysvwvccdt",
+      "employeeId": "emp-user-4",
+      "taskTitle": "CN & Jira Review & Acknowledge ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-13"
+    },
+    {
+      "id": "a5dc3wx4z",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM creation Kit 90 & AC hoses ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-13"
+    },
+    {
+      "id": "sov6bul65",
+      "employeeId": "emp-user-4",
+      "taskTitle": "New laptop Installation ",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-13"
+    },
+    {
+      "id": "7ihzw19nv",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT33G GA Reviews & Seq of Production",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-13"
+    },
+    {
+      "id": "58gv22ybv",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-13"
+    },
+    {
+      "id": "i8244vry1",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Boomer M20 S - Production Engineering Information Sharing Kick Off (PPT preparation) ",
+      "plannedHours": 1.5,
+      "actualHours": 1.5,
+      "date": "2026-02-12"
+    },
+    {
+      "id": "exoajkjkc",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Weekly PSM/CPI Review-URE &CN meeting",
+      "plannedHours": 1.5,
+      "actualHours": 1.5,
+      "date": "2026-02-12"
+    },
+    {
+      "id": "txbh2s1ca",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT33G GA Reviews & SOP review with CFT",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-12"
+    },
+    {
+      "id": "3wigxs131",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT65 RCS programs update with New Version",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-12"
+    },
+    {
+      "id": "vm5rl1x7l",
+      "employeeId": "emp-user-4",
+      "taskTitle": "M2D MO approve & BOM creation 8190",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-12"
+    },
+    {
+      "id": "ja4gs1btl",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-12"
+    },
+    {
+      "id": "vg0lpi3yy",
+      "employeeId": "emp-user-8",
+      "taskTitle": "For 5th & 6th machine parts added & support to line  ",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-02-03"
+    },
+    {
+      "id": "1gy38jthi",
+      "employeeId": "emp-user-8",
+      "taskTitle": "Check list Excel sheet prepared for both checklist",
+      "plannedHours": 6,
+      "actualHours": 6,
+      "date": "2026-02-03"
+    },
+    {
+      "id": "jp81dmwm0",
+      "employeeId": "emp-user-8",
+      "taskTitle": "Shortage material line up ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-01-06"
+    },
+    {
+      "id": "o0yh4k71q",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Power pack structure create & ST1030",
+      "plannedHours": 1.5,
+      "actualHours": 1.5,
+      "date": "2026-02-23"
+    },
+    {
+      "id": "rwbq4eet1",
+      "employeeId": "emp-user-4",
+      "taskTitle": "1st KIT issue resolved & Shopfloor visit",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-02-23"
+    },
+    {
+      "id": "turydezlh",
+      "employeeId": "emp-user-4",
+      "taskTitle": "M2D MO approve & BOM creation",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-23"
+    },
+    {
+      "id": "brrbpnjzr",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-23"
+    },
+    {
+      "id": "g3y7euyol",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-23"
+    },
+    {
+      "id": "6b7rxn9dv",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Task list update on Site",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-20"
+    },
+    {
+      "id": "5c8kdp8jg",
+      "employeeId": "emp-user-4",
+      "taskTitle": "SOP verification &CN's & BOM prepartion",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-02-20"
+    },
+    {
+      "id": "6ulimvk59",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Drilling M/E - Change notifications and how to work with B M20S Dual Capabilities (Nicole & Orebro team)",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-20"
+    },
+    {
+      "id": "1fdfmm2ug",
+      "employeeId": "emp-user-4",
+      "taskTitle": "1st KIT Part Verification & alloaction",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-20"
+    },
+    {
+      "id": "zd1a5skxa",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-20"
+    },
+    {
+      "id": "vcpjsm5f7",
+      "employeeId": "emp-user-4",
+      "taskTitle": "M1D BOM issue identify & discussions with CFT",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-19"
+    },
+    {
+      "id": "e8m3ncuyd",
+      "employeeId": "emp-user-4",
+      "taskTitle": "PSD support for FAM3 Program 7618",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-19"
+    },
+    {
+      "id": "ozs29sabg",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT33G BOM Creation & Issue findings with CN's",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-02-19"
+    },
+    {
+      "id": "19gyvas1o",
+      "employeeId": "emp-user-4",
+      "taskTitle": "KIT missing part verification & Discussed with Team",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-19"
+    },
+    {
+      "id": "5bmzjqaff",
+      "employeeId": "emp-user-4",
+      "taskTitle": "8312 BOM Update",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-19"
+    },
+    {
+      "id": "4jfhzskbz",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-19"
+    },
+    {
+      "id": "w2ivbqd1i",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Checklist & % forcaste update",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-18"
+    },
+    {
+      "id": "882uv6kb5",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Discussion on ST1030 , 1st kit received , station allocation & kitting ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-18"
+    },
+    {
+      "id": "7muo1bzov",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Pre-CN meeting-Drilling &CN",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-18"
+    },
+    {
+      "id": "ilvjbu0g1",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT33G weekly Team Connect & updates",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-18"
+    },
+    {
+      "id": "q7lyipcuc",
+      "employeeId": "emp-user-4",
+      "taskTitle": "M2 & L2 Bom created & released 8740,8741,8636&8633",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-02-18"
+    },
+    {
+      "id": "cgualisif",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-18"
+    },
+    {
+      "id": "t3ntkipjk",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MO Approve & BOM creation M2D 8153",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-26"
+    },
+    {
+      "id": "lh062b053",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Requirement list Compiled for support required from Orebro (PPT preparation)",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-02-26"
+    },
+    {
+      "id": "odppfezv8",
+      "employeeId": "emp-user-4",
+      "taskTitle": "CN/PSM Meeting & Updates",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-26"
+    },
+    {
+      "id": "sc3eurrja",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Daily meeting + Town Hall",
+      "plannedHours": 1.5,
+      "actualHours": 1.5,
+      "date": "2026-02-26"
+    },
+    {
+      "id": "ajfc2m6qd",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM update as per mail & CN's",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-02-25"
+    },
+    {
+      "id": "vrwsnel4x",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Parts Identify & shopfloor visit  ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-25"
+    },
+    {
+      "id": "qmi78ct9t",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Working on tools, fixture updates",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-25"
+    },
+    {
+      "id": "ip3pc6vvu",
+      "employeeId": "emp-user-4",
+      "taskTitle": "pre cn meeting & updates",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-25"
+    },
+    {
+      "id": "jguzj2nh5",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-25"
+    },
+    {
+      "id": "popvgidae",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM updates as per mail & CN's",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-24"
+    },
+    {
+      "id": "1d0w80d7y",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Weekly projects update ,kit 1st shortage parts finding , Item master creation",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-02-24"
+    },
+    {
+      "id": "7m6uahlkq",
+      "employeeId": "emp-user-4",
+      "taskTitle": "M2D 8999837900 BOM creation & released",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-24"
+    },
+    {
+      "id": "qnkke8d4f",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM review Meeting",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-24"
+    },
+    {
+      "id": "11fwmb0h5",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-24"
+    },
+    {
+      "id": "u2lq1k15s",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Support requirements complied & PPT shared with Orebro team.",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-27"
+    },
+    {
+      "id": "gz3ew7cgz",
+      "employeeId": "emp-user-4",
+      "taskTitle": "RCS Program creation for MT65 & Boomer (PSD Support)",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-02-27"
+    },
+    {
+      "id": "sxtnm1ja0",
+      "employeeId": "emp-user-4",
+      "taskTitle": "ST1030 Bucket Revision 5580017781  R09 / R10, change review",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-27"
+    },
+    {
+      "id": "hqkcs2oel",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT33G BOM review with CFT - 8998002300 (Structure update)",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-02-27"
+    },
+    {
+      "id": "xfajvf1bq",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-02-27"
+    },
+    {
+      "id": "7jkrrpnqu",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MO planned inactive",
+      "plannedHours": 0.5,
+      "actualHours": 0.5,
+      "date": "2026-02-26"
+    },
+    {
+      "id": "spljszui2",
+      "employeeId": "emp-user-4",
+      "taskTitle": "working on Project - requirements & KPI discussion  ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-03"
+    },
+    {
+      "id": "xg16spahi",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT33G Assembly sequencing & Operation number allocation / SOP's status update",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-03-03"
+    },
+    {
+      "id": "9t09h3k7d",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM review Meeting",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-03"
+    },
+    {
+      "id": "lxal3qdfn",
+      "employeeId": "emp-user-4",
+      "taskTitle": "M2D MO approve & BOM creation",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-03"
+    },
+    {
+      "id": "ps8o1r2jg",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-03"
+    },
+    {
+      "id": "x8rtry2z8",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM updates as per mail& CN's",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-03-02"
+    },
+    {
+      "id": "746rjfxos",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Shopfloor visit for assembly verification & issue discussion ",
+      "plannedHours": 1.5,
+      "actualHours": 1.5,
+      "date": "2026-03-02"
+    },
+    {
+      "id": "k30rqbock",
+      "employeeId": "emp-user-4",
+      "taskTitle": "FAM 3 Program creation ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-02"
+    },
+    {
+      "id": "o56na3ag1",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Monthly Check-in ",
+      "plannedHours": 0.5,
+      "actualHours": 0.5,
+      "date": "2026-03-02"
+    },
+    {
+      "id": "siyib0555",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-02"
+    },
+    {
+      "id": "7ujwzwb1b",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-02"
+    },
+    {
+      "id": "nzlp5ijkh",
+      "employeeId": "emp-user-4",
+      "taskTitle": "CN updates & verified with assembly team",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-04"
+    },
+    {
+      "id": "52srzupaq",
+      "employeeId": "emp-user-4",
+      "taskTitle": "working on RCS &PLC program for 1 st machine",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-04"
+    },
+    {
+      "id": "gzt9v8d2e",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Project update -Monthly Report prepared ",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-03-04"
+    },
+    {
+      "id": "amr5ckuuy",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Data collection &  PPT preparation for UD Monthly Meeting",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-04"
+    },
+    {
+      "id": "i6ad1w775",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Project updates/SOP'S/Tools/Operation Number",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-04"
+    },
+    {
+      "id": "uvkbfwhmn",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-04"
+    },
+    {
+      "id": "pt9vf6wit",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM review Meeting",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-17"
+    },
+    {
+      "id": "eq16j7ctm",
+      "employeeId": "emp-user-4",
+      "taskTitle": "ST1030 1st machine Program Creation",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-17"
+    },
+    {
+      "id": "2hnwh68iw",
+      "employeeId": "emp-user-4",
+      "taskTitle": "ST1030 BOM Creation & released",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-17"
+    },
+    {
+      "id": "xqg3xe72i",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-17"
+    },
+    {
+      "id": "hciky3f8h",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM & Item master updated as per mail & CN's",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-16"
+    },
+    {
+      "id": "nghy5lui9",
+      "employeeId": "emp-user-4",
+      "taskTitle": "SOP & Operation number review",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-16"
+    },
+    {
+      "id": "jigs7z8q1",
+      "employeeId": "emp-user-4",
+      "taskTitle": "M1D FAM 3 program trouble shooting",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-16"
+    },
+    {
+      "id": "a3r1s0ch1",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-16"
+    },
+    {
+      "id": "rjcktvluz",
+      "employeeId": "emp-user-4",
+      "taskTitle": "KIP discussion & agreement / PPT preaption",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-16"
+    },
+    {
+      "id": "l7ravld79",
+      "employeeId": "emp-user-4",
+      "taskTitle": "SCP portal report review",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-16"
+    },
+    {
+      "id": "iwj3wom0y",
+      "employeeId": "emp-user-4",
+      "taskTitle": "SOT  - Q1",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-16"
+    },
+    {
+      "id": "98qmzhugd",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Truck RCS program creation ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-06"
+    },
+    {
+      "id": "idwj8y924",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Operation numbers & sequencing set",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-03-06"
+    },
+    {
+      "id": "awfsh51va",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MO approve flow issue discussion & assembly line visit.",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-06"
+    },
+    {
+      "id": "wzo8uj1z1",
+      "employeeId": "emp-user-4",
+      "taskTitle": "M1D - 8999850300 - Shortages & Assembly reviews",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-06"
+    },
+    {
+      "id": "67xrzpubq",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-06"
+    },
+    {
+      "id": "jookjmhvk",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Shop floor Visit for assembly progress & issue discussion ",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-05"
+    },
+    {
+      "id": "uxf87j1kl",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM Update ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-05"
+    },
+    {
+      "id": "ldpnbffg1",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Item master update as mail & CN'S",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-03-05"
+    },
+    {
+      "id": "o9evc106g",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Hour Meter A10 cabinet and New Hose drum kit for 19 machine order L2D",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-05"
+    },
+    {
+      "id": "40uixp65r",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-05"
+    },
+    {
+      "id": "c06i0s5oc",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM issue resolved / support Girish &Ganesh ",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-03-23"
+    },
+    {
+      "id": "43jym7u2b",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Assembly support - Bucket assembly",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-03-23"
+    },
+    {
+      "id": "hcpqo3zp8",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-23"
+    },
+    {
+      "id": "rvh9ke5x3",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-20"
+    },
+    {
+      "id": "cl98s7nre",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Assembly line Visit ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-20"
+    },
+    {
+      "id": "v7l14gkje",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT33G Process document review",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-20"
+    },
+    {
+      "id": "8rfp7t3j8",
+      "employeeId": "emp-user-4",
+      "taskTitle": "PPT Preparation & KPI discussions with Nicole ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-20"
+    },
+    {
+      "id": "4xk9n3jiy",
+      "employeeId": "emp-user-4",
+      "taskTitle": "FAM & RCS program creation",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-20"
+    },
+    {
+      "id": "28zw1o3db",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-20"
+    },
+    {
+      "id": "oqz0qh4mk",
+      "employeeId": "emp-user-4",
+      "taskTitle": "RCS program creation ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-18"
+    },
+    {
+      "id": "5hyrvbe8z",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Assembly line visit with CC team",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-03-18"
+    },
+    {
+      "id": "uhyvov5m2",
+      "employeeId": "emp-user-4",
+      "taskTitle": "ST1030 CN's Update & CFT meeting",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-18"
+    },
+    {
+      "id": "3hz7m16sa",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT33G weekly Team Connect",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-18"
+    },
+    {
+      "id": "zirjlvk5m",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-18"
+    },
+    {
+      "id": "gy30nq5z2",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Operation Number & structure creation",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-03-17"
+    },
+    {
+      "id": "co5xul8zp",
+      "employeeId": "emp-user-4",
+      "taskTitle": "CN Review ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-25"
+    },
+    {
+      "id": "s2vj7p0eu",
+      "employeeId": "emp-user-4",
+      "taskTitle": "ST1030 Project update & task list update",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-25"
+    },
+    {
+      "id": "lupt2vwnp",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-25"
+    },
+    {
+      "id": "w78tgoi9a",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Trucks BOM ssue resolved & CN support with Girish & Ganesh ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-24"
+    },
+    {
+      "id": "dht82haiu",
+      "employeeId": "emp-user-4",
+      "taskTitle": "RCS program Creation & Trouble shooting",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-03-24"
+    },
+    {
+      "id": "f4vzk6thu",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Assembly support",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-24"
+    },
+    {
+      "id": "9gv6da7gl",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM review Meeting",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-24"
+    },
+    {
+      "id": "xilzqmbiw",
+      "employeeId": "emp-user-4",
+      "taskTitle": "1",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-24"
+    },
+    {
+      "id": "sa20u1y7q",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-23"
+    },
+    {
+      "id": "p8tdpnr7m",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM /CN's review & update",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-30"
+    },
+    {
+      "id": "k2hnx6lsp",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Meeting with Nicole & preparation  ",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-30"
+    },
+    {
+      "id": "dom7sgpob",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MO approve & bom creation",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-30"
+    },
+    {
+      "id": "4o5mbqor1",
+      "employeeId": "emp-user-4",
+      "taskTitle": "RCS program troubleshooting ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-30"
+    },
+    {
+      "id": "ei2wl2jd4",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-30"
+    },
+    {
+      "id": "tfrw9b5gy",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Working on checklist ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-26"
+    },
+    {
+      "id": "o6lhqw6wi",
+      "employeeId": "emp-user-4",
+      "taskTitle": "ST1030 Project Task List Discussion",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-26"
+    },
+    {
+      "id": "n0rn7c8fh",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MT65 program creation",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-26"
+    },
+    {
+      "id": "nat3ej614",
+      "employeeId": "emp-user-4",
+      "taskTitle": "PSM - (CN- Boomer/ MT/AVH) Meting with CFT & Updates ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-26"
+    },
+    {
+      "id": "o6ptnjqxz",
+      "employeeId": "emp-user-1",
+      "taskTitle": "Weekly PSM/CPI Review-URE",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-26"
+    },
+    {
+      "id": "8q5kpp7t1",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-26"
+    },
+    {
+      "id": "2qnsnnveb",
+      "employeeId": "emp-user-4",
+      "taskTitle": "working on Checklist ",
+      "plannedHours": 4,
+      "actualHours": 4,
+      "date": "2026-03-25"
+    },
+    {
+      "id": "3yijrddnk",
+      "employeeId": "emp-user-4",
+      "taskTitle": "working on Project",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-04-02"
+    },
+    {
+      "id": "egj3pthrq",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Item masters & Checklist updates as per communications",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-04-02"
+    },
+    {
+      "id": "gw3p3mgh1",
+      "employeeId": "emp-user-4",
+      "taskTitle": "New 6800 Feed series implementation and regularization",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-04-02"
+    },
+    {
+      "id": "sjxzp54zj",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Weekly PSM/CPI Review-URE",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-04-02"
+    },
+    {
+      "id": "gbtu5a5tn",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-04-02"
+    },
+    {
+      "id": "3ff8ftj68",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Working on project updates",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-31"
+    },
+    {
+      "id": "t4ks2ufy0",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Working on Checklist & BOM",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-03-31"
+    },
+    {
+      "id": "p6d6n47x5",
+      "employeeId": "emp-user-4",
+      "taskTitle": "CN follow-up & Discussion with  EITC",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-03-31"
+    },
+    {
+      "id": "o5ainbfh8",
+      "employeeId": "emp-user-4",
+      "taskTitle": "BOM review Meeting",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-31"
+    },
+    {
+      "id": "0auu1gc8y",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-03-31"
+    },
+    {
+      "id": "3fwafguew",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Working on ST1030 Trouble shooting & Audit preparation",
+      "plannedHours": 6,
+      "actualHours": 6,
+      "date": "2026-04-06"
+    },
+    {
+      "id": "o5t141txk",
+      "employeeId": "emp-user-4",
+      "taskTitle": "MO approve & Bom Creation",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-04-06"
+    },
+    {
+      "id": "gyliyhuto",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-04-06"
+    },
+    {
+      "id": "9vuiiat77",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Working on Checklist &  item master update",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-04-03"
+    },
+    {
+      "id": "yamxq1nfg",
+      "employeeId": "emp-user-4",
+      "taskTitle": "CN& PSM review & update",
+      "plannedHours": 3,
+      "actualHours": 3,
+      "date": "2026-04-03"
+    },
+    {
+      "id": "u5ldhmdsq",
+      "employeeId": "emp-user-4",
+      "taskTitle": "RCS program creation",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-04-03"
+    },
+    {
+      "id": "zjsz9eey9",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-04-03"
+    },
+    {
+      "id": "n4ffqe4b4",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Production Engineering & Assembly Support",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-05-29"
+    },
+    {
+      "id": "fszya39hq",
+      "employeeId": "emp-user-4",
+      "taskTitle": "PPT preparation for CN",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-05-29"
+    },
+    {
+      "id": "tobh46g1t",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Item master update & structure creation ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-05-29"
+    },
+    {
+      "id": "kecahh7zt",
+      "employeeId": "emp-user-4",
+      "taskTitle": "Working on RCS program troubleshooting ",
+      "plannedHours": 2,
+      "actualHours": 2,
+      "date": "2026-05-29"
+    },
+    {
+      "id": "xn99sbn5d",
+      "employeeId": "emp-user-4",
+      "taskTitle": "working on MT33G BOM",
+      "plannedHours": 1,
+      "actualHours": 1,
+      "date": "2026-05-29"
+    }
+  ],
+  "projectMatrices": [
+    {
+      "id": "gnzrhlnh6",
+      "name": "RC 30",
+      "code": "RC30",
+      "description": "Project Added",
+      "owner": "Aditya Shitut",
+      "ownerEmployeeId": "emp-user-1",
+      "targetLaunchDate": "2026-11-30",
+      "startDate": "2025-09-01",
+      "overallStatus": "amber",
+      "lastUpdated": "2026-10-23",
+      "customCategories": [
+        "Priority",
+        "Short Term Project",
+        "Task Wise Activity",
+        "Support Required",
+        "Safety",
+        "Quality",
+        "Information & Team Suggestions"
+      ],
+      "points": [
+        {
+          "id": "pt-gnzrhlnh6-init",
+          "category": "Scope",
+          "title": "RC 30 - Operational Scope & Baseline Setup",
+          "priority": "high",
+          "status": "in-progress",
+          "targetDate": "2026-11-30",
+          "startDate": "2025-09-01",
+          "assignedToEmployeeId": "emp-user-1",
+          "progressPercent": 10,
+          "budget": 320000,
+          "costActual": 32000,
+          "notes": "Project Added",
+          "subPoints": []
+        }
+      ]
+    },
+    {
+      "id": "djq1k8bny",
+      "name": "SmartROC T45 - 7 machine",
+      "code": "SMARTROC",
+      "description": "Task will open till completion of 7th machine",
+      "owner": "Aditya Shitut",
+      "ownerEmployeeId": "emp-user-1",
+      "targetLaunchDate": "2026-12-31",
+      "startDate": "2026-08-01",
+      "overallStatus": "amber",
+      "lastUpdated": "2026-10-23",
+      "customCategories": [
+        "Priority",
+        "Short Term Project",
+        "Task Wise Activity",
+        "Support Required",
+        "Safety",
+        "Quality",
+        "Information & Team Suggestions"
+      ],
+      "points": [
+        {
+          "id": "pt-djq1k8bny-init",
+          "category": "Scope",
+          "title": "SmartROC T45 - 7 machine - Operational Scope & Baseline Setup",
+          "priority": "high",
+          "status": "in-progress",
+          "targetDate": "2026-12-31",
+          "startDate": "2026-08-01",
+          "assignedToEmployeeId": "emp-user-1",
+          "progressPercent": 90,
+          "budget": 100000,
+          "costActual": 90000,
+          "notes": "Task will open till completion of 7th machine",
+          "subPoints": []
+        }
+      ]
+    },
+    {
+      "id": "o6567pwp8",
+      "name": "Fixture Safe Working Load marking",
+      "code": "FIXTURES",
+      "description": "Assembly fixtures for SRD & URE Completed , SCM is pending.",
+      "owner": "Sanjay Buwa",
+      "ownerEmployeeId": "emp-user-9",
+      "targetLaunchDate": "2026-02-28",
+      "startDate": "2025-12-01",
+      "overallStatus": "amber",
+      "lastUpdated": "2026-10-23",
+      "customCategories": [
+        "Priority",
+        "Short Term Project",
+        "Task Wise Activity",
+        "Support Required",
+        "Safety",
+        "Quality",
+        "Information & Team Suggestions"
+      ],
+      "points": [
+        {
+          "id": "pt-o6567pwp8-init",
+          "category": "Scope",
+          "title": "Fixture Safe Working Load marking - Operational Scope & Baseline Setup",
+          "priority": "high",
+          "status": "in-progress",
+          "targetDate": "2026-02-28",
+          "startDate": "2025-12-01",
+          "assignedToEmployeeId": "emp-user-9",
+          "progressPercent": 42,
+          "budget": 60000,
+          "costActual": 25200,
+          "notes": "Assembly fixtures for SRD & URE Completed , SCM is pending.",
+          "subPoints": []
+        }
+      ]
+    },
+    {
+      "id": "1y586lb0n",
+      "name": "ST1030",
+      "code": "ST1030",
+      "owner": "Kailas Thorwat",
+      "ownerEmployeeId": "emp-user-4",
+      "targetLaunchDate": "2026-12-31",
+      "startDate": "2025-06-01",
+      "overallStatus": "amber",
+      "lastUpdated": "2026-10-23",
+      "customCategories": [
+        "Priority",
+        "Short Term Project",
+        "Task Wise Activity",
+        "Support Required",
+        "Safety",
+        "Quality",
+        "Information & Team Suggestions"
+      ],
+      "points": [
+        {
+          "id": "pt-1y586lb0n-init",
+          "category": "Scope",
+          "title": "ST1030 - Operational Scope & Baseline Setup",
+          "priority": "high",
+          "status": "in-progress",
+          "targetDate": "2026-12-31",
+          "startDate": "2025-06-01",
+          "assignedToEmployeeId": "emp-user-4",
+          "progressPercent": 50,
+          "budget": 125000,
+          "costActual": 62500,
+          "subPoints": []
+        }
+      ]
+    },
+    {
+      "id": "szyj9a5a7",
+      "name": "MO Approve & BOM Creation",
+      "code": "MOAPPROV",
+      "owner": "Kailas Thorwat",
+      "ownerEmployeeId": "emp-user-4",
+      "targetLaunchDate": "2026-12-31",
+      "startDate": "2026-01-01",
+      "overallStatus": "amber",
+      "lastUpdated": "2026-10-23",
+      "customCategories": [
+        "Priority",
+        "Short Term Project",
+        "Task Wise Activity",
+        "Support Required",
+        "Safety",
+        "Quality",
+        "Information & Team Suggestions"
+      ],
+      "points": [
+        {
+          "id": "pkj7cff2x",
+          "category": "Task Wise Activity",
+          "title": "Bom /Operation number update",
+          "priority": "medium",
+          "status": "in-progress",
+          "targetDate": "2026-12-31",
+          "startDate": "2026-01-01",
+          "assignedToEmployeeId": "emp-user-4",
+          "progressPercent": 0,
+          "budget": 0,
+          "costActual": 0,
+          "subPoints": []
+        }
+      ]
+    },
+    {
+      "id": "4a6fhn3sb",
+      "name": "MT33G Electrorath",
+      "code": "MT33GELE",
+      "owner": "Kailas Thorwat",
+      "ownerEmployeeId": "emp-user-4",
+      "targetLaunchDate": "2026-06-30",
+      "startDate": "2025-06-01",
+      "overallStatus": "amber",
+      "lastUpdated": "2026-10-23",
+      "customCategories": [
+        "Priority",
+        "Short Term Project",
+        "Task Wise Activity",
+        "Support Required",
+        "Safety",
+        "Quality",
+        "Information & Team Suggestions"
+      ],
+      "points": [
+        {
+          "id": "pt-4a6fhn3sb-init",
+          "category": "Scope",
+          "title": "MT33G Electrorath - Operational Scope & Baseline Setup",
+          "priority": "high",
+          "status": "in-progress",
+          "targetDate": "2026-06-30",
+          "startDate": "2025-06-01",
+          "assignedToEmployeeId": "emp-user-4",
+          "progressPercent": 50,
+          "budget": 200000,
+          "costActual": 100000,
+          "subPoints": []
+        }
+      ]
+    },
+    {
+      "id": "r9h544i0c",
+      "name": "RCS/FAM Program Creation",
+      "code": "RCSFAMPR",
+      "owner": "Kailas Thorwat",
+      "ownerEmployeeId": "emp-user-4",
+      "targetLaunchDate": "2026-12-31",
+      "startDate": "2026-01-01",
+      "overallStatus": "amber",
+      "lastUpdated": "2026-10-23",
+      "customCategories": [
+        "Priority",
+        "Short Term Project",
+        "Task Wise Activity",
+        "Support Required",
+        "Safety",
+        "Quality",
+        "Information & Team Suggestions"
+      ],
+      "points": [
+        {
+          "id": "pt-r9h544i0c-init",
+          "category": "Scope",
+          "title": "RCS/FAM Program Creation - Operational Scope & Baseline Setup",
+          "priority": "high",
+          "status": "in-progress",
+          "targetDate": "2026-12-31",
+          "startDate": "2026-01-01",
+          "assignedToEmployeeId": "emp-user-4",
+          "progressPercent": 0,
+          "budget": 500000,
+          "costActual": 0,
+          "subPoints": []
+        }
+      ]
+    },
+    {
+      "id": "3sdnnr34h",
+      "name": "CN/JIRA",
+      "code": "CNJIRA",
+      "description": "CN/Jira Review & Update",
+      "owner": "Kailas Thorwat",
+      "ownerEmployeeId": "emp-user-4",
+      "targetLaunchDate": "2026-12-31",
+      "startDate": "2026-01-01",
+      "overallStatus": "amber",
+      "lastUpdated": "2026-10-23",
+      "customCategories": [
+        "Priority",
+        "Short Term Project",
+        "Task Wise Activity",
+        "Support Required",
+        "Safety",
+        "Quality",
+        "Information & Team Suggestions"
+      ],
+      "points": [
+        {
+          "id": "pt-3sdnnr34h-init",
+          "category": "Scope",
+          "title": "CN/JIRA - Operational Scope & Baseline Setup",
+          "priority": "high",
+          "status": "in-progress",
+          "targetDate": "2026-12-31",
+          "startDate": "2026-01-01",
+          "assignedToEmployeeId": "emp-user-4",
+          "progressPercent": 0,
+          "budget": 250000,
+          "costActual": 0,
+          "notes": "CN/Jira Review & Update",
+          "subPoints": []
+        }
+      ]
+    },
+    {
+      "id": "akbjnl0us",
+      "name": "Boomer M2D (BUT MD – 57052) Small Square Boom Project",
+      "code": "BOOMERM2",
+      "owner": "Kalyani Sarode",
+      "ownerEmployeeId": "emp-user-5",
+      "targetLaunchDate": "2026-02-02",
+      "startDate": "2025-07-17",
+      "overallStatus": "amber",
+      "lastUpdated": "2026-10-23",
+      "customCategories": [
+        "Priority",
+        "Short Term Project",
+        "Task Wise Activity",
+        "Support Required",
+        "Safety",
+        "Quality",
+        "Information & Team Suggestions"
+      ],
+      "points": [
+        {
+          "id": "pt-akbjnl0us-init",
+          "category": "Scope",
+          "title": "Boomer M2D (BUT MD – 57052) Small Square Boom Project - Operational Scope & Baseline Setup",
+          "priority": "high",
+          "status": "in-progress",
+          "targetDate": "2026-02-02",
+          "startDate": "2025-07-17",
+          "assignedToEmployeeId": "emp-user-5",
+          "progressPercent": 18,
+          "budget": 150000,
+          "costActual": 27000,
+          "subPoints": []
+        }
+      ]
+    },
+    {
+      "id": "7k2p83eto",
+      "name": "Boomer M20 S Dual Capability Project",
+      "code": "BOOMERM2",
+      "owner": "Kailas Thorwat",
+      "ownerEmployeeId": "emp-user-4",
+      "targetLaunchDate": "2026-12-31",
+      "startDate": "2026-02-01",
+      "overallStatus": "amber",
+      "lastUpdated": "2026-10-23",
+      "customCategories": [
+        "Priority",
+        "Short Term Project",
+        "Task Wise Activity",
+        "Support Required",
+        "Safety",
+        "Quality",
+        "Information & Team Suggestions"
+      ],
+      "points": [
+        {
+          "id": "pt-7k2p83eto-init",
+          "category": "Scope",
+          "title": "Boomer M20 S Dual Capability Project - Operational Scope & Baseline Setup",
+          "priority": "high",
+          "status": "in-progress",
+          "targetDate": "2026-12-31",
+          "startDate": "2026-02-01",
+          "assignedToEmployeeId": "emp-user-4",
+          "progressPercent": 0,
+          "budget": 150000,
+          "costActual": 0,
+          "subPoints": []
+        }
+      ]
+    },
+    {
+      "id": "ezj3yap7u",
+      "name": "SR2FA Feed extension support kaizen idea",
+      "code": "SR2FAFEE",
+      "description": "Pictorial view shared with balaji mali ",
+      "owner": "Ravindra Ahire",
+      "ownerEmployeeId": "emp-user-8",
+      "targetLaunchDate": "2026-01-09",
+      "startDate": "2026-01-05",
+      "overallStatus": "amber",
+      "lastUpdated": "2026-10-23",
+      "customCategories": [
+        "Priority",
+        "Short Term Project",
+        "Task Wise Activity",
+        "Support Required",
+        "Safety",
+        "Quality",
+        "Information & Team Suggestions"
+      ],
+      "points": [
+        {
+          "id": "pt-ezj3yap7u-init",
+          "category": "Scope",
+          "title": "SR2FA Feed extension support kaizen idea - Operational Scope & Baseline Setup",
+          "priority": "high",
+          "status": "in-progress",
+          "targetDate": "2026-01-09",
+          "startDate": "2026-01-05",
+          "assignedToEmployeeId": "emp-user-8",
+          "progressPercent": 20,
+          "budget": 20000,
+          "costActual": 4000,
+          "notes": "Pictorial view shared with balaji mali ",
+          "subPoints": []
+        }
+      ]
+    },
+    {
+      "id": "vrzsz8orx",
+      "name": " Update in SOP based on  CN ",
+      "code": "UPDATEIN",
+      "description": "CN implementing in SOP ",
+      "owner": "Sapna Shirsat",
+      "ownerEmployeeId": "emp-user-10",
+      "targetLaunchDate": "2027-02-07",
+      "startDate": "2026-07-01",
+      "overallStatus": "amber",
+      "lastUpdated": "2026-10-23",
+      "customCategories": [
+        "Priority",
+        "Short Term Project",
+        "Task Wise Activity",
+        "Support Required",
+        "Safety",
+        "Quality",
+        "Information & Team Suggestions"
+      ],
+      "points": [
+        {
+          "id": "pt-vrzsz8orx-init",
+          "category": "Scope",
+          "title": " Update in SOP based on  CN  - Operational Scope & Baseline Setup",
+          "priority": "high",
+          "status": "in-progress",
+          "targetDate": "2027-02-07",
+          "startDate": "2026-07-01",
+          "assignedToEmployeeId": "emp-user-10",
+          "progressPercent": 26,
+          "budget": 180000,
+          "costActual": 46800,
+          "notes": "CN implementing in SOP ",
+          "subPoints": []
+        }
+      ]
+    },
+    {
+      "id": "v0pd2ojvy",
+      "name": "EPS ",
+      "code": "EPS",
+      "description": "EPS Level One Sustenance and level 2 introduction.",
+      "owner": "Sapna Shirsat",
+      "ownerEmployeeId": "emp-user-10",
+      "targetLaunchDate": "2027-02-28",
+      "startDate": "2026-04-01",
+      "overallStatus": "amber",
+      "lastUpdated": "2026-10-23",
+      "customCategories": [
+        "Priority",
+        "Short Term Project",
+        "Task Wise Activity",
+        "Support Required",
+        "Safety",
+        "Quality",
+        "Information & Team Suggestions"
+      ],
+      "points": [
+        {
+          "id": "pt-v0pd2ojvy-init",
+          "category": "Scope",
+          "title": "EPS  - Operational Scope & Baseline Setup",
+          "priority": "high",
+          "status": "in-progress",
+          "targetDate": "2027-02-28",
+          "startDate": "2026-04-01",
+          "assignedToEmployeeId": "emp-user-10",
+          "progressPercent": 6,
+          "budget": 200000,
+          "costActual": 12000,
+          "notes": "EPS Level One Sustenance and level 2 introduction.",
+          "subPoints": []
+        }
+      ]
+    }
+  ],
+  "activeProjectId": "gnzrhlnh6",
+  "stickyNotes": [
+    {
+      "id": "sn-1",
+      "title": "Shift Handover Note",
+      "content": "Line 2 pneumatic valve tested and signed off. All night-shift operators completed safety checklist.",
+      "color": "yellow",
+      "author": "Sarah Connor",
+      "createdAt": "2026-10-17 07:15",
+      "pinned": true
+    },
+    {
+      "id": "sn-2",
+      "title": "Floor Kudos ⭐",
+      "content": "Huge shoutout to Alex for identifying the loose hydraulic fitting before startup!",
+      "color": "green",
+      "author": "John Doe",
+      "createdAt": "2026-10-17 08:30",
+      "pinned": true
+    },
+    {
+      "id": "sn-3",
+      "title": "Audit Preparation",
+      "content": "ISO 9001 internal mock audit scheduled for Thursday. Ensure calibration stamps are visible.",
+      "color": "blue",
+      "author": "Elena Rostova",
+      "createdAt": "2026-10-16 14:00",
+      "pinned": false
+    }
+  ],
+  "history": {
+    "2026-10-01": {
+      "widgets": [
+        {
+          "id": "d-safety-lti",
+          "title": "Days Since Last LTI",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "counter",
+          "value": 139,
+          "state": "green",
+          "description": "Number of operational days since the last Lost Time Injury (LTI)."
+        },
+        {
+          "id": "d-safety-ppe",
+          "title": "Daily PPE & Safety Audits",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "checklist",
+          "owner": "John Doe",
+          "state": "green",
+          "description": "Active PPE conformity verification on production lines.",
+          "checklist": [
+            {
+              "id": "ppe-1",
+              "label": "Safety Glasses & Face Shields worn",
+              "checked": true
+            },
+            {
+              "id": "ppe-2",
+              "label": "Steel-toed boots in designated zones",
+              "checked": true
+            },
+            {
+              "id": "ppe-3",
+              "label": "Ear protection active near grinders",
+              "checked": true
+            },
+            {
+              "id": "ppe-4",
+              "label": "Lifting harnesses inspected",
+              "checked": true
+            }
+          ]
+        },
+        {
+          "id": "d-safety-hazards",
+          "title": "Daily Hazards Identified",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "numeric",
+          "owner": "John Doe",
+          "unit": "Hazards",
+          "target": 0,
+          "actual": 1,
+          "state": "red",
+          "description": "New safety hazards or near-miss conditions spotted today."
+        },
+        {
+          "id": "d-sust-energy",
+          "title": "Daily Energy Consumption",
+          "pillar": "Sustainability",
+          "level": "daily",
+          "type": "numeric",
+          "owner": "Sarah Connor",
+          "unit": "kWh",
+          "target": 400,
+          "actual": 445,
+          "warningThreshold": 110,
+          "state": "red",
+          "description": "Facility daily electricity consumption. Target based on lean efficiency."
+        },
+        {
+          "id": "d-sust-waste",
+          "title": "Daily Waste Stream Sorting",
+          "pillar": "Sustainability",
+          "level": "daily",
+          "type": "checklist",
+          "owner": "Sarah Connor",
+          "state": "green",
+          "description": "Compliance audits for sorting of hazardous vs recyclable scrap.",
+          "checklist": [
+            {
+              "id": "ws-1",
+              "label": "Coolant filters sorted to hazardous bins",
+              "checked": true
+            },
+            {
+              "id": "ws-2",
+              "label": "Cardboard & plastic wrapping baled",
+              "checked": true
+            },
+            {
+              "id": "ws-3",
+              "label": "Machining chips cleaned from gutters",
+              "checked": true
+            }
+          ]
+        },
+        {
+          "id": "d-quality-defects",
+          "title": "Daily Defect Pareto Log",
+          "pillar": "Quality",
+          "level": "daily",
+          "type": "chart",
+          "owner": "Ellen Ripley",
+          "unit": "defects",
+          "target": 4,
+          "actual": 9,
+          "state": "red",
+          "description": "Defects logged on the inspection station today.",
+          "dataPoints": [
+            {
+              "label": "Surface Scratch",
+              "value": 4,
+              "target": 1
+            },
+            {
+              "label": "Dimensional Error",
+              "value": 3,
+              "target": 1
+            },
+            {
+              "label": "Solder Crack",
+              "value": 2,
+              "target": 1
+            },
+            {
+              "label": "Label Misaligned",
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        {
+          "id": "d-quality-firstoff",
+          "title": "First-Off Inspection Audits",
+          "pillar": "Quality",
+          "level": "daily",
+          "type": "checklist",
+          "owner": "Ellen Ripley",
+          "state": "green",
+          "description": "Initial unit verification before startup of each shift batch.",
+          "checklist": [
+            {
+              "id": "fo-1",
+              "label": "Shift A first-off signoff",
+              "checked": true
+            },
+            {
+              "id": "fo-2",
+              "label": "Shift B first-off signoff",
+              "checked": true
+            },
+            {
+              "id": "fo-3",
+              "label": "Measurement jig calibrated",
+              "checked": true
+            }
+          ]
+        },
+        {
+          "id": "d-delivery-throughput",
+          "title": "Daily Line Throughput",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "numeric",
+          "owner": "Alex Murphy",
+          "unit": "Units",
+          "target": 500,
+          "actual": 480,
+          "state": "red",
+          "description": "Completed products rolled off Assembly Line 2."
+        },
+        {
+          "id": "d-delivery-otif",
+          "title": "OTIF (On-Time In-Full) Rate",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "gauge",
+          "owner": "Alex Murphy",
+          "unit": "%",
+          "target": 98,
+          "actual": 94.2,
+          "state": "red",
+          "description": "Orders shipped exactly on schedule and with correct item count."
+        },
+        {
+          "id": "d-cost-oee",
+          "title": "Overall Equipment Effectiveness",
+          "pillar": "Cost",
+          "level": "daily",
+          "type": "gauge",
+          "owner": "Sarah Connor",
+          "unit": "%",
+          "target": 85,
+          "actual": 78.5,
+          "state": "red",
+          "description": "Integrated metric for machine Availability, Performance, and Quality."
+        },
+        {
+          "id": "d-cost-downtime",
+          "title": "Shift Unplanned Downtime",
+          "pillar": "Cost",
+          "level": "daily",
+          "type": "numeric",
+          "owner": "Sarah Connor",
+          "unit": "Minutes",
+          "target": 15,
+          "actual": 35,
+          "state": "red",
+          "description": "Minutes the CNC machines or conveyor lines were down unexpectedly."
+        },
+        {
+          "id": "d-capital-tools",
+          "title": "Critical Spare Parts Capex",
+          "pillar": "Capital",
+          "level": "daily",
+          "type": "numeric",
+          "owner": "John Doe",
+          "unit": "₹",
+          "target": 120000,
+          "actual": 105000,
+          "state": "green",
+          "description": "Daily operational capital spend on essential spare tool components in INR (₹)."
+        },
+        {
+          "id": "d-capital-proj-matrix",
+          "title": "Drill Rig Automation Project Matrix",
+          "pillar": "Capital",
+          "level": "daily",
+          "type": "projectMatrix",
+          "owner": "Ellen Ripley",
+          "state": "green",
+          "projectId": "prj-1",
+          "description": "Interactive Cost, Schedule, Scope, and Operational Requirements (Fixtures, BOMs, Resources, SOPs) tracking matrix."
+        },
+        {
+          "id": "d-support-sla",
+          "title": "Support SLA Ticket Adherence",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "gauge",
+          "unit": "%",
+          "target": 95,
+          "actual": 91.5,
+          "state": "red",
+          "description": "Percentage of support tickets (IT, Procurement, Maintenance) resolved within target SLA windows."
+        },
+        {
+          "id": "d-support-audits",
+          "title": "Safety Actions Closed <24h",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "numeric",
+          "unit": "%",
+          "target": 100,
+          "actual": 92,
+          "state": "red",
+          "description": "Rate of corrective action closure within 24 hours of EHS hazard reports."
+        },
+        {
+          "id": "d-support-procedures",
+          "title": "Support Preventive Checklist",
+          "pillar": "Sustainability",
+          "level": "daily",
+          "type": "checklist",
+          "state": "green",
+          "description": "Daily administrative and facility waste elimination protocols completed.",
+          "checklist": [
+            {
+              "id": "proc-1",
+              "label": "Procurement PO backlog review and dispute resolution",
+              "checked": true
+            },
+            {
+              "id": "proc-2",
+              "label": "Facilities hazardous waste storage area audit",
+              "checked": true
+            },
+            {
+              "id": "proc-3",
+              "label": "Daily cloud systems server backup verification",
+              "checked": true
+            }
+          ]
+        },
+        {
+          "id": "d-delivery-stopwatch",
+          "title": "Operator Standard Cycle Time Stopwatch",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "stopwatch",
+          "actual": 42,
+          "target": 45,
+          "state": "green",
+          "description": "Displays real-time cycle times against standard work takt. Warns if operator step exceeds standard."
+        },
+        {
+          "id": "d-cost-heatmap",
+          "title": "24-Hour Production OEE Machine Heatmap",
+          "pillar": "Cost",
+          "level": "daily",
+          "type": "heatmap",
+          "state": "green",
+          "description": "Mini hourly heat grid showing machine running/uptime state over past 24 hours."
+        },
+        {
+          "id": "d-quality-pareto",
+          "title": "Scrap & Waste Pareto Bar Chart",
+          "pillar": "Quality",
+          "level": "daily",
+          "type": "pareto",
+          "state": "red",
+          "description": "A horizontal bar chart pinpointing active scrap sources on the shopfloor."
+        },
+        {
+          "id": "d-safety-skills",
+          "title": "EHS & Assembly Skill Matrix Grid",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "skills",
+          "state": "green",
+          "description": "Tracks supervisor and operator machinery cross-training certifications."
+        },
+        {
+          "id": "d-capital-kanban",
+          "title": "Strategic CI Ideas Kanban",
+          "pillar": "Capital",
+          "level": "daily",
+          "type": "kanban",
+          "state": "green",
+          "description": "Track team waste elimination ideas through stages: To Do, Testing, Standardized."
+        },
+        {
+          "id": "d-quality-handover",
+          "title": "Supervisor Shift Handover Sign-off Block",
+          "pillar": "Quality",
+          "level": "daily",
+          "type": "handover",
+          "state": "green",
+          "description": "Handover sign-off checklist and supervisor timestamp validation."
+        },
+        {
+          "id": "d-safety-risk",
+          "title": "Active Floor Hazard Alert Index",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "riskGauge",
+          "actual": 35,
+          "target": 70,
+          "state": "green",
+          "description": "Gauge dial showing shopfloor threat indexing based on active LOTO isolations."
+        },
+        {
+          "id": "d-sust-emissions",
+          "title": "Shopfloor Carbon Emission Tracker",
+          "pillar": "Sustainability",
+          "level": "daily",
+          "type": "emission",
+          "actual": 170,
+          "target": 150,
+          "warningThreshold": 110,
+          "state": "red",
+          "description": "Energy-equivalent CO2 output trace in kg compared to carbon footprint bounds."
+        },
+        {
+          "id": "d-sust-radar",
+          "title": "Gemba Walk 5S Audit Radar",
+          "pillar": "Sustainability",
+          "level": "daily",
+          "type": "radar",
+          "state": "green",
+          "description": "Interactively score Sort, Set, Shine, Standardize, and Sustain walkabouts."
+        },
+        {
+          "id": "d-delivery-countdown",
+          "title": "Rig Packing Lead-Time Countdown",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "countdown",
+          "state": "green",
+          "description": "Progress milestone trail showing rig dispatch from factory to shipping bay."
+        },
+        {
+          "id": "d-delivery-pulse",
+          "title": "Rig Takt-Time Heartbeat Pulsar",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "pulse",
+          "actual": 85,
+          "target": 80,
+          "state": "green",
+          "description": "Pulsing indicator reflecting whether assembly pace meets high customer demand."
+        }
+      ],
+      "deviations": [],
+      "actionItems": [],
+      "safetyCross": {
+        "1": "green",
+        "2": "green",
+        "3": "green",
+        "4": "green",
+        "5": "green",
+        "6": "green",
+        "7": "green",
+        "8": "green",
+        "9": "green",
+        "10": "green",
+        "11": "green",
+        "12": "green",
+        "13": "green",
+        "14": "green",
+        "15": "green",
+        "16": "green",
+        "17": "green",
+        "18": "green",
+        "19": "green",
+        "20": "green",
+        "21": "green",
+        "22": "green",
+        "23": "green",
+        "24": "green",
+        "25": "green",
+        "26": "green",
+        "27": "green",
+        "28": "green",
+        "29": "green",
+        "30": "green",
+        "31": "none"
+      },
+      "safetyNotes": {
+        "1": "Shift startup briefing on eye protection completed.",
+        "15": "All line fire extinguishers inspected and verified active.",
+        "30": "No accidents logged today. Perfect shift compliance!"
+      },
+      "employees": [
+        {
+          "id": "emp-1",
+          "name": "John Doe",
+          "monthlyAvailableHours": 160
+        },
+        {
+          "id": "emp-2",
+          "name": "Sarah Connor",
+          "monthlyAvailableHours": 160
+        },
+        {
+          "id": "emp-3",
+          "name": "Alex Murphy",
+          "monthlyAvailableHours": 120
+        },
+        {
+          "id": "emp-4",
+          "name": "Ellen Ripley",
+          "monthlyAvailableHours": 180
+        }
+      ],
+      "timeBookings": [
+        {
+          "id": "book-1",
+          "employeeId": "emp-1",
+          "taskTitle": "Audit PPE & Safety compliance on line 1",
+          "plannedHours": 10,
+          "actualHours": 8,
+          "date": "2026-10-01"
+        },
+        {
+          "id": "book-2",
+          "employeeId": "emp-2",
+          "taskTitle": "Machining coolant level reset and cleaning",
+          "plannedHours": 15,
+          "actualHours": 16,
+          "date": "2026-10-02"
+        },
+        {
+          "id": "book-3",
+          "employeeId": "emp-3",
+          "taskTitle": "Calibrate measurement micrometer jigs",
+          "plannedHours": 8,
+          "actualHours": 8,
+          "date": "2026-10-03"
+        },
+        {
+          "id": "book-4",
+          "employeeId": "emp-4",
+          "taskTitle": "Emergency response drill and evacuation log",
+          "plannedHours": 12,
+          "actualHours": 10,
+          "date": "2026-10-04"
+        }
+      ],
+      "stickyNotes": [
+        {
+          "id": "sn-1",
+          "title": "Shift Handover Note",
+          "content": "Line 2 pneumatic valve tested and signed off. All night-shift operators completed safety checklist.",
+          "color": "yellow",
+          "author": "Sarah Connor",
+          "createdAt": "2026-10-17 07:15",
+          "pinned": true
+        },
+        {
+          "id": "sn-2",
+          "title": "Floor Kudos ⭐",
+          "content": "Huge shoutout to Alex for identifying the loose hydraulic fitting before startup!",
+          "color": "green",
+          "author": "John Doe",
+          "createdAt": "2026-10-17 08:30",
+          "pinned": true
+        },
+        {
+          "id": "sn-3",
+          "title": "Audit Preparation",
+          "content": "ISO 9001 internal mock audit scheduled for Thursday. Ensure calibration stamps are visible.",
+          "color": "blue",
+          "author": "Elena Rostova",
+          "createdAt": "2026-10-16 14:00",
+          "pinned": false
+        }
+      ]
+    },
+    "2026-10-02": {
+      "widgets": [
+        {
+          "id": "d-safety-lti",
+          "title": "Days Since Last LTI",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "counter",
+          "value": 142,
+          "state": "green",
+          "description": "Number of operational days since the last Lost Time Injury (LTI)."
+        },
+        {
+          "id": "d-safety-ppe",
+          "title": "Daily PPE & Safety Audits",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "checklist",
+          "owner": "John Doe",
+          "state": "green",
+          "description": "Active PPE conformity verification on production lines.",
+          "checklist": [
+            {
+              "id": "ppe-1",
+              "label": "Safety Glasses & Face Shields worn",
+              "checked": true
+            },
+            {
+              "id": "ppe-2",
+              "label": "Steel-toed boots in designated zones",
+              "checked": true
+            },
+            {
+              "id": "ppe-3",
+              "label": "Ear protection active near grinders",
+              "checked": true
+            },
+            {
+              "id": "ppe-4",
+              "label": "Lifting harnesses inspected",
+              "checked": true
+            }
+          ]
+        },
+        {
+          "id": "d-safety-hazards",
+          "title": "Daily Hazards Identified",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "numeric",
+          "owner": "John Doe",
+          "unit": "Hazards",
+          "target": 0,
+          "actual": 1,
+          "state": "red",
+          "description": "New safety hazards or near-miss conditions spotted today."
+        },
+        {
+          "id": "d-sust-energy",
+          "title": "Daily Energy Consumption",
+          "pillar": "Sustainability",
+          "level": "daily",
+          "type": "numeric",
+          "owner": "Sarah Connor",
+          "unit": "kWh",
+          "target": 400,
+          "actual": 435,
+          "warningThreshold": 110,
+          "state": "red",
+          "description": "Facility daily electricity consumption. Target based on lean efficiency."
+        },
+        {
+          "id": "d-sust-waste",
+          "title": "Daily Waste Stream Sorting",
+          "pillar": "Sustainability",
+          "level": "daily",
+          "type": "checklist",
+          "owner": "Sarah Connor",
+          "state": "green",
+          "description": "Compliance audits for sorting of hazardous vs recyclable scrap.",
+          "checklist": [
+            {
+              "id": "ws-1",
+              "label": "Coolant filters sorted to hazardous bins",
+              "checked": true
+            },
+            {
+              "id": "ws-2",
+              "label": "Cardboard & plastic wrapping baled",
+              "checked": true
+            },
+            {
+              "id": "ws-3",
+              "label": "Machining chips cleaned from gutters",
+              "checked": true
+            }
+          ]
+        },
+        {
+          "id": "d-quality-defects",
+          "title": "Daily Defect Pareto Log",
+          "pillar": "Quality",
+          "level": "daily",
+          "type": "chart",
+          "owner": "Ellen Ripley",
+          "unit": "defects",
+          "target": 4,
+          "actual": 9,
+          "state": "red",
+          "description": "Defects logged on the inspection station today.",
+          "dataPoints": [
+            {
+              "label": "Surface Scratch",
+              "value": 4,
+              "target": 1
+            },
+            {
+              "label": "Dimensional Error",
+              "value": 3,
+              "target": 1
+            },
+            {
+              "label": "Solder Crack",
+              "value": 2,
+              "target": 1
+            },
+            {
+              "label": "Label Misaligned",
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        {
+          "id": "d-quality-firstoff",
+          "title": "First-Off Inspection Audits",
+          "pillar": "Quality",
+          "level": "daily",
+          "type": "checklist",
+          "owner": "Ellen Ripley",
+          "state": "green",
+          "description": "Initial unit verification before startup of each shift batch.",
+          "checklist": [
+            {
+              "id": "fo-1",
+              "label": "Shift A first-off signoff",
+              "checked": true
+            },
+            {
+              "id": "fo-2",
+              "label": "Shift B first-off signoff",
+              "checked": true
+            },
+            {
+              "id": "fo-3",
+              "label": "Measurement jig calibrated",
+              "checked": true
+            }
+          ]
+        },
+        {
+          "id": "d-delivery-throughput",
+          "title": "Daily Line Throughput",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "numeric",
+          "owner": "Alex Murphy",
+          "unit": "Units",
+          "target": 500,
+          "actual": 480,
+          "state": "red",
+          "description": "Completed products rolled off Assembly Line 2."
+        },
+        {
+          "id": "d-delivery-otif",
+          "title": "OTIF (On-Time In-Full) Rate",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "gauge",
+          "owner": "Alex Murphy",
+          "unit": "%",
+          "target": 98,
+          "actual": 94.2,
+          "state": "red",
+          "description": "Orders shipped exactly on schedule and with correct item count."
+        },
+        {
+          "id": "d-cost-oee",
+          "title": "Overall Equipment Effectiveness",
+          "pillar": "Cost",
+          "level": "daily",
+          "type": "gauge",
+          "owner": "Sarah Connor",
+          "unit": "%",
+          "target": 85,
+          "actual": 78.5,
+          "state": "red",
+          "description": "Integrated metric for machine Availability, Performance, and Quality."
+        },
+        {
+          "id": "d-cost-downtime",
+          "title": "Shift Unplanned Downtime",
+          "pillar": "Cost",
+          "level": "daily",
+          "type": "numeric",
+          "owner": "Sarah Connor",
+          "unit": "Minutes",
+          "target": 15,
+          "actual": 35,
+          "state": "red",
+          "description": "Minutes the CNC machines or conveyor lines were down unexpectedly."
+        },
+        {
+          "id": "d-capital-tools",
+          "title": "Critical Spare Parts Capex",
+          "pillar": "Capital",
+          "level": "daily",
+          "type": "numeric",
+          "owner": "John Doe",
+          "unit": "₹",
+          "target": 120000,
+          "actual": 105000,
+          "state": "green",
+          "description": "Daily operational capital spend on essential spare tool components in INR (₹)."
+        },
+        {
+          "id": "d-capital-proj-matrix",
+          "title": "Drill Rig Automation Project Matrix",
+          "pillar": "Capital",
+          "level": "daily",
+          "type": "projectMatrix",
+          "owner": "Ellen Ripley",
+          "state": "green",
+          "projectId": "prj-1",
+          "description": "Interactive Cost, Schedule, Scope, and Operational Requirements (Fixtures, BOMs, Resources, SOPs) tracking matrix."
+        },
+        {
+          "id": "d-support-sla",
+          "title": "Support SLA Ticket Adherence",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "gauge",
+          "unit": "%",
+          "target": 95,
+          "actual": 91.5,
+          "state": "red",
+          "description": "Percentage of support tickets (IT, Procurement, Maintenance) resolved within target SLA windows."
+        },
+        {
+          "id": "d-support-audits",
+          "title": "Safety Actions Closed <24h",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "numeric",
+          "unit": "%",
+          "target": 100,
+          "actual": 92,
+          "state": "red",
+          "description": "Rate of corrective action closure within 24 hours of EHS hazard reports."
+        },
+        {
+          "id": "d-support-procedures",
+          "title": "Support Preventive Checklist",
+          "pillar": "Sustainability",
+          "level": "daily",
+          "type": "checklist",
+          "state": "green",
+          "description": "Daily administrative and facility waste elimination protocols completed.",
+          "checklist": [
+            {
+              "id": "proc-1",
+              "label": "Procurement PO backlog review and dispute resolution",
+              "checked": true
+            },
+            {
+              "id": "proc-2",
+              "label": "Facilities hazardous waste storage area audit",
+              "checked": true
+            },
+            {
+              "id": "proc-3",
+              "label": "Daily cloud systems server backup verification",
+              "checked": true
+            }
+          ]
+        },
+        {
+          "id": "d-delivery-stopwatch",
+          "title": "Operator Standard Cycle Time Stopwatch",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "stopwatch",
+          "actual": 42,
+          "target": 45,
+          "state": "green",
+          "description": "Displays real-time cycle times against standard work takt. Warns if operator step exceeds standard."
+        },
+        {
+          "id": "d-cost-heatmap",
+          "title": "24-Hour Production OEE Machine Heatmap",
+          "pillar": "Cost",
+          "level": "daily",
+          "type": "heatmap",
+          "state": "green",
+          "description": "Mini hourly heat grid showing machine running/uptime state over past 24 hours."
+        },
+        {
+          "id": "d-quality-pareto",
+          "title": "Scrap & Waste Pareto Bar Chart",
+          "pillar": "Quality",
+          "level": "daily",
+          "type": "pareto",
+          "state": "red",
+          "description": "A horizontal bar chart pinpointing active scrap sources on the shopfloor."
+        },
+        {
+          "id": "d-safety-skills",
+          "title": "EHS & Assembly Skill Matrix Grid",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "skills",
+          "state": "green",
+          "description": "Tracks supervisor and operator machinery cross-training certifications."
+        },
+        {
+          "id": "d-capital-kanban",
+          "title": "Strategic CI Ideas Kanban",
+          "pillar": "Capital",
+          "level": "daily",
+          "type": "kanban",
+          "state": "green",
+          "description": "Track team waste elimination ideas through stages: To Do, Testing, Standardized."
+        },
+        {
+          "id": "d-quality-handover",
+          "title": "Supervisor Shift Handover Sign-off Block",
+          "pillar": "Quality",
+          "level": "daily",
+          "type": "handover",
+          "state": "green",
+          "description": "Handover sign-off checklist and supervisor timestamp validation."
+        },
+        {
+          "id": "d-safety-risk",
+          "title": "Active Floor Hazard Alert Index",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "riskGauge",
+          "actual": 35,
+          "target": 70,
+          "state": "green",
+          "description": "Gauge dial showing shopfloor threat indexing based on active LOTO isolations."
+        },
+        {
+          "id": "d-sust-emissions",
+          "title": "Shopfloor Carbon Emission Tracker",
+          "pillar": "Sustainability",
+          "level": "daily",
+          "type": "emission",
+          "actual": 170,
+          "target": 150,
+          "warningThreshold": 110,
+          "state": "red",
+          "description": "Energy-equivalent CO2 output trace in kg compared to carbon footprint bounds."
+        },
+        {
+          "id": "d-sust-radar",
+          "title": "Gemba Walk 5S Audit Radar",
+          "pillar": "Sustainability",
+          "level": "daily",
+          "type": "radar",
+          "state": "green",
+          "description": "Interactively score Sort, Set, Shine, Standardize, and Sustain walkabouts."
+        },
+        {
+          "id": "d-delivery-countdown",
+          "title": "Rig Packing Lead-Time Countdown",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "countdown",
+          "state": "green",
+          "description": "Progress milestone trail showing rig dispatch from factory to shipping bay."
+        },
+        {
+          "id": "d-delivery-pulse",
+          "title": "Rig Takt-Time Heartbeat Pulsar",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "pulse",
+          "actual": 85,
+          "target": 80,
+          "state": "green",
+          "description": "Pulsing indicator reflecting whether assembly pace meets high customer demand."
+        }
+      ],
+      "deviations": [
+        {
+          "id": "dev-102",
+          "widgetId": "d-quality-defects",
+          "widgetTitle": "Daily Defect Pareto Log",
+          "pillar": "Quality",
+          "level": "daily",
+          "date": "2026-09-30",
+          "description": "Spike in \"Surface Scratch\" defects on extruded aluminum housings during Shift B.",
+          "fiveWhys": [
+            "Why? Heavy surface scratches found on 8 out of 50 housings.",
+            "Why? Unloading tray guide-rails were metal-on-metal with no protection pads.",
+            "Why? The Teflon protective sleeves on the guide rails had worn completely away.",
+            "Why? Guide rails were not included in the PM (Preventive Maintenance) checklist.",
+            "Why? Line layout changed 3 months ago; PM schedules were not updated post-change."
+          ],
+          "rootCause": "Guide-rail wear checklist was missing from regular preventive maintenance procedures post-layout changes.",
+          "actionItemId": "act-202",
+          "isResolved": false,
+          "ishikawaCategory": "Machine"
+        }
+      ],
+      "actionItems": [
+        {
+          "id": "act-203",
+          "pillar": "Sustainability",
+          "title": "Create Standard Shift Handoff Validation Board Checklist",
+          "owner": "Carlos Ruiz",
+          "dueDate": "2026-10-06",
+          "priority": "medium",
+          "status": "open",
+          "deviationId": "dev-103",
+          "notes": "Add physical signature box on the huddle board for shift leaders to verify CNC low-power status before leaving."
+        }
+      ],
+      "safetyCross": {
+        "1": "green",
+        "2": "green",
+        "3": "green",
+        "4": "green",
+        "5": "green",
+        "6": "green",
+        "7": "green",
+        "8": "green",
+        "9": "green",
+        "10": "green",
+        "11": "green",
+        "12": "green",
+        "13": "green",
+        "14": "green",
+        "15": "green",
+        "16": "green",
+        "17": "green",
+        "18": "green",
+        "19": "green",
+        "20": "green",
+        "21": "green",
+        "22": "green",
+        "23": "green",
+        "24": "green",
+        "25": "green",
+        "26": "green",
+        "27": "green",
+        "28": "green",
+        "29": "green",
+        "30": "red",
+        "31": "none"
+      },
+      "safetyNotes": {
+        "1": "Shift startup briefing on eye protection completed.",
+        "15": "All line fire extinguishers inspected and verified active.",
+        "30": "Hydraulic oil leakage identified under Assembly Station 4. Slip hazard created and resolved."
+      },
+      "employees": [
+        {
+          "id": "emp-1",
+          "name": "John Doe",
+          "monthlyAvailableHours": 160
+        },
+        {
+          "id": "emp-2",
+          "name": "Sarah Connor",
+          "monthlyAvailableHours": 160
+        },
+        {
+          "id": "emp-3",
+          "name": "Alex Murphy",
+          "monthlyAvailableHours": 120
+        },
+        {
+          "id": "emp-4",
+          "name": "Ellen Ripley",
+          "monthlyAvailableHours": 180
+        }
+      ],
+      "timeBookings": [
+        {
+          "id": "book-1",
+          "employeeId": "emp-1",
+          "taskTitle": "Audit PPE & Safety compliance on line 1",
+          "plannedHours": 10,
+          "actualHours": 8,
+          "date": "2026-10-01"
+        },
+        {
+          "id": "book-2",
+          "employeeId": "emp-2",
+          "taskTitle": "Machining coolant level reset and cleaning",
+          "plannedHours": 15,
+          "actualHours": 16,
+          "date": "2026-10-02"
+        },
+        {
+          "id": "book-3",
+          "employeeId": "emp-3",
+          "taskTitle": "Calibrate measurement micrometer jigs",
+          "plannedHours": 8,
+          "actualHours": 8,
+          "date": "2026-10-03"
+        },
+        {
+          "id": "book-4",
+          "employeeId": "emp-4",
+          "taskTitle": "Emergency response drill and evacuation log",
+          "plannedHours": 12,
+          "actualHours": 10,
+          "date": "2026-10-04"
+        }
+      ],
+      "stickyNotes": [
+        {
+          "id": "sn-1",
+          "title": "Shift Handover Note",
+          "content": "Line 2 pneumatic valve tested and signed off. All night-shift operators completed safety checklist.",
+          "color": "yellow",
+          "author": "Sarah Connor",
+          "createdAt": "2026-10-17 07:15",
+          "pinned": true
+        },
+        {
+          "id": "sn-2",
+          "title": "Floor Kudos ⭐",
+          "content": "Huge shoutout to Alex for identifying the loose hydraulic fitting before startup!",
+          "color": "green",
+          "author": "John Doe",
+          "createdAt": "2026-10-17 08:30",
+          "pinned": true
+        },
+        {
+          "id": "sn-3",
+          "title": "Audit Preparation",
+          "content": "ISO 9001 internal mock audit scheduled for Thursday. Ensure calibration stamps are visible.",
+          "color": "blue",
+          "author": "Elena Rostova",
+          "createdAt": "2026-10-16 14:00",
+          "pinned": false
+        }
+      ]
+    },
+    "2026-10-03": {
+      "widgets": [
+        {
+          "id": "d-safety-lti",
+          "title": "Days Since Last LTI",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "counter",
+          "value": 142,
+          "state": "green",
+          "description": "Number of operational days since the last Lost Time Injury (LTI)."
+        },
+        {
+          "id": "d-safety-ppe",
+          "title": "Daily PPE & Safety Audits",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "checklist",
+          "owner": "John Doe",
+          "state": "green",
+          "description": "Active PPE conformity verification on production lines.",
+          "checklist": [
+            {
+              "id": "ppe-1",
+              "label": "Safety Glasses & Face Shields worn",
+              "checked": true
+            },
+            {
+              "id": "ppe-2",
+              "label": "Steel-toed boots in designated zones",
+              "checked": true
+            },
+            {
+              "id": "ppe-3",
+              "label": "Ear protection active near grinders",
+              "checked": true
+            },
+            {
+              "id": "ppe-4",
+              "label": "Lifting harnesses inspected",
+              "checked": true
+            }
+          ]
+        },
+        {
+          "id": "d-safety-hazards",
+          "title": "Daily Hazards Identified",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "numeric",
+          "owner": "John Doe",
+          "unit": "Hazards",
+          "target": 0,
+          "actual": 1,
+          "state": "red",
+          "description": "New safety hazards or near-miss conditions spotted today."
+        },
+        {
+          "id": "d-sust-energy",
+          "title": "Daily Energy Consumption",
+          "pillar": "Sustainability",
+          "level": "daily",
+          "type": "numeric",
+          "owner": "Sarah Connor",
+          "unit": "kWh",
+          "target": 400,
+          "actual": 445,
+          "warningThreshold": 110,
+          "state": "red",
+          "description": "Facility daily electricity consumption. Target based on lean efficiency."
+        },
+        {
+          "id": "d-sust-waste",
+          "title": "Daily Waste Stream Sorting",
+          "pillar": "Sustainability",
+          "level": "daily",
+          "type": "checklist",
+          "owner": "Sarah Connor",
+          "state": "green",
+          "description": "Compliance audits for sorting of hazardous vs recyclable scrap.",
+          "checklist": [
+            {
+              "id": "ws-1",
+              "label": "Coolant filters sorted to hazardous bins",
+              "checked": true
+            },
+            {
+              "id": "ws-2",
+              "label": "Cardboard & plastic wrapping baled",
+              "checked": true
+            },
+            {
+              "id": "ws-3",
+              "label": "Machining chips cleaned from gutters",
+              "checked": true
+            }
+          ]
+        },
+        {
+          "id": "d-quality-defects",
+          "title": "Daily Defect Pareto Log",
+          "pillar": "Quality",
+          "level": "daily",
+          "type": "chart",
+          "owner": "Ellen Ripley",
+          "unit": "defects",
+          "target": 4,
+          "actual": 9,
+          "state": "red",
+          "description": "Defects logged on the inspection station today.",
+          "dataPoints": [
+            {
+              "label": "Surface Scratch",
+              "value": 4,
+              "target": 1
+            },
+            {
+              "label": "Dimensional Error",
+              "value": 3,
+              "target": 1
+            },
+            {
+              "label": "Solder Crack",
+              "value": 2,
+              "target": 1
+            },
+            {
+              "label": "Label Misaligned",
+              "value": 0,
+              "target": 1
+            }
+          ]
+        },
+        {
+          "id": "d-quality-firstoff",
+          "title": "First-Off Inspection Audits",
+          "pillar": "Quality",
+          "level": "daily",
+          "type": "checklist",
+          "owner": "Ellen Ripley",
+          "state": "green",
+          "description": "Initial unit verification before startup of each shift batch.",
+          "checklist": [
+            {
+              "id": "fo-1",
+              "label": "Shift A first-off signoff",
+              "checked": true
+            },
+            {
+              "id": "fo-2",
+              "label": "Shift B first-off signoff",
+              "checked": true
+            },
+            {
+              "id": "fo-3",
+              "label": "Measurement jig calibrated",
+              "checked": true
+            }
+          ]
+        },
+        {
+          "id": "d-delivery-throughput",
+          "title": "Daily Line Throughput",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "numeric",
+          "owner": "Alex Murphy",
+          "unit": "Units",
+          "target": 500,
+          "actual": 480,
+          "state": "red",
+          "description": "Completed products rolled off Assembly Line 2."
+        },
+        {
+          "id": "d-delivery-otif",
+          "title": "OTIF (On-Time In-Full) Rate",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "gauge",
+          "owner": "Alex Murphy",
+          "unit": "%",
+          "target": 98,
+          "actual": 94.2,
+          "state": "red",
+          "description": "Orders shipped exactly on schedule and with correct item count."
+        },
+        {
+          "id": "d-cost-oee",
+          "title": "Overall Equipment Effectiveness",
+          "pillar": "Cost",
+          "level": "daily",
+          "type": "gauge",
+          "owner": "Sarah Connor",
+          "unit": "%",
+          "target": 85,
+          "actual": 78.5,
+          "state": "red",
+          "description": "Integrated metric for machine Availability, Performance, and Quality."
+        },
+        {
+          "id": "d-cost-downtime",
+          "title": "Shift Unplanned Downtime",
+          "pillar": "Cost",
+          "level": "daily",
+          "type": "numeric",
+          "owner": "Sarah Connor",
+          "unit": "Minutes",
+          "target": 15,
+          "actual": 35,
+          "state": "red",
+          "description": "Minutes the CNC machines or conveyor lines were down unexpectedly."
+        },
+        {
+          "id": "d-capital-tools",
+          "title": "Critical Spare Parts Capex",
+          "pillar": "Capital",
+          "level": "daily",
+          "type": "numeric",
+          "owner": "John Doe",
+          "unit": "₹",
+          "target": 120000,
+          "actual": 105000,
+          "state": "green",
+          "description": "Daily operational capital spend on essential spare tool components in INR (₹)."
+        },
+        {
+          "id": "d-capital-proj-matrix",
+          "title": "Drill Rig Automation Project Matrix",
+          "pillar": "Capital",
+          "level": "daily",
+          "type": "projectMatrix",
+          "owner": "Ellen Ripley",
+          "state": "green",
+          "projectId": "prj-1",
+          "description": "Interactive Cost, Schedule, Scope, and Operational Requirements (Fixtures, BOMs, Resources, SOPs) tracking matrix."
+        },
+        {
+          "id": "d-support-sla",
+          "title": "Support SLA Ticket Adherence",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "gauge",
+          "unit": "%",
+          "target": 95,
+          "actual": 91.5,
+          "state": "red",
+          "description": "Percentage of support tickets (IT, Procurement, Maintenance) resolved within target SLA windows."
+        },
+        {
+          "id": "d-support-audits",
+          "title": "Safety Actions Closed <24h",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "numeric",
+          "unit": "%",
+          "target": 100,
+          "actual": 92,
+          "state": "red",
+          "description": "Rate of corrective action closure within 24 hours of EHS hazard reports."
+        },
+        {
+          "id": "d-support-procedures",
+          "title": "Support Preventive Checklist",
+          "pillar": "Sustainability",
+          "level": "daily",
+          "type": "checklist",
+          "state": "green",
+          "description": "Daily administrative and facility waste elimination protocols completed.",
+          "checklist": [
+            {
+              "id": "proc-1",
+              "label": "Procurement PO backlog review and dispute resolution",
+              "checked": true
+            },
+            {
+              "id": "proc-2",
+              "label": "Facilities hazardous waste storage area audit",
+              "checked": true
+            },
+            {
+              "id": "proc-3",
+              "label": "Daily cloud systems server backup verification",
+              "checked": true
+            }
+          ]
+        },
+        {
+          "id": "d-delivery-stopwatch",
+          "title": "Operator Standard Cycle Time Stopwatch",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "stopwatch",
+          "actual": 42,
+          "target": 45,
+          "state": "green",
+          "description": "Displays real-time cycle times against standard work takt. Warns if operator step exceeds standard."
+        },
+        {
+          "id": "d-cost-heatmap",
+          "title": "24-Hour Production OEE Machine Heatmap",
+          "pillar": "Cost",
+          "level": "daily",
+          "type": "heatmap",
+          "state": "green",
+          "description": "Mini hourly heat grid showing machine running/uptime state over past 24 hours."
+        },
+        {
+          "id": "d-quality-pareto",
+          "title": "Scrap & Waste Pareto Bar Chart",
+          "pillar": "Quality",
+          "level": "daily",
+          "type": "pareto",
+          "state": "red",
+          "description": "A horizontal bar chart pinpointing active scrap sources on the shopfloor."
+        },
+        {
+          "id": "d-safety-skills",
+          "title": "EHS & Assembly Skill Matrix Grid",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "skills",
+          "state": "green",
+          "description": "Tracks supervisor and operator machinery cross-training certifications."
+        },
+        {
+          "id": "d-capital-kanban",
+          "title": "Strategic CI Ideas Kanban",
+          "pillar": "Capital",
+          "level": "daily",
+          "type": "kanban",
+          "state": "green",
+          "description": "Track team waste elimination ideas through stages: To Do, Testing, Standardized."
+        },
+        {
+          "id": "d-quality-handover",
+          "title": "Supervisor Shift Handover Sign-off Block",
+          "pillar": "Quality",
+          "level": "daily",
+          "type": "handover",
+          "state": "green",
+          "description": "Handover sign-off checklist and supervisor timestamp validation."
+        },
+        {
+          "id": "d-safety-risk",
+          "title": "Active Floor Hazard Alert Index",
+          "pillar": "Safety",
+          "level": "daily",
+          "type": "riskGauge",
+          "actual": 35,
+          "target": 70,
+          "state": "green",
+          "description": "Gauge dial showing shopfloor threat indexing based on active LOTO isolations."
+        },
+        {
+          "id": "d-sust-emissions",
+          "title": "Shopfloor Carbon Emission Tracker",
+          "pillar": "Sustainability",
+          "level": "daily",
+          "type": "emission",
+          "actual": 170,
+          "target": 150,
+          "warningThreshold": 110,
+          "state": "red",
+          "description": "Energy-equivalent CO2 output trace in kg compared to carbon footprint bounds."
+        },
+        {
+          "id": "d-sust-radar",
+          "title": "Gemba Walk 5S Audit Radar",
+          "pillar": "Sustainability",
+          "level": "daily",
+          "type": "radar",
+          "state": "green",
+          "description": "Interactively score Sort, Set, Shine, Standardize, and Sustain walkabouts."
+        },
+        {
+          "id": "d-delivery-countdown",
+          "title": "Rig Packing Lead-Time Countdown",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "countdown",
+          "state": "green",
+          "description": "Progress milestone trail showing rig dispatch from factory to shipping bay."
+        },
+        {
+          "id": "d-delivery-pulse",
+          "title": "Rig Takt-Time Heartbeat Pulsar",
+          "pillar": "Delivery",
+          "level": "daily",
+          "type": "pulse",
+          "actual": 85,
+          "target": 80,
+          "state": "green",
+          "description": "Pulsing indicator reflecting whether assembly pace meets high customer demand."
+        }
+      ],
+      "deviations": [
+        {
+          "id": "dev-101",
+          "widgetId": "d-safety-hazards",
+          "widgetTitle": "Daily Hazards Identified",
+          "pillar": "Safety",
+          "level": "daily",
+          "date": "2026-10-01",
+          "description": "Hydraulic oil leakage identified under Assembly Station 4. Slip hazard created.",
+          "fiveWhys": [
+            "Why? Accumulation of oil on plant floor around Station 4.",
+            "Why? O-ring seal failed on the hydraulic manifold pressure line.",
+            "Why? High-pressure seal was not rated for high-temperature cycles.",
+            "Why? Replacement seal sourced from local general catalog instead of OEM.",
+            "Why? Maintenance stockout of genuine OEM heat-resistant seals."
+          ],
+          "rootCause": "Maintenance stockout led to installation of an incorrect, sub-standard temporary seal.",
+          "actionItemId": "act-201",
+          "isResolved": false,
+          "ishikawaCategory": "Material"
+        }
+      ],
+      "actionItems": [
+        {
+          "id": "act-201",
+          "pillar": "Safety",
+          "title": "Source & Restock OEM High-Temp Hydraulic Seals",
+          "owner": "Sarah Connor",
+          "dueDate": "2026-10-05",
+          "priority": "high",
+          "status": "in-progress",
+          "deviationId": "dev-101",
+          "notes": "Approved premium shipping from OEM. Part numbers cross-referenced to prevent local generic substitutes."
+        }
+      ],
+      "safetyCross": {
+        "1": "green",
+        "2": "green",
+        "3": "green",
+        "4": "green",
+        "5": "green",
+        "6": "green",
+        "7": "green",
+        "8": "green",
+        "9": "green",
+        "10": "green",
+        "11": "green",
+        "12": "green",
+        "13": "green",
+        "14": "green",
+        "15": "green",
+        "16": "green",
+        "17": "green",
+        "18": "green",
+        "19": "green",
+        "20": "green",
+        "21": "green",
+        "22": "green",
+        "23": "green",
+        "24": "green",
+        "25": "green",
+        "26": "green",
+        "27": "green",
+        "28": "green",
+        "29": "amber",
+        "30": "red",
+        "31": "none"
+      },
+      "safetyNotes": {
+        "1": "Shift startup briefing on eye protection completed.",
+        "15": "All line fire extinguishers inspected and verified active.",
+        "29": "Near-miss: Operator reported slick floor near hydraulic loop.",
+        "30": "Hydraulic oil leakage identified under Assembly Station 4. Slip hazard created and resolved."
+      },
+      "employees": [
+        {
+          "id": "emp-1",
+          "name": "John Doe",
+          "monthlyAvailableHours": 160
+        },
+        {
+          "id": "emp-2",
+          "name": "Sarah Connor",
+          "monthlyAvailableHours": 160
+        },
+        {
+          "id": "emp-3",
+          "name": "Alex Murphy",
+          "monthlyAvailableHours": 120
+        },
+        {
+          "id": "emp-4",
+          "name": "Ellen Ripley",
+          "monthlyAvailableHours": 180
+        }
+      ],
+      "timeBookings": [
+        {
+          "id": "book-1",
+          "employeeId": "emp-1",
+          "taskTitle": "Audit PPE & Safety compliance on line 1",
+          "plannedHours": 10,
+          "actualHours": 8,
+          "date": "2026-10-01"
+        },
+        {
+          "id": "book-2",
+          "employeeId": "emp-2",
+          "taskTitle": "Machining coolant level reset and cleaning",
+          "plannedHours": 15,
+          "actualHours": 16,
+          "date": "2026-10-02"
+        },
+        {
+          "id": "book-3",
+          "employeeId": "emp-3",
+          "taskTitle": "Calibrate measurement micrometer jigs",
+          "plannedHours": 8,
+          "actualHours": 8,
+          "date": "2026-10-03"
+        },
+        {
+          "id": "book-4",
+          "employeeId": "emp-4",
+          "taskTitle": "Emergency response drill and evacuation log",
+          "plannedHours": 12,
+          "actualHours": 10,
+          "date": "2026-10-04"
+        }
+      ],
+      "stickyNotes": [
+        {
+          "id": "sn-1",
+          "title": "Shift Handover Note",
+          "content": "Line 2 pneumatic valve tested and signed off. All night-shift operators completed safety checklist.",
+          "color": "yellow",
+          "author": "Sarah Connor",
+          "createdAt": "2026-10-17 07:15",
+          "pinned": true
+        },
+        {
+          "id": "sn-2",
+          "title": "Floor Kudos ⭐",
+          "content": "Huge shoutout to Alex for identifying the loose hydraulic fitting before startup!",
+          "color": "green",
+          "author": "John Doe",
+          "createdAt": "2026-10-17 08:30",
+          "pinned": true
+        },
+        {
+          "id": "sn-3",
+          "title": "Audit Preparation",
+          "content": "ISO 9001 internal mock audit scheduled for Thursday. Ensure calibration stamps are visible.",
+          "color": "blue",
+          "author": "Elena Rostova",
+          "createdAt": "2026-10-16 14:00",
+          "pinned": false
+        }
+      ]
+    }
+  }
+}

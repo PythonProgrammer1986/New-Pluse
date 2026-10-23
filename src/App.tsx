@@ -16,11 +16,15 @@ import HoursPlanner from './components/HoursPlanner';
 import ResourceMaster from './components/ResourceMaster';
 import ExcelSyncModal from './components/ExcelSyncModal';
 import ProjectMatrixView from './components/ProjectMatrixView';
+import HuddleRunnerModal from './components/HuddleRunnerModal';
+import HuddleStickyNotesPanel from './components/HuddleStickyNotesPanel';
+import VoiceInputButton from './components/VoiceInputButton';
 import { 
   Shield, Leaf, CheckCircle, TrendingUp, Coins, HardHat,
   Users, Activity, Calendar, Award, RefreshCw, AlertTriangle,
   Plus, Check, ChevronRight, Filter, LogOut, Sparkles, BookOpen,
-  ArrowRight, Landmark, FileSpreadsheet, FolderKanban
+  ArrowRight, Landmark, FileSpreadsheet, FolderKanban, Play,
+  Timer, Pin, MessageSquare, Search, X
 } from 'lucide-react';
 
 export default function App() {
@@ -68,13 +72,30 @@ export default function App() {
     deleteMatrixSubPoint,
     addCustomMatrixCategory,
     deleteCustomMatrixCategory,
-    updateCustomMatrixCategory
+    updateCustomMatrixCategory,
+    // Pinning, sticky notes, and attachment methods
+    togglePinWidget,
+    togglePinPoint,
+    addStickyNote,
+    updateStickyNote,
+    deleteStickyNote,
+    addPointAttachment,
+    deletePointAttachment,
+    addActionItemAttachment,
+    deleteActionItemAttachment,
+    loadLinkedOperationsFile
   } = useAppState();
 
   const [activeLevel, setActiveLevel] = useState<PulseLevel>('daily');
   const [activeTab, setActiveTab] = useState<'board' | 'actions' | 'backup' | 'hours' | 'master' | 'matrix'>('board');
   const [selectedPillarFilter, setSelectedPillarFilter] = useState<string>('all');
   
+  // Interactive 15-Minute Huddle Runner and Sticky Notes modals
+  const [showHuddleRunner, setShowHuddleRunner] = useState<boolean>(false);
+  const [showStickyNotes, setShowStickyNotes] = useState<boolean>(false);
+  const [boardSearchQuery, setBoardSearchQuery] = useState<string>('');
+  const [backupToast, setBackupToast] = useState<string | null>(null);
+
   // Custom widget creation form state
   const [showAddWidget, setShowAddWidget] = useState(false);
   const [showExcelSyncModal, setShowExcelSyncModal] = useState(false);
@@ -114,12 +135,19 @@ export default function App() {
   const currentEmployees = activeSnapshot ? (activeSnapshot.employees || []) : (state.employees || []);
   const currentTimeBookings = activeSnapshot ? (activeSnapshot.timeBookings || []) : (state.timeBookings || []);
 
-  // Filter widgets by active level and pillar
-  const displayedWidgets = currentWidgets.filter((w) => {
-    const matchesLevel = w.level === activeLevel;
-    const matchesPillar = selectedPillarFilter === 'all' || w.pillar === selectedPillarFilter;
-    return matchesLevel && matchesPillar;
-  });
+  // Filter widgets by active level, pillar, and search query, placing pinned widgets first
+  const displayedWidgets = currentWidgets
+    .filter((w) => {
+      const matchesLevel = w.level === activeLevel;
+      const matchesPillar = selectedPillarFilter === 'all' || w.pillar === selectedPillarFilter;
+      const matchesSearch = !boardSearchQuery.trim() || 
+        w.title.toLowerCase().includes(boardSearchQuery.toLowerCase()) ||
+        (w.owner && w.owner.toLowerCase().includes(boardSearchQuery.toLowerCase())) ||
+        (w.description && w.description.toLowerCase().includes(boardSearchQuery.toLowerCase())) ||
+        w.pillar.toLowerCase().includes(boardSearchQuery.toLowerCase());
+      return matchesLevel && matchesPillar && matchesSearch;
+    })
+    .sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
 
   const handleAddCustomWidget = (e: React.FormEvent) => {
     e.preventDefault();
@@ -359,7 +387,43 @@ export default function App() {
         </nav>
 
         {/* Workspace Quick Actions */}
-        <div className="flex items-center gap-3 self-end md:self-auto">
+        <div className="flex items-center gap-2.5 self-end md:self-auto flex-wrap">
+          {/* Shift Sticky Notes & Whiteboard */}
+          <button
+            type="button"
+            onClick={() => setShowStickyNotes(!showStickyNotes)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer border ${
+              showStickyNotes 
+                ? 'bg-[#FFC20E] text-slate-950 border-[#FFC20E] font-black' 
+                : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700'
+            }`}
+            title="Floor notices, handover notes, kudos & team whiteboard"
+          >
+            <MessageSquare className="w-3.5 h-3.5 text-[#FFC20E]" />
+            <span className="hidden sm:inline">Shift Notes</span>
+            <span className="bg-slate-900 text-[#FFC20E] text-[10px] font-mono px-1.5 py-0.2 rounded-full font-bold">
+              {(state.stickyNotes || []).length}
+            </span>
+          </button>
+
+          {/* 15-Minute Huddle Runner Auto-Stepper Launch Button */}
+          <button
+            type="button"
+            onClick={() => setShowHuddleRunner(true)}
+            className="px-3.5 py-1.5 bg-[#FFC20E] hover:bg-[#F3AF00] text-slate-950 font-black rounded-lg text-xs flex items-center gap-2 shadow-md transition-all cursor-pointer font-mono uppercase tracking-wider hover:scale-[1.02]"
+            title="Launch 15-Minute Daily Stand-up Huddle Runner with Auto-Stepper across Lean Pillars"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-950 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-slate-950"></span>
+            </span>
+            <Play className="w-3.5 h-3.5 fill-current" />
+            <span>15-Min Huddle</span>
+            <span className="bg-slate-950 text-[#FFC20E] text-[9px] px-1.5 py-0.5 rounded font-black hidden md:inline">
+              Auto-Stepper
+            </span>
+          </button>
+
           <div className="hidden lg:flex flex-col text-right font-mono text-[9px] text-slate-400">
             <span>Shift: Day Huddle</span>
             <span>Ref: 2026-10-02</span>
@@ -504,12 +568,14 @@ export default function App() {
                     type="button"
                     onClick={() => {
                       if (!snapshotTargetDate) {
-                        alert('Please select a date.');
+                        setBackupToast('Please select a date.');
+                        setTimeout(() => setBackupToast(null), 3000);
                         return;
                       }
                       saveSnapshot(snapshotTargetDate);
                       setSelectedSnapshotDate(snapshotTargetDate);
-                      alert(`Successfully saved backup snapshot for: ${snapshotTargetDate}!`);
+                      setBackupToast(`Saved backup snapshot for ${snapshotTargetDate}!`);
+                      setTimeout(() => setBackupToast(null), 3000);
                     }}
                     className="px-2.5 py-1.5 bg-slate-850 hover:bg-slate-800 text-white hover:text-[#FFC20E] text-[9px] font-black rounded-lg cursor-pointer transition-all uppercase tracking-wider"
                     title="Capture current board state and commit to historical backup registry"
@@ -519,11 +585,45 @@ export default function App() {
                 </div>
               </div>
 
+              {backupToast && (
+                <div className="fixed bottom-6 right-6 z-50 bg-emerald-600 text-white px-4 py-2 rounded-xl shadow-xl text-xs font-bold animate-fade-in flex items-center gap-2">
+                  <Check className="w-4 h-4 text-emerald-200" />
+                  <span>{backupToast}</span>
+                </div>
+              )}
+
               {activeTab === 'board' && (
                 <div className="flex flex-wrap items-center gap-2">
+                  {/* Instant Search Bar with Voice Input */}
+                  <div className="relative flex items-center">
+                    <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 pointer-events-none" />
+                    <input
+                      type="text"
+                      placeholder="Search KPIs, owners..."
+                      value={boardSearchQuery}
+                      onChange={(e) => setBoardSearchQuery(e.target.value)}
+                      className="text-xs pl-8 pr-16 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-[#FFC20E] w-48 sm:w-56 font-medium shadow-xs"
+                    />
+                    <div className="absolute right-1.5 flex items-center gap-1">
+                      {boardSearchQuery && (
+                        <button
+                          type="button"
+                          onClick={() => setBoardSearchQuery('')}
+                          className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-white cursor-pointer"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      )}
+                      <VoiceInputButton
+                        onTranscript={(txt) => setBoardSearchQuery(txt)}
+                        className="scale-90"
+                      />
+                    </div>
+                  </div>
+
                   <button
                     onClick={() => setShowExcelSyncModal(true)}
-                    className="px-3.5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white border border-slate-700 hover:border-[#FFC20E] rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-md transition-all cursor-pointer font-mono uppercase tracking-wider"
+                    className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white border border-slate-700 hover:border-[#FFC20E] rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-md transition-all cursor-pointer font-mono uppercase tracking-wider"
                     title="Import & Sync daily metric values directly from Excel (.xlsx, .csv)"
                   >
                     <FileSpreadsheet className="w-4 h-4 text-[#FFC20E]" />
@@ -533,9 +633,9 @@ export default function App() {
                   {activeLevel !== 'monthly' && (
                     <button
                       onClick={() => setShowAddWidget(!showAddWidget)}
-                      className="px-4 py-2.5 bg-[#FFC20E] hover:bg-[#F3AF00] text-slate-950 rounded-lg text-xs font-black flex items-center gap-1.5 shadow-lg shadow-[#FFC20E]/25 hover:shadow-[#FFC20E]/40 transition-all hover:scale-[1.02] cursor-pointer uppercase tracking-wider font-mono"
+                      className="px-4 py-2 bg-[#FFC20E] hover:bg-[#F3AF00] text-slate-950 rounded-lg text-xs font-black flex items-center gap-1.5 shadow-lg shadow-[#FFC20E]/25 hover:shadow-[#FFC20E]/40 transition-all hover:scale-[1.02] cursor-pointer uppercase tracking-wider font-mono"
                     >
-                      <Plus className="w-4 h-4" /> Add Custom Metric
+                      <Plus className="w-4 h-4" /> Add Metric
                     </button>
                   )}
                 </div>
@@ -865,6 +965,8 @@ export default function App() {
                             onDelete={deleteWidget}
                             userRole={state.currentUserRole}
                             onReorder={reorderWidgets}
+                            onTogglePin={togglePinWidget}
+                            onNavigateToProjectMatrix={() => setActiveTab('matrix')}
                             projects={state.projectMatrices || []}
                           />
                         ))}
@@ -926,6 +1028,7 @@ export default function App() {
                               onDelete={deleteWidget}
                               userRole={state.currentUserRole}
                               onReorder={reorderWidgets}
+                              onTogglePin={togglePinWidget}
                               onNavigateToProjectMatrix={() => setActiveTab('matrix')}
                               projects={state.projectMatrices || []}
                             />
@@ -965,6 +1068,7 @@ export default function App() {
                               onDelete={deleteWidget}
                               userRole={state.currentUserRole}
                               onReorder={reorderWidgets}
+                              onTogglePin={togglePinWidget}
                               onNavigateToProjectMatrix={() => setActiveTab('matrix')}
                               projects={state.projectMatrices || []}
                             />
@@ -1004,6 +1108,7 @@ export default function App() {
                               onDelete={deleteWidget}
                               userRole={state.currentUserRole}
                               onReorder={reorderWidgets}
+                              onTogglePin={togglePinWidget}
                               onNavigateToProjectMatrix={() => setActiveTab('matrix')}
                               projects={state.projectMatrices || []}
                             />
@@ -1033,6 +1138,7 @@ export default function App() {
                             onDelete={deleteWidget}
                             userRole={state.currentUserRole}
                             onReorder={reorderWidgets}
+                            onTogglePin={togglePinWidget}
                             onNavigateToProjectMatrix={() => setActiveTab('matrix')}
                             projects={state.projectMatrices || []}
                           />
@@ -1076,6 +1182,7 @@ export default function App() {
                           onDelete={deleteWidget}
                           userRole={state.currentUserRole}
                           onReorder={reorderWidgets}
+                          onTogglePin={togglePinWidget}
                           onNavigateToProjectMatrix={() => setActiveTab('matrix')}
                           projects={state.projectMatrices || []}
                         />
@@ -1094,6 +1201,8 @@ export default function App() {
               onDeleteActionItem={deleteActionItem}
               onAddActionItem={addActionItem}
               userRole={state.currentUserRole}
+              onAddAttachment={addActionItemAttachment}
+              onDeleteAttachment={deleteActionItemAttachment}
             />
           )}
 
@@ -1142,6 +1251,10 @@ export default function App() {
               onDeleteCustomCategory={deleteCustomMatrixCategory}
               onUpdateCustomCategory={updateCustomMatrixCategory}
               onNavigateToResourceMaster={() => setActiveTab('master')}
+              onTogglePinPoint={togglePinPoint}
+              onAddPointAttachment={addPointAttachment}
+              onDeletePointAttachment={deletePointAttachment}
+              onLoadLinkedOperations={loadLinkedOperationsFile}
             />
           )}
 
@@ -1152,6 +1265,7 @@ export default function App() {
                 onExport={exportBackup}
                 onImport={importBackup}
                 onReset={resetToTemplate}
+                onLoadLinkedOperations={loadLinkedOperationsFile}
               />
 
               {/* Help & Backup info section */}
@@ -1200,6 +1314,34 @@ export default function App() {
           onUpdateWidgetValue={updateWidgetValue}
           onClose={() => setShowExcelSyncModal(false)}
         />
+      )}
+
+      {/* 15-MINUTE HUDDLE RUNNER WITH AUTO-STEPPER MODAL */}
+      {showHuddleRunner && (
+        <HuddleRunnerModal
+          widgets={state.widgets}
+          deviations={state.deviations}
+          onUpdateWidgetValue={updateWidgetValue}
+          onAddActionItem={addActionItem}
+          onAddDeviation={addDeviation}
+          onClose={() => setShowHuddleRunner(false)}
+        />
+      )}
+
+      {/* SHIFT STICKY NOTES & NOTICE BOARD MODAL */}
+      {showStickyNotes && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="w-full max-w-5xl h-[85vh] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col">
+            <HuddleStickyNotesPanel
+              notes={state.stickyNotes || []}
+              onAddNote={addStickyNote}
+              onUpdateNote={updateStickyNote}
+              onDeleteNote={deleteStickyNote}
+              currentUserRole={state.currentUserRole}
+              onClose={() => setShowStickyNotes(false)}
+            />
+          </div>
+        </div>
       )}
 
     </div>

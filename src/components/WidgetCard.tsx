@@ -3,7 +3,7 @@ import { MetricWidget, Pillar, DataPoint, ProjectTrackRecord } from '../types';
 import { 
   Shield, Leaf, CheckCircle, TrendingUp, Coins, HardHat, 
   Trash2, Edit, Check, Play, Pause, RotateCcw, Info, AlertTriangle, 
-  Plus, Star, Layers, Clock, Sliders, X, ArrowRight, FolderKanban
+  Plus, Star, Layers, Clock, Sliders, X, ArrowRight, FolderKanban, Pin
 } from 'lucide-react';
 
 interface WidgetCardProps {
@@ -15,6 +15,7 @@ interface WidgetCardProps {
   onReorder?: (draggedId: string, targetId: string) => void;
   onNavigateToProjectMatrix?: () => void;
   projects?: ProjectTrackRecord[];
+  onTogglePin?: (id: string) => void;
 }
 
 export default function WidgetCard({
@@ -25,7 +26,8 @@ export default function WidgetCard({
   userRole,
   onReorder,
   onNavigateToProjectMatrix,
-  projects
+  projects,
+  onTogglePin
 }: WidgetCardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [tempActual, setTempActual] = useState(widget.actual?.toString() || '');
@@ -268,6 +270,21 @@ export default function WidgetCard({
             <div className="px-1.5 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-rose-600 text-white animate-bounce shadow" title={`Drift warning: Actual value has exceeded ${widget.warningThreshold}% of Target!`}>
               ⚠️ DRIFT
             </div>
+          )}
+
+          {onTogglePin && (
+            <button 
+              type="button"
+              onClick={() => onTogglePin(widget.id)}
+              className={`p-1 rounded-md transition-colors cursor-pointer ${
+                widget.pinned 
+                  ? 'text-[#FFC20E] bg-amber-500/20 shadow-xs' 
+                  : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
+              }`}
+              title={widget.pinned ? 'Unpin from Top Focus' : 'Pin to Top Focus Tray'}
+            >
+              <Pin className={`w-3.5 h-3.5 ${widget.pinned ? 'fill-current' : ''}`} />
+            </button>
           )}
 
           <button 

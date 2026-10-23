@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { 
   AppState, MetricWidget, Deviation, ActionItem, Pillar, PulseLevel, 
-  ProjectTrackRecord, MatrixPoint, MatrixSubPoint, MatrixItemStatus 
+  ProjectTrackRecord, MatrixPoint, MatrixSubPoint, MatrixItemStatus,
+  Attachment, StickyNote
 } from './types';
-import { INITIAL_STATE, INITIAL_PROJECT_MATRICES } from './seedData';
+import { INITIAL_STATE, INITIAL_PROJECT_MATRICES, INITIAL_STICKY_NOTES } from './seedData';
+import { convertOperationalDataToAppState } from './linkOperationalDataset';
 
 const LOCAL_STORAGE_KEY = 'daily_pulse_huddleboards_state_v1';
 
@@ -61,6 +63,9 @@ export function useAppState() {
           if (!parsed.activeProjectId && parsed.projectMatrices.length > 0) {
             parsed.activeProjectId = parsed.projectMatrices[0].id;
           }
+          if (!parsed.stickyNotes || !Array.isArray(parsed.stickyNotes)) {
+            parsed.stickyNotes = INITIAL_STICKY_NOTES;
+          }
           return parsed;
         }
       }
@@ -78,6 +83,17 @@ export function useAppState() {
       console.error('Failed to save state to localStorage', e);
     }
   }, [state]);
+
+  // Automatically link the attached operations dataset (File_to_link_16492beb.json) if starting from default seed
+  useEffect(() => {
+    const isDefaultSeed = !state.projectMatrices || 
+      (state.projectMatrices.length <= 1 && state.projectMatrices[0]?.code === 'PRJ-M2D');
+    if (isDefaultSeed) {
+      loadLinkedOperationsFile().catch((err) => {
+        console.warn('Could not auto-load File_to_link_16492beb.json on startup:', err);
+      });
+    }
+  }, []);
 
   const setTeam = (teamName: string) => {
     setState((prev) => ({ ...prev, currentTeam: teamName }));
@@ -400,14 +416,42 @@ export function useAppState() {
   const importBackup = (jsonString: string): boolean => {
     try {
       const parsed = JSON.parse(jsonString);
-      if (parsed && typeof parsed === 'object' && 'widgets' in parsed && 'deviations' in parsed) {
-        setState(parsed);
-        return true;
+      if (parsed && typeof parsed === 'object') {
+        if ('widgets' in parsed && 'deviations' in parsed) {
+          setState(parsed);
+          return true;
+        } else if ('tasks' in parsed || 'projects' in parsed || 'version' in parsed) {
+          setState((prev) => convertOperationalDataToAppState(parsed, prev));
+          return true;
+        }
       }
     } catch (e) {
       console.error('Error parsing backup JSON file', e);
     }
     return false;
+  };
+
+  const loadLinkedOperationsFile = async (): Promise<boolean> => {
+    try {
+      let res = await fetch('/converted_daily_pulse_new_format.json');
+      if (!res.ok) {
+        res = await fetch('/assets/aistudio/File_to_link_732fbf8e.json');
+      }
+      if (!res.ok) {
+        res = await fetch('/assets/aistudio/File_to_link_16492beb.json');
+      }
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const rawData = await res.json();
+      if ('widgets' in rawData && 'projectMatrices' in rawData) {
+        setState(rawData);
+      } else {
+        setState((prev) => convertOperationalDataToAppState(rawData, prev));
+      }
+      return true;
+    } catch (e) {
+      console.error('Error loading linked operations file:', e);
+      return false;
+    }
   };
 
   const updateSafetyNote = (dayIndex: number, note: string) => {
@@ -913,6 +957,157 @@ export function useAppState() {
     });
   };
 
+  const togglePinWidget = (id: string) => {
+    setState((prev) => ({
+      ...prev,
+      widgets: prev.widgets.map((w) => w.id === id ? { ...w, pinned: !w.pinned } : w)
+    }));
+  };
+
+  const togglePinPoint = (projectId: string, pointId: string) => {
+    setState((prev) => ({
+      ...prev,
+      projectMatrices: (prev.projectMatrices || []).map((prj) => {
+        if (prj.id !== projectId) return prj;
+        return {
+          ...prj,
+          points: prj.points.map((pt) => pt.id === pointId ? { ...pt, pinned: !pt.pinned } : pt)
+        };
+      })
+    }));
+  };
+
+  const addStickyNote = (note: Omit<StickyNote, 'id' | 'createdAt'>) => {
+    const newNote: StickyNote = {
+      ...note,
+      id: generateId('sn'),
+      createdAt: new Date().toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+    };
+    setState((prev) => ({
+      ...prev,
+      stickyNotes: [newNote, ...(prev.stickyNotes || [])]
+    }));
+  };
+
+  const updateStickyNote = (id: string, updates: Partial<StickyNote>) => {
+    setState((prev) => ({
+      ...prev,
+      stickyNotes: (prev.stickyNotes || []).map((n) => n.id === id ? { ...n, ...updates } : n)
+    }));
+  };
+
+  const deleteStickyNote = (id: string) => {
+    setState((prev) => ({
+      ...prev,
+      stickyNotes: (prev.stickyNotes || []).filter((n) => n.id !== id)
+    }));
+  };
+
+  const addPointAttachment = (projectId: string, pointId: string, attachment: Omit<Attachment, 'id' | 'timestamp'>) => {
+    const newAttachment: Attachment = {
+      ...attachment,
+      id: generateId('att'),
+      timestamp: new Date().toISOString()
+    };
+    setState((prev) => ({
+      ...prev,
+      projectMatrices: (prev.projectMatrices || []).map((prj) => {
+        if (prj.id !== projectId) return prj;
+        return {
+          ...prj,
+          points: prj.points.map((pt) => {
+            if (pt.id !== pointId) return pt;
+            return {
+              ...pt,
+              attachments: [...(pt.attachments || []), newAttachment]
+            };
+          })
+        };
+      })
+    }));
+  };
+
+  const deletePointAttachment = (projectId: string, pointId: string, attachmentId: string) => {
+    setState((prev) => ({
+      ...prev,
+      projectMatrices: (prev.projectMatrices || []).map((prj) => {
+        if (prj.id !== projectId) return prj;
+        return {
+          ...prj,
+          points: prj.points.map((pt) => {
+            if (pt.id !== pointId) return pt;
+            return {
+              ...pt,
+              attachments: (pt.attachments || []).filter((a) => a.id !== attachmentId)
+            };
+          })
+        };
+      })
+    }));
+  };
+
+  const addActionItemAttachment = (actionId: string, attachment: Omit<Attachment, 'id' | 'timestamp'>) => {
+    const newAttachment: Attachment = {
+      ...attachment,
+      id: generateId('att'),
+      timestamp: new Date().toISOString()
+    };
+    setState((prev) => ({
+      ...prev,
+      actionItems: prev.actionItems.map((act) => {
+        if (act.id !== actionId) return act;
+        return {
+          ...act,
+          attachments: [...(act.attachments || []), newAttachment]
+        };
+      })
+    }));
+  };
+
+  const deleteActionItemAttachment = (actionId: string, attachmentId: string) => {
+    setState((prev) => ({
+      ...prev,
+      actionItems: prev.actionItems.map((act) => {
+        if (act.id !== actionId) return act;
+        return {
+          ...act,
+          attachments: (act.attachments || []).filter((a) => a.id !== attachmentId)
+        };
+      })
+    }));
+  };
+
+  const addDeviationAttachment = (deviationId: string, attachment: Omit<Attachment, 'id' | 'timestamp'>) => {
+    const newAttachment: Attachment = {
+      ...attachment,
+      id: generateId('att'),
+      timestamp: new Date().toISOString()
+    };
+    setState((prev) => ({
+      ...prev,
+      deviations: prev.deviations.map((dev) => {
+        if (dev.id !== deviationId) return dev;
+        return {
+          ...dev,
+          attachments: [...(dev.attachments || []), newAttachment]
+        };
+      })
+    }));
+  };
+
+  const deleteDeviationAttachment = (deviationId: string, attachmentId: string) => {
+    setState((prev) => ({
+      ...prev,
+      deviations: prev.deviations.map((dev) => {
+        if (dev.id !== deviationId) return dev;
+        return {
+          ...dev,
+          attachments: (dev.attachments || []).filter((a) => a.id !== attachmentId)
+        };
+      })
+    }));
+  };
+
   const resetToTemplate = () => {
     setState(INITIAL_STATE);
   };
@@ -928,6 +1123,17 @@ export function useAppState() {
     addWidget,
     deleteWidget,
     reorderWidgets,
+    togglePinWidget,
+    togglePinPoint,
+    addStickyNote,
+    updateStickyNote,
+    deleteStickyNote,
+    addPointAttachment,
+    deletePointAttachment,
+    addActionItemAttachment,
+    deleteActionItemAttachment,
+    addDeviationAttachment,
+    deleteDeviationAttachment,
     addDeviation,
     updateDeviation,
     deleteDeviation,
@@ -936,6 +1142,7 @@ export function useAppState() {
     deleteActionItem,
     exportBackup,
     importBackup,
+    loadLinkedOperationsFile,
     resetToTemplate,
     saveSnapshot,
     restoreSnapshot,
