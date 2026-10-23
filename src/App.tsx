@@ -40,6 +40,8 @@ export default function App() {
     deleteWidget,
     reorderWidgets,
     addDeviation,
+    addMetricToWeeklyAnalysis,
+    removeMetricFromWeeklyAnalysis,
     updateDeviation,
     deleteDeviation,
     addActionItem,
@@ -148,6 +150,38 @@ export default function App() {
       return matchesLevel && matchesPillar && matchesSearch;
     })
     .sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
+
+  const renderWidgetCard = (widget: MetricWidget) => (
+    <WidgetCard
+      key={widget.id}
+      widget={widget}
+      onUpdateValue={updateWidgetValue}
+      onToggleChecklist={toggleChecklistItem}
+      onDelete={deleteWidget}
+      userRole={state.currentUserRole}
+      onReorder={reorderWidgets}
+      onTogglePin={togglePinWidget}
+      onNavigateToProjectMatrix={() => setActiveTab('matrix')}
+      projects={state.projectMatrices || []}
+      isInWeeklyAnalysis={currentDeviations.some(d => d.widgetId === widget.id && !d.isResolved)}
+      onAddToWeeklyAnalysis={(id) => {
+        addMetricToWeeklyAnalysis(id);
+        const w = currentWidgets.find(item => item.id === id);
+        setBackupToast(`Added "${w ? w.title : id}" to Weekly Analysis`);
+        setTimeout(() => setBackupToast(null), 3000);
+      }}
+      onRemoveFromWeeklyAnalysis={(id) => {
+        removeMetricFromWeeklyAnalysis(id);
+        const w = currentWidgets.find(item => item.id === id);
+        setBackupToast(`Removed "${w ? w.title : id}" from Weekly Analysis`);
+        setTimeout(() => setBackupToast(null), 3000);
+      }}
+      onNavigateToWeeklyAnalysis={() => {
+        setActiveLevel('weekly');
+        setActiveTab('board');
+      }}
+    />
+  );
 
   const handleAddCustomWidget = (e: React.FormEvent) => {
     e.preventDefault();
@@ -956,20 +990,7 @@ export default function App() {
                           />
                         )}
 
-                        {displayedWidgets.map((widget) => (
-                          <WidgetCard
-                            key={widget.id}
-                            widget={widget}
-                            onUpdateValue={updateWidgetValue}
-                            onToggleChecklist={toggleChecklistItem}
-                            onDelete={deleteWidget}
-                            userRole={state.currentUserRole}
-                            onReorder={reorderWidgets}
-                            onTogglePin={togglePinWidget}
-                            onNavigateToProjectMatrix={() => setActiveTab('matrix')}
-                            projects={state.projectMatrices || []}
-                          />
-                        ))}
+                        {displayedWidgets.map((widget) => renderWidgetCard(widget))}
                       </div>
                     </div>
                   ) : (
@@ -1019,20 +1040,7 @@ export default function App() {
                         {/* Display safety and sustainability daily widgets */}
                         {displayedWidgets
                           .filter((w) => w.pillar === 'Safety' || w.pillar === 'Sustainability')
-                          .map((widget) => (
-                            <WidgetCard
-                              key={widget.id}
-                              widget={widget}
-                              onUpdateValue={updateWidgetValue}
-                              onToggleChecklist={toggleChecklistItem}
-                              onDelete={deleteWidget}
-                              userRole={state.currentUserRole}
-                              onReorder={reorderWidgets}
-                              onTogglePin={togglePinWidget}
-                              onNavigateToProjectMatrix={() => setActiveTab('matrix')}
-                              projects={state.projectMatrices || []}
-                            />
-                          ))}
+                          .map((widget) => renderWidgetCard(widget))}
                       </div>
 
                       {/* Column 2: Quality & Delivery (Pillar Q & D) */}
@@ -1059,20 +1067,7 @@ export default function App() {
 
                         {displayedWidgets
                           .filter((w) => w.pillar === 'Quality' || w.pillar === 'Delivery')
-                          .map((widget) => (
-                            <WidgetCard
-                              key={widget.id}
-                              widget={widget}
-                              onUpdateValue={updateWidgetValue}
-                              onToggleChecklist={toggleChecklistItem}
-                              onDelete={deleteWidget}
-                              userRole={state.currentUserRole}
-                              onReorder={reorderWidgets}
-                              onTogglePin={togglePinWidget}
-                              onNavigateToProjectMatrix={() => setActiveTab('matrix')}
-                              projects={state.projectMatrices || []}
-                            />
-                          ))}
+                          .map((widget) => renderWidgetCard(widget))}
                       </div>
 
                       {/* Column 3: Cost & Capital (Pillar C & C) */}
@@ -1099,20 +1094,7 @@ export default function App() {
 
                         {displayedWidgets
                           .filter((w) => w.pillar === 'Cost' || w.pillar === 'Capital')
-                          .map((widget) => (
-                            <WidgetCard
-                              key={widget.id}
-                              widget={widget}
-                              onUpdateValue={updateWidgetValue}
-                              onToggleChecklist={toggleChecklistItem}
-                              onDelete={deleteWidget}
-                              userRole={state.currentUserRole}
-                              onReorder={reorderWidgets}
-                              onTogglePin={togglePinWidget}
-                              onNavigateToProjectMatrix={() => setActiveTab('matrix')}
-                              projects={state.projectMatrices || []}
-                            />
-                          ))}
+                          .map((widget) => renderWidgetCard(widget))}
                       </div>
 
                     </div>
@@ -1129,20 +1111,7 @@ export default function App() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {currentWidgets
                         .filter((w) => w.level === 'weekly' && (selectedPillarFilter === 'all' || w.pillar === selectedPillarFilter))
-                        .map((widget) => (
-                          <WidgetCard
-                            key={widget.id}
-                            widget={widget}
-                            onUpdateValue={updateWidgetValue}
-                            onToggleChecklist={toggleChecklistItem}
-                            onDelete={deleteWidget}
-                            userRole={state.currentUserRole}
-                            onReorder={reorderWidgets}
-                            onTogglePin={togglePinWidget}
-                            onNavigateToProjectMatrix={() => setActiveTab('matrix')}
-                            projects={state.projectMatrices || []}
-                          />
-                        ))}
+                        .map((widget) => renderWidgetCard(widget))}
                     </div>
 
                     {/* Integrated 5-Whys Diagram Board & Action Generator */}
@@ -1160,6 +1129,13 @@ export default function App() {
                         onAddDeviation={addDeviation}
                         actionItems={currentActionItems}
                         userRole={state.currentUserRole}
+                        widgets={currentWidgets}
+                        onAddMetricToWeekly={(id) => {
+                          addMetricToWeeklyAnalysis(id);
+                          const w = currentWidgets.find(item => item.id === id);
+                          setBackupToast(`Added "${w ? w.title : id}" to Weekly Analysis`);
+                          setTimeout(() => setBackupToast(null), 3000);
+                        }}
                       />
                     </div>
                   </div>
@@ -1173,20 +1149,7 @@ export default function App() {
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {currentWidgets
                       .filter((w) => w.level === 'monthly' && (selectedPillarFilter === 'all' || w.pillar === selectedPillarFilter))
-                      .map((widget) => (
-                        <WidgetCard
-                          key={widget.id}
-                          widget={widget}
-                          onUpdateValue={updateWidgetValue}
-                          onToggleChecklist={toggleChecklistItem}
-                          onDelete={deleteWidget}
-                          userRole={state.currentUserRole}
-                          onReorder={reorderWidgets}
-                          onTogglePin={togglePinWidget}
-                          onNavigateToProjectMatrix={() => setActiveTab('matrix')}
-                          projects={state.projectMatrices || []}
-                        />
-                      ))}
+                      .map((widget) => renderWidgetCard(widget))}
                   </div>
                 </div>
               )}

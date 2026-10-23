@@ -178,60 +178,10 @@ export function useAppState() {
         }
       }
 
-      // Automated check: if a widget changed to 'red', let's auto-suggest a deviation
-      // if one doesn't exist for today.
-      const changedWidget = updatedWidgets.find((w) => w.id === id);
-      let nextDeviations = [...prev.deviations];
-      let nextActionItems = [...prev.actionItems];
-      
-      if (changedWidget && changedWidget.state === 'red') {
-        const hasExisting = prev.deviations.some(
-          (d) => d.widgetId === id && !d.isResolved
-        );
-        if (!hasExisting) {
-          const devId = generateId('dev');
-          const newDev: Deviation = {
-            id: devId,
-            widgetId: changedWidget.id,
-            widgetTitle: changedWidget.title,
-            pillar: changedWidget.pillar,
-            level: changedWidget.level,
-            date: new Date().toISOString().split('T')[0],
-            description: `Deviation flagged: ${changedWidget.title} is performing outside target thresholds (${changedWidget.actual ?? ''} vs target ${changedWidget.target ?? ''}).`,
-            fiveWhys: [
-              'Why did the deviation occur? (Level 1 Root Cause)',
-              'Why? (Level 2 Root Cause)',
-              'Why? (Level 3 Root Cause)',
-              'Why? (Level 4 Root Cause)',
-              'Why? (Root cause driver established)'
-            ],
-            rootCause: 'Root cause analysis in progress...',
-            isResolved: false
-          };
-          nextDeviations = [newDev, ...nextDeviations];
-
-          // Auto-Drafted Countermeasure Action Item
-          const autoAction: ActionItem = {
-            id: generateId('act'),
-            pillar: changedWidget.pillar,
-            title: `INVESTIGATE: Audit operational logs and perform emergency SOP review for "${changedWidget.title}"`,
-            owner: 'Shift Supervisor',
-            dueDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 2 days from now
-            priority: 'high',
-            status: 'open',
-            notes: `Auto-generated countermeasure linked to deviation ${devId}.`,
-            deviationId: devId
-          };
-          nextActionItems = [autoAction, ...nextActionItems];
-        }
-      }
-
       return {
         ...prev,
         widgets: updatedWidgets,
-        projectMatrices: nextProjectMatrices,
-        deviations: nextDeviations,
-        actionItems: nextActionItems
+        projectMatrices: nextProjectMatrices
       };
     });
   };
@@ -308,6 +258,56 @@ export function useAppState() {
         deviations: [newDev, ...prev.deviations]
       };
     });
+  };
+
+  const addMetricToWeeklyAnalysis = (widgetId: string) => {
+    setState((prev) => {
+      const widget = prev.widgets.find((w) => w.id === widgetId);
+      if (!widget) return prev;
+
+      // Check if an unresolved deviation already exists for this widget
+      const hasExisting = prev.deviations.some(
+        (d) => d.widgetId === widgetId && !d.isResolved
+      );
+      if (hasExisting) {
+        return prev;
+      }
+
+      const devId = generateId('dev');
+      const actualDisplay = widget.actual !== undefined ? widget.actual : (widget.value !== undefined ? widget.value : 'deviation');
+      const targetDisplay = widget.target !== undefined ? widget.target : 'target';
+
+      const newDev: Deviation = {
+        id: devId,
+        widgetId: widget.id,
+        widgetTitle: widget.title,
+        pillar: widget.pillar,
+        level: 'weekly',
+        date: new Date().toISOString().split('T')[0],
+        description: `Deviation flagged: "${widget.title}" is outside target threshold (${actualDisplay} vs target ${targetDisplay}). Escalated to Weekly Stand-up for root cause analysis.`,
+        fiveWhys: [
+          `Why did "${widget.title}" deviate from target? (Level 1 Root Cause)`,
+          'Why? (Level 2 Root Cause)',
+          'Why? (Level 3 Root Cause)',
+          'Why? (Level 4 Root Cause)',
+          'Why? (Root cause driver established)'
+        ],
+        rootCause: 'Root cause analysis in progress...',
+        isResolved: false
+      };
+
+      return {
+        ...prev,
+        deviations: [newDev, ...prev.deviations]
+      };
+    });
+  };
+
+  const removeMetricFromWeeklyAnalysis = (widgetId: string) => {
+    setState((prev) => ({
+      ...prev,
+      deviations: prev.deviations.filter((d) => !(d.widgetId === widgetId && !d.isResolved))
+    }));
   };
 
   const updateDeviation = (id: string, updates: Partial<Deviation>) => {
@@ -1135,6 +1135,8 @@ export function useAppState() {
     addDeviationAttachment,
     deleteDeviationAttachment,
     addDeviation,
+    addMetricToWeeklyAnalysis,
+    removeMetricFromWeeklyAnalysis,
     updateDeviation,
     deleteDeviation,
     addActionItem,

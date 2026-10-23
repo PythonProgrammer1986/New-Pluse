@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Deviation, ActionItem, Pillar } from '../types';
+import { Deviation, ActionItem, Pillar, MetricWidget } from '../types';
 import { 
   AlertTriangle, ArrowRight, CheckCircle2, ChevronRight, Play, Plus, 
   HelpCircle, Trash2, Calendar, Shield, Leaf, CheckSquare, TrendingUp, Coins, HardHat,
-  GitCommit, Hammer, ClipboardList, Layers, Star
+  GitCommit, Hammer, ClipboardList, Layers, Star, PlusCircle
 } from 'lucide-react';
 
 interface DeviationSolverProps {
@@ -14,6 +14,8 @@ interface DeviationSolverProps {
   onAddDeviation?: (deviation: Omit<Deviation, 'id' | 'isResolved'>) => void;
   actionItems: ActionItem[];
   userRole: string;
+  widgets?: MetricWidget[];
+  onAddMetricToWeekly?: (widgetId: string) => void;
 }
 
 export default function DeviationSolver({
@@ -24,6 +26,8 @@ export default function DeviationSolver({
   onAddDeviation,
   actionItems,
   userRole,
+  widgets = [],
+  onAddMetricToWeekly,
 }: DeviationSolverProps) {
   const [selectedDevId, setSelectedDevId] = useState<string | null>(
     deviations.length > 0 ? deviations[0].id : null
@@ -172,6 +176,53 @@ export default function DeviationSolver({
             <span>Log Deviation</span>
           </button>
         </div>
+
+        {/* Shop floor metrics currently in deviation but not yet added to weekly analysis */}
+        {(() => {
+          const deviatingWidgetsNotInWeekly = widgets.filter(
+            (w) => w.state === 'red' && !deviations.some(d => d.widgetId === w.id && !d.isResolved)
+          );
+          if (deviatingWidgetsNotInWeekly.length === 0) return null;
+          return (
+            <div className="p-3 bg-amber-500/10 border-b border-amber-500/20 text-xs">
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[10px] font-mono font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider flex items-center gap-1">
+                  <AlertTriangle className="w-3 h-3 text-amber-600 dark:text-amber-400 shrink-0" />
+                  <span>Metric Deviations ({deviatingWidgetsNotInWeekly.length} Available)</span>
+                </span>
+              </div>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 mb-2 leading-tight">
+                Not yet in weekly analysis. Click button to add:
+              </p>
+              <div className="flex flex-col gap-1.5 max-h-36 overflow-y-auto">
+                {deviatingWidgetsNotInWeekly.map((w) => (
+                  <div
+                    key={w.id}
+                    className="flex items-center justify-between gap-2 p-1.5 bg-white dark:bg-slate-850 rounded border border-amber-500/30 text-xs shadow-xs"
+                  >
+                    <div className="min-w-0">
+                      <span className="font-bold text-slate-800 dark:text-slate-200 text-[11px] truncate block" title={w.title}>
+                        {w.title}
+                      </span>
+                      <span className="text-[9px] font-mono text-slate-400 uppercase">
+                        [{w.pillar}] {w.actual !== undefined ? `Actual: ${w.actual}` : ''} {w.target !== undefined ? `/ Target: ${w.target}` : ''}
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => onAddMetricToWeekly && onAddMetricToWeekly(w.id)}
+                      className="px-2 py-0.5 bg-[#FFC20E] hover:bg-[#E5B200] text-slate-950 text-[10px] font-black rounded flex items-center gap-1 cursor-pointer transition-all uppercase tracking-wider font-mono shrink-0 shadow-xs active:scale-95"
+                      title={`Add "${w.title}" to Weekly Analysis`}
+                    >
+                      <Plus className="w-2.5 h-2.5 stroke-[3]" />
+                      <span>Add</span>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
 
         <div className="flex-1 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800">
           {deviations.length === 0 ? (
