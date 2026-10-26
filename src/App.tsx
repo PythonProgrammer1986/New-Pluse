@@ -18,6 +18,7 @@ import ExcelSyncModal from './components/ExcelSyncModal';
 import ProjectMatrixView from './components/ProjectMatrixView';
 import HuddleRunnerModal from './components/HuddleRunnerModal';
 import HuddleStickyNotesPanel from './components/HuddleStickyNotesPanel';
+import HuddleScribeModal from './components/HuddleScribeModal';
 import VoiceInputButton from './components/VoiceInputButton';
 import { 
   Shield, Leaf, CheckCircle, TrendingUp, Coins, HardHat,
@@ -92,9 +93,10 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<'board' | 'actions' | 'backup' | 'hours' | 'master' | 'matrix'>('board');
   const [selectedPillarFilter, setSelectedPillarFilter] = useState<string>('all');
   
-  // Interactive 15-Minute Huddle Runner and Sticky Notes modals
+  // Interactive 15-Minute Huddle Runner, Sticky Notes, and AI Scribe modals
   const [showHuddleRunner, setShowHuddleRunner] = useState<boolean>(false);
   const [showStickyNotes, setShowStickyNotes] = useState<boolean>(false);
+  const [showHuddleScribe, setShowHuddleScribe] = useState<boolean>(false);
   const [boardSearchQuery, setBoardSearchQuery] = useState<string>('');
   const [backupToast, setBackupToast] = useState<string | null>(null);
 
@@ -437,6 +439,21 @@ export default function App() {
             <span className="hidden sm:inline">Shift Notes</span>
             <span className="bg-slate-900 text-[#FFC20E] text-[10px] font-mono px-1.5 py-0.2 rounded-full font-bold">
               {(state.stickyNotes || []).length}
+            </span>
+          </button>
+
+          {/* AI Autonomous Huddle Scribe Button */}
+          <button
+            type="button"
+            onClick={() => setShowHuddleScribe(true)}
+            className="px-3.5 py-1.5 bg-gradient-to-r from-amber-400 to-[#FFC20E] hover:from-amber-300 hover:to-[#E5B200] text-slate-950 font-black rounded-lg text-xs flex items-center gap-1.5 shadow-md transition-all cursor-pointer font-mono uppercase tracking-wider hover:scale-[1.02] border border-amber-300"
+            title="Launch AI Autonomous Huddle Scribe to listen and update metrics, projects, and actions via live speech"
+          >
+            <Sparkles className="w-3.5 h-3.5 fill-current text-slate-950" />
+            <span>AI Scribe</span>
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-950 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-slate-950"></span>
             </span>
           </button>
 
@@ -1279,6 +1296,23 @@ export default function App() {
         />
       )}
 
+      {/* AI AUTONOMOUS HUDDLE SCRIBE MODAL */}
+      {showHuddleScribe && (
+        <HuddleScribeModal
+          isOpen={showHuddleScribe}
+          onClose={() => setShowHuddleScribe(false)}
+          widgets={currentWidgets}
+          projects={state.projectMatrices || []}
+          employees={currentEmployees}
+          onUpdateWidgetValue={updateWidgetValue}
+          onAddMetricToWeekly={addMetricToWeeklyAnalysis}
+          onAddProject={addProjectMatrix}
+          onAddActionItem={addActionItem}
+          onUpdateSafetyCross={updateSafetyCross}
+          onUpdateSafetyNote={updateSafetyNote}
+        />
+      )}
+
       {/* 15-MINUTE HUDDLE RUNNER WITH AUTO-STEPPER MODAL */}
       {showHuddleRunner && (
         <HuddleRunnerModal
@@ -1288,6 +1322,7 @@ export default function App() {
           onAddActionItem={addActionItem}
           onAddDeviation={addDeviation}
           onClose={() => setShowHuddleRunner(false)}
+          onOpenScribe={() => setShowHuddleScribe(true)}
         />
       )}
 

@@ -15,6 +15,7 @@ interface HuddleRunnerModalProps {
   onAddActionItem: (action: Omit<ActionItem, 'id'>) => void;
   onAddDeviation?: (deviation: Omit<Deviation, 'id'>) => void;
   onClose: () => void;
+  onOpenScribe?: () => void;
 }
 
 interface PillarSchedule {
@@ -40,7 +41,8 @@ export default function HuddleRunnerModal({
   onUpdateWidgetValue,
   onAddActionItem,
   onAddDeviation,
-  onClose
+  onClose,
+  onOpenScribe
 }: HuddleRunnerModalProps) {
   // Timer state
   const [totalSecondsLeft, setTotalSecondsLeft] = useState<number>(TOTAL_HUDDLE_SECONDS);
@@ -278,14 +280,28 @@ export default function HuddleRunnerModal({
             </div>
           </div>
 
-          {/* Close Runner */}
-          <button
-            type="button"
-            onClick={onClose}
-            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white cursor-pointer"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          {/* Close & Action Buttons */}
+          <div className="flex items-center gap-2">
+            {onOpenScribe && (
+              <button
+                type="button"
+                onClick={onOpenScribe}
+                className="px-3 py-1.5 bg-[#FFC20E] hover:bg-[#E5B200] text-slate-950 font-black rounded-xl text-xs flex items-center gap-1.5 cursor-pointer font-mono uppercase tracking-wider transition-all shadow-sm"
+                title="Launch AI Autonomous Huddle Scribe"
+              >
+                <Sparkles className="w-3.5 h-3.5 fill-current" />
+                <span className="hidden sm:inline">AI Scribe</span>
+              </button>
+            )}
+
+            <button
+              type="button"
+              onClick={onClose}
+              className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {/* STEPPER NAVIGATION TRAY */}

@@ -94,12 +94,12 @@ export default function VoiceInputButton({
     };
   }, [onTranscript]);
 
-  const toggleListening = (e: React.MouseEvent) => {
+  const toggleListening = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
     if (!isSupported) {
-      setShowQuickPhrases(!showQuickPhrases);
+      setShowQuickPhrases(true);
       return;
     }
 
@@ -109,12 +109,25 @@ export default function VoiceInputButton({
       } catch {}
       setIsListening(false);
     } else {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          // Stop tracks immediately as speech recognition handles audio in Chrome
+          stream.getTracks().forEach(t => t.stop());
+        } catch (permErr) {
+          console.warn('Microphone permission not granted for VoiceInputButton:', permErr);
+          setShowQuickPhrases(true);
+          return;
+        }
+      }
+
       try {
         recognitionRef.current?.start();
         setIsListening(true);
       } catch (err) {
         console.warn('Recognition start error, falling back:', err);
         setIsListening(false);
+        setShowQuickPhrases(true);
       }
     }
   };
