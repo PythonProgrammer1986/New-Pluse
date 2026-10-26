@@ -55,7 +55,14 @@ export async function parseHuddleMeetingSpeech(
   context: ScribeContext,
   apiKey?: string
 ): Promise<ScribeResponse> {
-  const effectiveKey = apiKey || process.env.GEMINI_API_KEY;
+  const effectiveKey =
+    apiKey ||
+    (typeof process !== 'undefined' && process.env ? (
+      process.env.GEMINI_API_KEY ||
+      process.env.GOOGLE_API_KEY ||
+      process.env.VITE_GEMINI_API_KEY ||
+      process.env.GEMINI_KEY
+    ) : undefined);
 
   if (effectiveKey) {
     try {
@@ -153,7 +160,7 @@ Respond ONLY with valid JSON matching this schema:
 /**
  * Resilient deterministic parser when offline, testing, or awaiting API key setup.
  */
-function intelligentFallbackParser(text: string, context: ScribeContext): ScribeResponse {
+export function intelligentFallbackParser(text: string, context: ScribeContext): ScribeResponse {
   const lower = text.toLowerCase();
   const actions: ScribeAction[] = [];
   const actionId = () => `act-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;

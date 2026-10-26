@@ -42,9 +42,15 @@ async function startServer() {
 
   // Health check endpoint
   app.get('/api/health', (_req, res) => {
+    const hasKey = !!(
+      process.env.GEMINI_API_KEY ||
+      process.env.GOOGLE_API_KEY ||
+      process.env.VITE_GEMINI_API_KEY ||
+      process.env.GEMINI_KEY
+    );
     res.json({
       status: 'ok',
-      hasGeminiKey: !!process.env.GEMINI_API_KEY,
+      hasGeminiKey: hasKey,
       timestamp: new Date().toISOString()
     });
   });

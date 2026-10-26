@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { 
   MetricWidget, ProjectTrackRecord, Employee, Pillar, PulseLevel 
 } from '../types';
-import { ScribeAction, ScribeResponse } from '../services/huddleScribeService';
+import { ScribeAction, ScribeResponse, intelligentFallbackParser, ScribeContext } from '../services/huddleScribeService';
 import { 
   Mic, MicOff, Sparkles, Check, AlertTriangle, X, Play, Pause, 
-  ArrowRight, Shield, RefreshCw, Zap, Clock, Send, Volume2, FolderKanban, Plus
+  ArrowRight, Shield, RefreshCw, Zap, Clock, Send, Volume2, FolderKanban, Plus,
+  Key, ExternalLink, HelpCircle
 } from 'lucide-react';
 
 interface HuddleScribeModalProps {
@@ -65,6 +66,9 @@ export default function HuddleScribeModal({
   const [isProcessing, setIsProcessing] = useState(false);
   const [micPermissionError, setMicPermissionError] = useState<string | null>(null);
   const [audioVolume, setAudioVolume] = useState<number>(0);
+  const [serverHealth, setServerHealth] = useState<{ hasGeminiKey: boolean; environment?: string } | null>(null);
+  const [showVercelKeyGuide, setShowVercelKeyGuide] = useState(false);
+  const [activeEngineModel, setActiveEngineModel] = useState<string>('Detecting engine...');
   
   // Pending actions waiting for confirmation/auto-apply
   const [pendingActions, setPendingActions] = useState<Array<ScribeAction & { timer?: number }>>([]);
@@ -81,13 +85,32 @@ export default function HuddleScribeModal({
   const animFrameRef = useRef<number | null>(null);
   const restartTimeoutRef = useRef<any>(null);
 
-  // Check speech support on mount
+  // Check speech support and server health on mount/open
   useEffect(() => {
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     if (!SpeechRecognition) {
       setSpeechSupported(false);
     }
   }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    fetch('/api/health')
+      .then(res => res.json())
+      .then(data => {
+        setServerHealth(data);
+        if (data.hasGeminiKey) {
+          setActiveEngineModel('Gemini 3.8 Flash (Active)');
+        } else {
+          setActiveEngineModel('Autonomous Rule Engine');
+        }
+      })
+      .catch(() => {
+        setServerHealth({ hasGeminiKey: false });
+        setActiveEngineModel('Autonomous Rule Engine');
+      });
+  }, [isOpen]);
 
   // Teardown when modal closes
   useEffect(() => {
@@ -318,45 +341,61 @@ export default function HuddleScribeModal({
     const timeNow = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     setSessionTranscript(prev => [{ id: `ts-${Date.now()}`, text: statementText, time: timeNow }, ...prev]);
 
+    const currentContext: ScribeContext = {
+      widgets: widgets.map(w => ({
+        id: w.id,
+        title: w.title,
+        pillar: w.pillar,
+        level: w.level,
+        actual: w.actual,
+        target: w.target,
+        value: w.value,
+        state: w.state,
+        owner: w.owner
+      })),
+      projects: projects.map(p => ({
+        id: p.id,
+        name: p.name,
+        code: p.code,
+        owner: p.owner
+      })),
+      employees: employees.map(e => ({
+        id: e.id,
+        name: e.name
+      }))
+    };
+
+    let data: ScribeResponse | null = null;
+
     try {
       const response = await fetch('/api/huddle-scribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           spokenText: statementText,
-          context: {
-            widgets: widgets.map(w => ({
-              id: w.id,
-              title: w.title,
-              pillar: w.pillar,
-              level: w.level,
-              actual: w.actual,
-              target: w.target,
-              value: w.value,
-              state: w.state,
-              owner: w.owner
-            })),
-            projects: projects.map(p => ({
-              id: p.id,
-              name: p.name,
-              code: p.code,
-              owner: p.owner
-            })),
-            employees: employees.map(e => ({
-              id: e.id,
-              name: e.name
-            }))
-          }
+          context: currentContext
         })
       });
 
-      if (!response.ok) {
-        throw new Error(`Scribe server returned status ${response.status}`);
+      if (response.ok) {
+        data = await response.json();
+      } else {
+        console.warn(`Scribe API returned status ${response.status}, utilizing local intelligent engine`);
       }
+    } catch (err) {
+      console.warn('Backend Scribe API network notice, switching to local autonomous engine:', err);
+    }
 
-      const data: ScribeResponse = await response.json();
-      
-      if (data.actions && data.actions.length > 0) {
+    // If backend was unreachable or had no detected actions, run local intelligent parser
+    if (!data || !data.actions || data.actions.length === 0) {
+      data = intelligentFallbackParser(statementText, currentContext);
+    }
+
+    try {
+      if (data && data.actions && data.actions.length > 0) {
+        if (data.modelUsed) {
+          setActiveEngineModel(data.modelUsed);
+        }
         // Enqueue actions
         const newActionsWithTimers = data.actions.map(act => ({
           ...act,
@@ -372,8 +411,8 @@ export default function HuddleScribeModal({
           });
         }
       }
-    } catch (err) {
-      console.error('Failed to parse statement via Scribe API:', err);
+    } catch (processErr) {
+      console.error('Error applying parsed actions:', processErr);
     } finally {
       setIsProcessing(false);
       setManualText('');
@@ -531,6 +570,25 @@ export default function HuddleScribeModal({
           </div>
 
           <div className="flex items-center gap-2">
+            {serverHealth?.hasGeminiKey ? (
+              <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[10px] font-mono">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Gemini 3.8 Flash Active</span>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setShowVercelKeyGuide(true)}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-amber-500/15 border border-amber-500/30 text-amber-300 hover:bg-amber-500/25 transition-colors text-[10px] font-mono cursor-pointer"
+                title="Click to view instructions for setting GEMINI_API_KEY on Vercel"
+              >
+                <Key className="w-3 h-3 text-[#FFC20E]" />
+                <span className="hidden md:inline">Connect Gemini on Vercel</span>
+                <span className="md:hidden">Add Key</span>
+                <HelpCircle className="w-3 h-3 opacity-70" />
+              </button>
+            )}
+
             <button
               type="button"
               onClick={onClose}
@@ -879,8 +937,21 @@ export default function HuddleScribeModal({
         {/* Footer */}
         <div className="px-6 py-3 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-950 flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 text-[11px] font-mono">
-            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span>Vercel Serverless Ready (/api/huddle-scribe) • Powered by Gemini 3.8 Flash</span>
+            <span className={`w-2 h-2 rounded-full ${serverHealth?.hasGeminiKey ? 'bg-emerald-500' : 'bg-[#FFC20E]'}`}></span>
+            <span>
+              Engine: <strong className="text-slate-800 dark:text-slate-200">{activeEngineModel}</strong>
+            </span>
+            <span className="text-slate-300 dark:text-slate-700">•</span>
+            <span>Vercel Serverless: <code>/api/huddle-scribe</code></span>
+            {!serverHealth?.hasGeminiKey && (
+              <button
+                type="button"
+                onClick={() => setShowVercelKeyGuide(true)}
+                className="text-[#FFC20E] underline hover:text-[#E5B200] ml-1 cursor-pointer font-bold"
+              >
+                Setup Vercel Gemini Key
+              </button>
+            )}
           </div>
 
           <button
@@ -893,6 +964,123 @@ export default function HuddleScribeModal({
         </div>
 
       </div>
+
+      {/* Vercel Gemini API Key Setup Instructions Modal */}
+      {showVercelKeyGuide && (
+        <div className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fade-in">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-xl shadow-2xl p-6 space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-[#FFC20E] flex items-center justify-center text-slate-950 font-black">
+                  <Key className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="font-black text-sm uppercase tracking-wider text-slate-900 dark:text-white">
+                    Connect Gemini Key on Vercel
+                  </h4>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+                    Zero-leak server-side environment variable configuration
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowVercelKeyGuide(false)}
+                className="p-1 rounded text-slate-400 hover:text-white hover:bg-slate-800 cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-3 text-xs text-slate-700 dark:text-slate-300">
+              <p className="leading-relaxed">
+                To power the AI Scribe on Vercel with <strong>Gemini 3.8 Flash</strong>, add your API key securely to your Vercel Project Settings:
+              </p>
+
+              <div className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-3.5 rounded-xl space-y-2.5 font-mono text-[11px]">
+                <div className="flex items-start gap-2">
+                  <span className="w-5 h-5 rounded-full bg-[#FFC20E] text-slate-950 font-bold flex items-center justify-center shrink-0 text-[10px]">1</span>
+                  <div>
+                    <span>Go to your </span>
+                    <a
+                      href="https://vercel.com/dashboard"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#FFC20E] underline inline-flex items-center gap-0.5 font-bold"
+                    >
+                      Vercel Dashboard <ExternalLink className="w-3 h-3 inline" />
+                    </a>
+                    <span> and select this project.</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <span className="w-5 h-5 rounded-full bg-[#FFC20E] text-slate-950 font-bold flex items-center justify-center shrink-0 text-[10px]">2</span>
+                  <div>
+                    <span>Click <strong>Settings</strong> &rarr; <strong>Environment Variables</strong>.</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <span className="w-5 h-5 rounded-full bg-[#FFC20E] text-slate-950 font-bold flex items-center justify-center shrink-0 text-[10px]">3</span>
+                  <div className="space-y-1">
+                    <div>
+                      <span>Key Name: </span>
+                      <code className="bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded text-amber-600 dark:text-amber-400 font-bold">
+                        GEMINI_API_KEY
+                      </code>
+                    </div>
+                    <div>
+                      <span>Value: </span>
+                      <code className="bg-slate-200 dark:bg-slate-800 px-1.5 py-0.5 rounded text-slate-700 dark:text-slate-300">
+                        AIzaSy... (from Google AI Studio)
+                      </code>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <span className="w-5 h-5 rounded-full bg-[#FFC20E] text-slate-950 font-bold flex items-center justify-center shrink-0 text-[10px]">4</span>
+                  <div>
+                    <span>Select <strong>Production</strong>, <strong>Preview</strong>, and <strong>Development</strong>, then click <strong>Save</strong>.</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-2">
+                  <span className="w-5 h-5 rounded-full bg-[#FFC20E] text-slate-950 font-bold flex items-center justify-center shrink-0 text-[10px]">5</span>
+                  <div>
+                    <span>Go to the <strong>Deployments</strong> tab and click <strong>Redeploy</strong> so Vercel loads the new variable.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-[11px] text-emerald-800 dark:text-emerald-300">
+                <strong>Instant Fallback Active:</strong> Even before adding the key on Vercel, the app's built-in Autonomous Rule Engine is fully operational for speech and preset actions!
+              </div>
+            </div>
+
+            <div className="pt-2 flex items-center justify-between">
+              <a
+                href="https://aistudio.google.com/app/apikey"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[11px] text-[#FFC20E] hover:underline flex items-center gap-1 font-mono font-bold"
+              >
+                <span>Get a Gemini API Key from Google AI Studio</span>
+                <ExternalLink className="w-3 h-3" />
+              </a>
+
+              <button
+                type="button"
+                onClick={() => setShowVercelKeyGuide(false)}
+                className="px-4 py-2 bg-[#FFC20E] hover:bg-[#E5B200] text-slate-950 font-black text-xs rounded-xl cursor-pointer uppercase font-mono tracking-wider shadow-sm"
+              >
+                Got It
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

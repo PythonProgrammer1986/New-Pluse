@@ -19,7 +19,16 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const { spokenText, context } = req.body || {};
+    let body = req.body;
+    if (typeof body === 'string') {
+      try {
+        body = JSON.parse(body);
+      } catch (parseErr) {
+        console.warn('Failed to parse req.body as JSON string:', parseErr);
+      }
+    }
+
+    const { spokenText, context } = body || {};
 
     if (!spokenText || typeof spokenText !== 'string') {
       return res.status(400).json({ error: 'Missing or invalid "spokenText" parameter.' });
@@ -31,7 +40,13 @@ export default async function handler(req: any, res: any) {
       employees: []
     };
 
-    const result = await parseHuddleMeetingSpeech(spokenText, defaultContext);
+    const effectiveKey =
+      process.env.GEMINI_API_KEY ||
+      process.env.GOOGLE_API_KEY ||
+      process.env.VITE_GEMINI_API_KEY ||
+      process.env.GEMINI_KEY;
+
+    const result = await parseHuddleMeetingSpeech(spokenText, defaultContext, effectiveKey);
     return res.status(200).json(result);
   } catch (error: any) {
     console.error('Error in /api/huddle-scribe serverless function:', error);
