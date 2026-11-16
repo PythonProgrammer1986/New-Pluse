@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { StickyNote } from '../types';
 import VoiceInputButton from './VoiceInputButton';
-import { 
-  Pin, Plus, Trash2, Edit2, X, Check, MessageSquare, 
-  Sparkles, Calendar, PenTool, Image as ImageIcon
-} from 'lucide-react';
+import { Pin, Plus, Trash2, X, MessageSquare } from 'lucide-react';
 
 interface HuddleStickyNotesPanelProps {
   notes: StickyNote[];
@@ -49,21 +46,20 @@ export default function HuddleStickyNotesPanel({
   const getColorStyles = (color: string) => {
     switch (color) {
       case 'yellow':
-        return 'bg-amber-100 dark:bg-amber-950/60 border-amber-300 dark:border-amber-700/60 text-amber-950 dark:text-amber-100';
+        return 'bg-[#FFFBEB] border-[#FFC20E]/60 text-[#262A2E]';
       case 'green':
-        return 'bg-emerald-100 dark:bg-emerald-950/60 border-emerald-300 dark:border-emerald-700/60 text-emerald-950 dark:text-emerald-100';
+        return 'bg-emerald-50 border-emerald-300 text-[#262A2E]';
       case 'blue':
-        return 'bg-sky-100 dark:bg-sky-950/60 border-sky-300 dark:border-sky-700/60 text-sky-950 dark:text-sky-100';
+        return 'bg-[#F3F4F6] border-gray-300 text-[#262A2E]';
       case 'pink':
-        return 'bg-rose-100 dark:bg-rose-950/60 border-rose-300 dark:border-rose-700/60 text-rose-950 dark:text-rose-100';
+        return 'bg-rose-50 border-rose-300 text-[#262A2E]';
       case 'purple':
-        return 'bg-purple-100 dark:bg-purple-950/60 border-purple-300 dark:border-purple-700/60 text-purple-950 dark:text-purple-100';
+        return 'bg-amber-50 border-amber-300 text-[#262A2E]';
       default:
-        return 'bg-amber-100 dark:bg-amber-950/60 border-amber-300 text-amber-950';
+        return 'bg-[#FFFBEB] border-[#FFC20E]/60 text-[#262A2E]';
     }
   };
 
-  // Sort notes: pinned first, then chronological
   const sortedNotes = [...notes]
     .filter((n) => filterColor === 'all' || n.color === filterColor)
     .sort((a, b) => {
@@ -73,48 +69,48 @@ export default function HuddleStickyNotesPanel({
     });
 
   return (
-    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-lg space-y-4">
+    <div className="bg-white h-full flex flex-col p-6 space-y-4 overflow-y-auto">
       {/* Header */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-3">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-xl bg-[#FFC20E] text-slate-950 flex items-center justify-center font-bold">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-200 pb-4">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-[#FFC20E] text-[#1F2328] flex items-center justify-center font-bold">
             <MessageSquare className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-extrabold text-slate-900 dark:text-white uppercase tracking-wider font-mono">
-              Huddleboard Sticky Notes & Chalkboard
+            <h3 className="text-sm font-extrabold text-[#262A2E] uppercase tracking-wider">
+              Shift Notes &amp; Handover Board
             </h3>
-            <span className="text-[10px] text-slate-500 font-mono">
-              Shift handovers, floor kudos, safety alerts & whiteboard memos
+            <span className="text-[11px] text-gray-500">
+              Shift handovers, floor kudos, safety alerts &amp; memos
             </span>
           </div>
         </div>
 
         <div className="flex items-center gap-2">
-          {/* Color filter */}
-          <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+          <div className="flex items-center gap-1.5 bg-[#F7F8F9] border border-gray-200 p-1 rounded-xl">
             <button
               type="button"
               onClick={() => setFilterColor('all')}
-              className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold cursor-pointer ${
-                filterColor === 'all' ? 'bg-white dark:bg-slate-900 shadow-sm text-slate-900 dark:text-white' : 'text-slate-400'
+              className={`px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-bold cursor-pointer ${
+                filterColor === 'all' ? 'bg-white shadow-xs text-[#262A2E]' : 'text-gray-500'
               }`}
             >
               All
             </button>
-            {(['yellow', 'green', 'blue', 'pink', 'purple'] as const).map((c) => (
+            {(['yellow', 'blue', 'green', 'pink'] as const).map((c) => (
               <button
                 key={c}
                 type="button"
                 onClick={() => setFilterColor(c)}
                 className={`w-3.5 h-3.5 rounded-full cursor-pointer transition-transform ${
-                  filterColor === c ? 'scale-125 ring-2 ring-slate-400' : 'opacity-70 hover:opacity-100'
+                  filterColor === c ? 'scale-125 ring-2 ring-[#262A2E]' : 'opacity-70 hover:opacity-100'
                 } ${
-                  c === 'yellow' ? 'bg-amber-400' :
-                  c === 'green' ? 'bg-emerald-400' :
-                  c === 'blue' ? 'bg-sky-400' :
-                  c === 'pink' ? 'bg-rose-400' : 'bg-purple-400'
+                  c === 'yellow' ? 'bg-[#FFC20E]' :
+                  c === 'blue' ? 'bg-gray-400' :
+                  c === 'green' ? 'bg-emerald-500' :
+                  'bg-rose-400'
                 }`}
+                title={`Filter ${c} notes`}
               />
             ))}
           </div>
@@ -122,16 +118,16 @@ export default function HuddleStickyNotesPanel({
           <button
             type="button"
             onClick={() => setShowAddForm(!showAddForm)}
-            className="px-3.5 py-1.5 bg-[#FFC20E] hover:bg-amber-400 text-slate-950 text-xs font-black rounded-xl cursor-pointer flex items-center gap-1.5 shadow-md shadow-[#FFC20E]/20"
+            className="px-3.5 py-1.5 bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] text-xs font-bold rounded-lg cursor-pointer flex items-center gap-1.5 shadow-xs"
           >
-            <Plus className="w-3.5 h-3.5" /> Post Sticky Note
+            <Plus className="w-3.5 h-3.5" /> Post Note
           </button>
 
           {onClose && (
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800"
+              className="p-1.5 rounded-lg text-gray-500 hover:text-[#262A2E] hover:bg-gray-100 cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -139,30 +135,30 @@ export default function HuddleStickyNotesPanel({
         </div>
       </div>
 
-      {/* Add New Note Form Overlay */}
+      {/* Add New Note Form */}
       {showAddForm && (
-        <form onSubmit={handleCreate} className="p-4 bg-slate-50 dark:bg-slate-850 border border-slate-200 dark:border-slate-800 rounded-xl space-y-3 animate-fade-in">
+        <form onSubmit={handleCreate} className="p-4 bg-[#F7F8F9] border border-gray-200 rounded-xl space-y-3 animate-fade-in">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-700 dark:text-slate-200">
-              New Shift Sticky Note
+            <span className="text-xs font-bold text-[#262A2E]">
+              New Shift Note
             </span>
             <div className="flex items-center gap-2">
               <VoiceInputButton
                 onTranscript={(txt) => setNewContent((prev) => prev ? `${prev} ${txt}` : txt)}
               />
-              <div className="flex items-center gap-1">
-                {(['yellow', 'green', 'blue', 'pink', 'purple'] as const).map((c) => (
+              <div className="flex items-center gap-1.5">
+                {(['yellow', 'blue', 'green', 'pink'] as const).map((c) => (
                   <button
                     key={c}
                     type="button"
                     onClick={() => setNewColor(c)}
                     className={`w-4 h-4 rounded-full cursor-pointer ${
-                      newColor === c ? 'scale-125 ring-2 ring-slate-950 dark:ring-white' : 'opacity-70'
+                      newColor === c ? 'scale-125 ring-2 ring-[#262A2E]' : 'opacity-70'
                     } ${
-                      c === 'yellow' ? 'bg-amber-400' :
-                      c === 'green' ? 'bg-emerald-400' :
-                      c === 'blue' ? 'bg-sky-400' :
-                      c === 'pink' ? 'bg-rose-400' : 'bg-purple-400'
+                      c === 'yellow' ? 'bg-[#FFC20E]' :
+                      c === 'blue' ? 'bg-gray-400' :
+                      c === 'green' ? 'bg-emerald-500' :
+                      'bg-rose-400'
                     }`}
                   />
                 ))}
@@ -174,30 +170,30 @@ export default function HuddleStickyNotesPanel({
             type="text"
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
-            placeholder="Note subject (e.g. Line 2 Safety Handover, Shift Kudos)"
-            className="w-full px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-800 dark:text-slate-100 font-bold focus:outline-none focus:border-[#FFC20E]"
+            placeholder="Subject (e.g. Line 2 Safety Handover, Shift Kudos)"
+            className="w-full px-3 py-1.5 rounded-lg border border-gray-300 bg-white text-xs text-[#262A2E] font-bold focus:outline-none focus:ring-2 focus:ring-[#FFC20E]"
           />
 
           <textarea
             value={newContent}
             onChange={(e) => setNewContent(e.target.value)}
             rows={3}
-            placeholder="Dictate with microphone or type shift notice here..."
-            className="w-full p-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:border-[#FFC20E] resize-none"
+            placeholder="Dictate with microphone or type shift notice..."
+            className="w-full p-2.5 rounded-lg border border-gray-300 bg-white text-xs text-[#262A2E] focus:outline-none focus:ring-2 focus:ring-[#FFC20E] resize-none"
           />
 
           <div className="flex justify-end gap-2">
             <button
               type="button"
               onClick={() => setShowAddForm(false)}
-              className="px-3 py-1.5 text-xs font-bold text-slate-500 hover:text-slate-700"
+              className="px-3 py-1.5 text-xs font-semibold text-gray-600 hover:bg-gray-200 rounded-lg cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={!newContent.trim()}
-              className="px-4 py-1.5 bg-[#FFC20E] text-slate-950 text-xs font-black rounded-lg hover:bg-amber-400 cursor-pointer disabled:opacity-40"
+              className="px-4 py-1.5 bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] text-xs font-bold rounded-lg cursor-pointer disabled:opacity-40"
             >
               Pin to Board
             </button>
@@ -210,13 +206,10 @@ export default function HuddleStickyNotesPanel({
         {sortedNotes.map((note) => (
           <div
             key={note.id}
-            className={`p-4 rounded-2xl border shadow-sm flex flex-col justify-between space-y-3 transition-all hover:shadow-md relative ${getColorStyles(
-              note.color
-            )}`}
+            className={`p-4 rounded-xl border shadow-xs flex flex-col justify-between space-y-3 transition-all hover:shadow-md ${getColorStyles(note.color)}`}
           >
-            {/* Top Bar of Note */}
             <div className="flex items-start justify-between gap-2">
-              <h4 className="text-xs font-black uppercase tracking-wider font-mono truncate">
+              <h4 className="text-xs font-extrabold uppercase tracking-wider truncate">
                 {note.title}
               </h4>
 
@@ -226,7 +219,7 @@ export default function HuddleStickyNotesPanel({
                   onClick={() => onUpdateNote(note.id, { pinned: !note.pinned })}
                   title={note.pinned ? 'Unpin note' : 'Pin to top'}
                   className={`p-1 rounded-lg cursor-pointer ${
-                    note.pinned ? 'text-amber-600 dark:text-amber-400 font-black' : 'opacity-40 hover:opacity-100'
+                    note.pinned ? 'text-[#262A2E]' : 'opacity-40 hover:opacity-100'
                   }`}
                 >
                   <Pin className={`w-3.5 h-3.5 ${note.pinned ? 'fill-current' : ''}`} />
@@ -242,13 +235,11 @@ export default function HuddleStickyNotesPanel({
               </div>
             </div>
 
-            {/* Note Content */}
             <p className="text-xs leading-relaxed whitespace-pre-line font-medium">
               {note.content}
             </p>
 
-            {/* Note Footer */}
-            <div className="pt-2 border-t border-black/10 dark:border-white/10 flex items-center justify-between text-[10px] font-mono opacity-75">
+            <div className="pt-2 border-t border-black/10 flex items-center justify-between text-[10px] font-mono text-gray-600">
               <span>By {note.author}</span>
               <span>{note.createdAt}</span>
             </div>
@@ -256,8 +247,8 @@ export default function HuddleStickyNotesPanel({
         ))}
 
         {sortedNotes.length === 0 && (
-          <div className="col-span-full py-8 text-center text-xs text-slate-400 font-mono">
-            No active shift sticky notes. Click &ldquo;Post Sticky Note&rdquo; to add reminders or kudos!
+          <div className="col-span-full py-10 text-center text-xs text-gray-500 font-mono">
+            No active shift notes. Click &ldquo;Post Note&rdquo; to add reminders or kudos.
           </div>
         )}
       </div>

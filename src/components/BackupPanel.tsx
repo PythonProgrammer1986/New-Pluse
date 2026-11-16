@@ -16,7 +16,7 @@ export default function BackupPanel({
 }: BackupPanelProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [importStatus, setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [statusMessage, setStatusMessage] = useState('');
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -28,48 +28,47 @@ export default function BackupPanel({
       const success = onImport(text);
       if (success) {
         setImportStatus('success');
-        setErrorMessage('');
+        setStatusMessage('All board metrics, 5-Why root cause sheets, and action items have been restored.');
         setTimeout(() => setImportStatus('idle'), 4000);
       } else {
         setImportStatus('error');
-        setErrorMessage('Invalid file structure. Make sure you are uploading a valid Huddleboard JSON backup.');
+        setStatusMessage('Invalid file structure. Make sure you are uploading a valid Huddleboard JSON backup.');
       }
     };
     reader.onerror = () => {
       setImportStatus('error');
-      setErrorMessage('Failed to read backup file.');
+      setStatusMessage('Failed to read backup file.');
     };
     reader.readAsText(file);
-    
-    // Reset file input value
+
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+    <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-xs space-y-5">
       <div>
-        <h3 className="font-bold text-slate-800 dark:text-white text-sm flex items-center gap-2">
-          <Download className="w-4 h-4 text-emerald-600" />
-          Huddleboard Backup Facility
+        <h3 className="font-bold text-[#262A2E] text-sm flex items-center gap-2">
+          <Download className="w-4 h-4 text-[#262A2E]" />
+          Huddleboard Backup & Dataset Sync
         </h3>
-        <p className="text-[11px] text-slate-400 mt-1">
-          Save, backup, and restore your full team configuration and huddleboard metrics instantly.
+        <p className="text-xs text-gray-500 mt-1">
+          Save, restore, or load your team configuration and operational huddleboard state.
         </p>
       </div>
 
       {/* Linked Operations Dataset 1-Click Sync */}
       {onLoadLinkedOperations && (
-        <div className="bg-[#FFC20E]/10 border border-[#FFC20E]/30 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 animate-fade-in">
+        <div className="bg-[#FFFBEB] border border-[#FFC20E]/50 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-start gap-2.5">
-            <FileText className="w-5 h-5 text-[#FFC20E] shrink-0 mt-0.5" />
+            <FileText className="w-5 h-5 text-[#262A2E] shrink-0 mt-0.5" />
             <div>
-              <span className="text-xs font-bold text-slate-800 dark:text-slate-100 block">
-                Linked Operations Dataset Available (File_to_link_16492beb.json)
+              <span className="text-xs font-bold text-[#262A2E] block">
+                Linked Operations Dataset Ready
               </span>
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 block mt-0.5 leading-relaxed">
-                Contains live projects (SmartROC T45, ST1030, RC 30, Boomer M2D), 40+ production tasks, employee rosters & hour bookings.
+              <span className="text-[11px] text-gray-600 block mt-0.5 leading-relaxed">
+                Contains live projects (SmartROC T45, ST1030, RC 30, Boomer M2D), production tasks, employee rosters &amp; hour bookings.
               </span>
             </div>
           </div>
@@ -79,16 +78,16 @@ export default function BackupPanel({
               const ok = await onLoadLinkedOperations();
               if (ok) {
                 setImportStatus('success');
-                setErrorMessage('');
+                setStatusMessage('Linked Operations Dataset loaded into workspace.');
                 setTimeout(() => setImportStatus('idle'), 4000);
               } else {
                 setImportStatus('error');
-                setErrorMessage('Could not load File_to_link_16492beb.json. Check file availability.');
+                setStatusMessage('Could not load linked operational dataset.');
               }
             }}
-            className="px-3.5 py-2 bg-[#FFC20E] hover:bg-[#F3AF00] text-slate-950 font-black text-xs rounded-lg shadow-sm shrink-0 cursor-pointer transition-all uppercase tracking-wider"
+            className="px-4 py-2 bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] font-bold text-xs rounded-lg shadow-xs shrink-0 cursor-pointer transition-colors"
           >
-            Load Linked Operations Data
+            Load Operations Data
           </button>
         </div>
       )}
@@ -96,22 +95,24 @@ export default function BackupPanel({
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
         {/* Export Button */}
         <button
+          type="button"
           onClick={onExport}
-          className="flex flex-col items-center justify-center p-4 border border-slate-200 dark:border-slate-800 hover:border-emerald-500 dark:hover:border-emerald-600 hover:bg-emerald-50/10 dark:hover:bg-emerald-950/10 rounded-xl text-center group transition-all cursor-pointer shadow-sm"
+          className="flex flex-col items-center justify-center p-4 bg-[#F7F8F9] border border-gray-200 hover:border-[#FFC20E] hover:bg-[#FFFBEB] rounded-xl text-center group transition-all cursor-pointer"
         >
-          <Download className="w-5 h-5 text-emerald-600 mb-2 group-hover:scale-110 transition-transform" />
-          <span className="text-xs font-bold text-slate-800 dark:text-slate-200">Export Backup</span>
-          <span className="text-[9px] text-slate-400 mt-1">Download state .json</span>
+          <Download className="w-5 h-5 text-[#262A2E] mb-2 group-hover:scale-110 transition-transform" />
+          <span className="text-xs font-bold text-[#262A2E]">Export Backup</span>
+          <span className="text-[10px] text-gray-500 mt-1">Download state .json</span>
         </button>
 
         {/* Import Button */}
         <button
+          type="button"
           onClick={() => fileInputRef.current?.click()}
-          className="flex flex-col items-center justify-center p-4 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-600 hover:bg-indigo-50/10 dark:hover:bg-indigo-950/10 rounded-xl text-center group transition-all cursor-pointer shadow-sm"
+          className="flex flex-col items-center justify-center p-4 bg-[#F7F8F9] border border-gray-200 hover:border-[#FFC20E] hover:bg-[#FFFBEB] rounded-xl text-center group transition-all cursor-pointer"
         >
-          <Upload className="w-5 h-5 text-indigo-600 mb-2 group-hover:scale-110 transition-transform" />
-          <span className="text-xs font-bold text-slate-800 dark:text-slate-200">Import Restore</span>
-          <span className="text-[9px] text-slate-400 mt-1">Upload state .json</span>
+          <Upload className="w-5 h-5 text-[#262A2E] mb-2 group-hover:scale-110 transition-transform" />
+          <span className="text-xs font-bold text-[#262A2E]">Import Restore</span>
+          <span className="text-[10px] text-gray-500 mt-1">Upload state .json</span>
         </button>
 
         <input
@@ -124,34 +125,33 @@ export default function BackupPanel({
 
         {/* Reset Template Button */}
         <button
+          type="button"
           onClick={onReset}
-          className="flex flex-col items-center justify-center p-4 border border-slate-200 dark:border-slate-800 hover:border-rose-500 dark:hover:border-rose-600 hover:bg-rose-50/10 dark:hover:bg-rose-950/10 rounded-xl text-center group transition-all cursor-pointer shadow-sm"
+          className="flex flex-col items-center justify-center p-4 bg-[#F7F8F9] border border-gray-200 hover:border-rose-400 hover:bg-rose-50/40 rounded-xl text-center group transition-all cursor-pointer"
         >
           <RefreshCw className="w-5 h-5 text-rose-600 mb-2 group-hover:rotate-45 transition-transform" />
-          <span className="text-xs font-bold text-slate-800 dark:text-slate-200">Reset Template</span>
-          <span className="text-[9px] text-slate-400 mt-1">Restore default seed</span>
+          <span className="text-xs font-bold text-[#262A2E]">Reset Template</span>
+          <span className="text-[10px] text-gray-500 mt-1">Restore default seed</span>
         </button>
       </div>
 
       {/* Notifications */}
       {importStatus === 'success' && (
-        <div className="p-3 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900 rounded-lg flex items-start gap-2 text-xs text-emerald-800 dark:text-emerald-400 animate-fade-in">
-          <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
+        <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-lg flex items-start gap-2 text-xs text-emerald-800 animate-fade-in">
+          <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-emerald-600" />
           <div>
-            <span className="font-semibold block">Backup Successfully Restored</span>
-            <span className="text-[10px] mt-0.5 block leading-relaxed">
-              All team board metrics, 5-Why root cause sheets, and action items have been overwritten and synchronized with the backup file.
-            </span>
+            <span className="font-bold block">Sync Complete</span>
+            <span className="text-[11px] mt-0.5 block">{statusMessage}</span>
           </div>
         </div>
       )}
 
       {importStatus === 'error' && (
-        <div className="p-3 bg-rose-50 dark:bg-rose-950/20 border border-rose-200 dark:border-rose-900 rounded-lg flex items-start gap-2 text-xs text-rose-800 dark:text-rose-400 animate-fade-in">
-          <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
+        <div className="p-3 bg-rose-50 border border-rose-200 rounded-lg flex items-start gap-2 text-xs text-rose-800 animate-fade-in">
+          <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-rose-600" />
           <div>
-            <span className="font-semibold block">Failed to Restore Backup</span>
-            <span className="text-[10px] mt-0.5 block leading-relaxed">{errorMessage}</span>
+            <span className="font-bold block">Action Failed</span>
+            <span className="text-[11px] mt-0.5 block">{statusMessage}</span>
           </div>
         </div>
       )}

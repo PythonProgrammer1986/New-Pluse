@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Employee, TaskTimeBooking } from '../types';
-import { Users, Plus, Trash2, Edit2, Check, UserPlus, Award, Calendar, Percent, ShieldAlert } from 'lucide-react';
+import { Users, Plus, Trash2, Edit2, Check, UserPlus, Percent, ShieldAlert } from 'lucide-react';
 
 interface ResourceMasterProps {
   employees: Employee[];
@@ -20,7 +20,6 @@ export default function ResourceMaster({
   const [empName, setEmpName] = useState('');
   const [empHours, setEmpHours] = useState('160');
 
-  // Inline editing state
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState('');
   const [editingHours, setEditingHours] = useState('160');
@@ -28,9 +27,9 @@ export default function ResourceMaster({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!empName) return;
+    if (!empName.trim()) return;
     const hours = parseFloat(empHours) || 0;
-    onAddEmployee(empName, hours);
+    onAddEmployee(empName.trim(), hours);
     setEmpName('');
     setEmpHours('160');
   };
@@ -51,53 +50,51 @@ export default function ResourceMaster({
 
   return (
     <div className="space-y-6">
-      
-      {/* Overview Intro Banner */}
-      <div className="bg-slate-900 border border-slate-800 p-6 rounded-xl text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
+      {/* Intro Banner */}
+      <div className="bg-[#F7F8F9] border border-gray-200 p-5 rounded-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <Users className="w-5 h-5 text-[#FFC20E]" />
-            <h3 className="font-extrabold text-sm uppercase tracking-wider font-mono">
+            <Users className="w-5 h-5 text-[#D97706]" />
+            <h3 className="font-bold text-sm uppercase tracking-wider font-mono text-[#262A2E]">
               Resource Master Database
             </h3>
           </div>
-          <p className="text-xs text-slate-400 leading-relaxed max-w-2xl">
-            Define team rosters and set monthly contract/operational hours. This master register calculates resource availability thresholds, planned tasks overhead, and actual utilization metrics.
+          <p className="text-xs text-[#6B7280] leading-relaxed max-w-2xl">
+            Manage team rosters and monthly available capacity hours to monitor workload balance and utilization.
           </p>
         </div>
-        <div className="px-3 py-1 bg-[#FFC20E]/10 border border-[#FFC20E]/20 text-[#FFC20E] text-[10px] font-mono font-bold uppercase rounded-md shrink-0">
+        <span className="px-3 py-1 bg-[#FFFBEB] border border-[#FFC20E] text-[#1F2328] text-[10px] font-mono font-bold uppercase rounded-md shrink-0">
           Capacity Planner Active
-        </div>
+        </span>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        
-        {/* Left Column: Register New Employee Form */}
-        <div className="lg:col-span-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
-          <div className="flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
-            <UserPlus className="w-4 h-4 text-[#FFC20E]" />
-            <h4 className="font-bold text-slate-800 dark:text-white text-xs uppercase tracking-wider">
-              Add New Employee
+        {/* Add Employee Form */}
+        <div className="lg:col-span-4 bg-white border border-gray-200 rounded-xl p-5 shadow-xs space-y-4">
+          <div className="flex items-center gap-2 border-b border-gray-200 pb-3">
+            <UserPlus className="w-4 h-4 text-[#D97706]" />
+            <h4 className="font-bold text-[#262A2E] text-xs uppercase tracking-wider">
+              Add Team Member
             </h4>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">
+              <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-1">
                 Full Name
               </label>
               <input
                 type="text"
                 required
-                placeholder="e.g. Marcus Aurelius"
+                placeholder="e.g. Sarah Connor"
                 value={empName}
                 onChange={(e) => setEmpName(e.target.value)}
-                className="w-full text-xs px-3.5 py-2.5 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-semibold shadow-sm placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                className="w-full text-xs px-3 py-2 border border-gray-300 bg-white text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-1">
+              <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-1">
                 Monthly Available Hours
               </label>
               <input
@@ -108,41 +105,40 @@ export default function ResourceMaster({
                 placeholder="e.g. 160"
                 value={empHours}
                 onChange={(e) => setEmpHours(e.target.value)}
-                className="w-full text-xs px-3.5 py-2.5 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-mono font-semibold shadow-sm placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                className="w-full text-xs px-3 py-2 border border-gray-300 bg-white text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-mono font-semibold"
               />
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 mt-1 block">
-                Standard full-time is 160 hrs/month (40 hrs &times; 4 weeks).
+              <span className="text-[10px] text-[#6B7280] mt-1 block">
+                Standard full-time is 160 hrs/month (40 hrs × 4 weeks).
               </span>
             </div>
 
             <button
               type="submit"
-              className="w-full py-2 bg-[#FFC20E] hover:bg-[#E5B200] text-slate-950 font-extrabold text-xs rounded-lg shadow-sm flex items-center justify-center gap-1.5 cursor-pointer font-mono"
+              className="w-full py-2.5 bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] font-extrabold text-xs rounded-lg flex items-center justify-center gap-1.5 cursor-pointer font-mono transition-colors"
             >
               <Plus className="w-4 h-4" />
-              <span>Log Employee</span>
+              <span>Add Employee</span>
             </button>
           </form>
         </div>
 
-        {/* Right Column: Employee Roster with Capacity & Utilization cards */}
+        {/* Employee Roster Cards */}
         <div className="lg:col-span-8 space-y-4">
           <div className="flex items-center justify-between">
-            <h4 className="font-extrabold text-xs uppercase tracking-wider text-slate-600 dark:text-slate-400 font-mono">
-              Team Roster, Hours & Utilization Real-Time Report ({employees.length} Members)
+            <h4 className="font-bold text-xs uppercase tracking-wider text-[#4B5563] font-mono">
+              Team Roster & Utilization ({employees.length} Members)
             </h4>
           </div>
 
           {employees.length === 0 ? (
-            <div className="p-8 bg-slate-50 dark:bg-slate-900 border border-dashed border-slate-250 rounded-xl text-center text-slate-400">
-              <Users className="w-10 h-10 mx-auto text-slate-300 dark:text-slate-750 mb-2" />
-              <span className="text-xs font-semibold block text-slate-700 dark:text-slate-300">Roster Empty</span>
-              <span className="text-[10px] mt-1 block">Add team members on the left to activate hours reporting.</span>
+            <div className="p-8 bg-[#F7F8F9] border border-dashed border-gray-300 rounded-xl text-center text-[#6B7280]">
+              <Users className="w-10 h-10 mx-auto text-gray-300 mb-2" />
+              <span className="text-xs font-semibold block text-[#262A2E]">Roster Empty</span>
+              <span className="text-[10px] mt-1 block">Add team members on the left to activate capacity tracking.</span>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {employees.map((emp) => {
-                // Calculate hours booked against this employee
                 const bookings = timeBookings.filter(b => b.employeeId === emp.id);
                 const totalPlanned = bookings.reduce((sum, b) => sum + b.plannedHours, 0);
                 const totalActual = bookings.reduce((sum, b) => sum + b.actualHours, 0);
@@ -150,34 +146,33 @@ export default function ResourceMaster({
                 const availHours = emp.monthlyAvailableHours;
                 const utilizationPercent = availHours > 0 ? Math.round((totalActual / availHours) * 100) : 0;
                 const hoursLeft = Math.max(0, availHours - totalActual);
-
                 const isOverUtilized = totalActual > availHours;
 
                 return (
-                  <div 
-                    key={emp.id} 
-                    className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-xl p-5 shadow-sm space-y-4 flex flex-col justify-between"
+                  <div
+                    key={emp.id}
+                    className="bg-white border border-gray-200 rounded-xl p-5 shadow-xs space-y-4 flex flex-col justify-between"
                   >
                     <div>
-                      {/* Name Header and Edit Actions */}
-                      <div className="flex items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800/60 pb-2">
+                      <div className="flex items-center justify-between gap-2 border-b border-gray-100 pb-2.5">
                         {editingId === emp.id ? (
                           <div className="flex items-center gap-1.5 w-full">
                             <input
                               type="text"
                               value={editingName}
                               onChange={(e) => setEditingName(e.target.value)}
-                              className="text-xs font-bold px-2 py-1 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded focus:ring-1 focus:ring-[#FFC20E] focus:outline-none"
+                              className="flex-1 text-xs font-bold px-2 py-1 border border-gray-300 bg-white text-[#262A2E] rounded focus:ring-2 focus:ring-[#FFC20E] focus:outline-none"
                             />
                             <input
                               type="number"
                               value={editingHours}
                               onChange={(e) => setEditingHours(e.target.value)}
-                              className="text-xs font-bold px-2 py-1 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded w-16 text-center font-mono focus:ring-1 focus:ring-[#FFC20E] focus:outline-none"
+                              className="text-xs font-bold px-2 py-1 border border-gray-300 bg-white text-[#262A2E] rounded w-16 text-center font-mono focus:ring-2 focus:ring-[#FFC20E] focus:outline-none"
                             />
                             <button
+                              type="button"
                               onClick={() => saveEdit(emp.id)}
-                              className="p-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded cursor-pointer"
+                              className="p-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded cursor-pointer"
                               title="Save changes"
                             >
                               <Check className="w-3.5 h-3.5" />
@@ -186,119 +181,133 @@ export default function ResourceMaster({
                         ) : (
                           <>
                             <div className="flex items-center gap-2">
-                              <div className="w-2.5 h-2.5 rounded-full bg-slate-950 dark:bg-[#FFC20E]"></div>
-                              <span className="text-xs font-extrabold text-slate-900 dark:text-white uppercase font-mono">
+                              <div className="w-2.5 h-2.5 rounded-full bg-[#FFC20E]"></div>
+                              <span className="text-xs font-extrabold text-[#262A2E] uppercase font-mono">
                                 {emp.name}
                               </span>
                             </div>
-                            <div className="flex items-center gap-1.5">
+                            <div className="flex items-center gap-1">
                               <button
+                                type="button"
                                 onClick={() => startEdit(emp)}
-                                className="p-1 text-slate-400 hover:text-blue-500 transition-colors cursor-pointer"
-                                title="Edit employee specs"
+                                className="p-1 text-[#6B7280] hover:text-[#262A2E] transition-colors cursor-pointer"
+                                title="Edit employee"
                               >
-                                <Edit2 className="w-3 h-3" />
+                                <Edit2 className="w-3.5 h-3.5" />
                               </button>
                               <button
+                                type="button"
                                 onClick={() => setEmpToDelete(emp)}
-                                className="p-1 text-slate-400 hover:text-rose-500 transition-colors cursor-pointer"
-                                title="Delete employee from roster"
+                                className="p-1 text-[#6B7280] hover:text-rose-600 transition-colors cursor-pointer"
+                                title="Delete employee"
                               >
-                                <Trash2 className="w-3 h-3" />
+                                <Trash2 className="w-3.5 h-3.5" />
                               </button>
                             </div>
                           </>
                         )}
                       </div>
 
-                      {/* Stat Metrics Grid */}
-                      <div className="grid grid-cols-2 gap-3 pt-3">
-                        <div className="bg-slate-50 dark:bg-slate-850/60 p-2 rounded-lg border border-slate-150 dark:border-slate-800 text-center">
-                          <span className="text-[9px] text-slate-400 font-bold uppercase block font-mono">Monthly Target</span>
-                          <span className="text-xs font-bold font-mono text-slate-800 dark:text-slate-200 mt-0.5 block">{availHours} hrs</span>
+                      <div className="grid grid-cols-2 gap-2.5 pt-3">
+                        <div className="bg-[#F7F8F9] p-2.5 rounded-lg border border-gray-200 text-center">
+                          <span className="text-[9px] text-[#6B7280] font-bold uppercase block font-mono">
+                            Monthly Target
+                          </span>
+                          <span className="text-xs font-bold font-mono text-[#262A2E] mt-0.5 block">
+                            {availHours} hrs
+                          </span>
                         </div>
-                        <div className="bg-slate-50 dark:bg-slate-850/60 p-2 rounded-lg border border-slate-150 dark:border-slate-800 text-center">
-                          <span className="text-[9px] text-slate-400 font-bold uppercase block font-mono">Actual Booked</span>
-                          <span className={`text-xs font-bold font-mono mt-0.5 block ${isOverUtilized ? 'text-rose-500 font-extrabold' : 'text-slate-800 dark:text-slate-200'}`}>
+                        <div className="bg-[#F7F8F9] p-2.5 rounded-lg border border-gray-200 text-center">
+                          <span className="text-[9px] text-[#6B7280] font-bold uppercase block font-mono">
+                            Actual Booked
+                          </span>
+                          <span
+                            className={`text-xs font-bold font-mono mt-0.5 block ${
+                              isOverUtilized ? 'text-rose-600' : 'text-[#262A2E]'
+                            }`}
+                          >
                             {totalActual} hrs
                           </span>
                         </div>
-                        <div className="bg-slate-50 dark:bg-slate-850/60 p-2 rounded-lg border border-slate-150 dark:border-slate-800 text-center">
-                          <span className="text-[9px] text-slate-400 font-bold uppercase block font-mono">Planned Tasks</span>
-                          <span className="text-xs font-bold font-mono text-slate-800 dark:text-slate-200 mt-0.5 block">{totalPlanned} hrs</span>
+                        <div className="bg-[#F7F8F9] p-2.5 rounded-lg border border-gray-200 text-center">
+                          <span className="text-[9px] text-[#6B7280] font-bold uppercase block font-mono">
+                            Planned Tasks
+                          </span>
+                          <span className="text-xs font-bold font-mono text-[#262A2E] mt-0.5 block">
+                            {totalPlanned} hrs
+                          </span>
                         </div>
-                        <div className="bg-slate-50 dark:bg-slate-850/60 p-2 rounded-lg border border-slate-150 dark:border-slate-800 text-center">
-                          <span className="text-[9px] text-slate-400 font-bold uppercase block font-mono">Available Left</span>
-                          <span className="text-xs font-bold font-mono text-emerald-600 dark:text-emerald-400 mt-0.5 block">{hoursLeft} hrs</span>
+                        <div className="bg-[#F7F8F9] p-2.5 rounded-lg border border-gray-200 text-center">
+                          <span className="text-[9px] text-[#6B7280] font-bold uppercase block font-mono">
+                            Available Left
+                          </span>
+                          <span className="text-xs font-bold font-mono text-emerald-700 mt-0.5 block">
+                            {hoursLeft} hrs
+                          </span>
                         </div>
                       </div>
                     </div>
 
-                    {/* Utilization Bar and Warning limits */}
-                    <div className="pt-3 border-t border-slate-100 dark:border-slate-850 mt-3 space-y-1.5">
+                    <div className="pt-3 border-t border-gray-100 mt-2 space-y-1.5">
                       <div className="flex items-center justify-between text-[10px]">
-                        <span className="text-slate-400 font-bold uppercase font-mono flex items-center gap-1">
-                          <Percent className="w-3 h-3 text-[#FFC20E]" />
-                          Utilization Rate:
+                        <span className="text-[#6B7280] font-bold uppercase font-mono flex items-center gap-1">
+                          <Percent className="w-3 h-3 text-[#D97706]" />
+                          Utilization Rate
                         </span>
-                        <span className={`font-mono font-bold ${isOverUtilized ? 'text-rose-500 font-black' : 'text-slate-800 dark:text-slate-200'}`}>
+                        <span
+                          className={`font-mono font-bold ${
+                            isOverUtilized ? 'text-rose-600' : 'text-[#262A2E]'
+                          }`}
+                        >
                           {utilizationPercent}%
                         </span>
                       </div>
 
-                      <div className="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
-                        <div 
+                      <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
+                        <div
                           className={`h-full rounded-full transition-all duration-300 ${
-                            isOverUtilized 
-                              ? 'bg-rose-500' 
-                              : utilizationPercent >= 85 
-                                ? 'bg-amber-500' 
-                                : 'bg-[#FFC20E]'
+                            isOverUtilized ? 'bg-rose-500' : 'bg-[#FFC20E]'
                           }`}
                           style={{ width: `${Math.min(100, utilizationPercent)}%` }}
                         ></div>
                       </div>
 
                       {isOverUtilized && (
-                        <div className="flex items-center gap-1 text-[9px] text-rose-500 font-bold mt-1 font-mono uppercase bg-rose-500/10 p-1.5 rounded border border-rose-500/20">
+                        <div className="flex items-center gap-1.5 text-[10px] text-rose-700 font-bold mt-1 font-mono bg-rose-50 p-2 rounded border border-rose-200">
                           <ShieldAlert className="w-3.5 h-3.5 shrink-0" />
-                          <span>Overload Detected! Booked hours exceed target limits.</span>
+                          <span>Overload: Booked hours exceed monthly capacity.</span>
                         </div>
                       )}
                     </div>
-
                   </div>
                 );
               })}
             </div>
           )}
         </div>
-
       </div>
 
-      {/* Delete Employee Confirmation Modal */}
+      {/* Delete Confirmation Modal */}
       {empToDelete && (
-        <div className="fixed inset-0 bg-slate-950/75 backdrop-blur-xs flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-sm p-5 shadow-2xl space-y-4">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center z-50 p-4">
+          <div className="bg-white border border-gray-200 rounded-2xl w-full max-w-sm p-5 shadow-xl space-y-4">
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 border border-rose-200 dark:border-rose-800">
+              <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 border border-rose-200">
                 <Trash2 className="w-5 h-5" />
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-extrabold text-slate-900 dark:text-white text-base">
-                  Delete {empToDelete.name}?
-                </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                  Are you sure you want to remove this employee from the roster? All capacity records and task assignments associated with them will be unassigned.
+                <h3 className="font-bold text-[#262A2E] text-base">Delete {empToDelete.name}?</h3>
+                <p className="text-xs text-[#6B7280] mt-1 leading-relaxed">
+                  Are you sure you want to remove this team member from the roster?
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-gray-100">
               <button
                 type="button"
                 onClick={() => setEmpToDelete(null)}
-                className="px-3 py-1.5 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold cursor-pointer"
+                className="px-3 py-1.5 border border-gray-300 text-[#3A3F45] hover:bg-gray-50 rounded-lg text-xs font-bold cursor-pointer"
               >
                 Cancel
               </button>
@@ -316,7 +325,6 @@ export default function ResourceMaster({
           </div>
         </div>
       )}
-
     </div>
   );
 }

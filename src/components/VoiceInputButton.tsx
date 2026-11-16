@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Mic, MicOff, Sparkles, ChevronDown } from 'lucide-react';
+import { Mic, Sparkles, ChevronDown } from 'lucide-react';
 
 interface VoiceInputButtonProps {
   onTranscript: (text: string) => void;
@@ -7,7 +7,6 @@ interface VoiceInputButtonProps {
   placeholderPrompt?: string;
 }
 
-// Common industrial shop-floor phrases for 1-click fallback
 const QUICK_PHRASES = [
   'Safety checks verified with zero hazards',
   'Part dimension out of tolerance by 0.5mm',
@@ -68,8 +67,7 @@ export default function VoiceInputButton({
         }
       };
 
-      recognition.onerror = (event: any) => {
-        console.warn('Speech recognition notice:', event.error);
+      recognition.onerror = () => {
         setIsListening(false);
         setInterimText('');
       };
@@ -80,8 +78,7 @@ export default function VoiceInputButton({
       };
 
       recognitionRef.current = recognition;
-    } catch (e) {
-      console.warn('Speech recognition initialization skipped:', e);
+    } catch {
       setIsSupported(false);
     }
 
@@ -112,10 +109,8 @@ export default function VoiceInputButton({
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         try {
           const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          // Stop tracks immediately as speech recognition handles audio in Chrome
           stream.getTracks().forEach(t => t.stop());
-        } catch (permErr) {
-          console.warn('Microphone permission not granted for VoiceInputButton:', permErr);
+        } catch {
           setShowQuickPhrases(true);
           return;
         }
@@ -124,8 +119,7 @@ export default function VoiceInputButton({
       try {
         recognitionRef.current?.start();
         setIsListening(true);
-      } catch (err) {
-        console.warn('Recognition start error, falling back:', err);
+      } catch {
         setIsListening(false);
         setShowQuickPhrases(true);
       }
@@ -138,10 +132,10 @@ export default function VoiceInputButton({
         type="button"
         onClick={toggleListening}
         title={isListening ? 'Listening... click to stop' : placeholderPrompt}
-        className={`px-2.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer shadow-sm select-none ${
+        className={`px-2.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer select-none ${
           isListening
-            ? 'bg-rose-600 text-white animate-pulse ring-2 ring-rose-400'
-            : 'bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700'
+            ? 'bg-rose-600 text-white animate-pulse ring-2 ring-rose-300'
+            : 'bg-white hover:bg-[#FFFBEB] text-[#262A2E] border border-gray-300 hover:border-[#FFC20E]'
         }`}
       >
         {isListening ? (
@@ -151,36 +145,33 @@ export default function VoiceInputButton({
           </>
         ) : (
           <>
-            <Mic className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
-            <span className="font-mono text-[10px] hidden sm:inline">Voice Note</span>
+            <Mic className="w-3.5 h-3.5 text-[#3A3F45]" />
+            <span className="font-mono text-[10px] hidden sm:inline">Voice</span>
           </>
         )}
       </button>
 
-      {/* Quick industrial phrase fallback toggle */}
       <button
         type="button"
         onClick={() => setShowQuickPhrases(!showQuickPhrases)}
-        title="Quick industrial phrases"
-        className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer"
+        title="Quick shop-floor phrases"
+        className="p-1.5 rounded-lg text-gray-500 hover:text-[#262A2E] hover:bg-gray-100 cursor-pointer"
       >
-        <ChevronDown className="w-3 h-3" />
+        <ChevronDown className="w-3.5 h-3.5" />
       </button>
 
-      {/* Live transcript float bubble while speaking */}
       {isListening && interimText && (
-        <div className="absolute left-0 bottom-full mb-1 z-50 bg-slate-900 text-white text-[11px] px-3 py-1.5 rounded-lg shadow-xl border border-slate-700 whitespace-nowrap max-w-xs truncate animate-fade-in">
-          <span className="text-amber-400 font-bold mr-1">🎙</span>
+        <div className="absolute left-0 bottom-full mb-1 z-50 bg-[#262A2E] text-white text-[11px] px-3 py-1.5 rounded-lg shadow-lg border border-gray-700 whitespace-nowrap max-w-xs truncate animate-fade-in">
+          <span className="text-[#FFC20E] font-bold mr-1">Mic:</span>
           {interimText}
         </div>
       )}
 
-      {/* Quick Industrial Phrases Dropdown */}
       {showQuickPhrases && (
-        <div className="absolute right-0 top-full mt-1.5 z-50 w-72 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-2xl p-2 space-y-1 animate-fade-in">
-          <div className="px-2 py-1 flex items-center justify-between border-b border-slate-100 dark:border-slate-800 text-[10px] font-bold text-slate-400 font-mono uppercase tracking-wider">
+        <div className="absolute right-0 top-full mt-1.5 z-50 w-72 bg-white border border-gray-200 rounded-xl shadow-xl p-2 space-y-1 animate-fade-in">
+          <div className="px-2 py-1 flex items-center justify-between border-b border-gray-100 text-[10px] font-bold text-gray-500 font-mono uppercase tracking-wider">
             <span>Quick Shop-Floor Phrases</span>
-            <Sparkles className="w-3 h-3 text-amber-500" />
+            <Sparkles className="w-3 h-3 text-[#FFC20E]" />
           </div>
           <div className="max-h-48 overflow-y-auto space-y-0.5">
             {QUICK_PHRASES.map((phrase, i) => (
@@ -191,7 +182,7 @@ export default function VoiceInputButton({
                   onTranscript(phrase);
                   setShowQuickPhrases(false);
                 }}
-                className="w-full text-left text-xs p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-colors cursor-pointer leading-snug"
+                className="w-full text-left text-xs p-2 rounded-lg hover:bg-[#FFFBEB] text-[#262A2E] transition-colors cursor-pointer leading-snug"
               >
                 &ldquo;{phrase}&rdquo;
               </button>

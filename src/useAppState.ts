@@ -11,6 +11,30 @@ const LOCAL_STORAGE_KEY = 'daily_pulse_huddleboards_state_v1';
 
 const generateId = (prefix: string) => `${prefix}-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
 
+/**
+ * Computes green/red target state consistently across widget creation, updates, and Excel sync.
+ */
+export function computeMetricState(widget: Pick<MetricWidget, 'id' | 'title' | 'pillar' | 'type' | 'actual' | 'target' | 'state'>): 'green' | 'red' {
+  if (widget.actual === undefined || widget.target === undefined) {
+    return widget.state || 'green';
+  }
+  const actual = widget.actual;
+  const target = widget.target;
+  const lowerKey = `${widget.id} ${widget.title}`.toLowerCase();
+  const isLowerBetter =
+    ((widget.pillar === 'Safety' || widget.pillar === 'Quality') && (widget.type === 'numeric' || widget.type === 'chart')) ||
+    lowerKey.includes('downtime') ||
+    lowerKey.includes('overtime') ||
+    lowerKey.includes('scrap') ||
+    lowerKey.includes('defect') ||
+    lowerKey.includes('hazard') ||
+    lowerKey.includes('energy') ||
+    lowerKey.includes('emission') ||
+    lowerKey.includes('risk');
+
+  return (isLowerBetter ? actual <= target : actual >= target) ? 'green' : 'red';
+}
+
 export function useAppState() {
   const [state, setState] = useState<AppState>(() => {
     try {
@@ -84,16 +108,7 @@ export function useAppState() {
     }
   }, [state]);
 
-  // Automatically link the attached operations dataset (File_to_link_16492beb.json) if starting from default seed
-  useEffect(() => {
-    const isDefaultSeed = !state.projectMatrices || 
-      (state.projectMatrices.length <= 1 && state.projectMatrices[0]?.code === 'PRJ-M2D');
-    if (isDefaultSeed) {
-      loadLinkedOperationsFile().catch((err) => {
-        console.warn('Could not auto-load File_to_link_16492beb.json on startup:', err);
-      });
-    }
-  }, []);
+  // Keep saved workspace on mount without overwriting user changes; linked dataset is loaded on demand.
 
   const setTeam = (teamName: string) => {
     setState((prev) => ({ ...prev, currentTeam: teamName }));
@@ -109,26 +124,14 @@ export function useAppState() {
         if (w.id === id) {
           const nextWidget: MetricWidget = { ...w, ...updates };
           
-          // Automatic state check if actual & target are numeric
-          if (updates.actual !== undefined && nextWidget.target !== undefined) {
-            const actual = updates.actual;
-            const target = nextWidget.target;
-            
-            // For standard operational metrics:
-            // - If Safety hazards: actual should be <= target (0)
-            // - If Cost/Downtime: actual should be <= target
-            // - If Throughput/OTIF/OEE/ROI/Diversion: actual should be >= target
-            let isGreen = true;
-            if (nextWidget.pillar === 'Safety' && nextWidget.type === 'numeric') {
-              isGreen = actual <= target;
-            } else if (nextWidget.pillar === 'Quality' && nextWidget.type === 'numeric') {
-              isGreen = actual <= target;
-            } else if (nextWidget.id.includes('downtime') || nextWidget.id.includes('overtime') || nextWidget.id.includes('scrap')) {
-              isGreen = actual <= target;
-            } else {
-              isGreen = actual >= target;
-            }
-            nextWidget.state = isGreen ? 'green' : 'red';
+          // Automatic state check whenever actual or target changes on numeric/gauge/chart widgets
+          if (
+            updates.state === undefined &&
+            (updates.actual !== undefined || updates.target !== undefined) &&
+            nextWidget.actual !== undefined &&
+            nextWidget.target !== undefined
+          ) {
+            nextWidget.state = computeMetricState(nextWidget);
           }
           return nextWidget;
         }
@@ -227,10 +230,12 @@ export function useAppState() {
 
   const addWidget = (newWidget: Omit<MetricWidget, 'id' | 'state'>) => {
     setState((prev) => {
+      const id = generateId('custom');
+      const initialState = computeMetricState({ ...newWidget, id, state: 'green' });
       const widget: MetricWidget = {
         ...newWidget,
-        id: generateId('custom'),
-        state: 'green'
+        id,
+        state: initialState
       };
       return {
         ...prev,
@@ -594,15 +599,20 @@ export function useAppState() {
     setState((prev) => ({ ...prev, activeProjectId: id }));
   };
 
-  const addProjectMatrix = (projectData: { name: string; code: string; description?: string; targetLaunchDate?: string }) => {
+  const addProjectMatrix = (projectData: { name: string; code: string; description?: string; targetLaunchDate?: string; owner?: string; ownerEmployeeId?: string }) => {
     const newId = generateId('prj');
     setState((prev) => {
+      const matchedEmp = projectData.owner
+        ? (prev.employees || []).find(e => e.name.toLowerCase() === projectData.owner?.toLowerCase())
+        : undefined;
       const newPrj: ProjectTrackRecord = {
         id: newId,
         name: projectData.name,
         code: projectData.code,
         description: projectData.description,
         targetLaunchDate: projectData.targetLaunchDate,
+        owner: projectData.owner || matchedEmp?.name,
+        ownerEmployeeId: projectData.ownerEmployeeId || matchedEmp?.id,
         overallStatus: 'green',
         lastUpdated: new Date().toISOString().split('T')[0],
         customCategories: [],
@@ -616,6 +626,7 @@ export function useAppState() {
         type: 'projectMatrix',
         state: 'green',
         projectId: newId,
+        owner: newPrj.owner,
         description: projectData.description || `Project matrix tracking for ${projectData.name} (${projectData.code})`
       };
       return {
@@ -649,7 +660,7 @@ export function useAppState() {
     setState((prev) => {
       const remaining = (prev.projectMatrices || []).filter((p) => p.id !== id);
       const nextWidgets = (prev.widgets || []).filter((w) => w.projectId !== id);
-      const nextActiveId = remaining.length > 0 ? remaining.length > 0 ? remaining[0].id : undefined : undefined;
+      const nextActiveId = remaining.length > 0 ? remaining[0].id : undefined;
       return {
         ...prev,
         projectMatrices: remaining,

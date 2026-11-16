@@ -6,7 +6,6 @@
 import React, { useState } from 'react';
 import { useAppState } from './useAppState';
 import { Pillar, PulseLevel, MetricWidget } from './types';
-import { TEAMS_LIST, ROLES_LIST } from './seedData';
 import SafetyCrossCalendar from './components/SafetyCrossCalendar';
 import WidgetCard from './components/WidgetCard';
 import DeviationSolver from './components/DeviationSolver';
@@ -20,19 +19,43 @@ import HuddleRunnerModal from './components/HuddleRunnerModal';
 import HuddleStickyNotesPanel from './components/HuddleStickyNotesPanel';
 import HuddleScribeModal from './components/HuddleScribeModal';
 import VoiceInputButton from './components/VoiceInputButton';
-import { 
-  Shield, Leaf, CheckCircle, TrendingUp, Coins, HardHat,
-  Users, Activity, Calendar, Award, RefreshCw, AlertTriangle,
-  Plus, Check, ChevronRight, Filter, LogOut, Sparkles, BookOpen,
-  ArrowRight, Landmark, FileSpreadsheet, FolderKanban, Play,
-  Timer, Pin, MessageSquare, Search, X
+import {
+  Shield,
+  Leaf,
+  CheckCircle,
+  TrendingUp,
+  Coins,
+  HardHat,
+  Calendar,
+  AlertTriangle,
+  Plus,
+  Check,
+  ChevronRight,
+  Sparkles,
+  BookOpen,
+  ArrowRight,
+  FileSpreadsheet,
+  Play,
+  MessageSquare,
+  Search,
+  X
 } from 'lucide-react';
+
+const TAB_META: Record<
+  'board' | 'actions' | 'hours' | 'master' | 'matrix' | 'backup',
+  { breadcrumb: string; title: string }
+> = {
+  board: { breadcrumb: 'pulse huddleboard', title: 'Operational Pulse' },
+  actions: { breadcrumb: 'Countermeasures register', title: 'Action Plan & Countermeasure Registry' },
+  hours: { breadcrumb: 'Capacity & time tracking', title: 'Team Hours Planner' },
+  master: { breadcrumb: 'Workforce directory', title: 'Resource Master Roster' },
+  matrix: { breadcrumb: 'Launch & operations tracker', title: 'Project Tracking Matrix' },
+  backup: { breadcrumb: 'Snapshots & JSON export', title: 'Backup & Restore Facility' }
+};
 
 export default function App() {
   const {
     state,
-    setTeam,
-    setRole,
     updateWidgetValue,
     toggleChecklistItem,
     updateSafetyCross,
@@ -60,7 +83,6 @@ export default function App() {
     addTimeBooking,
     updateTimeBooking,
     deleteTimeBooking,
-    // Project Matrix state methods
     setActiveProjectId,
     addProjectMatrix,
     updateProjectMatrix,
@@ -76,7 +98,6 @@ export default function App() {
     addCustomMatrixCategory,
     deleteCustomMatrixCategory,
     updateCustomMatrixCategory,
-    // Pinning, sticky notes, and attachment methods
     togglePinWidget,
     togglePinPoint,
     addStickyNote,
@@ -90,10 +111,11 @@ export default function App() {
   } = useAppState();
 
   const [activeLevel, setActiveLevel] = useState<PulseLevel>('daily');
-  const [activeTab, setActiveTab] = useState<'board' | 'actions' | 'backup' | 'hours' | 'master' | 'matrix'>('board');
+  const [activeTab, setActiveTab] = useState<
+    'board' | 'actions' | 'backup' | 'hours' | 'master' | 'matrix'
+  >('board');
   const [selectedPillarFilter, setSelectedPillarFilter] = useState<string>('all');
-  
-  // Interactive 15-Minute Huddle Runner, Sticky Notes, and AI Scribe modals
+
   const [showHuddleRunner, setShowHuddleRunner] = useState<boolean>(false);
   const [showStickyNotes, setShowStickyNotes] = useState<boolean>(false);
   const [showHuddleScribe, setShowHuddleScribe] = useState<boolean>(false);
@@ -106,11 +128,7 @@ export default function App() {
   const [newWTitle, setNewWTitle] = useState('');
   const [newWPillar, setNewWPillar] = useState<Pillar>('Quality');
   const [newWLevel, setNewWLevel] = useState<PulseLevel>('daily');
-  const [newWType, setNewWType] = useState<
-    'numeric' | 'checklist' | 'gauge' | 'counter' | 'chart' | 'project' |
-    'stopwatch' | 'heatmap' | 'pareto' | 'skills' | 'kanban' | 'handover' |
-    'riskGauge' | 'emission' | 'radar' | 'countdown' | 'pulse' | 'projectMatrix'
-  >('numeric');
+  const [newWType, setNewWType] = useState<MetricWidget['type']>('numeric');
   const [newWUnit, setNewWUnit] = useState('');
   const [newWTarget, setNewWTarget] = useState('');
   const [newWActual, setNewWActual] = useState('');
@@ -118,37 +136,40 @@ export default function App() {
   const [newWOwner, setNewWOwner] = useState('');
   const [newWWarningThreshold, setNewWWarningThreshold] = useState<string>('110');
   const [newWLinkedId, setNewWLinkedId] = useState<string>('');
-  
-  // Custom interface list items parsing (checklists, charts, projects)
+
   const [newChecklistText, setNewChecklistText] = useState('');
   const [newChartText, setNewChartText] = useState('');
   const [newProjectText, setNewProjectText] = useState('');
 
   // Archive snapshot selection states
+  const todayStr = new Date().toISOString().split('T')[0];
   const [selectedSnapshotDate, setSelectedSnapshotDate] = useState<string>('live');
-  const [snapshotTargetDate, setSnapshotTargetDate] = useState<string>(new Date().toISOString().split('T')[0]);
+  const [snapshotTargetDate, setSnapshotTargetDate] = useState<string>(todayStr);
 
-  // Dynamically pull from historical backup snapshot if viewing an archive
-  const activeSnapshot = selectedSnapshotDate !== 'live' && state.history ? state.history[selectedSnapshotDate] : null;
+  const activeSnapshot =
+    selectedSnapshotDate !== 'live' && state.history ? state.history[selectedSnapshotDate] : null;
 
   const currentWidgets = activeSnapshot ? activeSnapshot.widgets : state.widgets;
   const currentDeviations = activeSnapshot ? activeSnapshot.deviations : state.deviations;
   const currentActionItems = activeSnapshot ? activeSnapshot.actionItems : state.actionItems;
   const currentSafetyCross = activeSnapshot ? activeSnapshot.safetyCross : state.safetyCross;
-  const currentSafetyNotes = activeSnapshot ? activeSnapshot.safetyNotes : (state.safetyNotes || {});
-  const currentEmployees = activeSnapshot ? (activeSnapshot.employees || []) : (state.employees || []);
-  const currentTimeBookings = activeSnapshot ? (activeSnapshot.timeBookings || []) : (state.timeBookings || []);
+  const currentSafetyNotes = activeSnapshot ? activeSnapshot.safetyNotes : state.safetyNotes || {};
+  const currentEmployees = activeSnapshot ? activeSnapshot.employees || [] : state.employees || [];
+  const currentTimeBookings = activeSnapshot
+    ? activeSnapshot.timeBookings || []
+    : state.timeBookings || [];
 
-  // Filter widgets by active level, pillar, and search query, placing pinned widgets first
   const displayedWidgets = currentWidgets
     .filter((w) => {
       const matchesLevel = w.level === activeLevel;
       const matchesPillar = selectedPillarFilter === 'all' || w.pillar === selectedPillarFilter;
-      const matchesSearch = !boardSearchQuery.trim() || 
-        w.title.toLowerCase().includes(boardSearchQuery.toLowerCase()) ||
-        (w.owner && w.owner.toLowerCase().includes(boardSearchQuery.toLowerCase())) ||
-        (w.description && w.description.toLowerCase().includes(boardSearchQuery.toLowerCase())) ||
-        w.pillar.toLowerCase().includes(boardSearchQuery.toLowerCase());
+      const q = boardSearchQuery.trim().toLowerCase();
+      const matchesSearch =
+        !q ||
+        w.title.toLowerCase().includes(q) ||
+        (w.owner && w.owner.toLowerCase().includes(q)) ||
+        (w.description && w.description.toLowerCase().includes(q)) ||
+        w.pillar.toLowerCase().includes(q);
       return matchesLevel && matchesPillar && matchesSearch;
     })
     .sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
@@ -165,16 +186,16 @@ export default function App() {
       onTogglePin={togglePinWidget}
       onNavigateToProjectMatrix={() => setActiveTab('matrix')}
       projects={state.projectMatrices || []}
-      isInWeeklyAnalysis={currentDeviations.some(d => d.widgetId === widget.id && !d.isResolved)}
+      isInWeeklyAnalysis={currentDeviations.some((d) => d.widgetId === widget.id && !d.isResolved)}
       onAddToWeeklyAnalysis={(id) => {
         addMetricToWeeklyAnalysis(id);
-        const w = currentWidgets.find(item => item.id === id);
+        const w = currentWidgets.find((item) => item.id === id);
         setBackupToast(`Added "${w ? w.title : id}" to Weekly Analysis`);
         setTimeout(() => setBackupToast(null), 3000);
       }}
       onRemoveFromWeeklyAnalysis={(id) => {
         removeMetricFromWeeklyAnalysis(id);
-        const w = currentWidgets.find(item => item.id === id);
+        const w = currentWidgets.find((item) => item.id === id);
         setBackupToast(`Removed "${w ? w.title : id}" from Weekly Analysis`);
         setTimeout(() => setBackupToast(null), 3000);
       }}
@@ -187,28 +208,30 @@ export default function App() {
 
   const handleAddCustomWidget = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newWTitle) return;
+    if (!newWTitle.trim()) return;
 
     let checklistData = undefined;
     if (newWType === 'checklist') {
       const items = newChecklistText ? newChecklistText.split(',') : [];
-      checklistData = items.length > 0
-        ? items.map((it, idx) => ({ id: `chk-${idx}-${Date.now()}`, label: it.trim(), checked: false }))
-        : [
-            { id: 'c-1', label: 'Verify equipment compliance checks', checked: false },
-            { id: 'c-2', label: 'Perform standard 5S workspace sweep', checked: false }
-          ];
+      checklistData =
+        items.length > 0
+          ? items.map((it, idx) => ({ id: `chk-${idx}-${Date.now()}`, label: it.trim(), checked: false }))
+          : [
+              { id: 'c-1', label: 'Verify equipment compliance checks', checked: false },
+              { id: 'c-2', label: 'Perform standard 5S workspace sweep', checked: false }
+            ];
     }
 
     let chartData = undefined;
     if (newWType === 'chart') {
       const categories = newChartText ? newChartText.split(',') : [];
-      chartData = categories.length > 0
-        ? categories.map((cat) => ({ label: cat.trim(), value: 0, target: 1 }))
-        : [
-            { label: 'Surface Scratches', value: 0, target: 1 },
-            { label: 'Dimensional Deviations', value: 0, target: 1 }
-          ];
+      chartData =
+        categories.length > 0
+          ? categories.map((cat) => ({ label: cat.trim(), value: 0, target: 1 }))
+          : [
+              { label: 'Surface Scratches', value: 0, target: 1 },
+              { label: 'Dimensional Deviations', value: 0, target: 1 }
+            ];
     } else if (newWType === 'skills') {
       chartData = [
         { label: 'Operator A', value: 3, target: 4 },
@@ -232,54 +255,126 @@ export default function App() {
     } else if (newWType === 'heatmap') {
       chartData = Array.from({ length: 24 }).map((_, idx) => ({
         label: `${idx}:00`,
-        value: 0 // 0 = Green (Running), 1 = Amber (Idle), 2 = Red (Downtime), 3 = Gray (Off)
+        value: 0
       }));
     }
 
     let milestonesData = undefined;
     if (newWType === 'project') {
       const ms = newProjectText ? newProjectText.split(',') : [];
-      milestonesData = ms.length > 0
-        ? ms.map((m, idx) => ({ id: `ms-${idx}-${Date.now()}`, name: m.trim(), status: 'pending' as const, owner: 'Team Lead', dueDate: new Date().toISOString().split('T')[0] }))
-        : [
-            { id: 'm-1', name: 'Draft Design and Engineering Plan', status: 'pending' as const, owner: 'Team Lead', dueDate: new Date().toISOString().split('T')[0] },
-            { id: 'm-2', name: 'Tooling installation & dry run', status: 'pending' as const, owner: 'Maintenance', dueDate: new Date().toISOString().split('T')[0] }
-          ];
+      milestonesData =
+        ms.length > 0
+          ? ms.map((m, idx) => ({
+              id: `ms-${idx}-${Date.now()}`,
+              name: m.trim(),
+              status: 'pending' as const,
+              owner: 'Team Lead',
+              dueDate: todayStr
+            }))
+          : [
+              {
+                id: 'm-1',
+                name: 'Draft Design and Engineering Plan',
+                status: 'pending' as const,
+                owner: 'Team Lead',
+                dueDate: todayStr
+              },
+              {
+                id: 'm-2',
+                name: 'Tooling installation & dry run',
+                status: 'pending' as const,
+                owner: 'Maintenance',
+                dueDate: todayStr
+              }
+            ];
     } else if (newWType === 'kanban') {
       milestonesData = [
-        { id: `kb-1-${Date.now()}`, name: 'Tool Cart 5S Layout', status: 'pending' as const, owner: 'Operator A', dueDate: new Date().toISOString().split('T')[0] },
-        { id: `kb-2-${Date.now()}`, name: 'LED Takt Signal Indicator', status: 'active' as const, owner: 'Team Lead', dueDate: new Date().toISOString().split('T')[0] },
-        { id: `kb-3-${Date.now()}`, name: 'LOTO Safety Box Upgrade', status: 'completed' as const, owner: 'EHS Engineer', dueDate: new Date().toISOString().split('T')[0] }
+        {
+          id: `kb-1-${Date.now()}`,
+          name: 'Tool Cart 5S Layout',
+          status: 'pending' as const,
+          owner: 'Operator A',
+          dueDate: todayStr
+        },
+        {
+          id: `kb-2-${Date.now()}`,
+          name: 'LED Takt Signal Indicator',
+          status: 'active' as const,
+          owner: 'Team Lead',
+          dueDate: todayStr
+        },
+        {
+          id: `kb-3-${Date.now()}`,
+          name: 'LOTO Safety Box Upgrade',
+          status: 'completed' as const,
+          owner: 'EHS Engineer',
+          dueDate: todayStr
+        }
       ];
     } else if (newWType === 'countdown') {
       milestonesData = [
-        { id: `cd-1-${Date.now()}`, name: '1. Material Loading', status: 'completed' as const, owner: 'Logistics', dueDate: new Date().toISOString().split('T')[0] },
-        { id: `cd-2-${Date.now()}`, name: '2. Sub-Assembly', status: 'completed' as const, owner: 'Assembly', dueDate: new Date().toISOString().split('T')[0] },
-        { id: `cd-3-${Date.now()}`, name: '3. QA Test Run', status: 'active' as const, owner: 'QA Inspector', dueDate: new Date().toISOString().split('T')[0] },
-        { id: `cd-4-${Date.now()}`, name: '4. Final Dispatch', status: 'pending' as const, owner: 'Shipping', dueDate: new Date().toISOString().split('T')[0] }
+        {
+          id: `cd-1-${Date.now()}`,
+          name: '1. Material Loading',
+          status: 'completed' as const,
+          owner: 'Logistics',
+          dueDate: todayStr
+        },
+        {
+          id: `cd-2-${Date.now()}`,
+          name: '2. Sub-Assembly',
+          status: 'completed' as const,
+          owner: 'Assembly',
+          dueDate: todayStr
+        },
+        {
+          id: `cd-3-${Date.now()}`,
+          name: '3. QA Test Run',
+          status: 'active' as const,
+          owner: 'QA Inspector',
+          dueDate: todayStr
+        },
+        {
+          id: `cd-4-${Date.now()}`,
+          name: '4. Final Dispatch',
+          status: 'pending' as const,
+          owner: 'Shipping',
+          dueDate: todayStr
+        }
       ];
     }
 
-    // Default values
-    const targetVal = newWTarget ? parseFloat(newWTarget) : (
-      newWType === 'gauge' ? 100 :
-      newWType === 'riskGauge' ? 100 :
-      newWType === 'emission' ? 150 :
-      newWType === 'pulse' ? 80 :
-      newWType === 'stopwatch' ? 45 : undefined
-    );
-    const actualVal = newWActual ? parseFloat(newWActual) : (
-      newWType === 'gauge' ? 0 :
-      newWType === 'riskGauge' ? 25 :
-      newWType === 'emission' ? 120 :
-      newWType === 'pulse' ? 80 :
-      newWType === 'stopwatch' ? 0 : undefined
-    );
-    const numericValue = newWType === 'counter' ? (parseFloat(newWActual) || 0) : undefined;
+    const targetVal = newWTarget
+      ? parseFloat(newWTarget)
+      : newWType === 'gauge'
+      ? 100
+      : newWType === 'riskGauge'
+      ? 100
+      : newWType === 'emission'
+      ? 150
+      : newWType === 'pulse'
+      ? 80
+      : newWType === 'stopwatch'
+      ? 45
+      : undefined;
+    const actualVal = newWActual
+      ? parseFloat(newWActual)
+      : newWType === 'gauge'
+      ? 0
+      : newWType === 'riskGauge'
+      ? 25
+      : newWType === 'emission'
+      ? 120
+      : newWType === 'pulse'
+      ? 80
+      : newWType === 'stopwatch'
+      ? 0
+      : undefined;
+    const numericValue = newWType === 'counter' ? parseFloat(newWActual) || 0 : undefined;
     const warningThresholdVal = newWWarningThreshold ? parseFloat(newWWarningThreshold) : undefined;
 
     addWidget({
-      title: newWTitle,
+      title: newWTitle.trim(),
       pillar: newWPillar,
       level: newWLevel,
       type: newWType,
@@ -292,11 +387,10 @@ export default function App() {
       checklist: checklistData,
       dataPoints: chartData,
       milestones: milestonesData,
-      description: newWDesc || `Custom tracker for ${newWTitle}.`,
+      description: newWDesc || `Custom tracker for ${newWTitle.trim()}.`,
       linkedWidgetId: newWLinkedId || undefined
     });
 
-    // Reset Widget Form
     setNewWTitle('');
     setNewWOwner('');
     setNewWUnit('');
@@ -311,44 +405,61 @@ export default function App() {
     setShowAddWidget(false);
   };
 
-  // Color mappings for active pillars
   const getPillarIcon = (p: Pillar) => {
     switch (p) {
-      case 'Safety': return Shield;
-      case 'Sustainability': return Leaf;
-      case 'Quality': return CheckCircle;
-      case 'Delivery': return TrendingUp;
-      case 'Cost': return Coins;
-      case 'Capital': return HardHat;
+      case 'Safety':
+        return Shield;
+      case 'Sustainability':
+        return Leaf;
+      case 'Quality':
+        return CheckCircle;
+      case 'Delivery':
+        return TrendingUp;
+      case 'Cost':
+        return Coins;
+      case 'Capital':
+        return HardHat;
     }
   };
 
-  const unresolvedDeviationsCount = state.deviations.filter(d => !d.isResolved).length;
+  const unresolvedDeviationsCount = state.deviations.filter((d) => !d.isResolved).length;
+
+  const pageHeading =
+    activeTab === 'board'
+      ? activeLevel === 'daily'
+        ? 'Daily Stand-up Huddleboard'
+        : activeLevel === 'weekly'
+        ? 'Weekly Deviations Stand-up'
+        : 'Monthly Strategic Performance Board'
+      : TAB_META[activeTab].title;
+
+  const pageBreadcrumb =
+    activeTab === 'board' ? `${activeLevel} level pulse` : TAB_META[activeTab].breadcrumb;
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-300">
-
-      {/* Top Bar Navigation Contract: [Brand title] — [Nav links] — [Primary Actions] */}
-      {/* OVERHAULED: Epiroc Dark Slate & Yellow brand integration (Request #1) */}
-      <header className="sticky top-0 bg-slate-900 border-b border-slate-800 px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4 z-40 shadow-md text-white shrink-0">
-        
-        {/* Brand Zone: EPIROC Lean Pulse */}
-        <div className="flex items-center gap-3 self-start md:self-auto">
-          <div className="w-8 h-8 rounded-lg bg-[#FFC20E] flex items-center justify-center text-slate-950 font-black shadow-md">
+    <div className="min-h-screen bg-white text-[#262A2E] flex flex-col font-sans">
+      {/* Top Bar Navigation (Pure White + Epiroc Grey & Yellow) */}
+      <header className="sticky top-0 bg-white border-b border-gray-200 px-4 lg:px-6 py-3 flex flex-wrap items-center justify-between gap-3 z-40 shadow-xs text-[#262A2E] shrink-0">
+        {/* Brand Zone */}
+        <div className="flex items-center gap-3">
+          <div className="w-8 h-8 rounded-lg bg-[#FFC20E] flex items-center justify-center text-[#1F2328] font-black shadow-xs">
             <span>E</span>
           </div>
           <div>
-            <h1 className="text-base font-black tracking-wider text-white uppercase flex items-center gap-1.5">
-              Epiroc <span className="text-[#FFC20E] font-normal text-xs lowercase font-mono">Pulse</span>
+            <h1 className="text-base font-black tracking-wider text-[#262A2E] uppercase flex items-center gap-1.5">
+              Epiroc{' '}
+              <span className="text-[#4B5563] font-semibold text-xs lowercase font-mono">
+                Pulse
+              </span>
             </h1>
-            <span className="text-[10px] text-slate-400 font-bold block leading-none font-mono tracking-widest uppercase">
-              EPS Board
+            <span className="text-[10px] text-[#6B7280] font-bold block leading-none font-mono tracking-widest uppercase">
+              EPS Huddleboard
             </span>
           </div>
         </div>
 
-        {/* Navigation / Level Selector Contract (Epiroc Yellow highlighted active tabs) */}
-        <nav className="flex flex-wrap items-center gap-1 p-1 bg-slate-850 rounded-lg border border-slate-800">
+        {/* Navigation Bar */}
+        <nav className="flex flex-wrap items-center gap-1 p-1 bg-[#F3F4F6] rounded-xl border border-gray-200">
           {(['daily', 'weekly', 'monthly'] as const).map((lvl) => (
             <button
               key={lvl}
@@ -356,687 +467,651 @@ export default function App() {
                 setActiveLevel(lvl);
                 setActiveTab('board');
               }}
-              className={`px-3.5 py-1.5 text-xs font-bold rounded-md transition-all whitespace-nowrap cursor-pointer uppercase tracking-wider ${
+              className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all whitespace-nowrap cursor-pointer uppercase tracking-wider ${
                 activeLevel === lvl && activeTab === 'board'
-                  ? 'bg-[#FFC20E] text-slate-950 shadow-sm'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-[#FFC20E] text-[#1F2328] shadow-xs'
+                  : 'text-[#4B5563] hover:text-[#262A2E] hover:bg-white/70'
               }`}
             >
-              {lvl === 'daily' ? 'Daily' : lvl === 'weekly' ? 'Weekly' : 'Monthly'}
+              {lvl}
             </button>
           ))}
           <button
             onClick={() => setActiveTab('actions')}
-            className={`px-3.5 py-1.5 text-xs font-bold rounded-md transition-all whitespace-nowrap cursor-pointer uppercase tracking-wider ${
+            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all whitespace-nowrap cursor-pointer uppercase tracking-wider ${
               activeTab === 'actions'
-                ? 'bg-[#FFC20E] text-slate-950 shadow-sm'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#FFC20E] text-[#1F2328] shadow-xs'
+                : 'text-[#4B5563] hover:text-[#262A2E] hover:bg-white/70'
             }`}
           >
-            Actions Register
+            Actions
           </button>
           <button
             onClick={() => setActiveTab('hours')}
-            className={`px-3.5 py-1.5 text-xs font-bold rounded-md transition-all whitespace-nowrap cursor-pointer uppercase tracking-wider ${
+            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all whitespace-nowrap cursor-pointer uppercase tracking-wider ${
               activeTab === 'hours'
-                ? 'bg-[#FFC20E] text-slate-950 shadow-sm'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#FFC20E] text-[#1F2328] shadow-xs'
+                : 'text-[#4B5563] hover:text-[#262A2E] hover:bg-white/70'
             }`}
           >
-            Hours Planner
+            Hours
           </button>
           <button
             onClick={() => setActiveTab('master')}
-            className={`px-3.5 py-1.5 text-xs font-bold rounded-md transition-all whitespace-nowrap cursor-pointer uppercase tracking-wider ${
+            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all whitespace-nowrap cursor-pointer uppercase tracking-wider ${
               activeTab === 'master'
-                ? 'bg-[#FFC20E] text-slate-950 shadow-sm'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#FFC20E] text-[#1F2328] shadow-xs'
+                : 'text-[#4B5563] hover:text-[#262A2E] hover:bg-white/70'
             }`}
           >
-            Resource Master
+            Resources
           </button>
           <button
             onClick={() => setActiveTab('matrix')}
-            className={`px-3.5 py-1.5 text-xs font-bold rounded-md transition-all whitespace-nowrap cursor-pointer uppercase tracking-wider flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all whitespace-nowrap cursor-pointer uppercase tracking-wider ${
               activeTab === 'matrix'
-                ? 'bg-[#FFC20E] text-slate-950 shadow-sm'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#FFC20E] text-[#1F2328] shadow-xs'
+                : 'text-[#4B5563] hover:text-[#262A2E] hover:bg-white/70'
             }`}
           >
-            <span>Project Matrix</span>
-            <span className={`text-[9px] px-1 py-0.2 rounded font-mono font-black uppercase ${
-              activeTab === 'matrix' ? 'bg-slate-950 text-[#FFC20E]' : 'bg-[#FFC20E]/20 text-[#FFC20E]'
-            }`}>
-              New
-            </span>
+            Projects
           </button>
           <button
             onClick={() => setActiveTab('backup')}
-            className={`px-3.5 py-1.5 text-xs font-bold rounded-md transition-all whitespace-nowrap cursor-pointer uppercase tracking-wider ${
+            className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all whitespace-nowrap cursor-pointer uppercase tracking-wider ${
               activeTab === 'backup'
-                ? 'bg-[#FFC20E] text-slate-950 shadow-sm'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#FFC20E] text-[#1F2328] shadow-xs'
+                : 'text-[#4B5563] hover:text-[#262A2E] hover:bg-white/70'
             }`}
           >
-            Backups Facility
+            Backups
           </button>
         </nav>
 
-        {/* Workspace Quick Actions */}
-        <div className="flex items-center gap-2.5 self-end md:self-auto flex-wrap">
-          {/* Shift Sticky Notes & Whiteboard */}
+        {/* Quick Actions */}
+        <div className="flex items-center gap-2 flex-wrap">
           <button
             type="button"
             onClick={() => setShowStickyNotes(!showStickyNotes)}
             className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer border ${
-              showStickyNotes 
-                ? 'bg-[#FFC20E] text-slate-950 border-[#FFC20E] font-black' 
-                : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700'
+              showStickyNotes
+                ? 'bg-[#FFC20E] text-[#1F2328] border-[#FFC20E]'
+                : 'bg-white hover:bg-[#F7F8F9] text-[#262A2E] border-gray-200'
             }`}
-            title="Floor notices, handover notes, kudos & team whiteboard"
+            title="Shift sticky notes & team handover board"
           >
-            <MessageSquare className="w-3.5 h-3.5 text-[#FFC20E]" />
+            <MessageSquare className="w-3.5 h-3.5 text-[#E5AE00]" />
             <span className="hidden sm:inline">Shift Notes</span>
-            <span className="bg-slate-900 text-[#FFC20E] text-[10px] font-mono px-1.5 py-0.2 rounded-full font-bold">
+            <span className="bg-[#FFFBEB] text-[#1F2328] border border-[#FFC20E]/50 text-[10px] font-mono px-1.5 rounded-full font-bold">
               {(state.stickyNotes || []).length}
             </span>
           </button>
 
-          {/* AI Autonomous Huddle Scribe Button */}
           <button
             type="button"
             onClick={() => setShowHuddleScribe(true)}
-            className="px-3.5 py-1.5 bg-gradient-to-r from-amber-400 to-[#FFC20E] hover:from-amber-300 hover:to-[#E5B200] text-slate-950 font-black rounded-lg text-xs flex items-center gap-1.5 shadow-md transition-all cursor-pointer font-mono uppercase tracking-wider hover:scale-[1.02] border border-amber-300"
-            title="Launch AI Autonomous Huddle Scribe to listen and update metrics, projects, and actions via live speech"
+            className="px-3 py-1.5 bg-[#262A2E] hover:bg-[#3A3F45] text-[#FFC20E] font-bold rounded-lg text-xs flex items-center gap-1.5 shadow-xs transition-all cursor-pointer font-mono uppercase tracking-wider"
+            title="Launch AI Huddle Scribe to parse spoken meeting updates"
           >
-            <Sparkles className="w-3.5 h-3.5 fill-current text-slate-950" />
+            <Sparkles className="w-3.5 h-3.5" />
             <span>AI Scribe</span>
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-950 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-slate-950"></span>
-            </span>
           </button>
 
-          {/* 15-Minute Huddle Runner Auto-Stepper Launch Button */}
           <button
             type="button"
             onClick={() => setShowHuddleRunner(true)}
-            className="px-3.5 py-1.5 bg-[#FFC20E] hover:bg-[#F3AF00] text-slate-950 font-black rounded-lg text-xs flex items-center gap-2 shadow-md transition-all cursor-pointer font-mono uppercase tracking-wider hover:scale-[1.02]"
-            title="Launch 15-Minute Daily Stand-up Huddle Runner with Auto-Stepper across Lean Pillars"
+            className="px-3.5 py-1.5 bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] font-black rounded-lg text-xs flex items-center gap-1.5 shadow-xs transition-all cursor-pointer font-mono uppercase tracking-wider"
+            title="Launch 15-Minute Daily Stand-up Huddle Runner"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-950 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-slate-950"></span>
-            </span>
             <Play className="w-3.5 h-3.5 fill-current" />
             <span>15-Min Huddle</span>
-            <span className="bg-slate-950 text-[#FFC20E] text-[9px] px-1.5 py-0.5 rounded font-black hidden md:inline">
-              Auto-Stepper
-            </span>
           </button>
 
-          <div className="hidden lg:flex flex-col text-right font-mono text-[9px] text-slate-400">
-            <span>Shift: Day Huddle</span>
-            <span>Ref: 2026-10-02</span>
+          <div className="hidden xl:flex flex-col text-right font-mono text-[10px] text-[#6B7280] pl-1 border-l border-gray-200">
+            <span className="font-semibold text-[#262A2E]">Day Shift</span>
+            <span>{todayStr}</span>
           </div>
         </div>
       </header>
 
-      {/* Connected Feature: Huddle Deviation Connection Engine Ribbon (Request #2) */}
+      {/* Connected Feature: Weekly Deviation Queue Banner */}
       {activeTab === 'board' && activeLevel === 'daily' && unresolvedDeviationsCount > 0 && (
-        <div 
+        <div
           onClick={() => {
             setActiveLevel('weekly');
             setActiveTab('board');
           }}
-          className="bg-amber-400 hover:bg-[#FFC20E] text-slate-950 text-xs font-extrabold px-6 py-2.5 flex items-center justify-between cursor-pointer border-b border-[#FFC20E]/50 shrink-0 transition-all select-none shadow-inner"
+          className="bg-[#FFFBEB] hover:bg-[#FEF3C7] text-[#1F2328] text-xs font-bold px-6 py-2.5 flex items-center justify-between cursor-pointer border-b border-[#FFC20E]/60 shrink-0 transition-colors select-none"
         >
           <div className="flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-slate-950 shrink-0 animate-bounce" />
-            <span>EPIROC CORE CONNECTION: {unresolvedDeviationsCount} unresolved daily deviations detected! Click here to automatically navigate to the Weekly Solver and run 5-Whys.</span>
+            <AlertTriangle className="w-4 h-4 text-[#B45309] shrink-0" />
+            <span>
+              {unresolvedDeviationsCount} unresolved deviation(s) queued in Weekly 5-Why Root Cause Analysis.
+            </span>
           </div>
-          <span className="underline uppercase text-[10px] font-black shrink-0 tracking-wider">Analyze Root Causes &rarr;</span>
+          <span className="inline-flex items-center gap-1 underline uppercase text-[10px] font-black shrink-0 tracking-wider">
+            <span>Open Weekly Solver</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </span>
         </div>
       )}
 
-      {/* Main Content Layout with Sidebar */}
-      <div className="flex-1 flex overflow-hidden">
-        
-        {/* SIDEBAR: Operational Context Selector */}
-        {/* OVERHAULED: Epiroc Premium Dark Slate Sidebar */}
-        <aside className="w-64 bg-slate-900 border-r border-slate-800 flex flex-col p-5 space-y-6 shrink-0 overflow-y-auto text-white">
-          
-          {/* Connected Team Sim (Live visual indicator metadata - clean unboxed) */}
-          <div className="border-t border-slate-800 pt-4 flex items-center gap-3">
-            <div className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFC20E] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FFC20E]"></span>
+      {/* Full-Width Main Workspace Viewport */}
+      <main className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 bg-white">
+        {/* Dashboard Context Title & Actions */}
+        <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4 border-b border-gray-200 pb-4">
+          <div>
+            <div className="flex items-center gap-1.5 text-[11px] text-[#6B7280] font-bold mb-1 uppercase tracking-wider font-mono">
+              <span>Epiroc Global Operations</span>
+              <ChevronRight className="w-3 h-3" />
+              <span>{pageBreadcrumb}</span>
             </div>
-            <div className="text-[11px] text-slate-300 font-medium">
-              <span>Huddle Stand-up Connected</span>
-              <span className="block text-[10px] text-slate-500 font-mono mt-0.5">4 operators active on floor</span>
-            </div>
+            <h2 className="text-xl font-black text-[#262A2E] tracking-tight uppercase">
+              {pageHeading}
+            </h2>
           </div>
 
-          {/* Core Lean Pillars Quick filters (only on Board tabs) */}
-          {activeTab === 'board' && (
-            <div className="border-t border-slate-800 pt-4 space-y-2">
-              <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 font-mono">
-                SSQDCC Pillar Filters
-              </label>
-              
-              <button
-                onClick={() => setSelectedPillarFilter('all')}
-                className={`w-full text-left px-2.5 py-1.5 rounded-md text-xs font-bold transition-all flex items-center justify-between cursor-pointer ${
-                  selectedPillarFilter === 'all' 
-                    ? 'bg-[#FFC20E] text-slate-950' 
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                <span>All Core Pillars</span>
-                <span className="font-mono text-[10px] font-bold">
-                  {state.widgets.filter(w => w.level === activeLevel).length}
+          <div className="flex flex-wrap items-center gap-2.5 w-full xl:w-auto">
+            {/* Compact Snapshot Selector */}
+            <div className="flex flex-wrap items-center gap-2 border border-gray-200 bg-[#F7F8F9] p-1.5 rounded-xl shrink-0">
+              <div className="flex items-center gap-1.5 px-1">
+                <Calendar className="w-3.5 h-3.5 text-[#6B7280]" />
+                <span className="text-[10px] font-bold text-[#6B7280] uppercase tracking-wider font-mono">
+                  Snapshot:
                 </span>
-              </button>
+              </div>
+              <select
+                value={selectedSnapshotDate}
+                onChange={(e) => setSelectedSnapshotDate(e.target.value)}
+                className="text-xs font-bold px-2.5 py-1 rounded-lg border border-gray-200 bg-white text-[#262A2E] cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#FFC20E]"
+              >
+                <option value="live">Live Board</option>
+                {state.history &&
+                  Object.keys(state.history)
+                    .sort()
+                    .reverse()
+                    .map((dateStr) => (
+                      <option key={dateStr} value={dateStr}>
+                        {dateStr} (Archive)
+                      </option>
+                    ))}
+              </select>
 
-              {(['Safety', 'Sustainability', 'Quality', 'Delivery', 'Cost', 'Capital'] as Pillar[]).map((p) => {
-                const count = state.widgets.filter(w => w.level === activeLevel && w.pillar === p).length;
+              <div className="flex items-center gap-1.5 pl-2 border-l border-gray-200">
+                <input
+                  type="date"
+                  value={snapshotTargetDate}
+                  onChange={(e) => setSnapshotTargetDate(e.target.value)}
+                  className="text-[11px] font-mono px-2 py-1 rounded-lg border border-gray-200 bg-white text-[#262A2E] focus:outline-none focus:ring-2 focus:ring-[#FFC20E]"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (!snapshotTargetDate) {
+                      setBackupToast('Please select a date.');
+                      setTimeout(() => setBackupToast(null), 3000);
+                      return;
+                    }
+                    saveSnapshot(snapshotTargetDate);
+                    setSelectedSnapshotDate(snapshotTargetDate);
+                    setBackupToast(`Saved snapshot for ${snapshotTargetDate}`);
+                    setTimeout(() => setBackupToast(null), 3000);
+                  }}
+                  className="px-2.5 py-1 bg-[#262A2E] hover:bg-[#3A3F45] text-white hover:text-[#FFC20E] text-[10px] font-bold rounded-lg cursor-pointer transition-colors uppercase tracking-wider"
+                  title="Save current board state as dated snapshot"
+                >
+                  Save Snapshot
+                </button>
+              </div>
+            </div>
+
+            {activeTab === 'board' && (
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="relative flex items-center">
+                  <Search className="w-3.5 h-3.5 text-[#6B7280] absolute left-2.5 pointer-events-none" />
+                  <input
+                    type="text"
+                    placeholder="Search KPIs, owners..."
+                    value={boardSearchQuery}
+                    onChange={(e) => setBoardSearchQuery(e.target.value)}
+                    className="text-xs pl-8 pr-16 py-2 rounded-lg border border-gray-200 bg-[#F7F8F9] text-[#262A2E] placeholder:text-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#FFC20E] focus:bg-white w-48 sm:w-56 font-medium"
+                  />
+                  <div className="absolute right-1.5 flex items-center gap-1">
+                    {boardSearchQuery && (
+                      <button
+                        type="button"
+                        onClick={() => setBoardSearchQuery('')}
+                        className="p-1 text-[#6B7280] hover:text-[#262A2E] cursor-pointer"
+                      >
+                        <X className="w-3 h-3" />
+                      </button>
+                    )}
+                    <VoiceInputButton
+                      onTranscript={(txt) => setBoardSearchQuery(txt)}
+                      className="scale-90"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => setShowExcelSyncModal(true)}
+                  className="px-3 py-2 bg-white hover:bg-[#F7F8F9] text-[#262A2E] border border-gray-200 hover:border-[#FFC20E] rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer font-mono uppercase tracking-wider"
+                  title="Import & sync metric values from Excel or CSV"
+                >
+                  <FileSpreadsheet className="w-4 h-4 text-[#E5AE00]" />
+                  <span>Sync Excel</span>
+                </button>
+
+                {activeLevel !== 'monthly' && (
+                  <button
+                    onClick={() => {
+                      setNewWLevel(activeLevel);
+                      setShowAddWidget(!showAddWidget);
+                    }}
+                    className="px-3.5 py-2 bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] rounded-lg text-xs font-black flex items-center gap-1.5 shadow-xs transition-all cursor-pointer uppercase tracking-wider font-mono"
+                  >
+                    <Plus className="w-4 h-4" /> Add Metric
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Horizontal SSQDCC Pillar Filter Strip (Board tabs only) */}
+        {activeTab === 'board' && (
+          <div className="flex flex-wrap items-center gap-2 bg-[#F7F8F9] border border-gray-200 p-2 rounded-xl">
+            <span className="text-[10px] font-bold text-[#6B7280] uppercase tracking-wider font-mono px-2">
+              SSQDCC Filter:
+            </span>
+            <button
+              onClick={() => setSelectedPillarFilter('all')}
+              className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                selectedPillarFilter === 'all'
+                  ? 'bg-[#FFC20E] text-[#1F2328] shadow-xs'
+                  : 'bg-white text-[#4B5563] border border-gray-200 hover:text-[#262A2E]'
+              }`}
+            >
+              <span>All Pillars</span>
+              <span className="font-mono text-[10px] opacity-80">
+                ({currentWidgets.filter((w) => w.level === activeLevel).length})
+              </span>
+            </button>
+
+            {(['Safety', 'Sustainability', 'Quality', 'Delivery', 'Cost', 'Capital'] as Pillar[]).map(
+              (p) => {
+                const count = currentWidgets.filter(
+                  (w) => w.level === activeLevel && w.pillar === p
+                ).length;
                 const PillarIcon = getPillarIcon(p);
+                const isSelected = selectedPillarFilter === p;
                 return (
                   <button
                     key={p}
                     onClick={() => setSelectedPillarFilter(p)}
-                    className={`w-full text-left px-2.5 py-1.5 rounded-md text-xs font-bold transition-all flex items-center justify-between cursor-pointer ${
-                      selectedPillarFilter === p 
-                        ? 'bg-slate-800 text-[#FFC20E] border-l-2 border-l-[#FFC20E]' 
-                        : 'text-slate-400 hover:text-white'
+                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                      isSelected
+                        ? 'bg-[#FFC20E] text-[#1F2328] shadow-xs'
+                        : 'bg-white text-[#4B5563] border border-gray-200 hover:text-[#262A2E]'
                     }`}
                   >
-                    <div className="flex items-center gap-2">
-                      <PillarIcon className="w-3.5 h-3.5 shrink-0" />
-                      <span>{p}</span>
-                    </div>
-                    <span className="font-mono text-[10px] font-bold">
-                      {count}
-                    </span>
+                    <PillarIcon className="w-3.5 h-3.5 shrink-0" />
+                    <span>{p}</span>
+                    <span className="font-mono text-[10px] opacity-75">({count})</span>
                   </button>
                 );
-              })}
-            </div>
-          )}
+              }
+            )}
+          </div>
+        )}
 
-        </aside>
+        {/* Toast Notification */}
+        {backupToast && (
+          <div className="fixed bottom-6 right-6 z-50 bg-[#262A2E] text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-bold animate-fade-in flex items-center gap-2 border border-gray-700">
+            <Check className="w-4 h-4 text-[#FFC20E]" />
+            <span>{backupToast}</span>
+          </div>
+        )}
 
-        {/* WORKSPACE VIEWPORT */}
-        <main className="flex-1 overflow-y-auto p-6 space-y-6 bg-white dark:bg-slate-950">
-          
-          {/* Dashboard Context Title block */}
-          <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-5">
-            <div>
-              {/* Breadcrumb Trail */}
-              <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-bold mb-1">
-                <span>EPIROC GLOBAL OPERATIONS</span>
-                <ChevronRight className="w-3 h-3" />
-                <span className="capitalize">{activeTab === 'board' ? `${activeLevel} level pulse` : activeTab === 'actions' ? 'Countermeasures register' : 'Backups center'}</span>
+        {/* Historical Read-Only Archive Banner */}
+        {selectedSnapshotDate !== 'live' && (
+          <div className="bg-[#FFFBEB] border border-[#FFC20E] p-4 rounded-xl flex flex-col lg:flex-row lg:items-center justify-between gap-4 animate-fade-in">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="w-5 h-5 text-[#B45309] shrink-0 mt-0.5" />
+              <div>
+                <span className="font-extrabold text-sm text-[#262A2E] block">
+                  Viewing Historical Snapshot: {selectedSnapshotDate}
+                </span>
+                <span className="text-xs text-[#4B5563] block mt-1 leading-relaxed">
+                  You are inspecting a preserved snapshot from <strong>{selectedSnapshotDate}</strong>.
+                  Restore it to make changes live or return to the active board.
+                </span>
               </div>
-              <h2 className="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight uppercase">
-                {activeTab === 'board' && activeLevel === 'daily' && 'Daily Stand-up Huddleboard'}
-                {activeTab === 'board' && activeLevel === 'weekly' && 'Weekly Deviations Stand-up'}
-                {activeTab === 'board' && activeLevel === 'monthly' && 'Monthly Strategic Performance Board'}
-                {activeTab === 'actions' && 'Action Plan & Countermeasure Registry'}
-                {activeTab === 'backup' && 'Applet Backup and Restore Facility'}
-              </h2>
             </div>
-
-            {/* Historical Snapshot Selector & Config Actions Panel */}
-            <div className="flex flex-wrap items-center gap-3 w-full xl:w-auto">
-              <div className="flex flex-wrap items-center gap-2 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 p-2 rounded-xl shadow-inner shrink-0 w-full sm:w-auto justify-between sm:justify-start">
-                <div className="flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-slate-500" />
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono">Snapshot Date:</span>
-                </div>
-                <select
-                  value={selectedSnapshotDate}
-                  onChange={(e) => setSelectedSnapshotDate(e.target.value)}
-                  className="text-xs font-bold px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 cursor-pointer focus:outline-none"
-                >
-                  <option value="live">🟢 Live Board (Active Realtime State)</option>
-                  {state.history && Object.keys(state.history).sort().reverse().map((dateStr) => (
-                    <option key={dateStr} value={dateStr}>
-                      📅 {dateStr} (Historical Backup)
-                    </option>
-                  ))}
-                </select>
-
-                <div className="flex items-center gap-1.5 pl-2 border-l border-slate-250 dark:border-slate-800">
-                  <input
-                    type="date"
-                    value={snapshotTargetDate}
-                    onChange={(e) => setSnapshotTargetDate(e.target.value)}
-                    className="text-[11px] font-mono px-1.5 py-1 rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (!snapshotTargetDate) {
-                        setBackupToast('Please select a date.');
-                        setTimeout(() => setBackupToast(null), 3000);
-                        return;
-                      }
-                      saveSnapshot(snapshotTargetDate);
-                      setSelectedSnapshotDate(snapshotTargetDate);
-                      setBackupToast(`Saved backup snapshot for ${snapshotTargetDate}!`);
-                      setTimeout(() => setBackupToast(null), 3000);
-                    }}
-                    className="px-2.5 py-1.5 bg-slate-850 hover:bg-slate-800 text-white hover:text-[#FFC20E] text-[9px] font-black rounded-lg cursor-pointer transition-all uppercase tracking-wider"
-                    title="Capture current board state and commit to historical backup registry"
-                  >
-                    Backup Current
-                  </button>
-                </div>
-              </div>
-
-              {backupToast && (
-                <div className="fixed bottom-6 right-6 z-50 bg-emerald-600 text-white px-4 py-2 rounded-xl shadow-xl text-xs font-bold animate-fade-in flex items-center gap-2">
-                  <Check className="w-4 h-4 text-emerald-200" />
-                  <span>{backupToast}</span>
-                </div>
-              )}
-
-              {activeTab === 'board' && (
-                <div className="flex flex-wrap items-center gap-2">
-                  {/* Instant Search Bar with Voice Input */}
-                  <div className="relative flex items-center">
-                    <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 pointer-events-none" />
-                    <input
-                      type="text"
-                      placeholder="Search KPIs, owners..."
-                      value={boardSearchQuery}
-                      onChange={(e) => setBoardSearchQuery(e.target.value)}
-                      className="text-xs pl-8 pr-16 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-[#FFC20E] w-48 sm:w-56 font-medium shadow-xs"
-                    />
-                    <div className="absolute right-1.5 flex items-center gap-1">
-                      {boardSearchQuery && (
-                        <button
-                          type="button"
-                          onClick={() => setBoardSearchQuery('')}
-                          className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-white cursor-pointer"
-                        >
-                          <X className="w-3 h-3" />
-                        </button>
-                      )}
-                      <VoiceInputButton
-                        onTranscript={(txt) => setBoardSearchQuery(txt)}
-                        className="scale-90"
-                      />
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => setShowExcelSyncModal(true)}
-                    className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white border border-slate-700 hover:border-[#FFC20E] rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-md transition-all cursor-pointer font-mono uppercase tracking-wider"
-                    title="Import & Sync daily metric values directly from Excel (.xlsx, .csv)"
-                  >
-                    <FileSpreadsheet className="w-4 h-4 text-[#FFC20E]" />
-                    <span>Sync from Excel</span>
-                  </button>
-
-                  {activeLevel !== 'monthly' && (
-                    <button
-                      onClick={() => setShowAddWidget(!showAddWidget)}
-                      className="px-4 py-2 bg-[#FFC20E] hover:bg-[#F3AF00] text-slate-950 rounded-lg text-xs font-black flex items-center gap-1.5 shadow-lg shadow-[#FFC20E]/25 hover:shadow-[#FFC20E]/40 transition-all hover:scale-[1.02] cursor-pointer uppercase tracking-wider font-mono"
-                    >
-                      <Plus className="w-4 h-4" /> Add Metric
-                    </button>
-                  )}
-                </div>
-              )}
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              <button
+                onClick={() => {
+                  restoreSnapshot(selectedSnapshotDate);
+                  setSelectedSnapshotDate('live');
+                }}
+                className="px-3.5 py-1.5 bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] text-xs font-extrabold rounded-lg shadow-xs cursor-pointer transition-all"
+              >
+                Restore to Live
+              </button>
+              <button
+                onClick={() => {
+                  deleteSnapshot(selectedSnapshotDate);
+                  setSelectedSnapshotDate('live');
+                }}
+                className="px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-bold rounded-lg cursor-pointer transition-all"
+              >
+                Delete
+              </button>
+              <button
+                onClick={() => setSelectedSnapshotDate('live')}
+                className="px-2.5 py-1.5 bg-white hover:bg-[#F3F4F6] border border-gray-200 text-[#3A3F45] text-xs font-bold rounded-lg cursor-pointer transition-all"
+              >
+                Exit Archive
+              </button>
             </div>
           </div>
+        )}
 
-          {/* Historical View-Only Archive Mode Banner */}
-          {selectedSnapshotDate !== 'live' && (
-            <div className="bg-amber-500/10 border border-amber-500/20 p-4 rounded-xl flex flex-col lg:flex-row lg:items-center justify-between gap-4 animate-fade-in shadow-sm">
-              <div className="flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5 animate-pulse" />
-                <div>
-                  <span className="font-extrabold text-sm text-slate-800 dark:text-slate-200 block">
-                    Viewing Historical Backup Archive: {selectedSnapshotDate}
-                  </span>
-                  <span className="text-xs text-slate-500 dark:text-slate-400 block mt-1 leading-relaxed">
-                    You are exploring a preserved huddleboard snapshot from <strong>{selectedSnapshotDate}</strong>. All actions, metrics, and safety calendar items are currently shown in <strong>Read-Only mode</strong> to safeguard archival logs. You can restore this archive state to the active live board or delete it anytime.
-                  </span>
-                </div>
-              </div>
-              <div className="flex flex-wrap items-center gap-2 shrink-0">
-                <button
-                  onClick={() => {
-                    restoreSnapshot(selectedSnapshotDate);
-                    setSelectedSnapshotDate('live');
-                  }}
-                  className="px-3.5 py-1.5 bg-[#FFC20E] text-slate-950 hover:bg-[#E5B200] text-xs font-extrabold rounded-lg shadow cursor-pointer transition-all"
-                >
-                  Restore to Live Board
-                </button>
-                <button
-                  onClick={() => {
-                    deleteSnapshot(selectedSnapshotDate);
-                    setSelectedSnapshotDate('live');
-                  }}
-                  className="px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 dark:bg-rose-950/20 dark:hover:bg-rose-950/40 text-xs font-bold rounded-lg cursor-pointer transition-all"
-                >
-                  Delete Snapshot
-                </button>
-                <button
-                  onClick={() => setSelectedSnapshotDate('live')}
-                  className="px-2.5 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-850 text-slate-500 dark:text-slate-400 text-xs font-bold rounded-lg cursor-pointer transition-all"
-                >
-                  Exit Archive
-                </button>
-              </div>
+        {/* Add Custom Widget Overlay Form */}
+        {showAddWidget && (
+          <form
+            onSubmit={handleAddCustomWidget}
+            className="bg-white border border-gray-200 p-5 rounded-2xl shadow-sm space-y-4 animate-fade-in"
+          >
+            <div className="flex items-center justify-between border-b border-gray-200 pb-3">
+              <h4 className="font-extrabold text-[#262A2E] text-sm uppercase tracking-wider">
+                Add Custom KPI Tracker
+              </h4>
+              <button
+                type="button"
+                onClick={() => setShowAddWidget(false)}
+                className="p-1.5 hover:bg-[#F3F4F6] rounded-lg text-[#6B7280] hover:text-[#262A2E] cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
             </div>
-          )}
 
-          {/* Add Widget Overlay Form */}
-          {showAddWidget && (
-            <form onSubmit={handleAddCustomWidget} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl shadow-md space-y-4 animate-fade-in">
-              <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-                <h4 className="font-bold text-slate-800 dark:text-white text-sm uppercase">Add Custom KPI Tracker</h4>
-                <button 
-                  type="button" 
-                  onClick={() => setShowAddWidget(false)}
-                  className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg text-slate-400 cursor-pointer"
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+              <div>
+                <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-1">
+                  KPI Title *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={newWTitle}
+                  onChange={(e) => setNewWTitle(e.target.value)}
+                  placeholder="e.g. Daily First Pass Yield"
+                  className="w-full text-xs px-2.5 py-2 border border-gray-200 bg-[#F7F8F9] text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] focus:bg-white font-semibold"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-1">
+                  Metric Owner
+                </label>
+                <input
+                  type="text"
+                  value={newWOwner}
+                  onChange={(e) => setNewWOwner(e.target.value)}
+                  placeholder="e.g. Sarah Connor"
+                  className="w-full text-xs px-2.5 py-2 border border-gray-200 bg-[#F7F8F9] text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] focus:bg-white font-semibold"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-1">
+                  SSQDCC Pillar
+                </label>
+                <select
+                  value={newWPillar}
+                  onChange={(e) => setNewWPillar(e.target.value as Pillar)}
+                  className="w-full text-xs px-2.5 py-2 border border-gray-200 bg-[#F7F8F9] text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] cursor-pointer font-semibold"
                 >
-                  Close
-                </button>
+                  <option value="Safety">Safety</option>
+                  <option value="Sustainability">Sustainability</option>
+                  <option value="Quality">Quality</option>
+                  <option value="Delivery">Delivery</option>
+                  <option value="Cost">Cost</option>
+                  <option value="Capital">Capital</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-1">
+                  Pulse Level
+                </label>
+                <select
+                  value={newWLevel}
+                  onChange={(e) => setNewWLevel(e.target.value as PulseLevel)}
+                  className="w-full text-xs px-2.5 py-2 border border-gray-200 bg-[#F7F8F9] text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] cursor-pointer font-semibold"
+                >
+                  <option value="daily">Daily Stand-up</option>
+                  <option value="weekly">Weekly Stand-up</option>
+                  <option value="monthly">Monthly Strategic</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-1">
+                  Widget Type
+                </label>
+                <select
+                  value={newWType}
+                  onChange={(e) => setNewWType(e.target.value as MetricWidget['type'])}
+                  className="w-full text-xs px-2.5 py-2 border border-gray-200 bg-[#F7F8F9] text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] cursor-pointer font-semibold"
+                >
+                  <option value="numeric">Target vs Actual (Numeric)</option>
+                  <option value="checklist">Action Checklist</option>
+                  <option value="gauge">Circular Gauge (%)</option>
+                  <option value="counter">Consecutive Counter</option>
+                  <option value="chart">Categorized Bar Chart</option>
+                  <option value="project">Milestone Roadmap</option>
+                  <option value="stopwatch">Cycle Time Stopwatch</option>
+                  <option value="heatmap">Hourly Heatmap Grid</option>
+                  <option value="skills">Competency Skill Matrix</option>
+                  <option value="kanban">Kaizen Kanban Cards</option>
+                  <option value="handover">Shift Handover Sign-off</option>
+                  <option value="radar">5S Audit Radar</option>
+                  <option value="pareto">Scrap & Waste Pareto</option>
+                  <option value="riskGauge">Hazard Alert Gauge</option>
+                  <option value="emission">CO2 Emission Trace</option>
+                  <option value="countdown">Lead Time Countdown</option>
+                  <option value="pulse">Takt-Time Pace Pulse</option>
+                  <option value="projectMatrix">Linked Project Matrix</option>
+                </select>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-                <div>
-                  <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">KPI Title</label>
-                  <input
-                    type="text"
-                    required
-                    value={newWTitle}
-                    onChange={(e) => setNewWTitle(e.target.value)}
-                    placeholder="e.g. Daily Air Recirculation Rate"
-                    className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 font-semibold"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Metric Owner (Person)</label>
-                  <input
-                    type="text"
-                    value={newWOwner}
-                    onChange={(e) => setNewWOwner(e.target.value)}
-                    placeholder="e.g. Sarah Connor, John Doe"
-                    className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 font-semibold"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">SSQDCC Pillar</label>
-                  <select
-                    value={newWPillar}
-                    onChange={(e) => setNewWPillar(e.target.value as Pillar)}
-                    className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer font-semibold"
-                  >
-                    <option value="Safety">Safety</option>
-                    <option value="Sustainability">Sustainability</option>
-                    <option value="Quality">Quality</option>
-                    <option value="Delivery">Delivery</option>
-                    <option value="Cost">Cost</option>
-                    <option value="Capital">Capital</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Pulse Level (Tier)</label>
-                  <select
-                    value={newWLevel}
-                    onChange={(e) => setNewWLevel(e.target.value as PulseLevel)}
-                    className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer font-semibold"
-                  >
-                    <option value="daily">Daily stand-up</option>
-                    <option value="weekly">Weekly stand-up</option>
-                    <option value="monthly">Monthly strategic</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Widget Interface Style</label>
-                  <select
-                    value={newWType}
-                    onChange={(e) => setNewWType(e.target.value as any)}
-                    className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer font-semibold"
-                  >
-                    <option value="numeric">1. Target vs Actual (Numeric KPI)</option>
-                    <option value="checklist">2. Action Checklist (Task Audits)</option>
-                    <option value="gauge">3. Circular Gauge (Percentage Dial)</option>
-                    <option value="counter">4. Days Counter (Consecutive Tracker)</option>
-                    <option value="chart">5. Pareto Bar Chart (Categorized Quantities)</option>
-                    <option value="project">6. Milestone Project (Roadmaps & Timelines)</option>
-                    <option value="stopwatch">7. Stopwatch & Timer (Work Cycle Clock)</option>
-                    <option value="heatmap">8. Activity Heatmap Grid (Hourly State Matrix)</option>
-                    <option value="skills">9. Competency Skill Matrix (Team Training Grid)</option>
-                    <option value="kanban">10. Suggestions Kanban (Idea Incubator Cards)</option>
-                    <option value="handover">11. Shift Handover Block (Supervisor Transition Sign-off)</option>
-                    <option value="radar">12. Audit Radar Scorecard (5S Walkabout Radians)</option>
-                    <option value="pareto">13. Scrap & Waste Pareto Bar Chart (Static Percentage Distribution)</option>
-                    <option value="riskGauge">14. Hazard Alert Level Gauge (LOTO Risk Index)</option>
-                    <option value="emission">15. CO₂ Emission Sparkline (Carbon Footprint Trace)</option>
-                    <option value="countdown">16. Lead Time Countdown Tracker (Rig Shipping Pipeline)</option>
-                    <option value="pulse">17. Takt-Time Pace Pulse (Active Takt Pace Indicator)</option>
-                    <option value="projectMatrix">18. Project Tracking Matrix (Cost, Schedule, Scope, Fixtures, BOMs, Resources, SOPs)</option>
-                  </select>
-                </div>
-
-                {/* Conditionally Render Inputs based on exact requirements of Selected Style */}
-                {['numeric', 'gauge', 'stopwatch', 'riskGauge', 'emission', 'pulse'].includes(newWType) && (
-                  <>
-                    <div>
-                      <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Unit Symbol</label>
-                      <input
-                        type="text"
-                        placeholder="e.g. % or kg or s"
-                        value={newWUnit}
-                        onChange={(e) => setNewWUnit(e.target.value)}
-                        className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-semibold"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Target Limit</label>
-                      <input
-                        type="number"
-                        placeholder="e.g. 95"
-                        value={newWTarget}
-                        onChange={(e) => setNewWTarget(e.target.value)}
-                        className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-mono font-semibold"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Initial Value / Actual</label>
-                      <input
-                        type="number"
-                        placeholder="e.g. 94"
-                        value={newWActual}
-                        onChange={(e) => setNewWActual(e.target.value)}
-                        className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-mono font-semibold"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Warning Threshold (%)</label>
-                      <input
-                        type="number"
-                        placeholder="e.g. 110"
-                        value={newWWarningThreshold}
-                        onChange={(e) => setNewWWarningThreshold(e.target.value)}
-                        className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-mono font-semibold"
-                        title="If Actual exceeds this percentage of Target, a pulsing red glow is shown."
-                      />
-                    </div>
-                  </>
-                )}
-
-                {newWType === 'counter' && (
+              {['numeric', 'gauge', 'stopwatch', 'riskGauge', 'emission', 'pulse'].includes(
+                newWType
+              ) && (
+                <>
                   <div>
-                    <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Initial Counter Value</label>
+                    <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-1">
+                      Unit Symbol
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. % or kg or s"
+                      value={newWUnit}
+                      onChange={(e) => setNewWUnit(e.target.value)}
+                      className="w-full text-xs px-2.5 py-2 border border-gray-200 bg-[#F7F8F9] text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-semibold"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-1">
+                      Target Limit
+                    </label>
                     <input
                       type="number"
-                      placeholder="e.g. 100"
+                      placeholder="e.g. 95"
+                      value={newWTarget}
+                      onChange={(e) => setNewWTarget(e.target.value)}
+                      className="w-full text-xs px-2.5 py-2 border border-gray-200 bg-[#F7F8F9] text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-mono font-semibold"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-1">
+                      Initial Actual
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="e.g. 94"
                       value={newWActual}
                       onChange={(e) => setNewWActual(e.target.value)}
-                      className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-mono font-semibold"
+                      className="w-full text-xs px-2.5 py-2 border border-gray-200 bg-[#F7F8F9] text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-mono font-semibold"
                     />
                   </div>
-                )}
+                  <div>
+                    <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-1">
+                      Warning Threshold (%)
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="e.g. 110"
+                      value={newWWarningThreshold}
+                      onChange={(e) => setNewWWarningThreshold(e.target.value)}
+                      className="w-full text-xs px-2.5 py-2 border border-gray-200 bg-[#F7F8F9] text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-mono font-semibold"
+                    />
+                  </div>
+                </>
+              )}
 
-                {newWType === 'checklist' && (
-                  <div className="sm:col-span-2">
-                    <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Checklist Steps (Comma separated)</label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Clean work surface, Inspect hydraulic lines, Check emergency stops"
-                      value={newChecklistText}
-                      onChange={(e) => setNewChecklistText(e.target.value)}
-                      className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-semibold"
-                    />
-                  </div>
-                )}
-                {newWType === 'chart' && (
-                  <div className="sm:col-span-2">
-                    <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Pareto Defect Categories (Comma separated)</label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Surface Scratches, Dimension Fail, Solder Blister, Seal Leak"
-                      value={newChartText}
-                      onChange={(e) => setNewChartText(e.target.value)}
-                      className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-semibold"
-                    />
-                  </div>
-                )}
-                {newWType === 'project' && (
-                  <div className="sm:col-span-2">
-                    <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">Roadmap Milestones (Comma separated)</label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Design Spec Approval, Supplier Sourcing, Machine Calibration, Live Run"
-                      value={newProjectText}
-                      onChange={(e) => setNewProjectText(e.target.value)}
-                      className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-semibold"
-                    />
-                  </div>
-                )}
-                <div className="sm:col-span-2">
-                  <label className="block text-[10px] text-emerald-500 font-bold uppercase tracking-wider mb-1 flex items-center gap-1">
-                    <span>🔗 Sync Link (Connect to other level's Widget)</span>
+              {newWType === 'counter' && (
+                <div>
+                  <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-1">
+                    Initial Counter Value
                   </label>
-                  <select
-                    value={newWLinkedId}
-                    onChange={(e) => setNewWLinkedId(e.target.value)}
-                    className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-semibold cursor-pointer"
-                  >
-                    <option value="">Static Custom Metric (No synchronization)</option>
-                    {state.widgets
-                      .filter((w) => w.level !== newWLevel)
-                      .map((w) => (
-                        <option key={w.id} value={w.id}>
-                          [{w.level.toUpperCase()}] [{w.pillar}] {w.title}
-                        </option>
-                      ))}
-                  </select>
-                </div>
-                <div className="sm:col-span-2">
-                  <label className="block text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-1">KPI Description & Purpose</label>
                   <input
-                    type="text"
-                    placeholder="Why are we tracking this? (Visible on Hover)"
-                    value={newWDesc}
-                    onChange={(e) => setNewWDesc(e.target.value)}
-                    className="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none font-semibold"
+                    type="number"
+                    placeholder="e.g. 100"
+                    value={newWActual}
+                    onChange={(e) => setNewWActual(e.target.value)}
+                    className="w-full text-xs px-2.5 py-2 border border-gray-200 bg-[#F7F8F9] text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-mono font-semibold"
                   />
                 </div>
-              </div>
-              <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
-                <button
-                  type="button"
-                  onClick={() => setShowAddWidget(false)}
-                  className="px-3.5 py-2 text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-850 rounded-lg font-semibold cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-3.5 py-2 bg-[#FFC20E] text-slate-950 hover:bg-[#E5B200] text-xs font-bold rounded-lg shadow-sm cursor-pointer"
-                >
-                  Deploy Widget
-                </button>
-              </div>
-            </form>
-          )}
+              )}
 
-          {/* ACTIVE WORKSPACE RENDER PANEL */}
-          {activeTab === 'board' && (
-            <>
-              {/* 1. DAILY PULSE LEVEL VIEWPORT */}
-              {activeLevel === 'daily' && (
-                <div className="space-y-6">
-                  {/* Primary Daily Grid: Conditional structure based on Pillar Filtering */}
-                  {selectedPillarFilter !== 'all' ? (
-                    <div className="space-y-6">
-                      <div className="text-xs text-slate-500 font-bold uppercase tracking-wider font-mono">
-                        Filtering active: Showing {selectedPillarFilter} operational pulse cards
-                      </div>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-                        {/* Always display the Safety Cross Calendar if Safety pillar is active for maximum context */}
-                        {selectedPillarFilter === 'Safety' && (
-                          <SafetyCrossCalendar 
-                            safetyCross={currentSafetyCross}
-                            safetyNotes={currentSafetyNotes}
-                            onDayClick={updateSafetyCross}
-                            onUpdateNote={updateSafetyNote}
-                            daysSinceLastLTI={
-                              currentWidgets.find((w) => w.id === 'd-safety-lti')?.value || 0
-                            }
-                            onResetLTI={() => {
-                              updateWidgetValue('d-safety-lti', { value: 0 });
-                              updateSafetyCross(30, 'red');
-                            }}
-                            onIncrementLTI={() => {
-                              const currentVal = currentWidgets.find((w) => w.id === 'd-safety-lti')?.value || 0;
-                              updateWidgetValue('d-safety-lti', { value: currentVal + 1 });
-                            }}
-                          />
-                        )}
+              {newWType === 'checklist' && (
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-1">
+                    Checklist Steps (Comma separated)
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Clean surface, Inspect hydraulic lines, Check E-stops"
+                    value={newChecklistText}
+                    onChange={(e) => setNewChecklistText(e.target.value)}
+                    className="w-full text-xs px-2.5 py-2 border border-gray-200 bg-[#F7F8F9] text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-semibold"
+                  />
+                </div>
+              )}
 
-                        {displayedWidgets.map((widget) => renderWidgetCard(widget))}
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
-                      
-                      {/* Column 1: Safety & Sustainability (Pillar S & S) */}
-                      <div 
-                        onDragOver={(e) => e.preventDefault()}
-                        onDrop={(e) => {
-                          e.preventDefault();
-                          const draggedId = e.dataTransfer.getData("text/plain");
-                          if (draggedId) {
-                            const w = state.widgets.find(item => item.id === draggedId);
-                            if (w && w.pillar !== 'Safety' && w.pillar !== 'Sustainability') {
-                              updateWidgetValue(draggedId, { pillar: 'Safety' });
-                            }
-                          }
-                        }}
-                        className="xl:col-span-4 space-y-6 min-h-[400px] rounded-xl p-2 transition-all border-2 border-dashed border-transparent hover:border-slate-200/50 dark:hover:border-slate-800/40"
+              {newWType === 'chart' && (
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-1">
+                    Defect Categories (Comma separated)
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Surface Scratches, Dimension Fail, Seal Leak"
+                    value={newChartText}
+                    onChange={(e) => setNewChartText(e.target.value)}
+                    className="w-full text-xs px-2.5 py-2 border border-gray-200 bg-[#F7F8F9] text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-semibold"
+                  />
+                </div>
+              )}
+
+              {newWType === 'project' && (
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-1">
+                    Roadmap Milestones (Comma separated)
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Design Spec, Supplier Sourcing, Calibration, Live Run"
+                    value={newProjectText}
+                    onChange={(e) => setNewProjectText(e.target.value)}
+                    className="w-full text-xs px-2.5 py-2 border border-gray-200 bg-[#F7F8F9] text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-semibold"
+                  />
+                </div>
+              )}
+
+              <div className="sm:col-span-2">
+                <label className="block text-[10px] text-emerald-700 font-bold uppercase tracking-wider mb-1">
+                  Sync Link (Optional Roll-up Source)
+                </label>
+                <select
+                  value={newWLinkedId}
+                  onChange={(e) => setNewWLinkedId(e.target.value)}
+                  className="w-full text-xs px-2.5 py-2 border border-gray-200 bg-[#F7F8F9] text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-semibold cursor-pointer"
+                >
+                  <option value="">Standalone Metric (No link)</option>
+                  {state.widgets
+                    .filter((w) => w.level !== newWLevel)
+                    .map((w) => (
+                      <option key={w.id} value={w.id}>
+                        [{w.level.toUpperCase()}] [{w.pillar}] {w.title}
+                      </option>
+                    ))}
+                </select>
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-1">
+                  KPI Description
+                </label>
+                <input
+                  type="text"
+                  placeholder="Purpose & operating definition..."
+                  value={newWDesc}
+                  onChange={(e) => setNewWDesc(e.target.value)}
+                  className="w-full text-xs px-2.5 py-2 border border-gray-200 bg-[#F7F8F9] text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-semibold"
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-end gap-2 pt-3 border-t border-gray-200">
+              <button
+                type="button"
+                onClick={() => setShowAddWidget(false)}
+                className="px-3.5 py-2 text-xs text-[#4B5563] hover:bg-[#F3F4F6] rounded-lg font-semibold cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] text-xs font-black rounded-lg shadow-xs cursor-pointer uppercase tracking-wider"
+              >
+                Deploy Metric
+              </button>
+            </div>
+          </form>
+        )}
+
+        {/* ACTIVE WORKSPACE */}
+        {activeTab === 'board' && (
+          <>
+            {/* 1. DAILY PULSE LEVEL */}
+            {activeLevel === 'daily' && (
+              <div className="space-y-6">
+                {selectedPillarFilter !== 'all' ? (
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between text-xs text-[#4B5563] font-bold uppercase tracking-wider font-mono">
+                      <span>Showing {selectedPillarFilter} Operational Pulse</span>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedPillarFilter('all')}
+                        className="text-[#262A2E] underline cursor-pointer"
                       >
-                        <div className="border-b border-slate-200 dark:border-slate-800 pb-2 flex items-center gap-2">
-                          <Shield className="w-4 h-4 text-slate-850 dark:text-[#FFC20E]" />
-                          <h3 className="font-extrabold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                            Safety & Environmental Health
-                          </h3>
-                        </div>
-                        
-                        {/* Safety Cross Calendar with Daily Notes */}
-                        <SafetyCrossCalendar 
+                        Show All Pillars
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-start">
+                      {selectedPillarFilter === 'Safety' && (
+                        <SafetyCrossCalendar
                           safetyCross={currentSafetyCross}
                           safetyNotes={currentSafetyNotes}
                           onDayClick={updateSafetyCross}
@@ -1046,248 +1121,294 @@ export default function App() {
                           }
                           onResetLTI={() => {
                             updateWidgetValue('d-safety-lti', { value: 0 });
-                            updateSafetyCross(30, 'red'); // also trigger safety cross red
+                            updateSafetyCross(new Date().getDate(), 'red');
                           }}
                           onIncrementLTI={() => {
-                            const currentVal = currentWidgets.find((w) => w.id === 'd-safety-lti')?.value || 0;
+                            const currentVal =
+                              currentWidgets.find((w) => w.id === 'd-safety-lti')?.value || 0;
                             updateWidgetValue('d-safety-lti', { value: currentVal + 1 });
                           }}
                         />
+                      )}
 
-                        {/* Display safety and sustainability daily widgets */}
-                        {displayedWidgets
-                          .filter((w) => w.pillar === 'Safety' || w.pillar === 'Sustainability')
-                          .map((widget) => renderWidgetCard(widget))}
-                      </div>
-
-                      {/* Column 2: Quality & Delivery (Pillar Q & D) */}
-                      <div 
-                        onDragOver={(e) => e.preventDefault()}
-                        onDrop={(e) => {
-                          e.preventDefault();
-                          const draggedId = e.dataTransfer.getData("text/plain");
-                          if (draggedId) {
-                            const w = state.widgets.find(item => item.id === draggedId);
-                            if (w && w.pillar !== 'Quality' && w.pillar !== 'Delivery') {
-                              updateWidgetValue(draggedId, { pillar: 'Quality' });
-                            }
-                          }
-                        }}
-                        className="xl:col-span-4 space-y-6 min-h-[400px] rounded-xl p-2 transition-all border-2 border-dashed border-transparent hover:border-slate-200/50 dark:hover:border-slate-800/40"
-                      >
-                        <div className="border-b border-slate-200 dark:border-slate-800 pb-2 flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 text-slate-850 dark:text-[#FFC20E]" />
-                          <h3 className="font-extrabold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                            Quality & Customer Delivery
-                          </h3>
-                        </div>
-
-                        {displayedWidgets
-                          .filter((w) => w.pillar === 'Quality' || w.pillar === 'Delivery')
-                          .map((widget) => renderWidgetCard(widget))}
-                      </div>
-
-                      {/* Column 3: Cost & Capital (Pillar C & C) */}
-                      <div 
-                        onDragOver={(e) => e.preventDefault()}
-                        onDrop={(e) => {
-                          e.preventDefault();
-                          const draggedId = e.dataTransfer.getData("text/plain");
-                          if (draggedId) {
-                            const w = state.widgets.find(item => item.id === draggedId);
-                            if (w && w.pillar !== 'Cost' && w.pillar !== 'Capital') {
-                              updateWidgetValue(draggedId, { pillar: 'Cost' });
-                            }
-                          }
-                        }}
-                        className="xl:col-span-4 space-y-6 min-h-[400px] rounded-xl p-2 transition-all border-2 border-dashed border-transparent hover:border-slate-200/50 dark:hover:border-slate-800/40"
-                      >
-                        <div className="border-b border-slate-200 dark:border-slate-800 pb-2 flex items-center gap-2">
-                          <Coins className="w-4 h-4 text-slate-850 dark:text-[#FFC20E]" />
-                          <h3 className="font-extrabold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                            Cost Control & Asset Capital
-                          </h3>
-                        </div>
-
-                        {displayedWidgets
-                          .filter((w) => w.pillar === 'Cost' || w.pillar === 'Capital')
-                          .map((widget) => renderWidgetCard(widget))}
-                      </div>
-
+                      {displayedWidgets.map((widget) => renderWidgetCard(widget))}
                     </div>
-                  )}
-                </div>
-              )}
 
-              {/* 2. WEEKLY DEVIATION STAND-UP LEVEL */}
-              {activeLevel === 'weekly' && (
-                <div className="space-y-6">
-                  {/* Split Weekly Workspace: Widgets on Left, 5-Why solver on Right */}
-                  <div className="space-y-6">
-                    {/* First, show the Weekly level metric trackers (Highly editable) */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {currentWidgets
-                        .filter((w) => w.level === 'weekly' && (selectedPillarFilter === 'all' || w.pillar === selectedPillarFilter))
+                    {displayedWidgets.length === 0 && selectedPillarFilter !== 'Safety' && (
+                      <div className="py-10 text-center bg-[#F7F8F9] border border-dashed border-gray-300 rounded-xl text-xs text-[#6B7280]">
+                        No matching metrics found for {selectedPillarFilter}.
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+                    {/* Column 1: Safety & Sustainability */}
+                    <div
+                      onDragOver={(e) => e.preventDefault()}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        const draggedId = e.dataTransfer.getData('text/plain');
+                        if (draggedId) {
+                          const w = state.widgets.find((item) => item.id === draggedId);
+                          if (w && w.pillar !== 'Safety' && w.pillar !== 'Sustainability') {
+                            updateWidgetValue(draggedId, { pillar: 'Safety' });
+                          }
+                        }
+                      }}
+                      className="xl:col-span-4 space-y-5 min-h-[400px] rounded-xl p-1 transition-all border border-transparent hover:border-gray-200"
+                    >
+                      <div className="border-b border-gray-200 pb-2 flex items-center gap-2">
+                        <Shield className="w-4 h-4 text-[#262A2E]" />
+                        <h3 className="font-extrabold text-xs uppercase tracking-wider text-[#262A2E]">
+                          Safety & Environmental Health
+                        </h3>
+                      </div>
+
+                      <SafetyCrossCalendar
+                        safetyCross={currentSafetyCross}
+                        safetyNotes={currentSafetyNotes}
+                        onDayClick={updateSafetyCross}
+                        onUpdateNote={updateSafetyNote}
+                        daysSinceLastLTI={
+                          currentWidgets.find((w) => w.id === 'd-safety-lti')?.value || 0
+                        }
+                        onResetLTI={() => {
+                          updateWidgetValue('d-safety-lti', { value: 0 });
+                          updateSafetyCross(new Date().getDate(), 'red');
+                        }}
+                        onIncrementLTI={() => {
+                          const currentVal =
+                            currentWidgets.find((w) => w.id === 'd-safety-lti')?.value || 0;
+                          updateWidgetValue('d-safety-lti', { value: currentVal + 1 });
+                        }}
+                      />
+
+                      {displayedWidgets
+                        .filter((w) => w.pillar === 'Safety' || w.pillar === 'Sustainability')
                         .map((widget) => renderWidgetCard(widget))}
                     </div>
 
-                    {/* Integrated 5-Whys Diagram Board & Action Generator */}
-                    <div className="pt-4">
-                      <div className="border-b border-slate-200 dark:border-slate-800 pb-2 mb-4">
-                        <h3 className="font-extrabold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                          Huddle Stand-up Deviation Solver (Ishikawa categorization & custom Why steps enabled)
+                    {/* Column 2: Quality & Delivery */}
+                    <div
+                      onDragOver={(e) => e.preventDefault()}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        const draggedId = e.dataTransfer.getData('text/plain');
+                        if (draggedId) {
+                          const w = state.widgets.find((item) => item.id === draggedId);
+                          if (w && w.pillar !== 'Quality' && w.pillar !== 'Delivery') {
+                            updateWidgetValue(draggedId, { pillar: 'Quality' });
+                          }
+                        }
+                      }}
+                      className="xl:col-span-4 space-y-5 min-h-[400px] rounded-xl p-1 transition-all border border-transparent hover:border-gray-200"
+                    >
+                      <div className="border-b border-gray-200 pb-2 flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-[#262A2E]" />
+                        <h3 className="font-extrabold text-xs uppercase tracking-wider text-[#262A2E]">
+                          Quality & Customer Delivery
                         </h3>
                       </div>
-                      <DeviationSolver 
-                        deviations={currentDeviations}
-                        onUpdateDeviation={updateDeviation}
-                        onDeleteDeviation={deleteDeviation}
-                        onAddActionItem={addActionItem}
-                        onAddDeviation={addDeviation}
-                        actionItems={currentActionItems}
-                        userRole={state.currentUserRole}
-                        widgets={currentWidgets}
-                        onAddMetricToWeekly={(id) => {
-                          addMetricToWeeklyAnalysis(id);
-                          const w = currentWidgets.find(item => item.id === id);
-                          setBackupToast(`Added "${w ? w.title : id}" to Weekly Analysis`);
-                          setTimeout(() => setBackupToast(null), 3000);
-                        }}
-                      />
+
+                      {displayedWidgets
+                        .filter((w) => w.pillar === 'Quality' || w.pillar === 'Delivery')
+                        .map((widget) => renderWidgetCard(widget))}
+                    </div>
+
+                    {/* Column 3: Cost & Capital */}
+                    <div
+                      onDragOver={(e) => e.preventDefault()}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        const draggedId = e.dataTransfer.getData('text/plain');
+                        if (draggedId) {
+                          const w = state.widgets.find((item) => item.id === draggedId);
+                          if (w && w.pillar !== 'Cost' && w.pillar !== 'Capital') {
+                            updateWidgetValue(draggedId, { pillar: 'Cost' });
+                          }
+                        }
+                      }}
+                      className="xl:col-span-4 space-y-5 min-h-[400px] rounded-xl p-1 transition-all border border-transparent hover:border-gray-200"
+                    >
+                      <div className="border-b border-gray-200 pb-2 flex items-center gap-2">
+                        <Coins className="w-4 h-4 text-[#262A2E]" />
+                        <h3 className="font-extrabold text-xs uppercase tracking-wider text-[#262A2E]">
+                          Cost Control & Asset Capital
+                        </h3>
+                      </div>
+
+                      {displayedWidgets
+                        .filter((w) => w.pillar === 'Cost' || w.pillar === 'Capital')
+                        .map((widget) => renderWidgetCard(widget))}
                     </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
+            )}
 
-              {/* 3. MONTHLY STRATEGIC LEVEL */}
-              {activeLevel === 'monthly' && (
-                <div className="space-y-6">
-                  {/* Render the Monthly strategic Widgets */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {currentWidgets
-                      .filter((w) => w.level === 'monthly' && (selectedPillarFilter === 'all' || w.pillar === selectedPillarFilter))
-                      .map((widget) => renderWidgetCard(widget))}
+            {/* 2. WEEKLY DEVIATION STAND-UP */}
+            {activeLevel === 'weekly' && (
+              <div className="space-y-6">
+                {displayedWidgets.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {displayedWidgets.map((widget) => renderWidgetCard(widget))}
                   </div>
-                </div>
-              )}
-            </>
-          )}
+                ) : (
+                  <div className="py-8 text-center bg-[#F7F8F9] border border-dashed border-gray-300 rounded-xl text-xs text-[#6B7280]">
+                    No weekly metrics match the active filter or search query.
+                  </div>
+                )}
 
-          {/* 4. MASTER TEAM ACTIONS PLAN TABLE TAB */}
-          {activeTab === 'actions' && (
-            <ActionPlanTable 
-              actionItems={currentActionItems}
-              onUpdateActionItem={updateActionItem}
-              onDeleteActionItem={deleteActionItem}
-              onAddActionItem={addActionItem}
-              userRole={state.currentUserRole}
-              onAddAttachment={addActionItemAttachment}
-              onDeleteAttachment={deleteActionItemAttachment}
-            />
-          )}
-
-          {/* TIME & HOUR BOOKINGS TAB */}
-          {activeTab === 'hours' && (
-            <HoursPlanner 
-              employees={currentEmployees}
-              timeBookings={currentTimeBookings}
-              actionItems={currentActionItems}
-              onAddTimeBooking={addTimeBooking}
-              onUpdateTimeBooking={updateTimeBooking}
-              onDeleteTimeBooking={deleteTimeBooking}
-            />
-          )}
-
-          {/* RESOURCE MASTER REGISTER TAB */}
-          {activeTab === 'master' && (
-            <ResourceMaster 
-              employees={currentEmployees}
-              timeBookings={currentTimeBookings}
-              onAddEmployee={addEmployee}
-              onUpdateEmployee={updateEmployee}
-              onDeleteEmployee={deleteEmployee}
-            />
-          )}
-
-          {/* PROJECT TRACKING MATRIX TAB */}
-          {activeTab === 'matrix' && (
-            <ProjectMatrixView
-              projects={state.projectMatrices || []}
-              activeProjectId={state.activeProjectId}
-              employees={currentEmployees}
-              onSelectProject={setActiveProjectId}
-              onAddProject={addProjectMatrix}
-              onUpdateProject={updateProjectMatrix}
-              onDeleteProject={deleteProjectMatrix}
-              onDuplicateProject={duplicateProjectMatrix}
-              onAddPoint={addMatrixPoint}
-              onUpdatePoint={updateMatrixPoint}
-              onDeletePoint={deleteMatrixPoint}
-              onDuplicatePoint={duplicateMatrixPoint}
-              onAddSubPoint={addMatrixSubPoint}
-              onUpdateSubPoint={updateMatrixSubPoint}
-              onDeleteSubPoint={deleteMatrixSubPoint}
-              onAddCustomCategory={addCustomMatrixCategory}
-              onDeleteCustomCategory={deleteCustomMatrixCategory}
-              onUpdateCustomCategory={updateCustomMatrixCategory}
-              onNavigateToResourceMaster={() => setActiveTab('master')}
-              onTogglePinPoint={togglePinPoint}
-              onAddPointAttachment={addPointAttachment}
-              onDeletePointAttachment={deletePointAttachment}
-              onLoadLinkedOperations={loadLinkedOperationsFile}
-            />
-          )}
-
-          {/* 5. APPLET BACKUP AND RESTORE FACILITY TAB */}
-          {activeTab === 'backup' && (
-            <div className="max-w-3xl mx-auto space-y-6">
-              <BackupPanel 
-                onExport={exportBackup}
-                onImport={importBackup}
-                onReset={resetToTemplate}
-                onLoadLinkedOperations={loadLinkedOperationsFile}
-              />
-
-              {/* Help & Backup info section */}
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 rounded-xl shadow-sm space-y-3">
-                <h4 className="text-xs font-bold text-slate-800 dark:text-white uppercase tracking-wider flex items-center gap-1.5 font-mono">
-                  <BookOpen className="w-4 h-4 text-indigo-500" />
-                  Understanding Huddleboard Backup Operations
-                </h4>
-                <div className="text-xs text-slate-600 dark:text-slate-400 space-y-2 leading-relaxed">
-                  <p>
-                    <strong>Why back up?</strong> Because this system runs serverless-compatible browser persistent layers, exporting a backup allows any team member to download their completed 5-Why root cause diagrams, active daily checklists, and countermeasure plans into a single portable file.
-                  </p>
-                  <p>
-                    <strong>Sharing with the team:</strong> To use this as a team, simply export the database backup JSON at the end of a shift stand-up. Other team members can instantly upload this file on their devices to sync the board configuration, log entries, and open actions in real-time.
-                  </p>
-                  <p>
-                    <strong>Vercel ready:</strong> Since Vercel uses zero-state serverless nodes, our self-contained client-side Backup Import & Export protocol guarantees 100% data preservation and offline safety with zero cloud fees.
-                  </p>
+                <div className="pt-2">
+                  <div className="border-b border-gray-200 pb-2 mb-4">
+                    <h3 className="font-extrabold text-xs uppercase tracking-wider text-[#262A2E]">
+                      Weekly Deviation Solver (Ishikawa & 5-Why Root Cause Analysis)
+                    </h3>
+                  </div>
+                  <DeviationSolver
+                    deviations={currentDeviations}
+                    onUpdateDeviation={updateDeviation}
+                    onDeleteDeviation={deleteDeviation}
+                    onAddActionItem={addActionItem}
+                    onAddDeviation={addDeviation}
+                    actionItems={currentActionItems}
+                    userRole={state.currentUserRole}
+                    widgets={currentWidgets}
+                    onAddMetricToWeekly={(id) => {
+                      addMetricToWeeklyAnalysis(id);
+                      const w = currentWidgets.find((item) => item.id === id);
+                      setBackupToast(`Added "${w ? w.title : id}" to Weekly Analysis`);
+                      setTimeout(() => setBackupToast(null), 3000);
+                    }}
+                  />
                 </div>
               </div>
+            )}
+
+            {/* 3. MONTHLY STRATEGIC LEVEL */}
+            {activeLevel === 'monthly' && (
+              <div className="space-y-6">
+                {displayedWidgets.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {displayedWidgets.map((widget) => renderWidgetCard(widget))}
+                  </div>
+                ) : (
+                  <div className="py-10 text-center bg-[#F7F8F9] border border-dashed border-gray-300 rounded-xl text-xs text-[#6B7280]">
+                    No monthly metrics match the active filter or search query.
+                  </div>
+                )}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* ACTION PLAN REGISTRY */}
+        {activeTab === 'actions' && (
+          <ActionPlanTable
+            actionItems={currentActionItems}
+            onUpdateActionItem={updateActionItem}
+            onDeleteActionItem={deleteActionItem}
+            onAddActionItem={addActionItem}
+            userRole={state.currentUserRole}
+            onAddAttachment={addActionItemAttachment}
+            onDeleteAttachment={deleteActionItemAttachment}
+          />
+        )}
+
+        {/* HOURS PLANNER */}
+        {activeTab === 'hours' && (
+          <HoursPlanner
+            employees={currentEmployees}
+            timeBookings={currentTimeBookings}
+            actionItems={currentActionItems}
+            onAddTimeBooking={addTimeBooking}
+            onUpdateTimeBooking={updateTimeBooking}
+            onDeleteTimeBooking={deleteTimeBooking}
+          />
+        )}
+
+        {/* RESOURCE MASTER */}
+        {activeTab === 'master' && (
+          <ResourceMaster
+            employees={currentEmployees}
+            timeBookings={currentTimeBookings}
+            onAddEmployee={addEmployee}
+            onUpdateEmployee={updateEmployee}
+            onDeleteEmployee={deleteEmployee}
+          />
+        )}
+
+        {/* PROJECT TRACKING MATRIX */}
+        {activeTab === 'matrix' && (
+          <ProjectMatrixView
+            projects={state.projectMatrices || []}
+            activeProjectId={state.activeProjectId}
+            employees={currentEmployees}
+            onSelectProject={setActiveProjectId}
+            onAddProject={addProjectMatrix}
+            onUpdateProject={updateProjectMatrix}
+            onDeleteProject={deleteProjectMatrix}
+            onDuplicateProject={duplicateProjectMatrix}
+            onAddPoint={addMatrixPoint}
+            onUpdatePoint={updateMatrixPoint}
+            onDeletePoint={deleteMatrixPoint}
+            onDuplicatePoint={duplicateMatrixPoint}
+            onAddSubPoint={addMatrixSubPoint}
+            onUpdateSubPoint={updateMatrixSubPoint}
+            onDeleteSubPoint={deleteMatrixSubPoint}
+            onAddCustomCategory={addCustomMatrixCategory}
+            onDeleteCustomCategory={deleteCustomMatrixCategory}
+            onUpdateCustomCategory={updateCustomMatrixCategory}
+            onNavigateToResourceMaster={() => setActiveTab('master')}
+            onTogglePinPoint={togglePinPoint}
+            onAddPointAttachment={addPointAttachment}
+            onDeletePointAttachment={deletePointAttachment}
+            onLoadLinkedOperations={loadLinkedOperationsFile}
+          />
+        )}
+
+        {/* BACKUPS FACILITY */}
+        {activeTab === 'backup' && (
+          <div className="max-w-3xl mx-auto space-y-6">
+            <BackupPanel
+              onExport={exportBackup}
+              onImport={importBackup}
+              onReset={resetToTemplate}
+              onLoadLinkedOperations={loadLinkedOperationsFile}
+            />
+
+            <div className="bg-[#F7F8F9] border border-gray-200 p-5 rounded-xl space-y-3">
+              <h4 className="text-xs font-bold text-[#262A2E] uppercase tracking-wider flex items-center gap-1.5 font-mono">
+                <BookOpen className="w-4 h-4 text-[#E5AE00]" />
+                Understanding Huddleboard Backup Operations
+              </h4>
+              <div className="text-xs text-[#4B5563] space-y-2 leading-relaxed">
+                <p>
+                  <strong>Portable Backups:</strong> Exporting a JSON backup preserves all 5-Why root cause diagrams, daily checklists, project matrices, and action plans in a single file.
+                </p>
+                <p>
+                  <strong>Team Sharing:</strong> Export at the end of a shift stand-up so other coordinators can import and sync the board configuration immediately.
+                </p>
+              </div>
             </div>
-          )}
+          </div>
+        )}
+      </main>
 
-        </main>
-      </div>
-
-      {/* Editorial footer (No ornamental fake engine latency tickers) */}
-      <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-6 py-4 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 dark:text-slate-400 shrink-0">
-        <div className="flex items-center gap-1.5 font-mono">
-          <span>Built for continuous operational team excellence.</span>
-        </div>
-        <div className="flex items-center gap-4 mt-2 sm:mt-0">
-          <span className="font-mono text-[9px] uppercase tracking-wide bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded text-slate-600 dark:text-slate-400 border border-slate-250">
-            EPIROC SSQDCC STANDARD COMPLIANT
+      {/* Editorial Footer */}
+      <footer className="bg-[#F7F8F9] border-t border-gray-200 px-6 py-3.5 flex flex-col sm:flex-row items-center justify-between text-xs text-[#6B7280] shrink-0">
+        <div className="font-mono">Built for continuous operational team excellence.</div>
+        <div className="flex items-center gap-3 mt-2 sm:mt-0">
+          <span className="font-mono text-[10px] uppercase tracking-wide bg-white px-2.5 py-0.5 rounded text-[#4B5563] border border-gray-200">
+            Epiroc SSQDCC Standard
           </span>
-          <span className="font-mono text-[9px] uppercase tracking-wide bg-[#FFC20E]/15 px-2 py-0.5 rounded text-slate-800 dark:text-amber-400 border border-[#FFC20E]/20 font-bold">
-            LEAN CERTIFIED PROCESS
+          <span className="font-mono text-[10px] uppercase tracking-wide bg-[#FFFBEB] px-2.5 py-0.5 rounded text-[#1F2328] border border-[#FFC20E]/50 font-bold">
+            EPS Lean Process
           </span>
         </div>
       </footer>
 
-      {/* EXCEL AUTO-SYNC MODAL OVERLAY */}
+      {/* EXCEL AUTO-SYNC MODAL */}
       {showExcelSyncModal && (
         <ExcelSyncModal
           widgets={state.widgets}
@@ -1296,24 +1417,7 @@ export default function App() {
         />
       )}
 
-      {/* AI AUTONOMOUS HUDDLE SCRIBE MODAL */}
-      {showHuddleScribe && (
-        <HuddleScribeModal
-          isOpen={showHuddleScribe}
-          onClose={() => setShowHuddleScribe(false)}
-          widgets={currentWidgets}
-          projects={state.projectMatrices || []}
-          employees={currentEmployees}
-          onUpdateWidgetValue={updateWidgetValue}
-          onAddMetricToWeekly={addMetricToWeeklyAnalysis}
-          onAddProject={addProjectMatrix}
-          onAddActionItem={addActionItem}
-          onUpdateSafetyCross={updateSafetyCross}
-          onUpdateSafetyNote={updateSafetyNote}
-        />
-      )}
-
-      {/* 15-MINUTE HUDDLE RUNNER WITH AUTO-STEPPER MODAL */}
+      {/* 15-MINUTE HUDDLE RUNNER MODAL (Rendered before HuddleScribe so Scribe overlays cleanly) */}
       {showHuddleRunner && (
         <HuddleRunnerModal
           widgets={state.widgets}
@@ -1326,10 +1430,28 @@ export default function App() {
         />
       )}
 
-      {/* SHIFT STICKY NOTES & NOTICE BOARD MODAL */}
+      {/* AI AUTONOMOUS HUDDLE SCRIBE MODAL */}
+      {showHuddleScribe && (
+        <HuddleScribeModal
+          isOpen={showHuddleScribe}
+          onClose={() => setShowHuddleScribe(false)}
+          widgets={currentWidgets}
+          projects={state.projectMatrices || []}
+          employees={currentEmployees}
+          onUpdateWidgetValue={updateWidgetValue}
+          onAddWidget={addWidget}
+          onAddMetricToWeekly={addMetricToWeeklyAnalysis}
+          onAddProject={addProjectMatrix}
+          onAddActionItem={addActionItem}
+          onUpdateSafetyCross={updateSafetyCross}
+          onUpdateSafetyNote={updateSafetyNote}
+        />
+      )}
+
+      {/* SHIFT STICKY NOTES MODAL */}
       {showStickyNotes && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="w-full max-w-5xl h-[85vh] bg-white dark:bg-slate-900 rounded-2xl shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="w-full max-w-5xl h-[85vh] bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200 flex flex-col">
             <HuddleStickyNotesPanel
               notes={state.stickyNotes || []}
               onAddNote={addStickyNote}
@@ -1341,7 +1463,6 @@ export default function App() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

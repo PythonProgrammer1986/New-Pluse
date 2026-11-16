@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Attachment } from '../types';
-import { 
-  X, Camera, PenTool, Image as ImageIcon, Trash2, 
-  RotateCcw, Download, Check, Sparkles, ZoomIn
+import {
+  X, Camera, PenTool, Image as ImageIcon, Trash2,
+  RotateCcw, Download, Check, ZoomIn
 } from 'lucide-react';
 
 interface PhotoDrawingAttachmentModalProps {
@@ -21,31 +21,25 @@ export default function PhotoDrawingAttachmentModal({
   onClose
 }: PhotoDrawingAttachmentModalProps) {
   const [activeTab, setActiveTab] = useState<'view' | 'upload' | 'draw'>('view');
-  
-  // File upload state
+
   const [uploadName, setUploadName] = useState('');
   const [uploadPreview, setUploadPreview] = useState<string | null>(null);
-  
-  // Full-screen viewer state
   const [viewingAttachment, setViewingAttachment] = useState<Attachment | null>(null);
 
-  // Canvas drawing state
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [drawColor, setDrawColor] = useState('#FFC20E'); // Epiroc Yellow default
+  const [drawColor, setDrawColor] = useState('#FFC20E');
   const [drawWidth, setDrawWidth] = useState(3);
   const [drawingName, setDrawingName] = useState('Floor Sketch');
   const [canvasHistory, setCanvasHistory] = useState<ImageData[]>([]);
 
-  // Initialize Canvas
   useEffect(() => {
     if (activeTab === 'draw' && canvasRef.current) {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
       if (ctx) {
-        ctx.fillStyle = '#0F172A'; // Slate dark board
+        ctx.fillStyle = '#1F2328';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        // Save initial state
         setCanvasHistory([ctx.getImageData(0, 0, canvas.width, canvas.height)]);
       }
     }
@@ -78,7 +72,6 @@ export default function PhotoDrawingAttachmentModal({
     setActiveTab('view');
   };
 
-  // Drawing Handlers
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -135,7 +128,7 @@ export default function PhotoDrawingAttachmentModal({
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (ctx) {
-      ctx.fillStyle = '#0F172A';
+      ctx.fillStyle = '#1F2328';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       setCanvasHistory([ctx.getImageData(0, 0, canvas.width, canvas.height)]);
     }
@@ -147,7 +140,7 @@ export default function PhotoDrawingAttachmentModal({
     const ctx = canvas.getContext('2d');
     if (ctx) {
       const nextHistory = [...canvasHistory];
-      nextHistory.pop(); // remove current
+      nextHistory.pop();
       const prevState = nextHistory[nextHistory.length - 1];
       ctx.putImageData(prevState, 0, 0);
       setCanvasHistory(nextHistory);
@@ -168,92 +161,79 @@ export default function PhotoDrawingAttachmentModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-        
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/45 backdrop-blur-xs animate-fade-in">
+      <div className="bg-white border border-gray-200 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="px-6 py-4 bg-slate-50 dark:bg-slate-850 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+        <div className="px-6 py-4 bg-[#F7F8F9] border-b border-gray-200 flex items-center justify-between">
           <div>
-            <span className="text-[10px] font-bold text-amber-500 uppercase tracking-widest font-mono">
+            <span className="text-[10px] font-bold text-[#D97706] uppercase tracking-widest font-mono">
               Visual Documentation & Markup
             </span>
-            <h3 className="text-base font-extrabold text-slate-900 dark:text-white truncate max-w-md">
-              {title}
-            </h3>
+            <h3 className="text-base font-extrabold text-[#262A2E] truncate max-w-md">{title}</h3>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-800 cursor-pointer"
+            className="p-1.5 rounded-lg text-[#6B7280] hover:text-[#262A2E] hover:bg-gray-200 cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Tab switcher */}
-        <div className="flex border-b border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-900/40 p-1.5 gap-1 shrink-0">
+        {/* Tabs */}
+        <div className="flex border-b border-gray-200 bg-[#F7F8F9] p-1.5 gap-1 shrink-0">
           <button
             type="button"
             onClick={() => setActiveTab('view')}
-            className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer ${
-              activeTab === 'view'
-                ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm'
-                : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
+            className={`flex-1 py-2 text-xs font-bold rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer ${
+              activeTab === 'view' ? 'bg-white text-[#262A2E] shadow-xs' : 'text-[#6B7280] hover:text-[#262A2E]'
             }`}
           >
-            <ImageIcon className="w-4 h-4 text-amber-500" />
-            <span>Attached Gallery ({attachments.length})</span>
+            <ImageIcon className="w-4 h-4 text-[#D97706]" />
+            <span>Gallery ({attachments.length})</span>
           </button>
 
           <button
             type="button"
             onClick={() => setActiveTab('upload')}
-            className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer ${
-              activeTab === 'upload'
-                ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm'
-                : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
+            className={`flex-1 py-2 text-xs font-bold rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer ${
+              activeTab === 'upload' ? 'bg-white text-[#262A2E] shadow-xs' : 'text-[#6B7280] hover:text-[#262A2E]'
             }`}
           >
-            <Camera className="w-4 h-4 text-blue-500" />
-            <span>Upload / Take Photo</span>
+            <Camera className="w-4 h-4 text-[#3A3F45]" />
+            <span>Upload Photo</span>
           </button>
 
           <button
             type="button"
             onClick={() => setActiveTab('draw')}
-            className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer ${
-              activeTab === 'draw'
-                ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-sm'
-                : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
+            className={`flex-1 py-2 text-xs font-bold rounded-lg transition-colors flex items-center justify-center gap-2 cursor-pointer ${
+              activeTab === 'draw' ? 'bg-white text-[#262A2E] shadow-xs' : 'text-[#6B7280] hover:text-[#262A2E]'
             }`}
           >
-            <PenTool className="w-4 h-4 text-emerald-500" />
-            <span>Sketch & Drawing Pad</span>
+            <PenTool className="w-4 h-4 text-emerald-600" />
+            <span>Sketch Pad</span>
           </button>
         </div>
 
-        {/* Body Container */}
+        {/* Body */}
         <div className="p-6 overflow-y-auto flex-1">
-          
-          {/* TAB 1: Gallery View */}
           {activeTab === 'view' && (
             <div>
               {attachments.length === 0 ? (
                 <div className="text-center py-12 space-y-3">
-                  <div className="w-16 h-16 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mx-auto">
+                  <div className="w-16 h-16 rounded-2xl bg-[#FFFBEB] border border-[#FFC20E]/40 text-[#D97706] flex items-center justify-center mx-auto">
                     <ImageIcon className="w-8 h-8" />
                   </div>
-                  <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200">
-                    No visual attachments yet
-                  </h4>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
-                    Attach photos of physical equipment, part defects, jigs, or draw a sketch of the problem.
+                  <h4 className="text-sm font-bold text-[#262A2E]">No visual attachments yet</h4>
+                  <p className="text-xs text-[#6B7280] max-w-sm mx-auto">
+                    Attach photos of floor equipment, part defects, or draw a quick diagram.
                   </p>
                   <div className="flex justify-center gap-3 pt-2">
                     <button
                       type="button"
                       onClick={() => setActiveTab('upload')}
-                      className="px-3.5 py-2 bg-slate-900 dark:bg-slate-800 text-white rounded-lg text-xs font-bold hover:bg-slate-800 cursor-pointer flex items-center gap-1.5"
+                      className="px-3.5 py-2 bg-[#262A2E] hover:bg-[#3A3F45] text-white rounded-lg text-xs font-bold cursor-pointer flex items-center gap-1.5"
                     >
                       <Camera className="w-3.5 h-3.5" />
                       <span>Upload Photo</span>
@@ -261,7 +241,7 @@ export default function PhotoDrawingAttachmentModal({
                     <button
                       type="button"
                       onClick={() => setActiveTab('draw')}
-                      className="px-3.5 py-2 bg-[#FFC20E] text-slate-950 rounded-lg text-xs font-black hover:bg-amber-400 cursor-pointer flex items-center gap-1.5"
+                      className="px-3.5 py-2 bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] rounded-lg text-xs font-extrabold cursor-pointer flex items-center gap-1.5"
                     >
                       <PenTool className="w-3.5 h-3.5" />
                       <span>Start Sketch</span>
@@ -273,31 +253,31 @@ export default function PhotoDrawingAttachmentModal({
                   {attachments.map((att) => (
                     <div
                       key={att.id}
-                      className="group relative bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col"
+                      className="group relative bg-[#F7F8F9] border border-gray-200 rounded-xl overflow-hidden shadow-xs flex flex-col"
                     >
                       <div
                         onClick={() => setViewingAttachment(att)}
-                        className="h-36 w-full overflow-hidden bg-slate-900 cursor-pointer relative"
+                        className="h-36 w-full overflow-hidden bg-[#1F2328] cursor-pointer relative"
                       >
                         <img
                           src={att.dataUrl}
                           alt={att.name}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                         />
-                        <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
                           <ZoomIn className="w-6 h-6" />
                         </div>
-                        <span className="absolute top-2 left-2 px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-slate-900/80 text-white">
+                        <span className="absolute top-2 left-2 px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-[#262A2E]/90 text-white">
                           {att.type}
                         </span>
                       </div>
 
-                      <div className="p-2.5 flex items-center justify-between gap-2 bg-white dark:bg-slate-850">
+                      <div className="p-2.5 flex items-center justify-between gap-2 bg-white">
                         <div className="min-w-0">
-                          <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate" title={att.name}>
+                          <p className="text-xs font-bold text-[#262A2E] truncate" title={att.name}>
                             {att.name}
                           </p>
-                          <p className="text-[10px] text-slate-400 font-mono">
+                          <p className="text-[10px] text-[#6B7280] font-mono">
                             {new Date(att.timestamp).toLocaleDateString()}
                           </p>
                         </div>
@@ -305,7 +285,7 @@ export default function PhotoDrawingAttachmentModal({
                           type="button"
                           onClick={() => onDeleteAttachment(att.id)}
                           title="Delete attachment"
-                          className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 cursor-pointer transition-colors shrink-0"
+                          className="p-1.5 rounded-lg text-[#6B7280] hover:text-rose-600 hover:bg-rose-50 cursor-pointer transition-colors shrink-0"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -317,42 +297,41 @@ export default function PhotoDrawingAttachmentModal({
             </div>
           )}
 
-          {/* TAB 2: Photo Upload */}
           {activeTab === 'upload' && (
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                <label className="block text-xs font-bold text-[#262A2E] mb-1.5">
                   Attachment Title / Description
                 </label>
                 <input
                   type="text"
                   value={uploadName}
                   onChange={(e) => setUploadName(e.target.value)}
-                  placeholder="e.g. Broken bracket on station 3, Inspection tag photo"
-                  className="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 text-xs focus:outline-none focus:ring-2 focus:ring-[#FFC20E]"
+                  placeholder="e.g. Broken bracket on station 3"
+                  className="w-full px-3 py-2 rounded-lg border border-gray-300 bg-white text-[#262A2E] text-xs focus:outline-none focus:ring-2 focus:ring-[#FFC20E]"
                 />
               </div>
 
-              <div className="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl p-8 text-center hover:border-amber-400 transition-colors">
+              <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-[#FFC20E] bg-[#F7F8F9] transition-colors">
                 {uploadPreview ? (
                   <div className="space-y-4">
                     <img
                       src={uploadPreview}
                       alt="Upload Preview"
-                      className="max-h-60 mx-auto rounded-lg shadow-md border border-slate-700 object-contain"
+                      className="max-h-60 mx-auto rounded-lg shadow-sm border border-gray-200 object-contain"
                     />
                     <div className="flex justify-center gap-3">
                       <button
                         type="button"
                         onClick={handleSaveUpload}
-                        className="px-5 py-2.5 bg-[#FFC20E] text-slate-950 text-xs font-black rounded-lg hover:bg-amber-400 cursor-pointer shadow-lg shadow-[#FFC20E]/20 flex items-center gap-1.5"
+                        className="px-5 py-2.5 bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] text-xs font-extrabold rounded-lg cursor-pointer flex items-center gap-1.5"
                       >
-                        <Check className="w-4 h-4" /> Save Photo Attachment
+                        <Check className="w-4 h-4" /> Save Photo
                       </button>
                       <button
                         type="button"
                         onClick={() => setUploadPreview(null)}
-                        className="px-4 py-2.5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-bold rounded-lg hover:bg-slate-300 cursor-pointer"
+                        className="px-4 py-2.5 bg-white border border-gray-300 text-[#3A3F45] text-xs font-bold rounded-lg hover:bg-gray-50 cursor-pointer"
                       >
                         Choose Different
                       </button>
@@ -360,19 +339,12 @@ export default function PhotoDrawingAttachmentModal({
                   </div>
                 ) : (
                   <div>
-                    <Camera className="w-10 h-10 text-slate-400 mx-auto mb-3" />
-                    <p className="text-xs font-bold text-slate-700 dark:text-slate-200">
-                      Click to choose image or drag & drop here
-                    </p>
-                    <p className="text-[11px] text-slate-400 mt-1">PNG, JPG, WebP supported</p>
-                    <label className="mt-4 inline-block px-4 py-2 bg-slate-900 dark:bg-slate-800 text-white text-xs font-bold rounded-lg cursor-pointer hover:bg-slate-800 transition-all">
-                      Browse Local Files
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileUpload}
-                        className="hidden"
-                      />
+                    <Camera className="w-10 h-10 text-[#6B7280] mx-auto mb-3" />
+                    <p className="text-xs font-bold text-[#262A2E]">Click to select an image</p>
+                    <p className="text-[11px] text-[#6B7280] mt-1">PNG, JPG, WebP supported</p>
+                    <label className="mt-4 inline-block px-4 py-2 bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] text-xs font-extrabold rounded-lg cursor-pointer transition-colors">
+                      Browse Files
+                      <input type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
                     </label>
                   </div>
                 )}
@@ -380,29 +352,24 @@ export default function PhotoDrawingAttachmentModal({
             </div>
           )}
 
-          {/* TAB 3: Canvas Drawing */}
           {activeTab === 'draw' && (
             <div className="space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex items-center gap-2">
-                  <input
-                    type="text"
-                    value={drawingName}
-                    onChange={(e) => setDrawingName(e.target.value)}
-                    placeholder="Sketch title"
-                    className="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-100 text-xs w-48 font-bold"
-                  />
-                </div>
+                <input
+                  type="text"
+                  value={drawingName}
+                  onChange={(e) => setDrawingName(e.target.value)}
+                  placeholder="Sketch title"
+                  className="px-3 py-1.5 rounded-lg border border-gray-300 bg-white text-[#262A2E] text-xs w-48 font-bold focus:ring-2 focus:ring-[#FFC20E] focus:outline-none"
+                />
 
-                {/* Toolbar */}
                 <div className="flex flex-wrap items-center gap-2">
-                  {/* Colors */}
-                  <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <div className="flex items-center gap-1 bg-[#F7F8F9] p-1 rounded-lg border border-gray-200">
                     {[
                       { hex: '#FFC20E', label: 'Yellow' },
                       { hex: '#EF4444', label: 'Red' },
                       { hex: '#10B981', label: 'Green' },
-                      { hex: '#38BDF8', label: 'Blue' },
+                      { hex: '#9CA3AF', label: 'Grey' },
                       { hex: '#FFFFFF', label: 'White' }
                     ].map((c) => (
                       <button
@@ -411,18 +378,17 @@ export default function PhotoDrawingAttachmentModal({
                         onClick={() => setDrawColor(c.hex)}
                         title={c.label}
                         className={`w-5 h-5 rounded-full cursor-pointer transition-transform ${
-                          drawColor === c.hex ? 'scale-125 ring-2 ring-white shadow' : 'opacity-80 hover:opacity-100'
+                          drawColor === c.hex ? 'scale-125 ring-2 ring-[#262A2E]' : 'opacity-80 hover:opacity-100'
                         }`}
                         style={{ backgroundColor: c.hex }}
                       />
                     ))}
                   </div>
 
-                  {/* Stroke Width */}
-                  <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <div className="flex items-center gap-1 bg-[#F7F8F9] p-1 rounded-lg border border-gray-200">
                     {[
                       { width: 2, label: 'Fine' },
-                      { width: 4, label: 'Medium' },
+                      { width: 4, label: 'Med' },
                       { width: 8, label: 'Thick' }
                     ].map((w) => (
                       <button
@@ -430,9 +396,7 @@ export default function PhotoDrawingAttachmentModal({
                         type="button"
                         onClick={() => setDrawWidth(w.width)}
                         className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold cursor-pointer ${
-                          drawWidth === w.width
-                            ? 'bg-[#FFC20E] text-slate-950 font-black'
-                            : 'text-slate-600 dark:text-slate-300'
+                          drawWidth === w.width ? 'bg-[#FFC20E] text-[#1F2328]' : 'text-[#4B5563]'
                         }`}
                       >
                         {w.label}
@@ -443,8 +407,8 @@ export default function PhotoDrawingAttachmentModal({
                   <button
                     type="button"
                     onClick={undoCanvas}
-                    title="Undo stroke"
-                    className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 cursor-pointer"
+                    title="Undo"
+                    className="p-1.5 rounded-lg bg-[#F7F8F9] border border-gray-200 text-[#3A3F45] hover:bg-gray-200 cursor-pointer"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
                   </button>
@@ -452,16 +416,15 @@ export default function PhotoDrawingAttachmentModal({
                   <button
                     type="button"
                     onClick={clearCanvas}
-                    title="Clear sketch"
-                    className="p-1.5 rounded-lg bg-rose-50 text-rose-600 dark:bg-rose-950/20 dark:text-rose-400 hover:bg-rose-100 cursor-pointer"
+                    title="Clear"
+                    className="p-1.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-600 hover:bg-rose-100 cursor-pointer"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </div>
 
-              {/* Drawing Area */}
-              <div className="relative rounded-xl overflow-hidden border border-slate-700 shadow-inner bg-slate-950 flex items-center justify-center">
+              <div className="relative rounded-xl overflow-hidden border border-gray-300 bg-[#1F2328] flex items-center justify-center">
                 <canvas
                   ref={canvasRef}
                   width={640}
@@ -481,22 +444,21 @@ export default function PhotoDrawingAttachmentModal({
                 <button
                   type="button"
                   onClick={handleSaveDrawing}
-                  className="px-5 py-2.5 bg-[#FFC20E] hover:bg-amber-400 text-slate-950 text-xs font-black rounded-lg cursor-pointer shadow-lg shadow-[#FFC20E]/20 flex items-center gap-1.5"
+                  className="px-5 py-2.5 bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] text-xs font-extrabold rounded-lg cursor-pointer flex items-center gap-1.5"
                 >
-                  <Check className="w-4 h-4" /> Save Drawing to Item
+                  <Check className="w-4 h-4" /> Save Drawing
                 </button>
               </div>
             </div>
           )}
-
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-3 bg-slate-50 dark:bg-slate-850 border-t border-slate-200 dark:border-slate-800 flex justify-end">
+        <div className="px-6 py-3 bg-[#F7F8F9] border-t border-gray-200 flex justify-end">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 rounded-lg text-xs font-bold cursor-pointer"
+            className="px-4 py-2 bg-white border border-gray-300 hover:bg-gray-100 text-[#3A3F45] rounded-lg text-xs font-bold cursor-pointer"
           >
             Done
           </button>
@@ -507,25 +469,25 @@ export default function PhotoDrawingAttachmentModal({
       {viewingAttachment && (
         <div
           onClick={() => setViewingAttachment(null)}
-          className="fixed inset-0 z-60 bg-black/90 flex flex-col items-center justify-center p-4 animate-fade-in cursor-zoom-out"
+          className="fixed inset-0 z-[70] bg-black/90 flex flex-col items-center justify-center p-4 animate-fade-in cursor-zoom-out"
         >
           <div className="max-w-4xl max-h-[85vh] relative" onClick={(e) => e.stopPropagation()}>
             <img
               src={viewingAttachment.dataUrl}
               alt={viewingAttachment.name}
-              className="max-w-full max-h-[80vh] rounded-xl shadow-2xl object-contain border border-slate-700"
+              className="max-w-full max-h-[80vh] rounded-xl shadow-2xl object-contain border border-gray-700"
             />
             <div className="mt-3 flex items-center justify-between text-white">
               <div>
                 <p className="font-bold text-sm">{viewingAttachment.name}</p>
-                <p className="text-xs text-slate-400 font-mono">
-                  {viewingAttachment.type.toUpperCase()} • Attached {new Date(viewingAttachment.timestamp).toLocaleString()}
+                <p className="text-xs text-gray-300 font-mono">
+                  {viewingAttachment.type.toUpperCase()} • {new Date(viewingAttachment.timestamp).toLocaleString()}
                 </p>
               </div>
               <a
                 href={viewingAttachment.dataUrl}
                 download={`${viewingAttachment.name.replace(/\s+/g, '_')}.png`}
-                className="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5"
+                className="px-3.5 py-1.5 bg-[#FFC20E] text-[#1F2328] rounded-lg text-xs font-bold flex items-center gap-1.5"
               >
                 <Download className="w-3.5 h-3.5" /> Download
               </a>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { MetricWidget, Pillar, DataPoint, ProjectTrackRecord } from '../types';
-import { 
-  Shield, Leaf, CheckCircle, TrendingUp, Coins, HardHat, 
-  Trash2, Edit, Check, Play, Pause, RotateCcw, Info, AlertTriangle, 
-  Plus, Star, Layers, Clock, Sliders, X, ArrowRight, FolderKanban, Pin
+import {
+  Shield, Leaf, CheckCircle, TrendingUp, Coins, HardHat,
+  Trash2, Edit, Check, Play, Pause, RotateCcw, Info, AlertTriangle,
+  Plus, X, ArrowRight, FolderKanban, Pin
 } from 'lucide-react';
 
 interface WidgetCardProps {
@@ -27,7 +27,6 @@ export default function WidgetCard({
   onUpdateValue,
   onToggleChecklist,
   onDelete,
-  userRole,
   onReorder,
   onNavigateToProjectMatrix,
   projects,
@@ -47,72 +46,34 @@ export default function WidgetCard({
   const [tempUnit, setTempUnit] = useState(widget.unit || '');
   const [tempOwner, setTempOwner] = useState(widget.owner || '');
 
-  // Timer state for stopwatch type
   const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   useEffect(() => {
-    let interval: any = null;
+    let interval: ReturnType<typeof setInterval> | null = null;
     if (widget.type === 'stopwatch' && isTimerRunning) {
       interval = setInterval(() => {
         onUpdateValue(widget.id, { actual: (widget.actual || 0) + 1 });
       }, 1000);
-    } else {
-      clearInterval(interval);
     }
-    return () => clearInterval(interval);
-  }, [widget.type, isTimerRunning, widget.actual, widget.id]);
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [widget.type, isTimerRunning, widget.actual, widget.id, onUpdateValue]);
 
-  // Pillar icon and colors
   const getPillarConfig = (pillar: Pillar) => {
     switch (pillar) {
       case 'Safety':
-        return {
-          icon: Shield,
-          themeColor: 'text-rose-600 dark:text-rose-400',
-          borderColor: 'border-rose-100 dark:border-rose-950/40',
-          headerBg: 'bg-rose-50/50 dark:bg-rose-950/20',
-          badgeColor: 'bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-800'
-        };
+        return { icon: Shield, iconColor: 'text-rose-600' };
       case 'Sustainability':
-        return {
-          icon: Leaf,
-          themeColor: 'text-emerald-600 dark:text-emerald-400',
-          borderColor: 'border-emerald-100 dark:border-emerald-950/40',
-          headerBg: 'bg-emerald-50/50 dark:bg-emerald-950/20',
-          badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800'
-        };
+        return { icon: Leaf, iconColor: 'text-emerald-600' };
       case 'Quality':
-        return {
-          icon: CheckCircle,
-          themeColor: 'text-blue-600 dark:text-blue-400',
-          borderColor: 'border-blue-100 dark:border-blue-950/40',
-          headerBg: 'bg-blue-50/50 dark:bg-blue-950/20',
-          badgeColor: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-800'
-        };
+        return { icon: CheckCircle, iconColor: 'text-[#262A2E]' };
       case 'Delivery':
-        return {
-          icon: TrendingUp,
-          themeColor: 'text-amber-600 dark:text-amber-400',
-          borderColor: 'border-amber-100 dark:border-amber-950/40',
-          headerBg: 'bg-amber-50/50 dark:bg-amber-950/20',
-          badgeColor: 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800'
-        };
+        return { icon: TrendingUp, iconColor: 'text-amber-600' };
       case 'Cost':
-        return {
-          icon: Coins,
-          themeColor: 'text-indigo-600 dark:text-indigo-400',
-          borderColor: 'border-indigo-100 dark:border-indigo-950/40',
-          headerBg: 'bg-indigo-50/50 dark:bg-indigo-950/20',
-          badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-800'
-        };
+        return { icon: Coins, iconColor: 'text-[#4B5563]' };
       case 'Capital':
-        return {
-          icon: HardHat,
-          themeColor: 'text-slate-600 dark:text-slate-400',
-          borderColor: 'border-slate-200 dark:border-slate-800',
-          headerBg: 'bg-slate-50 dark:bg-slate-800/20',
-          badgeColor: 'bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700'
-        };
+        return { icon: HardHat, iconColor: 'text-[#262A2E]' };
     }
   };
 
@@ -124,15 +85,15 @@ export default function WidgetCard({
     const actualNum = parseFloat(tempActual);
     const targetNum = parseFloat(tempTarget);
     const warningNum = parseFloat(tempWarningThreshold);
-    
+
     onUpdateValue(widget.id, {
       title: tempTitle,
       description: tempDesc || undefined,
       unit: tempUnit || undefined,
       owner: tempOwner || undefined,
-      ...( !isNaN(actualNum) ? { actual: actualNum } : {}),
-      ...( !isNaN(targetNum) ? { target: targetNum } : {}),
-      ...( !isNaN(warningNum) ? { warningThreshold: warningNum } : {})
+      ...(!isNaN(actualNum) ? { actual: actualNum } : {}),
+      ...(!isNaN(targetNum) ? { target: targetNum } : {}),
+      ...(!isNaN(warningNum) ? { warningThreshold: warningNum } : {})
     });
     setIsEditing(false);
   };
@@ -145,9 +106,7 @@ export default function WidgetCard({
         ...updatedDataPoints[index],
         value: newCount
       };
-      
       const sum = updatedDataPoints.reduce((acc, curr) => acc + curr.value, 0);
-      
       onUpdateValue(widget.id, {
         dataPoints: updatedDataPoints,
         actual: sum
@@ -159,13 +118,13 @@ export default function WidgetCard({
     if (widget.milestones) {
       const updated = widget.milestones.map(m => {
         if (m.id === milestoneId) {
-          const nextStatus: 'pending' | 'active' | 'completed' = 
+          const nextStatus: 'pending' | 'active' | 'completed' =
             m.status === 'completed' ? 'active' : m.status === 'active' ? 'pending' : 'completed';
           return { ...m, status: nextStatus };
         }
         return m;
       });
-      
+
       const hasPendingOverdue = updated.some(m => m.status === 'pending');
       onUpdateValue(widget.id, {
         milestones: updated,
@@ -174,13 +133,13 @@ export default function WidgetCard({
     }
   };
 
-  const isExceedingWarning = widget.actual !== undefined && 
-                             widget.target !== undefined && 
-                             widget.warningThreshold !== undefined && 
-                             widget.target > 0 && 
-                             widget.actual > widget.target * (widget.warningThreshold / 100);
+  const isExceedingWarning =
+    widget.actual !== undefined &&
+    widget.target !== undefined &&
+    widget.warningThreshold !== undefined &&
+    widget.target > 0 &&
+    widget.actual > widget.target * (widget.warningThreshold / 100);
 
-  // Default fallback data structures for widgets if empty
   const skillsData = widget.dataPoints || [
     { label: 'Operator A', value: 3, target: 4 },
     { label: 'Operator B', value: 2, target: 4 },
@@ -214,79 +173,105 @@ export default function WidgetCard({
     { id: 'cd-4', name: '4. Final Dispatch', status: 'pending' as const, owner: 'Shipping', dueDate: '2026-10-07' }
   ];
 
-  const heatmapData = widget.dataPoints || Array.from({ length: 24 }).map((_, idx) => ({
-    label: `${idx}:00`,
-    value: 0
-  }));
+  const heatmapData =
+    widget.dataPoints ||
+    Array.from({ length: 24 }).map((_, idx) => ({
+      label: `${idx}:00`,
+      value: 0
+    }));
+
+  const defaultOwner =
+    widget.pillar === 'Safety'
+      ? 'EHS Lead'
+      : widget.pillar === 'Quality'
+      ? 'Quality Lead'
+      : widget.pillar === 'Delivery'
+      ? 'Production Planner'
+      : widget.pillar === 'Cost'
+      ? 'Cost Lead'
+      : widget.pillar === 'Sustainability'
+      ? 'EHS Champion'
+      : 'Team Lead';
 
   return (
-    <div 
+    <div
       draggable="true"
       onDragStart={(e) => {
-        e.dataTransfer.setData("text/plain", widget.id);
+        e.dataTransfer.setData('text/plain', widget.id);
         e.currentTarget.style.opacity = '0.5';
       }}
       onDragEnd={(e) => {
         e.currentTarget.style.opacity = '1';
       }}
-      onDragOver={(e) => {
-        e.preventDefault();
-      }}
+      onDragOver={(e) => e.preventDefault()}
       onDrop={(e) => {
         e.preventDefault();
-        const draggedId = e.dataTransfer.getData("text/plain");
+        const draggedId = e.dataTransfer.getData('text/plain');
         if (draggedId && draggedId !== widget.id && onReorder) {
           onReorder(draggedId, widget.id);
         }
       }}
-      className={`relative bg-white dark:bg-slate-900 border rounded-xl shadow-sm transition-all duration-300 overflow-hidden flex flex-col h-full cursor-grab active:cursor-grabbing ${
-      isExceedingWarning 
-        ? 'border-rose-500 ring-4 ring-rose-500/50 shadow-[0_0_20px_rgba(239,68,68,0.45)] animate-pulse' 
-        : widget.state === 'red' 
-          ? 'border-rose-400 dark:border-rose-900/60 ring-1 ring-rose-100 dark:ring-rose-950/20' 
-          : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
-    }`}>
-      {/* Widget Header */}
-      <div className={`px-4 py-3 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between ${config.headerBg}`}>
-        <div className="flex items-center gap-2 max-w-[65%] min-w-0">
-          <IconComponent className={`w-4 h-4 shrink-0 ${config.themeColor}`} />
+      className={`relative bg-white border rounded-xl shadow-xs transition-all duration-200 overflow-hidden flex flex-col h-full cursor-grab active:cursor-grabbing ${
+        isExceedingWarning
+          ? 'border-rose-500 ring-2 ring-rose-200'
+          : widget.state === 'red'
+          ? 'border-rose-300 ring-1 ring-rose-100'
+          : 'border-gray-200 hover:border-gray-300'
+      }`}
+    >
+      {/* Header */}
+      <div className="px-4 py-3 border-b border-gray-200 bg-[#F7F8F9] flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 min-w-0 flex-1">
+          <div className="w-7 h-7 rounded-lg bg-white border border-gray-200 flex items-center justify-center shrink-0">
+            <IconComponent className={`w-4 h-4 ${config.iconColor}`} />
+          </div>
           <div className="min-w-0">
-            <h4 className="font-semibold text-slate-800 dark:text-slate-100 text-[13px] truncate" title={widget.title}>
+            <h4 className="font-bold text-[#262A2E] text-[13px] truncate" title={widget.title}>
               {widget.title}
             </h4>
-            <div className="flex items-center gap-1 text-[10px] text-slate-500 dark:text-slate-400 font-mono">
-              <span className="text-[9px] uppercase font-bold text-slate-400 dark:text-slate-500">Owner:</span>
-              <span className="font-bold text-slate-700 dark:text-slate-300 truncate" title={widget.owner || 'Operational Champion'}>
-                {widget.owner || (widget.pillar === 'Safety' ? 'EHS Lead' : widget.pillar === 'Quality' ? 'Quality Lead' : widget.pillar === 'Delivery' ? 'Production Planner' : widget.pillar === 'Cost' ? 'Cost Lead' : widget.pillar === 'Sustainability' ? 'EHS Champion' : 'Team Lead')}
+            <div className="flex items-center gap-1 text-[10px] text-[#6B7280] font-mono">
+              <span className="uppercase font-semibold">Owner:</span>
+              <span className="font-bold text-[#3A3F45] truncate" title={widget.owner || 'Operational Champion'}>
+                {widget.owner || defaultOwner}
               </span>
             </div>
           </div>
         </div>
+
         <div className="flex items-center gap-1 shrink-0">
           {widget.linkedWidgetId && (
-            <div className="px-1.5 py-0.5 rounded text-[8px] font-extrabold uppercase bg-emerald-500 text-white dark:bg-emerald-600/80 tracking-widest" title="Auto-synchronizing values with connected huddleboard widget">
-              🔗 Synced
-            </div>
+            <span
+              className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-emerald-50 text-emerald-700 border border-emerald-200"
+              title="Auto-synchronizing values with connected huddleboard widget"
+            >
+              Synced
+            </span>
           )}
-          {/* Status Badge */}
-          <div className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${widget.state === 'red' ? 'bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-300 animate-pulse' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300'}`}>
-            {widget.state === 'red' ? 'Deviation' : 'Target Met'}
-          </div>
 
-          {/* Small button to Add or Remove from Weekly Analysis when in deviation */}
-          {widget.state === 'red' && (
-            isInWeeklyAnalysis ? (
+          {/* Semantic KPI Status */}
+          <span
+            className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border ${
+              widget.state === 'red'
+                ? 'bg-rose-50 text-rose-700 border-rose-200'
+                : 'bg-emerald-50 text-emerald-700 border-emerald-200'
+            }`}
+          >
+            {widget.state === 'red' ? 'Deviation' : 'On Target'}
+          </span>
+
+          {widget.state === 'red' &&
+            (isInWeeklyAnalysis ? (
               <button
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
                   if (onRemoveFromWeeklyAnalysis) onRemoveFromWeeklyAnalysis(widget.id);
                 }}
-                className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-500/40 flex items-center gap-1 hover:bg-rose-100 hover:text-rose-700 hover:border-rose-300 dark:hover:bg-rose-950/60 dark:hover:text-rose-300 transition-colors cursor-pointer group font-mono"
-                title="Currently in Weekly Analysis. Click to remove."
+                className="px-1.5 py-0.5 rounded text-[9px] font-bold uppercase bg-[#FFFBEB] text-[#1F2328] border border-[#FFC20E] flex items-center gap-1 hover:bg-rose-50 hover:text-rose-700 hover:border-rose-300 transition-colors cursor-pointer group font-mono"
+                title="In Weekly Analysis. Click to remove."
               >
-                <Check className="w-2.5 h-2.5 group-hover:hidden text-amber-600 dark:text-amber-400" />
-                <X className="w-2.5 h-2.5 hidden group-hover:block text-rose-600 dark:text-rose-400" />
+                <Check className="w-2.5 h-2.5 group-hover:hidden text-[#D97706]" />
+                <X className="w-2.5 h-2.5 hidden group-hover:block text-rose-600" />
                 <span className="group-hover:hidden">Weekly</span>
                 <span className="hidden group-hover:inline">Remove</span>
               </button>
@@ -297,46 +282,49 @@ export default function WidgetCard({
                   e.stopPropagation();
                   if (onAddToWeeklyAnalysis) onAddToWeeklyAnalysis(widget.id);
                 }}
-                className="px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider bg-[#FFC20E] hover:bg-[#E5B200] text-slate-950 flex items-center gap-1 cursor-pointer transition-all active:scale-95 shadow-xs font-mono"
-                title="Add this metric deviation into Weekly Analysis stand-up"
+                className="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] flex items-center gap-1 cursor-pointer transition-colors font-mono"
+                title="Add this deviation to Weekly Analysis"
               >
-                <Plus className="w-2.5 h-2.5 text-slate-950 stroke-[3]" />
-                <span>+ Weekly</span>
+                <Plus className="w-2.5 h-2.5 stroke-[3]" />
+                <span>Weekly</span>
               </button>
-            )
-          )}
+            ))}
 
-          {/* Performance Drift Alert */}
           {isExceedingWarning && (
-            <div className="px-1.5 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-rose-600 text-white animate-bounce shadow" title={`Drift warning: Actual value has exceeded ${widget.warningThreshold}% of Target!`}>
-              ⚠️ DRIFT
-            </div>
+            <span
+              className="px-1.5 py-0.5 rounded text-[9px] font-black uppercase bg-rose-600 text-white"
+              title={`Drift warning: Actual exceeded ${widget.warningThreshold}% of Target`}
+            >
+              DRIFT
+            </span>
           )}
 
           {onTogglePin && (
-            <button 
+            <button
               type="button"
               onClick={() => onTogglePin(widget.id)}
               className={`p-1 rounded-md transition-colors cursor-pointer ${
-                widget.pinned 
-                  ? 'text-[#FFC20E] bg-amber-500/20 shadow-xs' 
-                  : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-200'
+                widget.pinned
+                  ? 'text-[#1F2328] bg-[#FFC20E]'
+                  : 'text-[#6B7280] hover:text-[#262A2E] hover:bg-gray-200/70'
               }`}
-              title={widget.pinned ? 'Unpin from Top Focus' : 'Pin to Top Focus Tray'}
+              title={widget.pinned ? 'Unpin from Top Focus' : 'Pin to Top Focus'}
             >
               <Pin className={`w-3.5 h-3.5 ${widget.pinned ? 'fill-current' : ''}`} />
             </button>
           )}
 
-          <button 
+          <button
+            type="button"
             onClick={() => setShowInfo(!showInfo)}
-            className="p-1 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-md text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+            className="p-1 hover:bg-gray-200/70 rounded-md text-[#6B7280] hover:text-[#262A2E] transition-colors cursor-pointer"
             title="Toggle Info"
           >
             <Info className="w-3.5 h-3.5" />
           </button>
 
-          <button 
+          <button
+            type="button"
             onClick={() => {
               setTempTitle(widget.title);
               setTempDesc(widget.description || '');
@@ -347,15 +335,16 @@ export default function WidgetCard({
               setTempWarningThreshold(widget.warningThreshold?.toString() || '');
               setIsEditing(!isEditing);
             }}
-            className="p-1 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-md text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
-            title="Edit Target/Value, Owner & Sub-points"
+            className="p-1 hover:bg-gray-200/70 rounded-md text-[#6B7280] hover:text-[#262A2E] transition-colors cursor-pointer"
+            title="Edit Metric"
           >
             <Edit className="w-3.5 h-3.5" />
           </button>
 
-          <button 
+          <button
+            type="button"
             onClick={() => onDelete(widget.id)}
-            className="p-1 hover:bg-rose-100 dark:hover:bg-rose-950 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 rounded-md transition-colors cursor-pointer"
+            className="p-1 hover:bg-rose-50 text-[#6B7280] hover:text-rose-600 rounded-md transition-colors cursor-pointer"
             title="Remove Widget"
           >
             <Trash2 className="w-3.5 h-3.5" />
@@ -363,114 +352,128 @@ export default function WidgetCard({
         </div>
       </div>
 
-      {/* Description Info overlay */}
+      {/* Info overlay */}
       {showInfo && widget.description && (
-        <div className="bg-slate-50 dark:bg-slate-800 p-3 text-xs text-slate-600 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 leading-relaxed">
+        <div className="bg-[#F7F8F9] px-4 py-2.5 text-xs text-[#4B5563] border-b border-gray-200 leading-relaxed">
           {widget.description}
         </div>
       )}
 
-      {/* Edit Overlay Form - Fully interactive and customizable for all subpoints */}
+      {/* Edit Overlay Form */}
       {isEditing && (
-        <div className="bg-slate-50 dark:bg-slate-800 p-4 border-b border-slate-200 dark:border-slate-800 space-y-4 animate-fade-in">
+        <div className="bg-[#F7F8F9] p-4 border-b border-gray-200 space-y-4 animate-fade-in">
           <form onSubmit={handleSave} className="space-y-3">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-0.5">KPI Title</label>
-                <input 
-                  type="text" 
+                <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-0.5">
+                  KPI Title
+                </label>
+                <input
+                  type="text"
                   required
-                  value={tempTitle} 
+                  value={tempTitle}
                   onChange={(e) => setTempTitle(e.target.value)}
-                  className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-[#FFC20E] font-bold" 
+                  className="w-full px-2.5 py-1.5 text-xs border border-gray-300 bg-white text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-semibold"
                 />
               </div>
               <div>
-                <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-0.5">Metric Owner (Person)</label>
-                <input 
-                  type="text" 
-                  value={tempOwner} 
+                <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-0.5">
+                  Metric Owner
+                </label>
+                <input
+                  type="text"
+                  value={tempOwner}
                   onChange={(e) => setTempOwner(e.target.value)}
-                  placeholder="e.g. Sarah Connor, John Doe"
-                  className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-[#FFC20E] font-semibold" 
+                  placeholder="e.g. Sarah Connor"
+                  className="w-full px-2.5 py-1.5 text-xs border border-gray-300 bg-white text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-medium"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-0.5">KPI Description</label>
-                <input 
-                  type="text" 
-                  value={tempDesc} 
+                <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-0.5">
+                  Description
+                </label>
+                <input
+                  type="text"
+                  value={tempDesc}
                   onChange={(e) => setTempDesc(e.target.value)}
-                  placeholder="Brief reason for tracking this..."
-                  className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-[#FFC20E] font-semibold" 
+                  placeholder="Brief tracking context..."
+                  className="w-full px-2.5 py-1.5 text-xs border border-gray-300 bg-white text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E]"
                 />
               </div>
               <div>
-                <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-0.5">Unit Symbol</label>
-                <input 
-                  type="text" 
-                  value={tempUnit} 
+                <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-0.5">
+                  Unit Symbol
+                </label>
+                <input
+                  type="text"
+                  value={tempUnit}
                   onChange={(e) => setTempUnit(e.target.value)}
                   placeholder="e.g. % or min"
-                  className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-[#FFC20E] font-semibold font-mono" 
+                  className="w-full px-2.5 py-1.5 text-xs border border-gray-300 bg-white text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-mono"
                 />
               </div>
             </div>
-            
-            <div className="flex items-end justify-between gap-3 pt-1">
-              <div className="flex items-center gap-2 flex-1">
+
+            <div className="flex flex-wrap items-end justify-between gap-3 pt-1">
+              <div className="flex items-center gap-2 flex-1 min-w-[200px]">
                 {widget.actual !== undefined && (
                   <div className="flex-1">
-                    <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-0.5">Actual Value</label>
-                    <input 
-                      type="number" 
+                    <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-0.5">
+                      Actual
+                    </label>
+                    <input
+                      type="number"
                       step="any"
-                      value={tempActual} 
+                      value={tempActual}
                       onChange={(e) => setTempActual(e.target.value)}
-                      className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-[#FFC20E] font-semibold font-mono" 
+                      className="w-full px-2.5 py-1.5 text-xs border border-gray-300 bg-white text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-mono font-semibold"
                     />
                   </div>
                 )}
                 {widget.target !== undefined && (
                   <div className="flex-1">
-                    <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-0.5">Target Limit</label>
-                    <input 
-                      type="number" 
+                    <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-0.5">
+                      Target
+                    </label>
+                    <input
+                      type="number"
                       step="any"
-                      value={tempTarget} 
+                      value={tempTarget}
                       onChange={(e) => setTempTarget(e.target.value)}
-                      className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-[#FFC20E] font-semibold font-mono" 
+                      className="w-full px-2.5 py-1.5 text-xs border border-gray-300 bg-white text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-mono font-semibold"
                     />
                   </div>
                 )}
                 {widget.warningThreshold !== undefined && (
                   <div className="flex-1">
-                    <label className="block text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mb-0.5">Warning Thresh (%)</label>
-                    <input 
-                      type="number" 
+                    <label className="block text-[10px] text-[#4B5563] font-bold uppercase tracking-wider mb-0.5">
+                      Warn (%)
+                    </label>
+                    <input
+                      type="number"
                       step="any"
-                      value={tempWarningThreshold} 
+                      value={tempWarningThreshold}
                       onChange={(e) => setTempWarningThreshold(e.target.value)}
-                      className="w-full px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-[#FFC20E] font-semibold font-mono" 
-                      placeholder="e.g. 110"
+                      className="w-full px-2.5 py-1.5 text-xs border border-gray-300 bg-white text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-mono font-semibold"
+                      placeholder="110"
                     />
                   </div>
                 )}
               </div>
               <div className="flex gap-2 shrink-0">
-                <button 
-                  type="submit" 
-                  className="px-3.5 py-2 bg-[#FFC20E] hover:bg-[#E5B200] text-slate-950 rounded-lg text-xs font-black flex items-center gap-1 cursor-pointer shadow-sm transition-colors uppercase tracking-wider font-mono"
+                <button
+                  type="submit"
+                  className="px-3.5 py-2 bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] rounded-lg text-xs font-extrabold flex items-center gap-1 cursor-pointer transition-colors"
                 >
                   <Check className="w-3.5 h-3.5" /> Save
                 </button>
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={() => setIsEditing(false)}
-                  className="px-3.5 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-white rounded-lg text-xs font-bold cursor-pointer transition-colors uppercase tracking-wider"
+                  className="px-3.5 py-2 bg-white border border-gray-300 hover:bg-gray-100 text-[#3A3F45] rounded-lg text-xs font-semibold cursor-pointer transition-colors"
                 >
                   Cancel
                 </button>
@@ -478,30 +481,31 @@ export default function WidgetCard({
             </div>
           </form>
 
-          {/* Checklist sub-points editing */}
           {widget.type === 'checklist' && widget.checklist && (
-            <div className="space-y-2 pt-3 border-t border-slate-200 dark:border-slate-700">
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider block">Modify Checklist Steps</span>
+            <div className="space-y-2 pt-3 border-t border-gray-200">
+              <span className="text-[10px] text-[#4B5563] font-bold uppercase tracking-wider block">
+                Modify Checklist Steps
+              </span>
               <div className="space-y-1.5 max-h-48 overflow-y-auto">
                 {widget.checklist.map((item, idx) => (
                   <div key={item.id} className="flex items-center gap-1.5">
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       value={item.label}
                       onChange={(e) => {
                         const updated = [...widget.checklist!];
                         updated[idx] = { ...item, label: e.target.value };
                         onUpdateValue(widget.id, { checklist: updated });
                       }}
-                      className="flex-1 px-2.5 py-1.5 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-lg text-slate-900 dark:text-white focus:outline-none"
+                      className="flex-1 px-2.5 py-1.5 text-xs border border-gray-300 bg-white rounded-lg text-[#262A2E] focus:outline-none focus:ring-2 focus:ring-[#FFC20E]"
                     />
                     <button
                       type="button"
                       onClick={() => {
-                        const updated = widget.checklist!.filter(c => c.id !== item.id);
+                        const updated = widget.checklist!.filter((c) => c.id !== item.id);
                         onUpdateValue(widget.id, { checklist: updated });
                       }}
-                      className="p-1.5 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg cursor-pointer"
+                      className="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg cursor-pointer"
                       title="Delete Step"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -512,150 +516,168 @@ export default function WidgetCard({
               <button
                 type="button"
                 onClick={() => {
-                  const updated = [...(widget.checklist || []), { id: `item-${Date.now()}`, label: 'New Checkpoint Task', checked: false }];
+                  const updated = [
+                    ...(widget.checklist || []),
+                    { id: `item-${Date.now()}`, label: 'New Checkpoint Task', checked: false }
+                  ];
                   onUpdateValue(widget.id, { checklist: updated, state: 'red' });
                 }}
-                className="w-full py-1.5 text-xs font-bold text-slate-950 bg-[#FFC20E] hover:bg-[#E5B200] rounded-lg transition-colors cursor-pointer font-mono"
+                className="w-full py-1.5 text-xs font-bold text-[#1F2328] bg-[#FFC20E] hover:bg-[#E5AE00] rounded-lg transition-colors cursor-pointer"
               >
                 + Add Checkpoint
               </button>
             </div>
           )}
 
-          {/* Pareto / Chart / Radar / Skills / Pareto-scrap / Heatmap sub-points editing */}
           {['chart', 'radar', 'pareto', 'skills', 'heatmap'].includes(widget.type) && (
-            <div className="space-y-2 pt-3 border-t border-slate-200 dark:border-slate-700">
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider block">Modify Data Categories & Sub-items</span>
+            <div className="space-y-2 pt-3 border-t border-gray-200">
+              <span className="text-[10px] text-[#4B5563] font-bold uppercase tracking-wider block">
+                Modify Categories & Sub-items
+              </span>
               <div className="space-y-1.5 max-h-48 overflow-y-auto">
-                {(widget.dataPoints || (
-                  widget.type === 'skills' ? skillsData :
-                  widget.type === 'radar' ? radarData :
-                  widget.type === 'pareto' ? paretoData :
-                  widget.type === 'heatmap' ? heatmapData : []
-                )).map((dpItem, idx) => {
+                {(
+                  widget.dataPoints ||
+                  (widget.type === 'skills'
+                    ? skillsData
+                    : widget.type === 'radar'
+                    ? radarData
+                    : widget.type === 'pareto'
+                    ? paretoData
+                    : widget.type === 'heatmap'
+                    ? heatmapData
+                    : [])
+                ).map((dpItem, idx) => {
                   const dp = dpItem as DataPoint;
                   return (
-                  <div key={idx} className="grid grid-cols-12 gap-1.5 items-center">
-                    <input 
-                      type="text" 
-                      value={dp.label}
-                      onChange={(e) => {
-                        const currentList = [...(widget.dataPoints || skillsData)];
-                        currentList[idx] = { ...dp, label: e.target.value };
-                        onUpdateValue(widget.id, { dataPoints: currentList });
-                      }}
-                      className="col-span-5 px-2 py-1 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-lg text-slate-900 dark:text-white"
-                      placeholder="Item Label"
-                    />
-                    <div className="col-span-3">
-                      <input 
-                        type="number" 
-                        value={dp.value}
+                    <div key={idx} className="grid grid-cols-12 gap-1.5 items-center">
+                      <input
+                        type="text"
+                        value={dp.label}
                         onChange={(e) => {
                           const currentList = [...(widget.dataPoints || skillsData)];
-                          currentList[idx] = { ...dp, value: parseFloat(e.target.value) || 0 };
+                          currentList[idx] = { ...dp, label: e.target.value };
+                          onUpdateValue(widget.id, { dataPoints: currentList });
+                        }}
+                        className="col-span-5 px-2 py-1 text-xs border border-gray-300 bg-white rounded-lg text-[#262A2E]"
+                        placeholder="Item Label"
+                      />
+                      <div className="col-span-3">
+                        <input
+                          type="number"
+                          value={dp.value}
+                          onChange={(e) => {
+                            const currentList = [...(widget.dataPoints || skillsData)];
+                            currentList[idx] = { ...dp, value: parseFloat(e.target.value) || 0 };
+                            const sum = currentList.reduce((acc, curr) => acc + curr.value, 0);
+                            onUpdateValue(widget.id, { dataPoints: currentList, actual: sum });
+                          }}
+                          className="w-full px-2 py-1 text-xs border border-gray-300 bg-white rounded-lg font-mono text-[#262A2E] text-center"
+                          placeholder="Val"
+                        />
+                      </div>
+                      <div className="col-span-3">
+                        <input
+                          type="text"
+                          value={dp.target !== undefined ? dp.target : ''}
+                          onChange={(e) => {
+                            const currentList = [...(widget.dataPoints || skillsData)];
+                            const num = parseFloat(e.target.value);
+                            currentList[idx] = { ...dp, target: isNaN(num) ? undefined : num };
+                            onUpdateValue(widget.id, { dataPoints: currentList });
+                          }}
+                          className="w-full px-2 py-1 text-xs border border-gray-300 bg-white rounded-lg text-[#262A2E] text-center font-mono"
+                          placeholder="Target"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const currentList = (widget.dataPoints || skillsData).filter((_, i) => i !== idx);
                           const sum = currentList.reduce((acc, curr) => acc + curr.value, 0);
                           onUpdateValue(widget.id, { dataPoints: currentList, actual: sum });
                         }}
-                        className="w-full px-2 py-1 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-lg font-mono text-slate-900 dark:text-white text-center"
-                        placeholder="Val"
-                      />
+                        className="col-span-1 p-1 text-rose-600 hover:bg-rose-50 rounded-lg cursor-pointer flex items-center justify-center"
+                        title="Remove item"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
                     </div>
-                    <div className="col-span-3">
-                      <input 
-                        type="text" 
-                        value={dp.target !== undefined ? dp.target : ''}
-                        onChange={(e) => {
-                          const currentList = [...(widget.dataPoints || skillsData)];
-                          const num = parseFloat(e.target.value);
-                          currentList[idx] = { ...dp, target: isNaN(num) ? undefined : num };
-                          onUpdateValue(widget.id, { dataPoints: currentList });
-                        }}
-                        className="w-full px-2 py-1 text-xs border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-lg text-slate-900 dark:text-white text-center font-mono"
-                        placeholder="Target/Skill"
-                      />
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const currentList = (widget.dataPoints || skillsData).filter((_, i) => i !== idx);
-                        const sum = currentList.reduce((acc, curr) => acc + curr.value, 0);
-                        onUpdateValue(widget.id, { dataPoints: currentList, actual: sum });
-                      }}
-                      className="col-span-1 p-1 text-rose-500 hover:bg-rose-50 rounded-lg cursor-pointer flex items-center justify-center"
-                      title="Remove item"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
                   );
                 })}
               </div>
               <button
                 type="button"
                 onClick={() => {
-                  const currentList = [...(widget.dataPoints || skillsData), { label: 'New Category Item', value: 0, target: 100 }];
+                  const currentList = [
+                    ...(widget.dataPoints || skillsData),
+                    { label: 'New Category Item', value: 0, target: 100 }
+                  ];
                   onUpdateValue(widget.id, { dataPoints: currentList });
                 }}
-                className="w-full py-1.5 text-xs font-bold text-slate-950 bg-[#FFC20E] hover:bg-[#E5B200] rounded-lg transition-colors cursor-pointer font-mono"
+                className="w-full py-1.5 text-xs font-bold text-[#1F2328] bg-[#FFC20E] hover:bg-[#E5AE00] rounded-lg transition-colors cursor-pointer"
               >
-                + Add Sub-item Category
+                + Add Sub-item
               </button>
             </div>
           )}
 
-          {/* Project milestones & Kanban sub-points editing */}
           {['project', 'kanban', 'countdown'].includes(widget.type) && (
-            <div className="space-y-2 pt-3 border-t border-slate-200 dark:border-slate-700">
-              <span className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider block">Modify Milestones & Cards</span>
+            <div className="space-y-2 pt-3 border-t border-gray-200">
+              <span className="text-[10px] text-[#4B5563] font-bold uppercase tracking-wider block">
+                Modify Milestones & Cards
+              </span>
               <div className="space-y-1.5 max-h-48 overflow-y-auto">
-                {(widget.milestones || (
-                  widget.type === 'kanban' ? kanbanData :
-                  widget.type === 'countdown' ? countdownData : []
-                )).map((m, idx) => (
+                {(
+                  widget.milestones ||
+                  (widget.type === 'kanban'
+                    ? kanbanData
+                    : widget.type === 'countdown'
+                    ? countdownData
+                    : [])
+                ).map((m, idx) => (
                   <div key={m.id} className="grid grid-cols-12 gap-1.5 items-center">
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       value={m.name}
                       onChange={(e) => {
                         const currentList = [...(widget.milestones || kanbanData)];
                         currentList[idx] = { ...m, name: e.target.value };
                         onUpdateValue(widget.id, { milestones: currentList });
                       }}
-                      className="col-span-5 px-2 py-1.5 text-[11px] border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-lg text-slate-900 dark:text-white"
-                      placeholder="Milestone task"
+                      className="col-span-5 px-2 py-1.5 text-[11px] border border-gray-300 bg-white rounded-lg text-[#262A2E]"
+                      placeholder="Milestone"
                     />
-                    <select 
+                    <select
                       value={m.status}
                       onChange={(e) => {
                         const currentList = [...(widget.milestones || kanbanData)];
                         currentList[idx] = { ...m, status: e.target.value as any };
                         onUpdateValue(widget.id, { milestones: currentList });
                       }}
-                      className="col-span-3 px-1 py-1.5 text-[10px] border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-lg text-slate-900 dark:text-white font-mono"
+                      className="col-span-3 px-1 py-1.5 text-[10px] border border-gray-300 bg-white rounded-lg text-[#262A2E] font-mono"
                     >
-                      <option value="pending">Pending/To Do</option>
-                      <option value="active">Active/Testing</option>
-                      <option value="completed">Completed/Done</option>
+                      <option value="pending">Pending</option>
+                      <option value="active">Active</option>
+                      <option value="completed">Done</option>
                     </select>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       value={m.owner}
                       onChange={(e) => {
                         const currentList = [...(widget.milestones || kanbanData)];
                         currentList[idx] = { ...m, owner: e.target.value };
                         onUpdateValue(widget.id, { milestones: currentList });
                       }}
-                      className="col-span-3 px-2 py-1.5 text-[11px] border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-lg text-slate-900 dark:text-white"
+                      className="col-span-3 px-2 py-1.5 text-[11px] border border-gray-300 bg-white rounded-lg text-[#262A2E]"
                       placeholder="Owner"
                     />
                     <button
                       type="button"
                       onClick={() => {
-                        const currentList = (widget.milestones || kanbanData).filter(ms => ms.id !== m.id);
+                        const currentList = (widget.milestones || kanbanData).filter((ms) => ms.id !== m.id);
                         onUpdateValue(widget.id, { milestones: currentList });
                       }}
-                      className="col-span-1 p-1 text-rose-500 hover:bg-rose-50 rounded-lg cursor-pointer flex items-center justify-center"
+                      className="col-span-1 p-1 text-rose-600 hover:bg-rose-50 rounded-lg cursor-pointer flex items-center justify-center"
                       title="Remove milestone"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -666,10 +688,19 @@ export default function WidgetCard({
               <button
                 type="button"
                 onClick={() => {
-                  const currentList = [...(widget.milestones || kanbanData), { id: `m-${Date.now()}`, name: 'New Item Card', status: 'pending' as const, owner: 'Staff', dueDate: new Date().toISOString().split('T')[0] }];
+                  const currentList = [
+                    ...(widget.milestones || kanbanData),
+                    {
+                      id: `m-${Date.now()}`,
+                      name: 'New Item Card',
+                      status: 'pending' as const,
+                      owner: 'Staff',
+                      dueDate: new Date().toISOString().split('T')[0]
+                    }
+                  ];
                   onUpdateValue(widget.id, { milestones: currentList, state: 'red' });
                 }}
-                className="w-full py-1.5 text-xs font-bold text-slate-950 bg-[#FFC20E] hover:bg-[#E5B200] rounded-lg transition-colors cursor-pointer font-mono"
+                className="w-full py-1.5 text-xs font-bold text-[#1F2328] bg-[#FFC20E] hover:bg-[#E5AE00] rounded-lg transition-colors cursor-pointer"
               >
                 + Add Milestone Card
               </button>
@@ -678,64 +709,66 @@ export default function WidgetCard({
         </div>
       )}
 
-      {/* Widget Content Body */}
+      {/* Body */}
       <div className="p-4 flex-1 flex flex-col justify-center">
-        {/* COUNTER TYPE */}
         {widget.type === 'counter' && (
-          <div className="text-center py-2 group/cnt">
+          <div className="text-center py-2">
             <div className="flex items-center justify-center gap-3">
               <button
+                type="button"
                 onClick={() => onUpdateValue(widget.id, { value: Math.max(0, (widget.value || 0) - 1) })}
-                className="px-2 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded text-xs font-black cursor-pointer select-none transition-all"
-                title="Decrement Day"
+                className="px-2.5 py-1 bg-[#F3F4F6] hover:bg-gray-200 text-[#3A3F45] rounded-lg text-xs font-bold cursor-pointer select-none transition-colors"
+                title="Decrement"
               >
                 -1
               </button>
-              <span className="text-4xl font-extrabold font-mono tracking-tight text-slate-900 dark:text-white tabular-nums">
+              <span className="text-4xl font-extrabold font-mono tracking-tight text-[#262A2E] tabular-nums">
                 {widget.value || 0}
               </span>
               <button
+                type="button"
                 onClick={() => onUpdateValue(widget.id, { value: (widget.value || 0) + 1 })}
-                className="px-2 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 rounded text-xs font-black cursor-pointer select-none transition-all"
-                title="Increment Day"
+                className="px-2.5 py-1 bg-[#F3F4F6] hover:bg-[#FFC20E] text-[#262A2E] rounded-lg text-xs font-bold cursor-pointer select-none transition-colors"
+                title="Increment"
               >
                 +1
               </button>
               <button
+                type="button"
                 onClick={() => onUpdateValue(widget.id, { value: 0 })}
-                className="px-2 py-1 bg-rose-50 hover:bg-rose-100 text-rose-600 dark:bg-rose-950/40 dark:hover:bg-rose-900/60 dark:text-rose-400 rounded text-[10px] font-bold cursor-pointer transition-all font-mono"
+                className="px-2 py-1 bg-rose-50 hover:bg-rose-100 text-rose-700 rounded-lg text-[10px] font-bold cursor-pointer transition-colors font-mono"
                 title="Reset Counter to 0"
               >
                 Reset
               </button>
             </div>
-            <span className="text-xs text-slate-400 block mt-1">consecutive days completed</span>
+            <span className="text-xs text-[#6B7280] block mt-1.5">consecutive days completed</span>
           </div>
         )}
 
-        {/* NUMERIC TYPE */}
         {widget.type === 'numeric' && (
           <div className="space-y-3">
             <div className="flex items-baseline justify-between">
-              <div className="group/act">
-                <span className="text-xs text-slate-400 block font-medium">Actual Today</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl font-bold font-mono text-slate-800 dark:text-white tabular-nums">
-                    {widget.actual ?? 0} <span className="text-sm font-normal text-slate-400">{widget.unit}</span>
+              <div>
+                <span className="text-[11px] text-[#6B7280] block font-medium">Actual Today</span>
+                <div className="flex items-center gap-2 mt-0.5">
+                  <span className="text-2xl font-bold font-mono text-[#262A2E] tabular-nums">
+                    {widget.actual ?? 0}{' '}
+                    <span className="text-sm font-normal text-[#6B7280]">{widget.unit}</span>
                   </span>
-                  
-                  {/* Micro step adjustments */}
                   <span className="inline-flex items-center gap-1 shrink-0">
                     <button
+                      type="button"
                       onClick={() => onUpdateValue(widget.id, { actual: Math.max(0, (widget.actual || 0) - 1) })}
-                      className="px-1.5 py-0.5 bg-slate-100 hover:bg-rose-50 dark:bg-slate-800 dark:hover:bg-rose-950/40 text-slate-600 dark:text-slate-300 hover:text-rose-600 rounded text-[10px] font-black cursor-pointer transition-all"
+                      className="w-6 h-6 bg-[#F3F4F6] hover:bg-gray-200 text-[#3A3F45] rounded text-xs font-black cursor-pointer transition-colors flex items-center justify-center"
                       title="Decrement (-1)"
                     >
                       -
                     </button>
                     <button
+                      type="button"
                       onClick={() => onUpdateValue(widget.id, { actual: (widget.actual || 0) + 1 })}
-                      className="px-1.5 py-0.5 bg-slate-100 hover:bg-emerald-50 dark:bg-slate-800 dark:hover:bg-emerald-950/40 text-slate-600 dark:text-slate-300 hover:text-emerald-600 rounded text-[10px] font-black cursor-pointer transition-all"
+                      className="w-6 h-6 bg-[#F3F4F6] hover:bg-[#FFC20E] text-[#262A2E] rounded text-xs font-black cursor-pointer transition-colors flex items-center justify-center"
                       title="Increment (+1)"
                     >
                       +
@@ -744,40 +777,49 @@ export default function WidgetCard({
                 </div>
               </div>
               <div className="text-right">
-                <span className="text-xs text-slate-400 block font-medium">Target Threshold</span>
-                <span className="text-sm font-bold font-mono text-slate-600 dark:text-slate-400 tabular-nums">
+                <span className="text-[11px] text-[#6B7280] block font-medium">Target</span>
+                <span className="text-sm font-bold font-mono text-[#3A3F45] tabular-nums">
                   {widget.target ?? 0} {widget.unit}
                 </span>
               </div>
             </div>
 
-            {/* Micro visual progress bar */}
             {widget.target !== undefined && widget.actual !== undefined && (
-              <div className="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
-                <div 
-                  className={`h-full rounded-full transition-all duration-500 ${widget.state === 'red' ? 'bg-rose-500' : 'bg-emerald-500'}`}
-                  style={{ width: `${Math.min(100, Math.max(5, (widget.actual / (widget.target || 1)) * 100))}%` }}
+              <div className="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
+                <div
+                  className={`h-full rounded-full transition-all duration-300 ${
+                    widget.state === 'red' ? 'bg-rose-500' : 'bg-emerald-500'
+                  }`}
+                  style={{
+                    width: `${Math.min(
+                      100,
+                      Math.max(5, widget.target > 0 ? (widget.actual / widget.target) * 100 : widget.actual === 0 ? 100 : 100)
+                    )}%`
+                  }}
                 ></div>
               </div>
             )}
           </div>
         )}
 
-        {/* CHECKLIST TYPE */}
         {widget.type === 'checklist' && widget.checklist && (
-          <div className="space-y-2">
+          <div className="space-y-1.5">
             {widget.checklist.map((item) => (
-              <label 
-                key={item.id} 
-                className="flex items-start gap-2.5 p-1.5 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg cursor-pointer transition-colors"
+              <label
+                key={item.id}
+                className="flex items-start gap-2.5 p-1.5 hover:bg-[#F7F8F9] rounded-lg cursor-pointer transition-colors"
               >
-                <input 
+                <input
                   type="checkbox"
                   checked={item.checked}
                   onChange={() => onToggleChecklist(widget.id, item.id)}
-                  className="mt-0.5 w-4 h-4 text-amber-500 bg-gray-100 border-gray-300 rounded focus:ring-amber-500 cursor-pointer"
+                  className="mt-0.5 w-4 h-4 accent-[#FFC20E] rounded border-gray-300 cursor-pointer"
                 />
-                <span className={`text-[12px] leading-tight select-none transition-all ${item.checked ? 'text-slate-400 line-through' : 'text-slate-700 dark:text-slate-300 font-semibold'}`}>
+                <span
+                  className={`text-[12px] leading-tight select-none transition-all ${
+                    item.checked ? 'text-[#9CA3AF] line-through' : 'text-[#262A2E] font-medium'
+                  }`}
+                >
                   {item.label}
                 </span>
               </label>
@@ -785,46 +827,37 @@ export default function WidgetCard({
           </div>
         )}
 
-        {/* GAUGE PERCENTAGE TYPE */}
         {widget.type === 'gauge' && (
-          <div className="flex flex-col items-center justify-center py-1 space-y-2">
+          <div className="flex flex-col items-center justify-center py-1 space-y-2.5">
             <div className="relative w-24 h-24 flex items-center justify-center">
               <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                <circle 
-                  cx="50" 
-                  cy="50" 
-                  r="40" 
-                  fill="transparent" 
-                  stroke="currentColor" 
-                  className="text-slate-100 dark:text-slate-800"
-                  strokeWidth="8"
-                />
-                <circle 
-                  cx="50" 
-                  cy="50" 
-                  r="40" 
-                  fill="transparent" 
-                  stroke={widget.state === 'red' ? '#DC2626' : '#10B981'} 
+                <circle cx="50" cy="50" r="40" fill="transparent" stroke="#F3F4F6" strokeWidth="8" />
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="40"
+                  fill="transparent"
+                  stroke={widget.state === 'red' ? '#DC2626' : '#10B981'}
                   strokeWidth="8"
                   strokeDasharray={`${2 * Math.PI * 40}`}
-                  strokeDashoffset={`${2 * Math.PI * 40 * (1 - (widget.actual || 0) / 100)}`}
-                  className="transition-all duration-500 ease-out"
+                  strokeDashoffset={`${2 * Math.PI * 40 * (1 - Math.min(100, Math.max(0, widget.actual || 0)) / 100)}`}
+                  className="transition-all duration-300 ease-out"
                   strokeLinecap="round"
                 />
               </svg>
               <div className="absolute flex flex-col items-center">
-                <span className="text-lg font-bold font-mono text-slate-800 dark:text-white tabular-nums">
+                <span className="text-lg font-bold font-mono text-[#262A2E] tabular-nums">
                   {widget.actual || 0}%
                 </span>
-                <span className="text-[9px] text-slate-400 font-medium">Target {widget.target || 100}%</span>
+                <span className="text-[9px] text-[#6B7280] font-medium">Target {widget.target || 100}%</span>
               </div>
             </div>
 
-            {/* Micro in-card controls */}
             <div className="flex items-center gap-2">
               <button
+                type="button"
                 onClick={() => onUpdateValue(widget.id, { actual: Math.max(0, (widget.actual || 0) - 5) })}
-                className="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[10px] font-bold cursor-pointer font-mono"
+                className="px-2 py-0.5 bg-[#F3F4F6] hover:bg-gray-200 text-[#3A3F45] rounded text-[10px] font-bold cursor-pointer font-mono"
               >
                 -5%
               </button>
@@ -834,11 +867,12 @@ export default function WidgetCard({
                 max="100"
                 value={widget.actual || 0}
                 onChange={(e) => onUpdateValue(widget.id, { actual: parseFloat(e.target.value) })}
-                className="w-20 h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-[#FFC20E]"
+                className="w-20 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FFC20E]"
               />
               <button
+                type="button"
                 onClick={() => onUpdateValue(widget.id, { actual: Math.min(100, (widget.actual || 0) + 5) })}
-                className="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-[10px] font-bold cursor-pointer font-mono"
+                className="px-2 py-0.5 bg-[#F3F4F6] hover:bg-[#FFC20E] text-[#262A2E] rounded text-[10px] font-bold cursor-pointer font-mono"
               >
                 +5%
               </button>
@@ -846,46 +880,49 @@ export default function WidgetCard({
           </div>
         )}
 
-        {/* CHART / PARETO TYPE */}
         {widget.type === 'chart' && (
           <div className="space-y-2 py-1">
-            <span className="text-[10px] font-medium text-slate-400 uppercase tracking-wider block">
-              Defect Categories (Click -/+ to Adjust):
+            <span className="text-[10px] font-semibold text-[#6B7280] uppercase tracking-wider block">
+              Categories (Click -/+ to Adjust):
             </span>
             <div className="space-y-1.5">
-              {(widget.dataPoints || [
-                { label: 'Surface Scratches', value: 3, target: 1 },
-                { label: 'Dimensional Deviations', value: 2, target: 1 }
-              ]).map((dp, idx) => (
-                <div 
-                  key={dp.label} 
-                  className="group flex flex-col p-1.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-800"
+              {(
+                widget.dataPoints || [
+                  { label: 'Surface Scratches', value: 3, target: 1 },
+                  { label: 'Dimensional Deviations', value: 2, target: 1 }
+                ]
+              ).map((dp, idx) => (
+                <div
+                  key={dp.label}
+                  className="flex flex-col p-2 bg-[#F7F8F9] rounded-lg border border-gray-200"
                 >
                   <div className="flex items-center justify-between text-[11px] mb-1">
-                    <span className="text-slate-700 dark:text-slate-300 font-bold">
-                      {dp.label}
-                    </span>
+                    <span className="text-[#262A2E] font-semibold">{dp.label}</span>
                     <div className="flex items-center gap-1.5">
                       <button
+                        type="button"
                         onClick={() => handleIncrementDefect(idx, -1)}
-                        className="w-5 h-5 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded flex items-center justify-center font-black text-[10px] cursor-pointer hover:bg-rose-500 hover:text-white transition-colors"
+                        className="w-5 h-5 bg-white border border-gray-300 text-[#3A3F45] rounded flex items-center justify-center font-bold text-[10px] cursor-pointer hover:bg-gray-100"
                       >
                         -
                       </button>
-                      <span className="font-mono font-bold text-slate-900 dark:text-white tabular-nums px-1">
+                      <span className="font-mono font-bold text-[#262A2E] tabular-nums px-1">
                         {dp.value}
                       </span>
                       <button
+                        type="button"
                         onClick={() => handleIncrementDefect(idx, 1)}
-                        className="w-5 h-5 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded flex items-center justify-center font-black text-[10px] cursor-pointer hover:bg-emerald-500 hover:text-white transition-colors"
+                        className="w-5 h-5 bg-white border border-gray-300 text-[#3A3F45] rounded flex items-center justify-center font-bold text-[10px] cursor-pointer hover:bg-[#FFC20E] hover:border-[#FFC20E]"
                       >
                         +
                       </button>
                     </div>
                   </div>
-                  <div className="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded overflow-hidden">
-                    <div 
-                      className={`h-full rounded transition-all duration-300 ${dp.value > (dp.target || 0) ? 'bg-rose-500' : 'bg-blue-500'}`}
+                  <div className="w-full bg-gray-200 h-1.5 rounded-full overflow-hidden">
+                    <div
+                      className={`h-full rounded-full transition-all duration-300 ${
+                        dp.value > (dp.target || 0) ? 'bg-rose-500' : 'bg-[#3A3F45]'
+                      }`}
                       style={{ width: `${Math.min(100, Math.max(5, (dp.value / 10) * 100))}%` }}
                     ></div>
                   </div>
@@ -895,33 +932,49 @@ export default function WidgetCard({
           </div>
         )}
 
-        {/* CAPITAL PROJECT TIMELINE TYPE */}
         {widget.type === 'project' && (
           <div className="space-y-2 py-1">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-              Project Milestones (Click to Toggle Status):
+            <span className="text-[10px] font-bold text-[#6B7280] uppercase tracking-wider block">
+              Milestones (Click to Toggle):
             </span>
             <div className="space-y-1.5">
-              {(widget.milestones || [
-                { id: 'm-1', name: 'Draft Design and Engineering Plan', status: 'completed' as const, owner: 'Team Lead', dueDate: '2026-10-01' },
-                { id: 'm-2', name: 'Tooling installation & dry run', status: 'active' as const, owner: 'Maintenance', dueDate: '2026-10-05' }
-              ]).map((m) => (
-                <div 
-                  key={m.id} 
+              {(
+                widget.milestones || [
+                  {
+                    id: 'm-1',
+                    name: 'Draft Design and Engineering Plan',
+                    status: 'completed' as const,
+                    owner: 'Team Lead',
+                    dueDate: '2026-10-01'
+                  },
+                  {
+                    id: 'm-2',
+                    name: 'Tooling installation & dry run',
+                    status: 'active' as const,
+                    owner: 'Maintenance',
+                    dueDate: '2026-10-05'
+                  }
+                ]
+              ).map((m) => (
+                <div
+                  key={m.id}
                   onClick={() => toggleMilestone(m.id)}
-                  className="flex items-center justify-between p-1.5 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800/80 rounded-lg cursor-pointer hover:border-[#FFC20E] transition-all"
+                  className="flex items-center justify-between p-2 bg-[#F7F8F9] border border-gray-200 rounded-lg cursor-pointer hover:border-[#FFC20E] transition-colors"
                   title={`Owner: ${m.owner} · Due: ${m.dueDate} · Click to cycle status`}
                 >
-                  <div className="flex items-center gap-2">
-                    <div className={`w-2.5 h-2.5 rounded-full ${
-                      m.status === 'completed' ? 'bg-emerald-500' :
-                      m.status === 'active' ? 'bg-amber-500 animate-pulse' : 'bg-slate-300 dark:bg-slate-700'
-                    }`}></div>
-                    <span className="text-[11px] font-bold text-slate-800 dark:text-slate-200 line-clamp-1">
-                      {m.name}
-                    </span>
+                  <div className="flex items-center gap-2 min-w-0">
+                    <div
+                      className={`w-2.5 h-2.5 rounded-full shrink-0 ${
+                        m.status === 'completed'
+                          ? 'bg-emerald-500'
+                          : m.status === 'active'
+                          ? 'bg-[#FFC20E]'
+                          : 'bg-gray-300'
+                      }`}
+                    ></div>
+                    <span className="text-[11px] font-semibold text-[#262A2E] truncate">{m.name}</span>
                   </div>
-                  <span className="text-[9px] font-mono font-bold uppercase bg-white dark:bg-slate-900 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300">
+                  <span className="text-[9px] font-mono font-bold uppercase bg-white px-2 py-0.5 rounded border border-gray-200 text-[#4B5563] shrink-0">
                     {m.status}
                   </span>
                 </div>
@@ -930,32 +983,40 @@ export default function WidgetCard({
           </div>
         )}
 
-        {/* STOPWATCH / CYCLE TIME TRACKER */}
         {widget.type === 'stopwatch' && (
-          <div className="text-center py-2 bg-slate-50 dark:bg-slate-800/60 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-2">
-            <span className={`text-3xl font-black font-mono tracking-tight tabular-nums block ${widget.actual && widget.actual > (widget.target || 45) ? 'text-rose-500 animate-pulse' : 'text-slate-900 dark:text-white'}`}>
+          <div className="text-center bg-[#F7F8F9] p-3.5 rounded-xl border border-gray-200 space-y-2">
+            <span
+              className={`text-3xl font-black font-mono tracking-tight tabular-nums block ${
+                widget.actual && widget.actual > (widget.target || 45) ? 'text-rose-600' : 'text-[#262A2E]'
+              }`}
+            >
               {Math.floor((widget.actual || 0) / 60).toString().padStart(2, '0')}:
               {((widget.actual || 0) % 60).toString().padStart(2, '0')}
             </span>
-            <span className="text-[9px] text-slate-400 font-bold block uppercase font-mono">Target: {widget.target || 45}s Cycle Time</span>
-            
-            {/* Interactive Timer Controls */}
+            <span className="text-[10px] text-[#6B7280] font-semibold block uppercase font-mono">
+              Target: {widget.target || 45}s Cycle Time
+            </span>
+
             <div className="flex justify-center items-center gap-2 pt-1">
               <button
+                type="button"
                 onClick={() => setIsTimerRunning(!isTimerRunning)}
-                className={`px-3 py-1 rounded text-xs font-bold font-mono flex items-center gap-1 cursor-pointer transition-all ${
-                  isTimerRunning ? 'bg-amber-500 text-slate-950' : 'bg-emerald-500 text-white'
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold font-mono flex items-center gap-1 cursor-pointer transition-colors ${
+                  isTimerRunning
+                    ? 'bg-[#FFC20E] text-[#1F2328]'
+                    : 'bg-[#262A2E] hover:bg-[#3A3F45] text-white'
                 }`}
               >
                 {isTimerRunning ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3" />}
                 <span>{isTimerRunning ? 'Pause' : 'Start'}</span>
               </button>
               <button
+                type="button"
                 onClick={() => {
                   setIsTimerRunning(false);
                   onUpdateValue(widget.id, { actual: 0 });
                 }}
-                className="px-2.5 py-1 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 text-slate-700 dark:text-slate-200 rounded text-xs font-bold cursor-pointer font-mono flex items-center gap-1"
+                className="px-2.5 py-1.5 bg-white border border-gray-300 hover:bg-gray-100 text-[#3A3F45] rounded-lg text-xs font-bold cursor-pointer font-mono flex items-center gap-1"
                 title="Reset timer to 0"
               >
                 <RotateCcw className="w-3 h-3" />
@@ -965,17 +1026,19 @@ export default function WidgetCard({
           </div>
         )}
 
-        {/* OEE HEAT MAP GRID */}
         {widget.type === 'heatmap' && (
           <div className="space-y-2 py-1">
             <div className="flex items-center justify-between">
-              <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider font-mono">Hourly Machine State (Click to cycle):</span>
+              <span className="text-[9px] text-[#6B7280] font-bold uppercase tracking-wider font-mono">
+                Hourly Machine State:
+              </span>
               <button
+                type="button"
                 onClick={() => {
-                  const resetList = heatmapData.map(h => ({ ...h, value: 0 }));
+                  const resetList = heatmapData.map((h) => ({ ...h, value: 0 }));
                   onUpdateValue(widget.id, { dataPoints: resetList });
                 }}
-                className="text-[9px] font-mono text-slate-400 hover:text-rose-500 underline cursor-pointer"
+                className="text-[9px] font-mono text-[#6B7280] hover:text-rose-600 underline cursor-pointer"
               >
                 Reset
               </button>
@@ -983,70 +1046,84 @@ export default function WidgetCard({
             <div className="grid grid-cols-8 gap-1">
               {heatmapData.map((hp, i) => {
                 const val = hp.value || 0;
-                // 0 = Green (Running), 1 = Amber (Idle), 2 = Red (Downtime), 3 = Gray (Off)
                 return (
                   <button
                     key={i}
+                    type="button"
                     onClick={() => {
                       const updated = [...heatmapData];
                       updated[i] = { ...hp, value: (val + 1) % 4 };
                       onUpdateValue(widget.id, { dataPoints: updated });
                     }}
-                    className={`h-5 rounded border text-[8px] font-mono font-extrabold flex items-center justify-center cursor-pointer select-none transition-all ${
-                      val === 0 ? 'bg-emerald-500 border-emerald-600 text-white' :
-                      val === 1 ? 'bg-amber-500 border-amber-600 text-slate-950' :
-                      val === 2 ? 'bg-rose-500 border-rose-600 text-white animate-pulse' :
-                      'bg-slate-200 dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-500'
+                    className={`h-5 rounded border text-[9px] font-mono font-bold flex items-center justify-center cursor-pointer select-none transition-colors ${
+                      val === 0
+                        ? 'bg-emerald-500 border-emerald-600 text-white'
+                        : val === 1
+                        ? 'bg-[#FFC20E] border-[#E5AE00] text-[#1F2328]'
+                        : val === 2
+                        ? 'bg-rose-500 border-rose-600 text-white'
+                        : 'bg-gray-100 border-gray-300 text-[#6B7280]'
                     }`}
-                    title={`Hour ${i}:00 - Click to cycle state`}
+                    title={`Hour ${i}:00 - Click to cycle`}
                   >
                     {i}
                   </button>
                 );
               })}
             </div>
-            <div className="flex justify-between text-[8px] text-slate-400 font-bold font-mono">
-              <span>🟢 Running</span>
-              <span>🟡 Idle</span>
-              <span>🔴 Downtime</span>
-              <span>⚪ Off</span>
+            <div className="flex justify-between text-[9px] text-[#6B7280] font-medium font-mono">
+              <span className="flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>Running
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-[#FFC20E] inline-block"></span>Idle
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-rose-500 inline-block"></span>Down
+              </span>
+              <span className="flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-gray-300 inline-block"></span>Off
+              </span>
             </div>
           </div>
         )}
 
-        {/* SCRAP & WASTE PARETO BAR CHART */}
         {widget.type === 'pareto' && (
           <div className="space-y-2 py-1">
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block font-mono">Scrap Distribution (Click -/+ to edit):</span>
+            <span className="text-[10px] text-[#6B7280] font-bold uppercase tracking-wider block font-mono">
+              Scrap Distribution:
+            </span>
             {paretoData.map((item, idx) => (
-              <div key={item.label} className="space-y-1 bg-slate-50 dark:bg-slate-800/40 p-1.5 rounded-lg border border-slate-100 dark:border-slate-800">
-                <div className="flex items-center justify-between text-[11px] font-bold text-slate-800 dark:text-slate-200">
+              <div key={item.label} className="space-y-1 bg-[#F7F8F9] p-2 rounded-lg border border-gray-200">
+                <div className="flex items-center justify-between text-[11px] font-semibold text-[#262A2E]">
                   <span>{item.label}</span>
                   <div className="flex items-center gap-1">
                     <button
+                      type="button"
                       onClick={() => {
                         const updated = [...paretoData];
                         updated[idx] = { ...item, value: Math.max(0, item.value - 5) };
                         onUpdateValue(widget.id, { dataPoints: updated });
                       }}
-                      className="w-4 h-4 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded font-black text-[9px] flex items-center justify-center cursor-pointer"
+                      className="w-5 h-5 bg-white border border-gray-300 text-[#3A3F45] rounded font-bold text-[10px] flex items-center justify-center cursor-pointer"
                     >
                       -
                     </button>
-                    <span className="font-mono text-rose-500 font-bold px-1">{item.value}%</span>
+                    <span className="font-mono text-rose-600 font-bold px-1">{item.value}%</span>
                     <button
+                      type="button"
                       onClick={() => {
                         const updated = [...paretoData];
                         updated[idx] = { ...item, value: Math.min(100, item.value + 5) };
                         onUpdateValue(widget.id, { dataPoints: updated });
                       }}
-                      className="w-4 h-4 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded font-black text-[9px] flex items-center justify-center cursor-pointer"
+                      className="w-5 h-5 bg-white border border-gray-300 text-[#3A3F45] rounded font-bold text-[10px] flex items-center justify-center cursor-pointer"
                     >
                       +
                     </button>
                   </div>
                 </div>
-                <div className="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+                <div className="w-full bg-gray-200 h-1.5 rounded-full overflow-hidden">
                   <div className="h-full bg-rose-500" style={{ width: `${Math.min(100, item.value)}%` }}></div>
                 </div>
               </div>
@@ -1054,29 +1131,36 @@ export default function WidgetCard({
           </div>
         )}
 
-        {/* SKILL MATRIX / CROSS-TRAINING GRID */}
         {widget.type === 'skills' && (
           <div className="space-y-2 py-1">
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block font-mono">Team Skill Levels (Click stars to edit):</span>
+            <span className="text-[10px] text-[#6B7280] font-bold uppercase tracking-wider block font-mono">
+              Team Skill Matrix (Click to set level):
+            </span>
             {skillsData.map((p, pIdx) => (
-              <div key={p.label} className="flex items-center justify-between text-[11px] p-2 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-800">
+              <div
+                key={p.label}
+                className="flex items-center justify-between text-[11px] p-2 bg-[#F7F8F9] rounded-lg border border-gray-200"
+              >
                 <div>
-                  <span className="font-extrabold text-slate-900 dark:text-white block">{p.label}</span>
-                  <span className="text-[9px] text-slate-400 block font-mono">{p.target || 'General Competency'}</span>
+                  <span className="font-bold text-[#262A2E] block">{p.label}</span>
+                  <span className="text-[9px] text-[#6B7280] block font-mono">
+                    {p.target || 'General Competency'}
+                  </span>
                 </div>
                 <div className="flex gap-1">
                   {[1, 2, 3, 4].map((starVal) => (
                     <button
                       key={starVal}
+                      type="button"
                       onClick={() => {
                         const updated = [...skillsData];
                         updated[pIdx] = { ...p, value: starVal };
                         onUpdateValue(widget.id, { dataPoints: updated });
                       }}
-                      className={`w-4 h-4 rounded text-[9px] font-extrabold cursor-pointer transition-all ${
-                        starVal <= p.value 
-                          ? 'bg-[#FFC20E] text-slate-950 font-black' 
-                          : 'bg-slate-200 dark:bg-slate-700 text-slate-400'
+                      className={`w-5 h-5 rounded text-[10px] font-bold cursor-pointer transition-colors ${
+                        starVal <= p.value
+                          ? 'bg-[#FFC20E] text-[#1F2328]'
+                          : 'bg-white border border-gray-300 text-[#9CA3AF]'
                       }`}
                       title={`Set Level ${starVal}/4`}
                     >
@@ -1089,27 +1173,31 @@ export default function WidgetCard({
           </div>
         )}
 
-        {/* IDEA INCUBATOR KANBAN BOARD */}
         {widget.type === 'kanban' && (
           <div className="space-y-2 py-1">
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block font-mono">Suggestions Cards (Click card to advance status):</span>
+            <span className="text-[10px] text-[#6B7280] font-bold uppercase tracking-wider block font-mono">
+              Suggestions (Click card to advance):
+            </span>
             <div className="grid grid-cols-3 gap-1.5">
               {[
                 { label: 'To Do', key: 'pending' },
-                { label: 'In Testing', key: 'active' },
-                { label: 'SOP Done', key: 'completed' }
+                { label: 'Testing', key: 'active' },
+                { label: 'Done', key: 'completed' }
               ].map((col) => {
-                const cards = kanbanData.filter(c => c.status === col.key);
+                const cards = kanbanData.filter((c) => c.status === col.key);
                 return (
-                  <div key={col.key} className="p-2 bg-slate-50 dark:bg-slate-800/50 border border-slate-150 dark:border-slate-800 rounded-lg space-y-1.5 min-h-[80px]">
-                    <span className="text-[8px] font-black text-slate-400 uppercase tracking-wider block font-mono border-b border-slate-200 dark:border-slate-700 pb-1">
+                  <div
+                    key={col.key}
+                    className="p-2 bg-[#F7F8F9] border border-gray-200 rounded-lg space-y-1.5 min-h-[80px]"
+                  >
+                    <span className="text-[9px] font-bold text-[#6B7280] uppercase tracking-wider block font-mono border-b border-gray-200 pb-1">
                       {col.label} ({cards.length})
                     </span>
-                    {cards.map(card => (
-                      <div 
+                    {cards.map((card) => (
+                      <div
                         key={card.id}
                         onClick={() => toggleMilestone(card.id)}
-                        className="p-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded text-[10px] font-bold text-slate-800 dark:text-slate-100 shadow-sm cursor-pointer hover:border-[#FFC20E] transition-all leading-tight"
+                        className="p-1.5 bg-white border border-gray-200 rounded text-[10px] font-semibold text-[#262A2E] shadow-2xs cursor-pointer hover:border-[#FFC20E] transition-colors leading-tight"
                         title="Click to advance status"
                       >
                         {card.name}
@@ -1122,61 +1210,62 @@ export default function WidgetCard({
           </div>
         )}
 
-        {/* SHIFT HANDOVER SIGN-OFF BLOCK */}
         {widget.type === 'handover' && (
-          <div className="p-3 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-800 text-center space-y-3">
+          <div className="p-3 bg-[#F7F8F9] rounded-xl border border-gray-200 text-center space-y-3">
             <div className="space-y-0.5">
-              <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider block font-mono">Shift Transition Status</span>
-              <span className="text-xs text-slate-800 dark:text-slate-200 block font-bold font-mono">Shift A &rarr; Shift B</span>
+              <span className="text-[9px] text-[#6B7280] font-bold uppercase tracking-wider block font-mono">
+                Shift Transition Status
+              </span>
+              <span className="text-xs text-[#262A2E] block font-bold font-mono">Shift A → Shift B</span>
             </div>
-            
+
             <button
+              type="button"
               onClick={() => onUpdateValue(widget.id, { state: widget.state === 'green' ? 'red' : 'green' })}
-              className={`w-full py-2 rounded-lg text-xs font-black uppercase tracking-wider cursor-pointer transition-all shadow-sm font-mono ${
-                widget.state === 'green' 
-                  ? 'bg-emerald-500 hover:bg-emerald-600 text-white' 
-                  : 'bg-[#FFC20E] hover:bg-[#E5B200] text-slate-950 font-black'
+              className={`w-full py-2 rounded-lg text-xs font-extrabold uppercase tracking-wider cursor-pointer transition-colors font-mono ${
+                widget.state === 'green'
+                  ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                  : 'bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328]'
               }`}
             >
-              {widget.state === 'green' ? '✓ SHIFT HANDOVER SIGNED' : '⚠️ AWAITING SIGNOFF'}
+              {widget.state === 'green' ? '✓ Shift Handover Signed' : 'Awaiting Signoff'}
             </button>
 
-            {/* Editable Transition Notes */}
             <textarea
               rows={2}
               value={widget.description || ''}
               onChange={(e) => onUpdateValue(widget.id, { description: e.target.value })}
-              placeholder="Type supervisor handover notes or shift logs here..."
-              className="w-full text-xs p-2 border border-slate-250 dark:border-slate-700 bg-white dark:bg-slate-900 rounded-lg text-slate-900 dark:text-white font-medium focus:outline-none focus:ring-1 focus:ring-[#FFC20E]"
+              placeholder="Type supervisor handover notes here..."
+              className="w-full text-xs p-2 border border-gray-300 bg-white rounded-lg text-[#262A2E] font-medium focus:outline-none focus:ring-2 focus:ring-[#FFC20E]"
             />
           </div>
         )}
 
-        {/* HAZARD ALERT LEVEL GAUGE */}
         {widget.type === 'riskGauge' && (
-          <div className="space-y-2 py-1 text-center">
-            <div className="relative w-full bg-slate-100 dark:bg-slate-800 h-3 rounded-full overflow-hidden flex">
+          <div className="space-y-2.5 py-1 text-center">
+            <div className="relative w-full bg-gray-100 h-3 rounded-full overflow-hidden flex">
               <div className="bg-emerald-500 h-full" style={{ width: '30%' }}></div>
-              <div className="bg-amber-500 h-full" style={{ width: '40%' }}></div>
+              <div className="bg-[#FFC20E] h-full" style={{ width: '40%' }}></div>
               <div className="bg-rose-500 h-full" style={{ width: '30%' }}></div>
-              <div 
-                className="absolute top-0 bottom-0 w-1 bg-slate-950 dark:bg-white transition-all duration-500 shadow"
-                style={{ left: `${Math.min(100, Math.max(0, widget.actual || 25))}%` }}
+              <div
+                className="absolute top-0 bottom-0 w-1.5 bg-[#262A2E] transition-all duration-300 shadow"
+                style={{ left: `${Math.min(98, Math.max(0, widget.actual || 25))}%` }}
               ></div>
             </div>
-            
-            {/* Interactive controls */}
+
             <div className="flex justify-between items-center text-[10px] font-mono pt-1">
               <button
+                type="button"
                 onClick={() => onUpdateValue(widget.id, { actual: Math.max(0, (widget.actual || 0) - 5) })}
-                className="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded font-bold cursor-pointer"
+                className="px-2 py-0.5 bg-[#F3F4F6] hover:bg-gray-200 text-[#3A3F45] rounded font-bold cursor-pointer"
               >
                 -5 Risk
               </button>
-              <span className="font-extrabold text-slate-900 dark:text-white">LOTO Index: {widget.actual || 0} / 100</span>
+              <span className="font-bold text-[#262A2E]">LOTO Index: {widget.actual || 0} / 100</span>
               <button
+                type="button"
                 onClick={() => onUpdateValue(widget.id, { actual: Math.min(100, (widget.actual || 0) + 5) })}
-                className="px-2 py-0.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded font-bold cursor-pointer"
+                className="px-2 py-0.5 bg-[#F3F4F6] hover:bg-gray-200 text-[#3A3F45] rounded font-bold cursor-pointer"
               >
                 +5 Risk
               </button>
@@ -1184,35 +1273,42 @@ export default function WidgetCard({
           </div>
         )}
 
-        {/* CO₂ EMISSION SPARKLINE */}
         {widget.type === 'emission' && (
           <div className="space-y-2 py-1">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-bold text-slate-600 dark:text-slate-400">Carbon Footprint:</span>
+              <span className="font-semibold text-[#4B5563]">Carbon Footprint:</span>
               <div className="flex items-center gap-1.5 font-mono">
                 <button
+                  type="button"
                   onClick={() => onUpdateValue(widget.id, { actual: Math.max(0, (widget.actual || 0) - 5) })}
-                  className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded text-[10px] font-black cursor-pointer"
+                  className="px-1.5 py-0.5 bg-[#F3F4F6] hover:bg-gray-200 text-[#3A3F45] rounded text-[10px] font-bold cursor-pointer"
                 >
                   -5
                 </button>
-                <span className="font-bold text-emerald-600 text-sm">{widget.actual || 0} {widget.unit || 'kg'}</span>
+                <span className="font-bold text-emerald-700 text-sm">
+                  {widget.actual || 0} {widget.unit || 'kg'}
+                </span>
                 <button
+                  type="button"
                   onClick={() => onUpdateValue(widget.id, { actual: (widget.actual || 0) + 5 })}
-                  className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded text-[10px] font-black cursor-pointer"
+                  className="px-1.5 py-0.5 bg-[#F3F4F6] hover:bg-gray-200 text-[#3A3F45] rounded text-[10px] font-bold cursor-pointer"
                 >
                   +5
                 </button>
               </div>
             </div>
-            <div className="w-full bg-slate-100 dark:bg-slate-800 h-10 rounded-lg overflow-hidden flex items-end relative p-1">
-              <div className="absolute top-0.5 right-1.5 text-[8px] font-mono text-slate-400">Target: {widget.target || 150} kg</div>
+            <div className="w-full bg-[#F7F8F9] border border-gray-200 h-11 rounded-lg overflow-hidden flex items-end relative p-1.5">
+              <div className="absolute top-0.5 right-1.5 text-[8px] font-mono text-[#6B7280]">
+                Target: {widget.target || 150} {widget.unit || 'kg'}
+              </div>
               <div className="w-full flex items-end justify-between h-6 gap-0.5">
                 {[30, 45, 60, 55, 75, 90, 85, 110, widget.actual || 120].map((hVal, hIdx) => (
                   <div
                     key={hIdx}
-                    className={`w-full rounded-t-sm transition-all duration-500 ${hVal > (widget.target || 150) ? 'bg-rose-500 animate-pulse' : 'bg-emerald-500'}`}
-                    style={{ height: `${Math.min(100, (hVal / (widget.target || 150)) * 100)}%` }}
+                    className={`w-full rounded-t-xs transition-all duration-300 ${
+                      hVal > (widget.target || 150) ? 'bg-rose-500' : 'bg-emerald-500'
+                    }`}
+                    style={{ height: `${Math.min(100, Math.max(8, (hVal / (widget.target || 150)) * 100))}%` }}
                   ></div>
                 ))}
               </div>
@@ -1220,59 +1316,69 @@ export default function WidgetCard({
           </div>
         )}
 
-        {/* 5S WORKPLACE AUDIT RADAR */}
         {widget.type === 'radar' && (
           <div className="space-y-1.5 py-1">
-            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block font-mono">5S Audit Scorecard (Adjust scores):</span>
+            <span className="text-[10px] text-[#6B7280] font-bold uppercase tracking-wider block font-mono">
+              5S Audit Scorecard:
+            </span>
             {radarData.map((category, idx) => (
-              <div key={category.label} className="space-y-0.5 bg-slate-50 dark:bg-slate-800/40 p-1 rounded-lg border border-slate-100 dark:border-slate-800">
-                <div className="flex justify-between text-[10px] font-bold text-slate-800 dark:text-slate-200">
+              <div key={category.label} className="space-y-1 bg-[#F7F8F9] p-1.5 rounded-lg border border-gray-200">
+                <div className="flex justify-between text-[10px] font-semibold text-[#262A2E]">
                   <span>{category.label}</span>
                   <div className="flex items-center gap-1 font-mono">
                     <button
+                      type="button"
                       onClick={() => {
                         const updated = [...radarData];
                         updated[idx] = { ...category, value: Math.max(0, category.value - 5) };
                         onUpdateValue(widget.id, { dataPoints: updated });
                       }}
-                      className="w-4 h-4 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded font-black text-[9px] flex items-center justify-center cursor-pointer"
+                      className="w-4 h-4 bg-white border border-gray-300 text-[#3A3F45] rounded font-bold text-[9px] flex items-center justify-center cursor-pointer"
                     >
                       -
                     </button>
-                    <span className="text-indigo-600 dark:text-indigo-400 px-1 font-bold">{category.value}/100</span>
+                    <span className="text-[#262A2E] px-1 font-bold">{category.value}/100</span>
                     <button
+                      type="button"
                       onClick={() => {
                         const updated = [...radarData];
                         updated[idx] = { ...category, value: Math.min(100, category.value + 5) };
                         onUpdateValue(widget.id, { dataPoints: updated });
                       }}
-                      className="w-4 h-4 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded font-black text-[9px] flex items-center justify-center cursor-pointer"
+                      className="w-4 h-4 bg-white border border-gray-300 text-[#3A3F45] rounded font-bold text-[9px] flex items-center justify-center cursor-pointer"
                     >
                       +
                     </button>
                   </div>
                 </div>
-                <div className="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
-                  <div className="h-full bg-indigo-500" style={{ width: `${Math.min(100, category.value)}%` }}></div>
+                <div className="w-full bg-gray-200 h-1.5 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full rounded-full ${category.value >= 85 ? 'bg-emerald-500' : 'bg-[#FFC20E]'}`}
+                    style={{ width: `${Math.min(100, category.value)}%` }}
+                  ></div>
                 </div>
               </div>
             ))}
           </div>
         )}
 
-        {/* LEAD TIME COUNTDOWN TRACKER */}
         {widget.type === 'countdown' && (
           <div className="space-y-2 py-1">
-            <span className="text-[10px] text-slate-400 font-bold block uppercase tracking-wider font-mono">Pipeline Stages (Click to toggle status):</span>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1">
+            <span className="text-[10px] text-[#6B7280] font-bold block uppercase tracking-wider font-mono">
+              Pipeline Stages (Click to toggle):
+            </span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
               {countdownData.map((stage) => (
                 <button
                   key={stage.id}
+                  type="button"
                   onClick={() => toggleMilestone(stage.id)}
-                  className={`p-1.5 rounded-lg border text-[9px] font-bold font-mono uppercase cursor-pointer text-center transition-all ${
-                    stage.status === 'completed' ? 'bg-emerald-500/20 border-emerald-500 text-emerald-600 dark:text-emerald-400' :
-                    stage.status === 'active' ? 'bg-amber-500/20 border-amber-500 text-amber-600 dark:text-amber-400 animate-pulse' :
-                    'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-400'
+                  className={`p-1.5 rounded-lg border text-[9px] font-bold font-mono uppercase cursor-pointer text-center transition-colors ${
+                    stage.status === 'completed'
+                      ? 'bg-emerald-50 border-emerald-300 text-emerald-700'
+                      : stage.status === 'active'
+                      ? 'bg-[#FFFBEB] border-[#FFC20E] text-[#1F2328]'
+                      : 'bg-[#F7F8F9] border-gray-200 text-[#6B7280]'
                   }`}
                 >
                   {stage.name}
@@ -1282,50 +1388,58 @@ export default function WidgetCard({
           </div>
         )}
 
-        {/* TAKT-TIME PACE PULSE */}
         {widget.type === 'pulse' && (
-          <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+          <div className="p-3 bg-[#F7F8F9] rounded-xl border border-gray-200 flex items-center justify-between">
             <div className="space-y-1">
-              <span className="text-[9px] text-slate-400 font-bold block uppercase font-mono">Takt Pace Index</span>
+              <span className="text-[9px] text-[#6B7280] font-bold block uppercase font-mono">
+                Takt Pace Index
+              </span>
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold text-slate-900 dark:text-white font-mono">
-                  Actual: {widget.actual || 80} vs Target: {widget.target || 80}
+                <span className="text-xs font-bold text-[#262A2E] font-mono">
+                  Actual: {widget.actual ?? 80} vs Target: {widget.target ?? 80}
                 </span>
                 <div className="flex items-center gap-1 font-mono">
                   <button
+                    type="button"
                     onClick={() => onUpdateValue(widget.id, { actual: Math.max(0, (widget.actual || 0) - 1) })}
-                    className="px-1.5 py-0.5 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded text-[10px] font-extrabold cursor-pointer"
+                    className="px-1.5 py-0.5 bg-white border border-gray-300 text-[#3A3F45] rounded text-[10px] font-bold cursor-pointer"
                   >
                     -1
                   </button>
                   <button
+                    type="button"
                     onClick={() => onUpdateValue(widget.id, { actual: (widget.actual || 0) + 1 })}
-                    className="px-1.5 py-0.5 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded text-[10px] font-extrabold cursor-pointer"
+                    className="px-1.5 py-0.5 bg-white border border-gray-300 text-[#3A3F45] rounded text-[10px] font-bold cursor-pointer"
                   >
                     +1
                   </button>
                 </div>
               </div>
             </div>
-            
-            {/* Pulsing indicator */}
-            <div className="relative flex h-8 w-8 items-center justify-center">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-500"></span>
+
+            <div className="relative flex h-6 w-6 items-center justify-center shrink-0">
+              <span
+                className={`relative inline-flex rounded-full h-3.5 w-3.5 ${
+                  widget.state === 'red' ? 'bg-rose-500' : 'bg-emerald-500'
+                }`}
+              ></span>
             </div>
           </div>
         )}
 
-        {/* PROJECT TRACKING MATRIX TYPE */}
         {widget.type === 'projectMatrix' && (
           <div className="space-y-3 py-1">
             {(() => {
-              const matchedProject = (projects || []).find((p) => p.id === widget.projectId) || (projects || []).find((p) => p.name.toLowerCase() === widget.title.toLowerCase()) || (projects || [])[0];
+              const matchedProject =
+                (projects || []).find((p) => p.id === widget.projectId) ||
+                (projects || []).find((p) => p.name.toLowerCase() === widget.title.toLowerCase()) ||
+                (projects || [])[0];
               const points = matchedProject?.points || [];
               const totalPoints = points.length;
-              const totalProgress = totalPoints > 0 
-                ? Math.round(points.reduce((acc, p) => acc + (p.progressPercent || 0), 0) / totalPoints) 
-                : 0;
+              const totalProgress =
+                totalPoints > 0
+                  ? Math.round(points.reduce((acc, p) => acc + (p.progressPercent || 0), 0) / totalPoints)
+                  : 0;
 
               const totalBudget = points.reduce((acc, p) => acc + (p.budget || 0), 0);
               const totalActual = points.reduce((acc, p) => acc + (p.costActual || 0), 0);
@@ -1333,62 +1447,62 @@ export default function WidgetCard({
               const projectEndDate = matchedProject?.targetLaunchDate || 'N/A';
 
               return (
-                <div className="p-3.5 bg-slate-900 text-white rounded-xl border border-slate-800 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <FolderKanban className="w-4 h-4 text-[#FFC20E]" />
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#FFC20E]">
-                        {matchedProject ? matchedProject.code : 'EPI-PRJ'} Matrix Tracker
+                <div className="p-3.5 bg-[#F7F8F9] rounded-xl border border-gray-200 space-y-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <FolderKanban className="w-4 h-4 text-[#262A2E] shrink-0" />
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#262A2E] truncate">
+                        {matchedProject ? matchedProject.code : 'EPI-PRJ'} Matrix
                       </span>
                     </div>
                     <button
                       type="button"
-                      onClick={() => onUpdateValue(widget.id, { state: widget.state === 'green' ? 'red' : 'green' })}
-                      className={`text-[10px] font-mono font-black uppercase px-2 py-0.5 rounded cursor-pointer transition-all ${
+                      onClick={() =>
+                        onUpdateValue(widget.id, { state: widget.state === 'green' ? 'red' : 'green' })
+                      }
+                      className={`text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded border cursor-pointer transition-colors shrink-0 ${
                         widget.state === 'green'
-                          ? 'bg-emerald-950 text-emerald-300 border border-emerald-700 hover:bg-emerald-900'
-                          : 'bg-rose-950 text-rose-300 border border-rose-700 hover:bg-rose-900'
+                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100'
+                          : 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100'
                       }`}
                       title="Click to toggle health status"
                     >
-                      {widget.state === 'green' ? '🟢 On Track' : '🔴 At Risk'}
+                      {widget.state === 'green' ? 'On Track' : 'At Risk'}
                     </button>
                   </div>
 
-                  {/* Progress Bar & Readiness */}
                   <div className="space-y-1">
                     <div className="flex justify-between text-[10px] font-mono">
-                      <span className="text-slate-400">Total Completion</span>
-                      <span className="text-[#FFC20E] font-bold">{totalProgress}% Progress</span>
+                      <span className="text-[#6B7280]">Completion</span>
+                      <span className="text-[#262A2E] font-bold">{totalProgress}%</span>
                     </div>
-                    <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
-                      <div className="bg-[#FFC20E] h-full rounded-full transition-all" style={{ width: `${totalProgress}%` }}></div>
+                    <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                      <div
+                        className="bg-[#FFC20E] h-full rounded-full transition-all"
+                        style={{ width: `${totalProgress}%` }}
+                      ></div>
                     </div>
                   </div>
 
-                  {/* Matrix Dimensions Grid: Available Cost & End Date */}
-                  <div className="grid grid-cols-2 gap-2 text-[10px] font-mono pt-1">
-                    <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
-                      <span className="text-slate-400 block text-[9px] uppercase font-bold">Available Cost / Budget</span>
-                      <span className={`font-bold ${availableCost >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
-                        {availableCost >= 0 ? `₹${availableCost.toLocaleString()}` : `-₹${Math.abs(availableCost).toLocaleString()}`}
+                  <div className="grid grid-cols-2 gap-2 text-[10px] font-mono">
+                    <div className="bg-white p-2 rounded-lg border border-gray-200">
+                      <span className="text-[#6B7280] block text-[9px] uppercase font-bold">Remaining Budget</span>
+                      <span className={`font-bold ${availableCost >= 0 ? 'text-emerald-700' : 'text-rose-600'}`}>
+                        {availableCost >= 0
+                          ? `₹${availableCost.toLocaleString()}`
+                          : `-₹${Math.abs(availableCost).toLocaleString()}`}
                       </span>
                     </div>
-                    <div className="bg-slate-950/70 p-2 rounded-lg border border-slate-800">
-                      <span className="text-slate-400 block text-[9px] uppercase font-bold">Project End Date</span>
-                      <span className="text-slate-200 font-bold">{projectEndDate}</span>
+                    <div className="bg-white p-2 rounded-lg border border-gray-200">
+                      <span className="text-[#6B7280] block text-[9px] uppercase font-bold">Target Date</span>
+                      <span className="text-[#262A2E] font-bold">{projectEndDate}</span>
                     </div>
                   </div>
 
-                  {/* Action Button: Jump to Full Interactive Matrix */}
                   <button
                     type="button"
-                    onClick={() => {
-                      if (onNavigateToProjectMatrix) {
-                        onNavigateToProjectMatrix();
-                      }
-                    }}
-                    className="w-full py-2 bg-[#FFC20E] hover:bg-[#E5B200] text-slate-950 text-xs font-black rounded-lg transition-all flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider font-mono shadow-sm"
+                    onClick={() => onNavigateToProjectMatrix?.()}
+                    className="w-full py-2 bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] text-xs font-extrabold rounded-lg transition-colors flex items-center justify-center gap-1.5 cursor-pointer uppercase tracking-wider font-mono"
                   >
                     <span>Open Project Matrix</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -1400,20 +1514,20 @@ export default function WidgetCard({
         )}
       </div>
 
-      {/* Widget Footer Status Alert */}
+      {/* Footer Deviation Bar */}
       {widget.state === 'red' && (
-        <div className="bg-rose-50/90 dark:bg-rose-950/30 px-3.5 py-2.5 border-t border-rose-100 dark:border-rose-950/50 flex flex-wrap items-center justify-between gap-2 text-xs">
-          <div className="flex items-center gap-1.5 text-rose-700 dark:text-rose-400 font-semibold min-w-0">
-            <AlertTriangle className="w-3.5 h-3.5 shrink-0 text-rose-500" />
+        <div className="bg-rose-50 px-3.5 py-2.5 border-t border-rose-200 flex flex-wrap items-center justify-between gap-2 text-xs">
+          <div className="flex items-center gap-1.5 text-rose-700 font-semibold min-w-0">
+            <AlertTriangle className="w-3.5 h-3.5 shrink-0 text-rose-600" />
             <span className="text-[11px] font-bold truncate">Deviation Identified</span>
           </div>
 
           <div className="flex items-center gap-1.5 shrink-0">
             {isInWeeklyAnalysis ? (
               <div className="flex items-center gap-1.5">
-                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-500/15 text-amber-800 dark:text-amber-300 border border-amber-500/30 font-mono flex items-center gap-1">
-                  <Check className="w-3 h-3 text-amber-600 dark:text-amber-400" />
-                  <span>In Weekly Analysis</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-[#FFFBEB] text-[#1F2328] border border-[#FFC20E] font-mono flex items-center gap-1">
+                  <Check className="w-3 h-3 text-[#D97706]" />
+                  <span>In Weekly</span>
                 </span>
                 {onNavigateToWeeklyAnalysis && (
                   <button
@@ -1422,7 +1536,7 @@ export default function WidgetCard({
                       e.stopPropagation();
                       onNavigateToWeeklyAnalysis();
                     }}
-                    className="px-2 py-0.5 bg-slate-900 hover:bg-slate-800 text-[#FFC20E] text-[10px] font-black rounded cursor-pointer uppercase tracking-wider transition-all flex items-center gap-1 font-mono"
+                    className="px-2 py-0.5 bg-[#262A2E] hover:bg-[#3A3F45] text-[#FFC20E] text-[10px] font-bold rounded cursor-pointer uppercase tracking-wider transition-colors flex items-center gap-1 font-mono"
                     title="Jump to Weekly Stand-up view"
                   >
                     <span>View</span>
@@ -1433,9 +1547,9 @@ export default function WidgetCard({
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    if (onRemoveFromWeeklyAnalysis) onRemoveFromWeeklyAnalysis(widget.id);
+                    onRemoveFromWeeklyAnalysis?.(widget.id);
                   }}
-                  className="p-1 text-slate-400 hover:text-rose-600 hover:bg-rose-100 dark:hover:bg-rose-950/50 rounded cursor-pointer transition-colors"
+                  className="p-1 text-[#6B7280] hover:text-rose-600 hover:bg-rose-100 rounded cursor-pointer transition-colors"
                   title="Remove from Weekly Analysis"
                 >
                   <Trash2 className="w-3 h-3" />
@@ -1446,13 +1560,13 @@ export default function WidgetCard({
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (onAddToWeeklyAnalysis) onAddToWeeklyAnalysis(widget.id);
+                  onAddToWeeklyAnalysis?.(widget.id);
                 }}
-                className="px-2.5 py-1 bg-[#FFC20E] hover:bg-[#E5B200] text-slate-950 text-[10px] font-black rounded cursor-pointer transition-all flex items-center gap-1 shadow-xs uppercase tracking-wider font-mono active:scale-95"
-                title="Add this metric deviation to Weekly Analysis stand-up"
+                className="px-2.5 py-1 bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] text-[10px] font-extrabold rounded cursor-pointer transition-colors flex items-center gap-1 uppercase tracking-wider font-mono"
+                title="Add this deviation to Weekly Analysis"
               >
-                <Plus className="w-3 h-3 text-slate-950 stroke-[3]" />
-                <span>Add to Weekly Analysis</span>
+                <Plus className="w-3 h-3 stroke-[3]" />
+                <span>Add to Weekly</span>
               </button>
             )}
           </div>

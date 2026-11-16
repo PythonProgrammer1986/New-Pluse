@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Shield, CheckCircle, AlertTriangle, FileText, Check } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Shield, FileText, Check } from 'lucide-react';
 import VoiceInputButton from './VoiceInputButton';
 
 interface SafetyCrossCalendarProps {
@@ -21,13 +21,15 @@ export default function SafetyCrossCalendar({
   onResetLTI,
   onIncrementLTI,
 }: SafetyCrossCalendarProps) {
-  const [selectedDay, setSelectedDay] = useState<number | null>(new Date().getDate());
-  const [noteText, setNoteNoteText] = useState(safetyNotes[new Date().getDate()] || '');
-
-  // State to track hover tooltip day
+  const [selectedDay, setSelectedDay] = useState<number>(new Date().getDate());
+  const [noteText, setNoteText] = useState(safetyNotes[new Date().getDate()] || '');
   const [hoveredDay, setHoveredDay] = useState<number | null>(null);
+  const [noteSaved, setNoteSaved] = useState(false);
 
-  const days = Array.from({ length: 31 }, (_, i) => i + 1);
+  // Sync note editor whenever selected day or external safetyNotes (e.g. AI Scribe / Snapshot) change
+  useEffect(() => {
+    setNoteText(safetyNotes[selectedDay] || '');
+  }, [selectedDay, safetyNotes]);
 
   const getStatusColor = (status: 'green' | 'red' | 'amber' | 'none', isSelected: boolean) => {
     let classes = '';
@@ -36,38 +38,34 @@ export default function SafetyCrossCalendar({
         classes = 'bg-emerald-500 hover:bg-emerald-600 border-emerald-600 text-white';
         break;
       case 'red':
-        classes = 'bg-rose-500 hover:bg-rose-600 border-rose-600 text-white animate-pulse';
+        classes = 'bg-rose-500 hover:bg-rose-600 border-rose-600 text-white';
         break;
       case 'amber':
-        classes = 'bg-amber-500 hover:bg-amber-600 border-amber-500 text-slate-950 font-bold';
+        classes = 'bg-[#FFC20E] hover:bg-[#E5AE00] border-[#D9A300] text-[#1F2328] font-bold';
         break;
       default:
-        classes = 'bg-slate-100 hover:bg-slate-200 border-slate-300 text-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 dark:border-slate-700 dark:text-slate-300';
+        classes = 'bg-[#F3F4F6] hover:bg-gray-200 border-gray-300 text-[#262A2E]';
     }
     if (isSelected) {
-      classes += ' ring-2 ring-indigo-500 ring-offset-2 dark:ring-offset-slate-900 scale-105';
+      classes += ' ring-2 ring-[#FFC20E] ring-offset-2 ring-offset-white scale-105 z-10';
     }
     return classes;
   };
 
   const handleSelectDay = (day: number) => {
     setSelectedDay(day);
-    setNoteNoteText(safetyNotes[day] || '');
   };
 
   const handleStatusChange = (status: 'green' | 'red' | 'amber' | 'none') => {
-    if (selectedDay !== null) {
-      onDayClick(selectedDay, status);
-    }
+    onDayClick(selectedDay, status);
   };
 
   const handleSaveNote = () => {
-    if (selectedDay !== null) {
-      onUpdateNote(selectedDay, noteText);
-    }
+    onUpdateNote(selectedDay, noteText);
+    setNoteSaved(true);
+    setTimeout(() => setNoteSaved(false), 1800);
   };
 
-  // Summarize count
   const redDays = Object.values(safetyCross).filter(s => s === 'red').length;
   const greenDays = Object.values(safetyCross).filter(s => s === 'green').length;
   const amberDays = Object.values(safetyCross).filter(s => s === 'amber').length;
@@ -92,38 +90,44 @@ export default function SafetyCrossCalendar({
   const complianceRate = totalLogged > 0 ? Math.round((greenDays / totalLogged) * 100) : 100;
 
   return (
-    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
-      <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
+    <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-xs space-y-4">
+      <div className="flex items-center justify-between border-b border-gray-100 pb-3.5">
         <div className="flex items-center gap-2">
-          <Shield className="w-5 h-5 text-rose-600" />
-          <h3 className="font-semibold text-slate-900 dark:text-white text-sm">Interactive Safety Cross</h3>
+          <div className="w-7 h-7 rounded-lg bg-[#FFC20E]/20 text-[#262A2E] flex items-center justify-center">
+            <Shield className="w-4 h-4 text-[#262A2E]" />
+          </div>
+          <h3 className="font-bold text-[#262A2E] text-sm">Interactive Safety Cross</h3>
         </div>
-        <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-400 font-mono">
-          <span>Green: {greenDays}</span>
+        <div className="flex items-center gap-1.5 text-xs text-gray-500 font-mono">
+          <span className="text-emerald-600 font-semibold">Safe: {greenDays}</span>
           <span>·</span>
-          <span className="text-rose-600">Red: {redDays}</span>
+          <span className="text-rose-600 font-semibold">Incidents: {redDays}</span>
         </div>
       </div>
 
-      {/* LTI Counter Widget Integration & SAFETY ANALYTICS PANEL */}
-      <div className="space-y-3">
-        <div className="p-3.5 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-800/60 flex items-center justify-between">
+      {/* LTI Counter & Safety Analytics Panel */}
+      <div className="space-y-2.5">
+        <div className="p-3.5 bg-[#F7F8F9] rounded-xl border border-gray-200 flex items-center justify-between">
           <div>
-            <span className="text-[10px] text-slate-450 dark:text-slate-400 block font-bold uppercase tracking-wider">Days Since Last LTI</span>
-            <span className="text-2xl font-bold font-mono tracking-tight text-emerald-600 dark:text-emerald-400 tabular-nums">
+            <span className="text-[10px] text-gray-500 block font-bold uppercase tracking-wider">
+              Days Since Last LTI
+            </span>
+            <span className="text-2xl font-extrabold font-mono tracking-tight text-emerald-600 tabular-nums">
               {daysSinceLastLTI}
             </span>
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-1.5">
             <button
+              type="button"
               onClick={onIncrementLTI}
-              className="px-2 py-0.5 text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-150 rounded hover:bg-emerald-100 transition-colors cursor-pointer"
+              className="px-2.5 py-1 text-[10px] font-bold bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] rounded-md transition-colors cursor-pointer font-mono"
             >
               +1 Day
             </button>
             <button
+              type="button"
               onClick={onResetLTI}
-              className="px-2 py-0.5 text-[10px] font-bold bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-150 rounded hover:bg-rose-100 transition-colors cursor-pointer"
+              className="px-2.5 py-1 text-[10px] font-bold bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-md transition-colors cursor-pointer font-mono"
             >
               Reset (0)
             </button>
@@ -131,61 +135,36 @@ export default function SafetyCrossCalendar({
         </div>
 
         {/* Live Safety Analytics */}
-        <div className="grid grid-cols-4 gap-2 p-2.5 bg-slate-100/50 dark:bg-slate-900/40 border border-slate-200/50 rounded-lg text-center">
+        <div className="grid grid-cols-4 gap-2 p-2.5 bg-[#F7F8F9] border border-gray-200 rounded-xl text-center">
           <div>
-            <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider block">Compliance</span>
-            <span className="text-xs font-black font-mono text-indigo-600 dark:text-indigo-400">{complianceRate}%</span>
+            <span className="text-[9px] text-gray-500 font-bold uppercase tracking-wider block">Compliance</span>
+            <span className="text-xs font-black font-mono text-[#262A2E]">{complianceRate}%</span>
           </div>
           <div>
-            <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider block">Streak</span>
-            <span className="text-xs font-black font-mono text-emerald-600 dark:text-emerald-400">{getGreenStreak()} d</span>
+            <span className="text-[9px] text-gray-500 font-bold uppercase tracking-wider block">Streak</span>
+            <span className="text-xs font-black font-mono text-emerald-600">{getGreenStreak()}d</span>
           </div>
           <div>
-            <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider block">Incidents</span>
-            <span className="text-xs font-black font-mono text-rose-600 dark:text-rose-450">{redDays}</span>
+            <span className="text-[9px] text-gray-500 font-bold uppercase tracking-wider block">Incidents</span>
+            <span className="text-xs font-black font-mono text-rose-600">{redDays}</span>
           </div>
           <div>
-            <span className="text-[9px] text-slate-400 font-bold uppercase tracking-wider block">Near-Miss</span>
-            <span className="text-xs font-black font-mono text-amber-600 dark:text-amber-500">{amberDays}</span>
+            <span className="text-[9px] text-gray-500 font-bold uppercase tracking-wider block">Near-Miss</span>
+            <span className="text-xs font-black font-mono text-amber-600">{amberDays}</span>
           </div>
         </div>
       </div>
 
-      <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
-        Select a day to log safety logs or hover to view shift observations instantly.
-      </p>
-
-      {/* Safety Cross Visual Pattern with Weekly Compliance Heatmap Outlines */}
-      <div className="space-y-2.5 relative">
-        {/* Floating Hover Tooltip Card */}
-        {hoveredDay !== null && (
-          <div className="absolute z-50 bg-slate-950 text-white text-[11px] p-2.5 rounded-xl shadow-xl border border-slate-700 w-48 pointer-events-none animate-fade-in font-sans"
-               style={{ top: '35%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-            <div className="flex items-center justify-between border-b border-slate-800 pb-1.5 mb-1.5 font-bold">
-              <span>Day {hoveredDay} Log</span>
-              <span className={`text-[9px] uppercase font-mono px-1.5 py-0.5 rounded font-black ${
-                (safetyCross[hoveredDay] || 'none') === 'green' ? 'bg-emerald-500 text-white' :
-                (safetyCross[hoveredDay] || 'none') === 'red' ? 'bg-rose-500 text-white animate-pulse' :
-                (safetyCross[hoveredDay] || 'none') === 'amber' ? 'bg-amber-500 text-slate-950' : 'bg-slate-800 text-slate-400'
-              }`}>
-                {safetyCross[hoveredDay] || 'No Log'}
-              </span>
-            </div>
-            <p className="italic text-slate-300 leading-normal font-medium">
-              {safetyNotes[hoveredDay] || 'No safety notes logged for this shift.'}
-            </p>
-          </div>
-        )}
-
-        <div className="grid grid-cols-7 gap-1.5">
+      {/* Safety Cross 31-day Grid */}
+      <div className="space-y-2">
+        <div className="grid grid-cols-7 gap-1.5 pl-6">
           {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(d => (
-            <div key={d} className="text-center text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+            <div key={d} className="text-center text-[10px] font-bold text-gray-400 uppercase tracking-wider">
               {d}
             </div>
           ))}
         </div>
 
-        {/* 5 Bounded Weekly Compliance Rows */}
         <div className="space-y-1.5">
           {[
             {
@@ -254,29 +233,22 @@ export default function SafetyCrossCalendar({
             const hasRed = weekStatuses.includes('red');
             const hasAmber = weekStatuses.includes('amber');
             const hasGreen = weekStatuses.includes('green');
-            
-            let outlineClass = 'border border-slate-100 dark:border-slate-800 bg-transparent';
-            let statusText = 'Pending';
-            if (hasRed) {
-              outlineClass = 'border border-rose-300 dark:border-rose-950/60 bg-rose-50/5';
-              statusText = 'Incident';
-            } else if (hasAmber) {
-              outlineClass = 'border border-amber-300 dark:border-amber-950/60 bg-amber-50/5';
-              statusText = 'Near-Miss';
-            } else if (hasGreen) {
-              outlineClass = 'border border-emerald-300 dark:border-emerald-950/60 bg-emerald-50/5';
-              statusText = 'Perfect';
-            }
+
+            const outlineClass = hasRed
+              ? 'border border-rose-200 bg-rose-50/30'
+              : hasAmber
+              ? 'border border-[#FFC20E]/40 bg-[#FFFBEB]'
+              : hasGreen
+              ? 'border border-emerald-200 bg-emerald-50/20'
+              : 'border border-gray-100 bg-white';
 
             return (
-              <div 
-                key={wIdx} 
+              <div
+                key={wIdx}
                 className={`p-1 rounded-lg transition-all flex items-center gap-1.5 ${outlineClass}`}
-                title={`Week ${wIdx + 1} Status: ${statusText}`}
               >
-                {/* Micro Week compliance label */}
-                <span className={`text-[8px] font-black font-mono w-4 text-center select-none uppercase truncate ${
-                  hasRed ? 'text-rose-500' : hasAmber ? 'text-amber-500' : hasGreen ? 'text-emerald-500' : 'text-slate-400'
+                <span className={`text-[9px] font-bold font-mono w-4 text-center select-none uppercase ${
+                  hasRed ? 'text-rose-600' : hasAmber ? 'text-amber-700' : hasGreen ? 'text-emerald-600' : 'text-gray-400'
                 }`}>
                   {week.label}
                 </span>
@@ -284,7 +256,7 @@ export default function SafetyCrossCalendar({
                 <div className="grid grid-cols-7 gap-1.5 flex-1">
                   {week.days.map((item, dIdx) => {
                     if (item.type === 'placeholder') {
-                      return <div key={dIdx} className="aspect-square border border-transparent rounded-md"></div>;
+                      return <div key={dIdx} className="aspect-square rounded-md" />;
                     }
                     const dayVal = item.val!;
                     const status = safetyCross[dayVal] || 'none';
@@ -293,17 +265,17 @@ export default function SafetyCrossCalendar({
                     return (
                       <button
                         key={dIdx}
+                        type="button"
                         onClick={() => handleSelectDay(dayVal)}
                         onMouseEnter={() => setHoveredDay(dayVal)}
                         onMouseLeave={() => setHoveredDay(null)}
-                        className={`aspect-square relative flex flex-col items-center justify-center text-xs font-mono font-bold rounded-md border transition-all shadow-sm cursor-pointer ${getStatusColor(status, isSelected)}`}
+                        className={`aspect-square relative flex flex-col items-center justify-center text-xs font-mono font-bold rounded-md border transition-all cursor-pointer ${getStatusColor(status, isSelected)}`}
                       >
                         <span>{dayVal}</span>
-                        {/* Note indicator dot */}
                         {hasNote && (
                           <span className={`absolute bottom-0.5 w-1 h-1 rounded-full ${
-                            status === 'none' ? 'bg-indigo-500' : status === 'amber' ? 'bg-slate-950' : 'bg-white'
-                          }`}></span>
+                            status === 'none' || status === 'amber' ? 'bg-[#262A2E]' : 'bg-white'
+                          }`} />
                         )}
                       </button>
                     );
@@ -313,80 +285,100 @@ export default function SafetyCrossCalendar({
             );
           })}
         </div>
+
+        {/* Non-obstructive hover preview strip */}
+        {hoveredDay !== null && (
+          <div className="px-3 py-2 bg-[#F7F8F9] border border-gray-200 rounded-lg text-[11px] flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="font-mono font-bold text-[#262A2E] shrink-0">Day {hoveredDay}:</span>
+              <span className="text-gray-600 truncate">
+                {safetyNotes[hoveredDay] || 'No safety notes logged.'}
+              </span>
+            </div>
+            <span className="text-[9px] font-mono font-bold uppercase text-gray-500 shrink-0">
+              {safetyCross[hoveredDay] || 'unlogged'}
+            </span>
+          </div>
+        )}
       </div>
 
-      {/* Selected Day Note Taking and Status Panel */}
-      {selectedDay !== null && (
-        <div className="bg-slate-50 dark:bg-slate-850 p-3.5 rounded-xl border border-slate-200/60 dark:border-slate-800 space-y-3 animate-fade-in">
-          <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-2">
-            <span className="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <FileText className="w-3.5 h-3.5 text-indigo-500" />
-              Day {selectedDay} Log & Notes
-            </span>
-            <div className="flex items-center gap-1">
-              {(['green', 'red', 'amber', 'none'] as const).map(s => (
-                <button
-                  key={s}
-                  onClick={() => handleStatusChange(s)}
-                  className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase transition-all cursor-pointer ${
-                    (safetyCross[selectedDay] || 'none') === s
-                      ? s === 'green' ? 'bg-emerald-500 text-white' : s === 'red' ? 'bg-rose-500 text-white animate-pulse' : s === 'amber' ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-350 text-slate-800'
-                      : 'bg-slate-200 text-slate-500 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-400'
-                  }`}
-                >
-                  {s === 'none' ? 'clear' : s}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-bold text-slate-500 uppercase font-mono">
-                Shift Safety Note
-              </span>
-              <VoiceInputButton
-                onTranscript={(txt) => setNoteNoteText((prev) => prev ? `${prev} ${txt}` : txt)}
-              />
-            </div>
-            <textarea
-              value={noteText}
-              onChange={(e) => setNoteNoteText(e.target.value)}
-              onBlur={handleSaveNote}
-              placeholder="Add safety notes, incident descriptions, or audit observations for this shift..."
-              rows={2}
-              className="w-full text-xs p-2 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 shadow-inner font-semibold"
-            />
-            
-            <div className="flex justify-end pt-1">
+      {/* Selected Day Log & Note Panel */}
+      <div className="bg-[#F7F8F9] p-3.5 rounded-xl border border-gray-200 space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-gray-200 pb-2">
+          <span className="text-xs font-bold text-[#262A2E] flex items-center gap-1.5">
+            <FileText className="w-3.5 h-3.5 text-[#3A3F45]" />
+            Day {selectedDay} Safety Log
+          </span>
+          <div className="flex items-center gap-1">
+            {(['green', 'red', 'amber', 'none'] as const).map(s => (
               <button
+                key={s}
                 type="button"
-                onClick={handleSaveNote}
-                className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-bold rounded flex items-center gap-1 cursor-pointer transition-all shadow-sm"
+                onClick={() => handleStatusChange(s)}
+                className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase transition-all cursor-pointer ${
+                  (safetyCross[selectedDay] || 'none') === s
+                    ? s === 'green'
+                      ? 'bg-emerald-600 text-white'
+                      : s === 'red'
+                      ? 'bg-rose-600 text-white'
+                      : s === 'amber'
+                      ? 'bg-[#FFC20E] text-[#1F2328]'
+                      : 'bg-[#3A3F45] text-white'
+                    : 'bg-white text-gray-600 border border-gray-300 hover:bg-gray-100'
+                }`}
               >
-                <Check className="w-3 h-3" /> Save Note
+                {s === 'none' ? 'clear' : s === 'green' ? 'safe' : s === 'red' ? 'incident' : 'near-miss'}
               </button>
-            </div>
+            ))}
           </div>
         </div>
-      )}
+
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold text-gray-500 uppercase font-mono">
+              Shift Observation
+            </span>
+            <VoiceInputButton
+              onTranscript={(txt) => setNoteText((prev) => prev ? `${prev} ${txt}` : txt)}
+            />
+          </div>
+          <textarea
+            value={noteText}
+            onChange={(e) => setNoteText(e.target.value)}
+            onBlur={handleSaveNote}
+            placeholder="Add shift safety notes or audit observations..."
+            rows={2}
+            className="w-full text-xs p-2 border border-gray-300 bg-white text-[#262A2E] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FFC20E] font-medium"
+          />
+
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={handleSaveNote}
+              className="px-3 py-1 bg-[#FFC20E] hover:bg-[#E5AE00] text-[#1F2328] text-[10px] font-bold rounded-md flex items-center gap-1 cursor-pointer transition-colors font-mono"
+            >
+              <Check className="w-3 h-3" /> {noteSaved ? 'Saved' : 'Save Note'}
+            </button>
+          </div>
+        </div>
+      </div>
 
       {/* Legend */}
-      <div className="flex items-center flex-wrap gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
-        <div className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400">
-          <div className="w-2.5 h-2.5 rounded bg-emerald-500"></div>
+      <div className="flex items-center flex-wrap gap-3 pt-2 border-t border-gray-100 text-[11px] text-gray-600">
+        <div className="flex items-center gap-1.5">
+          <span className="w-2.5 h-2.5 rounded bg-emerald-500" />
           <span>Safe</span>
         </div>
-        <div className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400">
-          <div className="w-2.5 h-2.5 rounded bg-amber-500"></div>
+        <div className="flex items-center gap-1.5">
+          <span className="w-2.5 h-2.5 rounded bg-[#FFC20E]" />
           <span>Near-Miss</span>
         </div>
-        <div className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400">
-          <div className="w-2.5 h-2.5 rounded bg-rose-500 animate-pulse"></div>
+        <div className="flex items-center gap-1.5">
+          <span className="w-2.5 h-2.5 rounded bg-rose-500" />
           <span>Incident</span>
         </div>
-        <div className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400">
-          <div className="w-2.5 h-2.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700"></div>
+        <div className="flex items-center gap-1.5">
+          <span className="w-2.5 h-2.5 rounded bg-[#F3F4F6] border border-gray-300" />
           <span>No Log</span>
         </div>
       </div>
